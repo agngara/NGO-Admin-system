@@ -5,6 +5,7 @@
 package sdg.admin;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import java.util.HashMap;
 
 /**
  *
@@ -14,6 +15,8 @@ public class Meny extends javax.swing.JFrame {
 
     private InfDB idb;
     private String inloggadAnvandare;
+    String fornamn = "";
+    String efternamn = "";
     
     /**
      * Creates new form Meny
@@ -22,7 +25,19 @@ public class Meny extends javax.swing.JFrame {
         this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
-        lblInloggadAnvandare.setText(inloggadAnvandare);
+        try {
+        String sqlFraga = "SELECT * FROM anstalld WHERE epost = " + "'" + inloggadAnvandare + "'";
+        HashMap<String, String> row = idb.fetchRow(sqlFraga);
+        fornamn = row.get("fornamn");
+        efternamn = row.get("efternamn");        
+        lblInloggadAnvandare.setText("Hej " + fornamn + " " + efternamn + "!");
+        
+    
+        
+        } catch (Exception ex) {
+                   }
+            
+        
         
         
     }
