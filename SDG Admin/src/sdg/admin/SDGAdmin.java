@@ -19,7 +19,7 @@ public class SDGAdmin {
         // TODO code application logic here
         try {
             idb = new InfDB("sdgsweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
-
+            new inloggning(idb).setVisible(true);
         } catch (InfException ex){
             System.out.println(ex.getMessage());
         }
