@@ -1,4 +1,4 @@
-package sdg.admin;
+package GUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 

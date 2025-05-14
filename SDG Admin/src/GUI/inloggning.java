@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package sdg.admin;
+package GUI;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -39,6 +39,7 @@ public class inloggning extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         felUppgifter = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +59,9 @@ public class inloggning extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sdg/admin/Images/Blue Flat Illustrative Finance Company Logo (3).png"))); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("LOGGA IN");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,25 +69,30 @@ public class inloggning extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(142, 142, 142)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
                     .addComponent(felUppgifter)
                     .addComponent(loginButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(loginPW)
-                            .addComponent(loginNamn))
+                            .addComponent(loginNamn)
+                            .addComponent(jLabel2))
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(183, Short.MAX_VALUE))
+                            .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(loginNamn))
@@ -93,9 +102,9 @@ public class inloggning extends javax.swing.JFrame {
                     .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(felUppgifter)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginButton)
-                .addGap(37, 37, 37))
+                .addGap(54, 54, 54))
         );
 
         pack();
@@ -106,25 +115,32 @@ public class inloggning extends javax.swing.JFrame {
         String ePost = epostField.getText();
         String losen = pwField.getText();
         
-        try{
-            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
-            System.out.println(sqlFraga);
-            String dbLosen = idb.fetchSingle(sqlFraga);
-            if(losen.equals(dbLosen)){
-                new Meny(idb, ePost).setVisible(true);
-                this.setVisible(false);                
+        if (ePost.isEmpty() || losen.isEmpty()) {                
             
-            }
-            else{
-                felUppgifter.setVisible(true);
-            }
-                  
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
+            felUppgifter.setVisible(true);
             
         }
-        
-        
+        else {
+            
+            try{
+                String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
+                System.out.println(sqlFraga);
+                String dbLosen = idb.fetchSingle(sqlFraga);
+                if(losen.equals(dbLosen)){
+                    new Meny(idb, ePost).setVisible(true);
+                    this.setVisible(false);
+                    
+                }
+                else{
+                    felUppgifter.setVisible(true);
+                }
+                
+            } catch (Exception ex){
+                System.out.println(ex.getMessage());
+                
+            }
+            
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -166,6 +182,7 @@ public class inloggning extends javax.swing.JFrame {
     private javax.swing.JTextField epostField;
     private javax.swing.JLabel felUppgifter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginNamn;
     private javax.swing.JLabel loginPW;
