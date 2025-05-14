@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package sdg.admin;
+import GUI.inloggning;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 

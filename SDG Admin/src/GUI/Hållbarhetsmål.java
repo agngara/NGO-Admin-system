@@ -1,6 +1,11 @@
-package sdg.admin;
+<<<<<<< Updated upstream:SDG Admin/src/sdg/admin/Hållbarhetsmål.java
+package GUI;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+=======
+
+
+>>>>>>> Stashed changes:SDG Admin/src/GUI/Hållbarhetsmål.java
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
