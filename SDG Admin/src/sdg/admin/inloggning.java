@@ -14,6 +14,8 @@ public class inloggning extends javax.swing.JFrame {
     /** Creates new form inloggning */
     public inloggning() {
         initComponents();
+        felUppgifter.setVisible(false);
+        tommaUppgifter.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -30,6 +32,9 @@ public class inloggning extends javax.swing.JFrame {
         epostField = new javax.swing.JTextField();
         pwField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
+        felUppgifter = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        tommaUppgifter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,6 +49,14 @@ public class inloggning extends javax.swing.JFrame {
             }
         });
 
+        felUppgifter.setForeground(new java.awt.Color(204, 0, 51));
+        felUppgifter.setText("Fel e-post eller lösenord.");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sdg/admin/Images/Blue Flat Illustrative Finance Company Logo (3).png"))); // NOI18N
+
+        tommaUppgifter.setForeground(new java.awt.Color(204, 0, 51));
+        tommaUppgifter.setText("Ange e-post och lösenord");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -51,6 +64,11 @@ public class inloggning extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tommaUppgifter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(felUppgifter))
                     .addComponent(loginButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,8 +82,10 @@ public class inloggning extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(96, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(loginNamn))
@@ -73,16 +93,57 @@ public class inloggning extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginPW)
                     .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(felUppgifter)
+                    .addComponent(tommaUppgifter))
+                .addGap(29, 29, 29)
                 .addComponent(loginButton)
                 .addGap(74, 74, 74))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
 
+    private void rensaFormatInloggning()
+    {
+        tommaUppgifter.setVisible(false);
+        felUppgifter.setVisible(false);
+    }
+    
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+      
+        String ePost = epostField.getText();
+        String losen = pwField.getText();
+        
+        rensaFormatInloggning();
+        
+        if (epostField.getText().isEmpty() && pwField.getText().isEmpty())
+        {
+            tommaUppgifter.setVisible(true);
+        }
+        else {
+    
+        
+        try{
+            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
+            System.out.println(sqlFraga);
+            String dbLosen = idb.fetchSingle(sqlFraga);
+            if(losen.equals(dbLosen)){
+                new Meny(idb, ePost).setVisible(true);
+                this.setVisible(false);                
+            
+            }
+            else{
+                felUppgifter.setVisible(true);
+            }
+                  
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            
+        }
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -118,7 +179,8 @@ public class inloggning extends javax.swing.JFrame {
                 new inloggning().setVisible(true);
             }
         });
-    }
+    
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField epostField;
@@ -126,6 +188,7 @@ public class inloggning extends javax.swing.JFrame {
     private javax.swing.JLabel loginNamn;
     private javax.swing.JLabel loginPW;
     private javax.swing.JTextField pwField;
+    private javax.swing.JLabel tommaUppgifter;
     // End of variables declaration//GEN-END:variables
 
 }
