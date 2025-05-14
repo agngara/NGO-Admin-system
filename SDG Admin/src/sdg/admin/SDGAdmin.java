@@ -9,6 +9,7 @@ import oru.inf.InfException;
 /**
  *
  * @author agnesgaramvolgyi
+ * Denna fil innehåller programmets initiala mainmetod.
  */
 public class SDGAdmin {
     private static InfDB idb;
