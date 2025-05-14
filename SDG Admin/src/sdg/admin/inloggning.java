@@ -5,15 +5,22 @@
 
 package sdg.admin;
 
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author theow
  */
 public class inloggning extends javax.swing.JFrame {
+    
+    private InfDB idb;
 
     /** Creates new form inloggning */
-    public inloggning() {
+    public inloggning(InfDB idb) {
+        this.idb = idb;
         initComponents();
+        felUppgifter.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -30,6 +37,7 @@ public class inloggning extends javax.swing.JFrame {
         epostField = new javax.swing.JTextField();
         pwField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
+        felUppgifter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,6 +52,9 @@ public class inloggning extends javax.swing.JFrame {
             }
         });
 
+        felUppgifter.setForeground(new java.awt.Color(204, 0, 51));
+        felUppgifter.setText("Fel e-post eller lösenord.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -51,16 +62,17 @@ public class inloggning extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(loginButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginPW)
-                            .addComponent(loginNamn))
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(felUppgifter)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(loginPW)
+                        .addComponent(loginNamn)))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loginButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,15 +86,39 @@ public class inloggning extends javax.swing.JFrame {
                     .addComponent(loginPW)
                     .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
+                .addComponent(felUppgifter)
+                .addGap(17, 17, 17)
                 .addComponent(loginButton)
-                .addGap(74, 74, 74))
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+      
+        String ePost = epostField.getText();
+        String losen = pwField.getText();
+        
+        try{
+            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
+            System.out.println(sqlFraga);
+            String dbLosen = idb.fetchSingle(sqlFraga);
+            if(losen.equals(dbLosen)){
+                new Meny(idb, ePost).setVisible(true);
+                this.setVisible(false);                
+            
+            }
+            else{
+                felUppgifter.setVisible(true);
+            }
+                  
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            
+        }
+        
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -115,13 +151,14 @@ public class inloggning extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new inloggning().setVisible(true);
+                //new inloggning().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField epostField;
+    private javax.swing.JLabel felUppgifter;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginNamn;
     private javax.swing.JLabel loginPW;
