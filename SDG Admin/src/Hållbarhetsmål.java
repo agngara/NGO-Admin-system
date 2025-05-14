@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author amandahelinlarsson
