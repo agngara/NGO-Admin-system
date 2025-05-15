@@ -4,8 +4,9 @@
  */
 package sdg.admin;
 import GUI.inloggning;
-import oru.inf.InfDB;
+import Database.DatabaseInterface;
 import oru.inf.InfException;
+
 
 /**
  *
@@ -13,18 +14,14 @@ import oru.inf.InfException;
  * Denna fil innehåller programmets initiala mainmetod.
  */
 public class SDGAdmin {
-    private static InfDB idb;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        try {
-            idb = new InfDB("sdgsweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
-            new inloggning(idb).setVisible(true);
-        } catch (InfException ex){
-            System.out.println(ex.getMessage());
-        }
-    }
+        
+            new inloggning().setVisible(true);
+        
     
+    }
 }

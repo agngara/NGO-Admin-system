@@ -7,6 +7,7 @@ package GUI;
 
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import Database.DatabaseInterface;
 
 /**
  *
@@ -17,8 +18,9 @@ public class inloggning extends javax.swing.JFrame {
     private InfDB idb;
 
     /** Creates new form inloggning */
-    public inloggning(InfDB idb) {
-        this.idb = idb;
+    public inloggning() {
+        
+        idb = DatabaseInterface.databaseConnection();
         initComponents();
         felUppgifter.setVisible(false);
     }
