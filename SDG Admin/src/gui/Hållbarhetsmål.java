@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
