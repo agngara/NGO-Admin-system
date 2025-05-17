@@ -127,8 +127,7 @@ public class Meny extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void visaHallbarhetsmalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaHallbarhetsmalActionPerformed
-        Hållbarhetsmål hallbarhetsmalForm = new Hållbarhetsmål(this);
-        hallbarhetsmalForm.setVisible(true);
+        new Hållbarhetsmål().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_visaHallbarhetsmalActionPerformed
 
@@ -138,7 +137,7 @@ public class Meny extends javax.swing.JFrame {
 
     private void LoggaUtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoggaUtActionPerformed
         this.dispose();
-        inloggning inloggningForm = new inloggning(idb);
+        inloggning inloggningForm = new inloggning();
         inloggningForm.setVisible(true);
     }//GEN-LAST:event_LoggaUtActionPerformed
 
