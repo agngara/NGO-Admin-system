@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import java.util.UUID;
 import orgEntities.Anstalld;
 import oru.inf.InfDB;
+import orgEntities.Anstalld;
 
 /**
  * The purpose of the user class is to temporarely store information about the logged in user. 
@@ -23,15 +24,13 @@ public class User {
     String usrEmail;
     
     
-    public User(String email) {
+    public User (Anstalld anstalld) {
         
         InfDB idb = DatabaseInterface.databaseConnection();
         isLoggedIn = true;
-        allocatedAnstalld = new Anstalld(email);
+        allocatedAnstalld = anstalld;
         UUID uuid = UUID.randomUUID();
         sessionID = uuid.toString();
-        allocatedAnstalld = new Anstalld(email);
-        usrEmail = email;
         userType = setUserType();
         
     }
