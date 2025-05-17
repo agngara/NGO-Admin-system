@@ -4,10 +4,29 @@
  */
 package orgEntities;
 
+import java.util.HashMap;
+
 /**
  *
  * @author theow
  */
-public class Handlaggare {
+public class Handlaggare 
+{
     
+    private String ansvarighetsomraden; 
+    
+    
+    
+    public Handlaggare (HashMap<String, String> handlaggare)
+    {
+        
+        ansvarighetsomraden = handlaggare.get(ansvarighetsomraden);
+        
+        
+    }
+    
+    public String getAnsvarighetsområden()
+    {
+        return ansvarighetsomraden;
+    }
 }

@@ -3,11 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package orgEntities;
+import java.util.HashMap;
 
 /**
  *
  * @author theow
  */
 public class Land {
+    
+    private String lid;
+    private String namn;
+    private String sprak;
+    private String valuta;
+    private String tidszon;
+    private String politiskStruktur;
+    private String ekonomi;
+    
+    public Land (HashMap<String, String> land)
+    {
+        lid = land.get("lid");
+        namn = land.get("namn");
+        sprak = land.get("sprak");
+        valuta = land.get("valuta");
+        tidszon = land.get("tidszon");
+        politiskStruktur = land.get("politiskStruktur");
+        ekonomi = land.get("ekonomi");
+        
+    }
     
 }
