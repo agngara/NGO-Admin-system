@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package orgEntities;
-import java.util.HashMap;
 import oru.inf.InfDB;
-import db.DatabaseInterface;
+import java.util.HashMap;
 /**
  * 
  * @author theow
@@ -16,79 +15,71 @@ import db.DatabaseInterface;
 
  public class Anstalld {
     
-    private HashMap<String, String> anstalld; 
-    private InfDB idb;
-    private String usrEmail;
-    private String query = "SELECT * FROM anstalld WHERE aid = " + "'" + usrEmail + "'";
+   private String fornamn;
+   private String efternamn;
+   private String adress;
+   private String telefonnummer;
+   private String losenord;
+   private String ePost;
+   private String anstallningsdatum; 
+   private String aid;
+   
+   
+   
+    public Anstalld (HashMap<String, String> anstalld)
     
-/**
- * This constructor constructs an object of anstalld and populates the anstalld hashmap with info from the database matching the parameter input-
- * @param usrEmail email adress to be used in SQL query. 
- */
-    public Anstalld(String usrEmail) {
+    {
         
-        try {
-    
-    this.usrEmail = usrEmail;
-    anstalld = idb.fetchRow(query);
-  
-    
-        } catch (Exception ex) {
-    
-            System.out.println(ex);
-    
+        fornamn = anstalld.get("fornamn");
+        efternamn = anstalld.get("efternamn");
+        adress = anstalld.get("adress");
+        telefonnummer = anstalld.get("telefonnummer");
+        losenord = anstalld.get("losenord");
+        ePost = anstalld.get("losenord");
+        anstallningsdatum = anstalld.get("anstallningsdatum");
+        aid = anstalld.get(aid);
+        
+    }  
+        
+        public String getFornamn()
+        {
+            return fornamn; 
         }
-    
-    }    
- /**
-  * Constructs an anstalldobject.
-  * @param anstalld takes an hashmap, this hashmap is meant to be a row from the anstalldtable in the SQL database.
-  */  
-    
-    public Anstalld(HashMap anstalld) {
-    
-    this.anstalld = anstalld;
-    idb = DatabaseInterface.databaseConnection();
-    
-    }
-    
-    /**
-     * Returns the anstalld hashmap.
-     * @return ^^
-     */
-    public HashMap getAnstalldInfo() {
         
-        return anstalld;
-        
-    }
-    
-/**
- * This method returns a row in the anstalld table as a hashmap, which has the email entered as parameter. The information is also stored in a field of the class.
- * @param usrEmail takes an email to send in the SQL query.
- * @return the anstalld hashmap that has been fetched from the database.
- */
-    public HashMap getAnstalldInfoByEmail(String usrEmail) {
-    
-    try {
-    
-    this.usrEmail = usrEmail;
-    anstalld = idb.fetchRow(query);
-  
-    
- } catch (Exception ex) {
-    
-    System.out.println(ex);
-    
+        public String getEfternamn()
+        {
+            return efternamn;
         }
-    
-    return anstalld;
-    
-    }
-
- 
-
+        
+        public String getAdress()
+        {
+            return adress;
+        }
+        
+        public String getTelefonnummer()
+        {
+            return telefonnummer;
+        }
+        
+        
+        public String getLosenord()
+        {
+            return losenord;
+        }
+        
+        public String getEpost()
+        {
+            return ePost;
+        }
+        
+        public String getAid()
+        {
+            return aid;
+        }
+        
     
     
  }
+    
 
 
