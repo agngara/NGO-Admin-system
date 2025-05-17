@@ -101,11 +101,12 @@ public class Meny extends javax.swing.JFrame {
                         .addGap(96, 96, 96)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(lblInloggadAnvandare)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LoggaUt)))
-                .addContainerGap(468, Short.MAX_VALUE))
+                            .addComponent(lblInloggadAnvandare))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LoggaUt)
+                .addGap(298, 694, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +121,7 @@ public class Meny extends javax.swing.JFrame {
                     .addComponent(visaProjekt))
                 .addGap(39, 39, 39)
                 .addComponent(LoggaUt)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
 
         pack();
