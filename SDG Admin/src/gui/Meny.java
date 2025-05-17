@@ -35,11 +35,10 @@ public class Meny extends javax.swing.JFrame {
     
         
         } catch (Exception ex) {
-                   }
             
-        
-        
-        
+            
+                   }
+               
     }
 
     /**
@@ -53,54 +52,63 @@ public class Meny extends javax.swing.JFrame {
 
         lblInloggadAnvandare = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPartners = new javax.swing.JButton();
+        btnProjekt = new javax.swing.JButton();
+        btnHallbarhetsmal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblInloggadAnvandare.setText("jLabel1");
+        lblInloggadAnvandare.setText("hälsning + namn");
 
         jLabel1.setText("Vad vill du göra idag?");
 
-        jButton1.setText("Hållbarhetsmål");
+        btnPartners.setText("Partners");
 
-        jButton2.setText("Projekt");
+        btnProjekt.setText("Projekt");
+
+        btnHallbarhetsmal.setText("Hållbarhetsmål");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jButton1)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton2))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 538, Short.MAX_VALUE)
+                        .addComponent(lblInloggadAnvandare)
+                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lblInloggadAnvandare))))
-                .addContainerGap(477, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnHallbarhetsmal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPartners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblInloggadAnvandare)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addGap(55, 55, 55)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(116, Short.MAX_VALUE))
+                    .addComponent(lblInloggadAnvandare)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(btnProjekt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnHallbarhetsmal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPartners)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -137,8 +145,9 @@ public class Meny extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnHallbarhetsmal;
+    private javax.swing.JButton btnPartners;
+    private javax.swing.JButton btnProjekt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
     // End of variables declaration//GEN-END:variables
