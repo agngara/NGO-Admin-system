@@ -12,6 +12,7 @@ public enum UserType {
     
     admin1,
     admin2,
-    handlaggare
+    handlaggare,
+    projektledare
     
 }

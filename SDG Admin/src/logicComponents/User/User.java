@@ -9,7 +9,8 @@ import orgEntities.Anstalld;
 import oru.inf.InfDB;
 
 /**
- * The purpose of the user class is to temporarely store information about the logged in user. The object is allocated an anstalldobject, stores a sessionID, stores user priveledges, and tracks logged in status.
+ * The purpose of the user class is to temporarely store information about the logged in user. 
+ * The object is allocated an anstalldobject, stores a sessionID, stores user priveledges, and tracks logged in status.
  * @author theow
  */
 public class User {
