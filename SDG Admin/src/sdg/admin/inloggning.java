@@ -111,7 +111,7 @@ public class inloggning extends javax.swing.JFrame {
             System.out.println(sqlFraga);
             String dbLosen = idb.fetchSingle(sqlFraga);
             if(losen.equals(dbLosen)){
-                new Meny(idb, ePost).setVisible(true);
+               new Meny(idb, ePost).setVisible(true);
                 this.setVisible(false);                
             
             }
