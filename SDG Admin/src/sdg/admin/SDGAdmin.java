@@ -3,8 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package sdg.admin;
-import oru.inf.InfDB;
-import oru.inf.InfException;
+import gui.inloggning;
+import com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme;
+
+
+
 
 /**
  *
@@ -12,18 +15,15 @@ import oru.inf.InfException;
  * Denna fil innehåller programmets initiala mainmetod.
  */
 public class SDGAdmin {
-    private static InfDB idb;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        try {
-            idb = new InfDB("sdgsweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
-            new inloggning(idb).setVisible(true);
-        } catch (InfException ex){
-            System.out.println(ex.getMessage());
-        }
-    }
+        
+            FlatSpacegrayIJTheme.setup();
+            new inloggning().setVisible(true);
+        
     
+    }
 }
