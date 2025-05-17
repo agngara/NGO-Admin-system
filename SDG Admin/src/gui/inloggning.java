@@ -123,13 +123,7 @@ public class inloggning extends javax.swing.JFrame {
         String ePost = epostField.getText();
         String losen = pwField.getText();
         
-        try{
-            String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
-            System.out.println(sqlFraga);
-            String dbLosen = idb.fetchSingle(sqlFraga);
-            if(losen.equals(dbLosen)){
-               new Meny(idb, ePost).setVisible(true);
-                this.setVisible(false);                
+           
         if (ePost.isEmpty() || losen.isEmpty()) {                
             
             felUppgifter.setVisible(true);
