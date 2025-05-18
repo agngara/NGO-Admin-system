@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package orgEntities;
+import oru.inf.InfDB;
 import java.util.HashMap;
 import oru.inf.InfDB;
 import db.DatabaseInterface;
