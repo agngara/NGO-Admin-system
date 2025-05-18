@@ -4,25 +4,32 @@
  */
 package gui;
 import oru.inf.InfDB;
-import oru.inf.InfException;
 import java.util.HashMap;
+import logicComponents.User.CurrentUser;
+
+
 
 /**
  *
  * @author agnesgaramvolgyi
  */
 public class Meny extends javax.swing.JFrame {
-
-    private InfDB idb;
-    private String inloggadAnvandare;
-    String fornamn = "";
-    String efternamn = "";
     
+    String namn = "";
+    String role = "";
+
     /**
      * Creates new form Meny
      */
-    public Meny(InfDB idb, String inloggadAnvandare) {
-        this.idb = idb;
+    public Meny() {
+       
+        namn = CurrentUser.getUsr().getAnstalld().getFornamn() + CurrentUser.getUsr().getAnstalld().getEfternamn();
+        initComponents();
+        lblInloggadAnvandare.setText(namn);
+        // TODO code printing of role name;
+        
+        
+        /* this.idb = idb;
         this.inloggadAnvandare = inloggadAnvandare;
         initComponents();
         try {
@@ -35,7 +42,7 @@ public class Meny extends javax.swing.JFrame {
     
         
         } catch (Exception ex) {
-                   }
+                   } */
             
         
         
@@ -56,10 +63,11 @@ public class Meny extends javax.swing.JFrame {
         visaHallbarhetsmal = new javax.swing.JButton();
         visaProjekt = new javax.swing.JButton();
         LoggaUt = new javax.swing.JButton();
+        lblRole = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblInloggadAnvandare.setText("jLabel1");
+        lblInloggadAnvandare.setText("Namn");
 
         jLabel1.setText("Vad vill du göra idag?");
 
@@ -86,6 +94,8 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        lblRole.setText("Roll");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,23 +108,33 @@ public class Meny extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addComponent(visaProjekt))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LoggaUt)))
+                .addContainerGap(467, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lblInloggadAnvandare))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LoggaUt)
-                .addGap(298, 694, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblRole))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblInloggadAnvandare)))
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(42, 42, 42)
                 .addComponent(lblInloggadAnvandare)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(lblRole)))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(visaHallbarhetsmal)
@@ -181,6 +201,7 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JButton LoggaUt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
+    private javax.swing.JLabel lblRole;
     private javax.swing.JButton visaHallbarhetsmal;
     private javax.swing.JButton visaProjekt;
     // End of variables declaration//GEN-END:variables

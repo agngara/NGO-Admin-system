@@ -4,10 +4,14 @@
  */
 
 package gui;
-
+import orgEntities.Anstalld;
+import db.*;
+import logicComponents.User.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import db.DatabaseInterface;
+import SQLHanterare.AnstalldHanterare;
+import SQLHanterare.*;
+
 
 /**
  *
@@ -16,6 +20,7 @@ import db.DatabaseInterface;
 public class inloggning extends javax.swing.JFrame {
     
     private InfDB idb;
+    
 
     /** Creates new form inloggning */
     public inloggning() {
@@ -137,7 +142,16 @@ public class inloggning extends javax.swing.JFrame {
                 String dbLosen = idb.fetchSingle(sqlFraga);
                 if(losen.equals(dbLosen)){
                     
-                    new inloggning 
+                    /* User assignment process: -> Creates object of anstalldhanterare which facilitates coms with DB 
+                    -> creates anstalld object with anstalldhanterare object in parameter, which den populates fields of anstalld with db info 
+                    -> creates user instance with anstalld object as field 
+                    -> this user is set to current, and can then be referenced later in program. */
+                    AnstalldHanterare anstalldHanterare = new AnstalldHanterare(ePost);
+                    Anstalld anstalld = new Anstalld(anstalldHanterare);
+                    User user = new User(anstalld);
+                    CurrentUser.setUsr(user);
+                    
+                    
                     new Meny(idb, ePost).setVisible(true);
                     this.setVisible(false);
                     

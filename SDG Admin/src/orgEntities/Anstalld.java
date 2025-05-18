@@ -5,6 +5,9 @@
 package orgEntities;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import oru.inf.InfDB;
+import db.DatabaseInterface;
+import SQLHanterare.AnstalldHanterare;
 /**
  * 
  * @author theow
@@ -25,8 +28,29 @@ import java.util.HashMap;
    private String aid;
    
    
+   /**
+    * This constructor constructs an object of the anstalld class by taking an insance of anstalldhanterare.
+    * @param anstalldHanterare 
+    */
+   public Anstalld(AnstalldHanterare anstalldHanterare) {
+       
+       HashMap<String, String> anstalldInfo = anstalldHanterare.getAnstalld();
+       
+        fornamn = anstalldInfo.get("fornamn");
+        efternamn = anstalldInfo.get("efternamn");
+        adress = anstalldInfo.get("adress");
+        telefonnummer = anstalldInfo.get("telefonnummer");
+        losenord = anstalldInfo.get("losenord");
+        ePost = anstalldInfo.get("losenord");
+        anstallningsdatum = anstalldInfo.get("anstallningsdatum");
+        aid = anstalldInfo.get(aid);
+       
+       
+       
+       
+   }
    
-    public Anstalld (HashMap<String, String> anstalld)
+    public Anstalld(HashMap<String, String> anstalld)
     
     {
         

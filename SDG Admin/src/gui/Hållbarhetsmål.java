@@ -1,6 +1,10 @@
 package gui;
 import oru.inf.InfDB;
 import oru.inf.InfException;
+import db.DatabaseInterface;
+import gui.Meny;
+import logicComponents.User.CurrentUser;
+import logicComponents.User.User;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,11 +18,15 @@ import oru.inf.InfException;
  */
 public class Hållbarhetsmål extends javax.swing.JFrame {
 
+    InfDB idb = DatabaseInterface.databaseConnection();
+    User usr = CurrentUser.getUsr();
+    
     /**
      * Creates new form Hållbarhetsmål
      */
     public Hållbarhetsmål() {
         initComponents();
+        
     }
 
     /**
@@ -79,7 +87,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
 
     private void tillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaTillMenyActionPerformed
         this.setVisible(false);
-        new Meny(idb, inloggadAnvandare), inloggadAnvandare).
+        new Meny(idb, inloggadAnvandare);
     }//GEN-LAST:event_tillbakaTillMenyActionPerformed
 
     /**
