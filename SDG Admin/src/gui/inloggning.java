@@ -143,7 +143,7 @@ public class inloggning extends javax.swing.JFrame {
                 if(losen.equals(dbLosen)){
                     
                     /* User assignment process: -> Creates object of anstalldhanterare which facilitates coms with DB 
-                    -> creates anstalld object with anstalldhanterare object in parameter, which den populates fields of anstalld with db info 
+                    -> creates anstalld object with anstalldhanterare object in parameter, which then populates fields of anstalld with db info 
                     -> creates user instance with anstalld object as field 
                     -> this user is set to current, and can then be referenced later in program. */
                     AnstalldHanterare anstalldHanterare = new AnstalldHanterare(ePost);

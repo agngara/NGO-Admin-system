@@ -26,7 +26,7 @@ public class ProjektHanterare {
        
        try {
            
-           partner = idb.fetchRow(query);
+           projekt = idb.fetchRow(query);
            
        } catch (Exception exception) {
            

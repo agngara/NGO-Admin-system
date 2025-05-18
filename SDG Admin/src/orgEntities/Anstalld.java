@@ -8,6 +8,7 @@ import java.util.HashMap;
 import oru.inf.InfDB;
 import db.DatabaseInterface;
 import SQLHanterare.AnstalldHanterare;
+import logicComponents.User.CurrentUser;
 /**
  * 
  * @author theow
@@ -101,6 +102,20 @@ import SQLHanterare.AnstalldHanterare;
             return aid;
         }
         
+        // Extra
+        
+        public String getRole(String aid) {
+            
+            String role = "":
+            
+            ePost = CurrentUser.getUsr().getAnstalld().getEpost();
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(ePost);
+            role = anstalldHanterare.fetchRole(aid);
+            
+            return role;
+            
+          
+        }
     
     
  }

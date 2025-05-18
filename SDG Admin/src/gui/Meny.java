@@ -6,6 +6,7 @@ package gui;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import logicComponents.User.CurrentUser;
+import orgEntities.Anstalld;
 
 
 
@@ -16,16 +17,25 @@ import logicComponents.User.CurrentUser;
 public class Meny extends javax.swing.JFrame {
     
     String namn = "";
-    String role = "";
+    String CurrentUserAid = "";
+    String CurrentUserRole = "";
+    Anstalld currentAnstalld;
 
     /**
-     * Creates new form Meny
+     * Creates new form Meny, and initialises its components.
      */
     public Meny() {
        
-        namn = CurrentUser.getUsr().getAnstalld().getFornamn() + CurrentUser.getUsr().getAnstalld().getEfternamn();
+        currentAnstalld = CurrentUser.getUsr().getAnstalld();
+        namn = currentAnstalld.getFornamn() + currentAnstalld.getEfternamn();
         initComponents();
         lblInloggadAnvandare.setText(namn);
+        String aid = currentAnstalld.getAid();
+        String role = currentAnstalld.getRole(aid);
+        lblRole.setText(role);
+        
+        
+        
         // TODO code printing of role name;
         
         
