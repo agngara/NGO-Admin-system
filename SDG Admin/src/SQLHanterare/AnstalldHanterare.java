@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package SQLHanterare;
+
 import db.DatabaseInterface;
+import orgEntities.Anstalld;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import oru.inf.InfException;
 
 /**
  * This class handles database communication with the anstalld table.
@@ -35,9 +38,9 @@ public class AnstalldHanterare {
        } catch (Exception exception) {
            
        }
-        
        
    }
+   
    
    /**
     * Returns anstalld HashMap. The method was made for the login process at inloggning.java.
@@ -49,7 +52,23 @@ public class AnstalldHanterare {
        
    } 
    
-    
+   
+   public String fetchRole(String inAid) {
+      
+       String roll = "";
+       String aid = inAid;
+       String getRoleQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
+       
+       try {
+           
+       roll = idb.fetchSingle(getRoleQuery);
+       
+       } catch (InfException ex) {
+           
+       }
+     
+       return roll;
+   }
     
     
 }
