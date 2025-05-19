@@ -21,7 +21,7 @@ public class StadHanterare {
    public StadHanterare(String sid) {
        
        this.sid = sid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + sid + "'";
+       query = "SELECT * FROM anstalld WHERE sid = " + "'" + sid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -33,6 +33,11 @@ public class StadHanterare {
        }
         
        
+   }
+   
+      public HashMap getStad() {
+       
+       return stad;
    }
    
     

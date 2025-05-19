@@ -18,7 +18,7 @@ public class AdminHanterare {
    private String query;
    private String aid;
    
-   public AdminHanterare(String email) {
+   public AdminHanterare(String aid) {
        
        this.aid = aid;
        query = "SELECT * FROM admin WHERE aid = " + "'" + aid + "'";
@@ -35,7 +35,11 @@ public class AdminHanterare {
        
    }
    
-    
+    public HashMap getAdmin() {
+        
+        return admin;
+        
+    }
     
     
 }

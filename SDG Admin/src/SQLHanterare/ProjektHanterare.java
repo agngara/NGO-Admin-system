@@ -21,7 +21,7 @@ public class ProjektHanterare {
    public ProjektHanterare(String pid) {
        
        this.pid = pid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + pid + "'";
+       query = "SELECT * FROM anstalld WHERE pid = " + "'" + pid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -33,6 +33,11 @@ public class ProjektHanterare {
        }
         
        
+   }
+   
+      public HashMap getProjekt() {
+       
+       return projekt;
    }
    
     

@@ -21,7 +21,7 @@ public class HallbarhetsmålHanterare {
    public HallbarhetsmålHanterare(String hid) {
        
        this.hid = hid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + hid + "'";
+       query = "SELECT * FROM anstalld WHERE hid = " + "'" + hid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -35,7 +35,11 @@ public class HallbarhetsmålHanterare {
        
    }
    
-    
+   public HashMap getHallbarhetsmal() {
+       
+       return hallbarhetsmål;
+   }
+   
     
     
 }

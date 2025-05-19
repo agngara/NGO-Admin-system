@@ -4,10 +4,12 @@
  */
 package orgEntities;
 
+import SQLHanterare.PartnerHanterare;
 import java.util.HashMap;
 
 /**
- *
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  */
 public class Partner {
@@ -22,8 +24,10 @@ public class Partner {
     private String stad;
     
     
-    public Partner(HashMap<String, String> partner)
+    public Partner(PartnerHanterare partnerHanterare)
     {
+        HashMap<String, String> partner = partnerHanterare.getPartner();
+        
         pid = partner.get("pid");
         namn = partner.get("namn");
         kontaktperson = partner.get("kontaktperson");
