@@ -26,6 +26,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
      */
     public Hållbarhetsmål() {
         
+        
         setLocationRelativeTo(null);
         initComponents();
         
