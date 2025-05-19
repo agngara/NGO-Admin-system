@@ -4,10 +4,23 @@
  */
 package orgEntities;
 
+import java.util.HashMap;
+
 /**
  *
  * @author theow
  */
 public class Stad {
+    
+    private String sid;
+    private String namn;
+    
+    
+    public Stad(HashMap<String, String> stad)
+    {
+        
+        sid = stad.get("sid");
+        namn = stad.get("stad");
+    }
     
 }
