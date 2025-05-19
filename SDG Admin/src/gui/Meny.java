@@ -29,6 +29,8 @@ public class Meny extends javax.swing.JFrame {
         currentAnstalld = CurrentUser.getUsr().getAnstalld();
         namn = currentAnstalld.getFornamn() + currentAnstalld.getEfternamn();
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         lblInloggadAnvandare.setText(namn);
         String aid = currentAnstalld.getAid();
         String role = currentAnstalld.getRole(aid);

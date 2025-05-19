@@ -27,6 +27,7 @@ public class inloggning extends javax.swing.JFrame {
         
         idb = DatabaseInterface.databaseConnection();
         initComponents();
+        setLocationRelativeTo(null);
         felUppgifter.setVisible(false);
     }
 
@@ -152,7 +153,7 @@ public class inloggning extends javax.swing.JFrame {
                     CurrentUser.setUsr(user);
                     
                     
-                    new Meny(idb, ePost).setVisible(true);
+                    new Meny().setVisible(true);
                     this.setVisible(false);
                     
                 }
