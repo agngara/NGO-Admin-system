@@ -16,12 +16,13 @@ import orgEntities.Anstalld;
  */
 public class User {
     
-    InfDB idb;
-    boolean isLoggedIn;
-    Anstalld allocatedAnstalld;
-    String sessionID;
-    UserType userType;
-    String usrEmail;
+    
+    private InfDB idb;
+    private boolean isLoggedIn;
+    private Anstalld allocatedAnstalld;
+    private String sessionID;
+    private UserType userType;
+    private String usrEmail;
     
     
     public User (Anstalld anstalld) {
@@ -61,6 +62,16 @@ public class User {
         
         return userType;
         
+    }
+    
+    public Anstalld getAnstalld() {
+        
+        return allocatedAnstalld;
+    }
+    
+    public UserType getUserType() {
+        
+        return userType;
     }
     
     
