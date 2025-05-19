@@ -36,4 +36,45 @@ public class Partner {
     }
     
     
+    public String getPid()
+    {
+        return pid;
+    }
+    
+    public String getNamn()
+    {
+        return namn;
+    }
+    
+    public String getKostaktperson()
+    {
+        return kontaktperson;
+    }
+    
+    public String getKontaktepost()
+    {
+        return kontaktepost;
+    }
+    
+    public String getTelefon()
+    {
+        return telefon;
+    }
+    
+    public String getAdress()
+    {
+        return adress;
+    }
+    
+    public String getBenach()
+    {
+        return branch;
+    }
+    
+    public String getStad()
+    {
+        return stad; 
+    }
+    
+    
 }

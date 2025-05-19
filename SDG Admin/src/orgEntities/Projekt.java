@@ -35,4 +35,49 @@ public class Projekt {
         prioritet = projekt.get("prioritet");
         
     }
+    
+    
+    public String getPid()
+    {
+        return pid;
+    }
+    
+    public String getProjektnamn()
+    {
+        return projektnamn;
+    }
+    
+    public String getBeskrivning()
+    {
+        return beskrivning;
+    }
+    
+    public String getStartdatum()
+    {
+        return startdatum;
+    }
+    
+    public String getSlutdatum()
+    {
+        return slutdatum;
+    }
+    
+    public String getKostnad()
+    {
+        return kostnad;
+    }
+    
+    public String getStatus()
+    {
+        return status;
+    }
+    
+    public String getPrioritet()
+    {
+        return prioritet;
+    }
+    
+    
+    
+
 }

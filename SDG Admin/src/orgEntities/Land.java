@@ -31,4 +31,43 @@ public class Land {
         
     }
     
+   
+    
+    public String getLid()
+    {
+        return lid;
+    }
+    
+    public String getNamn()
+    {
+        return namn;
+    }
+    
+  
+    
+    public String getSprak()
+    {
+        return sprak;
+    }
+    
+    public String getValuta()
+    {
+       return valuta;
+    }
+    
+    public String getTidszon()
+    {
+        return tidszon;
+    }
+    
+    public String getPolitiskStruktur()
+    {
+        return politiskStruktur;
+    }
+    
+    public String getEkonomi()
+    {
+        return ekonomi;
+    }
+    
 }

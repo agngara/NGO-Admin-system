@@ -23,4 +23,15 @@ public class Stad {
         namn = stad.get("stad");
     }
     
+    
+    public String getSid()
+    {
+        return sid;
+    }
+    
+    public String getNamn()
+    {
+        return namn; 
+    }
+    
 }
