@@ -25,6 +25,8 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
      * Creates new form Hållbarhetsmål
      */
     public Hållbarhetsmål() {
+        
+        setLocationRelativeTo(null);
         initComponents();
         
     }
@@ -49,7 +51,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
 
         jButton1.setText("Hållbarhetsmålen");
 
-        tillbakaTillMeny.setText("jButton3");
+        tillbakaTillMeny.setText("TIllbaka till meny");
         tillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tillbakaTillMenyActionPerformed(evt);
@@ -61,14 +63,13 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tillbakaTillMeny)
+                        .addGap(484, 484, 484)
+                        .addComponent(jButton1))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 49, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(tillbakaTillMeny)
-                .addGap(245, 245, 245)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +88,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
 
     private void tillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tillbakaTillMenyActionPerformed
         this.setVisible(false);
-        new Meny(idb, inloggadAnvandare);
+        new Meny().setVisible(true);
     }//GEN-LAST:event_tillbakaTillMenyActionPerformed
 
     /**
