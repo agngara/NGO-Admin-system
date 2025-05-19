@@ -143,7 +143,7 @@ import logicComponents.User.CurrentUser;
         
         public String getRole(String aid) {
             
-            String role = "":
+            String role = "";
             
             ePost = CurrentUser.getUsr().getAnstalld().getEpost();
             AnstalldHanterare anstalldHanterare = new AnstalldHanterare(ePost);
