@@ -28,7 +28,7 @@ public class AnstalldHanterare {
    public AnstalldHanterare(String email) {
        
        this.email = email;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + email + "'";
+       query = "SELECT * FROM anstalld WHERE epost = " + "'" + email + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {

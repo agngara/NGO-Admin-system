@@ -3,10 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package orgEntities;
+import SQLHanterare.LandHanterare;
 import java.util.HashMap;
 
 /**
- *
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  */
 public class Land {
@@ -19,8 +21,10 @@ public class Land {
     private String politiskStruktur;
     private String ekonomi;
     
-    public Land (HashMap<String, String> land)
+    public Land (LandHanterare landHanterare)
     {
+        HashMap<String, String> land = landHanterare.getLand();
+        
         lid = land.get("lid");
         namn = land.get("namn");
         sprak = land.get("sprak");

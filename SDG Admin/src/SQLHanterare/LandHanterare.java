@@ -21,7 +21,7 @@ public class LandHanterare {
    public LandHanterare(String lid) {
        
        this.lid = lid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + lid + "'";
+       query = "SELECT * FROM anstalld WHERE lid = " + "'" + lid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -33,6 +33,11 @@ public class LandHanterare {
        }
         
        
+   }
+   
+      public HashMap getLand() {
+       
+       return land;
    }
    
     

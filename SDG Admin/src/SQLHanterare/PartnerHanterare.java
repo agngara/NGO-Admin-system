@@ -21,7 +21,7 @@ public class PartnerHanterare {
    public PartnerHanterare(String pid) {
        
        this.pid = pid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + pid + "'";
+       query = "SELECT * FROM anstalld WHERE pid = " + "'" + pid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -33,6 +33,11 @@ public class PartnerHanterare {
        }
         
        
+   }
+   
+      public HashMap getPartner() {
+       
+       return partner;
    }
    
     
