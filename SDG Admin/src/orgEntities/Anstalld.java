@@ -102,6 +102,43 @@ import logicComponents.User.CurrentUser;
             return aid;
         }
         
+        
+        // för att kunna ändra uppgifter för Anställd
+        
+        public void setFornamn(String nyttFornamn)
+        {
+            this.fornamn = nyttFornamn;
+        }
+        
+        public void setEfternamn(String nyttEfternamn)
+        {
+            this.efternamn = nyttEfternamn;
+        }
+        
+        public void setAdress(String nyAdress)
+        {
+            this.adress = nyAdress;
+        }
+        
+        public void setTelefonnunmmer(String nyttTelefonnummer)
+        {
+            this.telefonnummer = nyttTelefonnummer;
+        }
+        
+        public void setLosenord(String nyttLosenord)
+        {
+            this.losenord = nyttLosenord;
+        }
+        
+        public void setEpost(String nyEpost)
+        {
+            this.ePost = nyEpost;
+        }
+        
+        
+       
+        
+
         // Extra
         
         public String getRole(String aid) {
