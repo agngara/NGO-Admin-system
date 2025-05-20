@@ -67,9 +67,9 @@ import logicComponents.User.UserType;
         adress = anstalld.get("adress");
         telefonnummer = anstalld.get("telefonnummer");
         losenord = anstalld.get("losenord");
-        ePost = anstalld.get("losenord");
+        ePost = anstalld.get("ePost");
         anstallningsdatum = anstalld.get("anstallningsdatum");
-        aid = anstalld.get(aid);
+        aid = anstalld.get("aid");
         
     }  
         
@@ -127,7 +127,7 @@ import logicComponents.User.UserType;
             this.adress = nyAdress;
         }
         
-        public void setTelefonnunmmer(String nyttTelefonnummer)
+        public void setTelefonnummer(String nyttTelefonnummer)
         {
             this.telefonnummer = nyttTelefonnummer;
         }

@@ -26,7 +26,6 @@ public class inloggning extends javax.swing.JFrame {
         
         idb = DatabaseInterface.databaseConnection();
         initComponents();
-        setLocationRelativeTo(null);
         felUppgifter.setVisible(false);
     }
 
