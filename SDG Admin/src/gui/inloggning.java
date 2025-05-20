@@ -138,6 +138,7 @@ public class inloggning extends javax.swing.JFrame {
             
             try{
                 String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
+                // TESTKOD RADEN NEDAN
                 System.out.println(sqlFraga);
                 String dbLosen = idb.fetchSingle(sqlFraga);
                 if(losen.equals(dbLosen)){
@@ -150,7 +151,6 @@ public class inloggning extends javax.swing.JFrame {
                     Anstalld anstalld = new Anstalld(anstalldHanterare);
                     User user = new User(anstalld);
                     CurrentUser.setUsr(user);
-                    
                     
                     new Meny().setVisible(true);
                     this.setVisible(false);

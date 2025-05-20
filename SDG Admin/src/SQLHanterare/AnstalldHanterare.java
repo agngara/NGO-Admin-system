@@ -27,6 +27,7 @@ public class AnstalldHanterare {
     */
    public AnstalldHanterare() {
        
+       idb = DatabaseInterface.databaseConnection();
        
    }
    
@@ -67,43 +68,66 @@ public class AnstalldHanterare {
        UserType userType = UserType.handlaggare;
        String roll = "";
        String aid = inAid;
+       String adminFetch = "";
        String checkAdminQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
+       String projchefFetch = "";
+
        
+       
+       
+    // Checks for admin role.  
        try {
-       // Checks for admin role.    
-       if (idb.fetchSingle(checkAdminQuery).equals("null")) {
+       adminFetch = idb.fetchSingle(checkAdminQuery);
+       } 
+       catch (InfException ex) {
+           
+       }
+       if (adminFetch.equals("null")) {
            
            // If not admin, the code tries projectchef
            String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
-           if (idb.fetchSingle(projchefQuery).equals(aid)) {
+           try {
+            projchefFetch = idb.fetchSingle(projchefQuery);
+           } 
+           catch (InfException exception) {
                
-               userType = UserType.projektchef;
            }
+           if (projchefFetch.equals(aid)) {
+   
+               userType = UserType.projektchef;
+               } 
+           
            // If not admin nor projektchef, the userType must be handläggare.
-           /*else {
+            else {
                
                userType = UserType.handlaggare;
                
-           }*/
+           }
+           
        }
+   
+       
        // Checks for admin type 1.
-       else if (idb.fetchSingle(checkAdminQuery).equals("1")) {
+       else if (adminFetch.equals("1")) {
            
            userType = UserType.admin1;
            
        }
        // Checks for admin type 2. 
-       else if (idb.fetchSingle(checkAdminQuery).equals("2")) {
+       else if (adminFetch.equals("2")) {
            
            userType = UserType.admin2;
        }
        
-       } catch (InfException ex) {
-           
-       }
-     
-       return userType;
-   }
-    
-    
+        return userType;
+   
+   
+    }
+
 }
+       
+       
+       
+       
+     
+
