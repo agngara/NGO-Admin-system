@@ -4,10 +4,12 @@
  */
 package orgEntities;
 
+import SQLHanterare.HallbarhetsmålHanterare;
 import java.util.HashMap;
 
 /**
- *
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  */
 public class Hallbarhetsmål {
@@ -19,8 +21,10 @@ public class Hallbarhetsmål {
     private String prioritet;
     
     
-    public Hallbarhetsmål (HashMap<String, String> hallbarhetsmal)
+    public Hallbarhetsmål (HallbarhetsmålHanterare hallbarhetsmålHanterare)
     {
+        HashMap<String, String> hallbarhetsmal = hallbarhetsmålHanterare.getHallbarhetsmal();
+        
         hid = hallbarhetsmal.get("hid");
         namn = hallbarhetsmal.get("namn");
         malnummer = hallbarhetsmal.get("malnummer");

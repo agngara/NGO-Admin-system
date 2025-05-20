@@ -35,6 +35,11 @@ public class HandlaggareHanterare {
        
    }
    
+   public HashMap getHandlaggare() {
+       
+       return handlaggare;
+   }
+   
     
     
     

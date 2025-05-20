@@ -4,10 +4,12 @@
  */
 package orgEntities;
 
+import SQLHanterare.AvdelningHanterare;
 import java.util.HashMap;
 
 /**
- *
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  */
 public class Avdelning {
@@ -21,8 +23,10 @@ public class Avdelning {
     
     
     
-    public Avdelning (HashMap<String, String> avdelning)
+    public Avdelning (AvdelningHanterare avdelningHanterare)
     {
+        HashMap<String, String> avdelning = avdelningHanterare.getAvdelning();
+        
         avdid = avdelning.get("avdid");
         namn = avdelning.get("namn");
         beskrivning = avdelning.get("beskrivning");

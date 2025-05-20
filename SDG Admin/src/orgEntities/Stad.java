@@ -4,6 +4,7 @@
  */
 package orgEntities;
 
+import SQLHanterare.StadHanterare;
 import java.util.HashMap;
 
 /**
@@ -16,8 +17,10 @@ public class Stad {
     private String namn;
     
     
-    public Stad(HashMap<String, String> stad)
+    public Stad(StadHanterare stadHanterare)
     {
+        
+        HashMap<String, String> stad = stadHanterare.getStad();
         
         sid = stad.get("sid");
         namn = stad.get("stad");

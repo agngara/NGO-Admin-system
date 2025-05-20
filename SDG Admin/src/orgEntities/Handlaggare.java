@@ -4,23 +4,29 @@
  */
 package orgEntities;
 
+import SQLHanterare.HandlaggareHanterare;
 import java.util.HashMap;
 
 /**
- *
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  */
 public class Handlaggare 
 {
-    
+    private String aid;
     private String ansvarighetsomraden; 
+    private String mentor;
     
     
     
-    public Handlaggare (HashMap<String, String> handlaggare)
+    public Handlaggare (HandlaggareHanterare handlaggareHanterare)
     {
+        HashMap<String, String>handlaggare  = handlaggareHanterare.getHandlaggare();
         
-        ansvarighetsomraden = handlaggare.get(ansvarighetsomraden);
+        aid = handlaggare.get("aid");
+        ansvarighetsomraden = handlaggare.get("ansvarighetsomraden");
+        mentor = handlaggare.get("mentor");
         
         
     }

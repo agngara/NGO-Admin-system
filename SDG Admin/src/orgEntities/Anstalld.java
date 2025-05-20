@@ -10,7 +10,8 @@ import db.DatabaseInterface;
 import SQLHanterare.AnstalldHanterare;
 import logicComponents.User.CurrentUser;
 /**
- * 
+ * This class stores information from corresponding table in the application database. Objects must be instantiated-
+ * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
  * @author theow
  * 
  */
@@ -37,6 +38,7 @@ import logicComponents.User.CurrentUser;
        
        HashMap<String, String> anstalldInfo = anstalldHanterare.getAnstalld();
        
+       
         fornamn = anstalldInfo.get("fornamn");
         efternamn = anstalldInfo.get("efternamn");
         adress = anstalldInfo.get("adress");
@@ -44,7 +46,7 @@ import logicComponents.User.CurrentUser;
         losenord = anstalldInfo.get("losenord");
         ePost = anstalldInfo.get("losenord");
         anstallningsdatum = anstalldInfo.get("anstallningsdatum");
-        aid = anstalldInfo.get(aid);
+        aid = anstalldInfo.get("aid");
        
        
        
@@ -60,9 +62,9 @@ import logicComponents.User.CurrentUser;
         adress = anstalld.get("adress");
         telefonnummer = anstalld.get("telefonnummer");
         losenord = anstalld.get("losenord");
-        ePost = anstalld.get("losenord");
+        ePost = anstalld.get("ePost");
         anstallningsdatum = anstalld.get("anstallningsdatum");
-        aid = anstalld.get(aid);
+        aid = anstalld.get("aid");
         
     }  
         
@@ -120,7 +122,7 @@ import logicComponents.User.CurrentUser;
             this.adress = nyAdress;
         }
         
-        public void setTelefonnunmmer(String nyttTelefonnummer)
+        public void setTelefonnummer(String nyttTelefonnummer)
         {
             this.telefonnummer = nyttTelefonnummer;
         }
