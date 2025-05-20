@@ -8,6 +8,7 @@ import db.DatabaseInterface;
 import orgEntities.Anstalld;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.User.UserType;
 import oru.inf.InfException;
 
 /**
@@ -20,6 +21,15 @@ public class AnstalldHanterare {
    private HashMap<String, String> anstalld;
    private String query;
    private String email;
+   
+   /**
+    * This empty constructor can be used for when mehtods not related to the class fields is to be called. 
+    */
+   public AnstalldHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
    
    /**
     * This constructor takes an email and fetches info to populate the anstalld hashmap.
@@ -53,22 +63,71 @@ public class AnstalldHanterare {
    } 
    
    
-   public String fetchRole(String inAid) {
+   public UserType fetchRole(String inAid) {
       
+       UserType userType = UserType.handlaggare;
        String roll = "";
        String aid = inAid;
-       String getRoleQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
+       String adminFetch = "";
+       String checkAdminQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
+       String projchefFetch = "";
+
        
+       
+       
+    // Checks for admin role.  
        try {
-           
-       roll = idb.fetchSingle(getRoleQuery);
-       
-       } catch (InfException ex) {
+       adminFetch = idb.fetchSingle(checkAdminQuery);
+       } 
+       catch (InfException ex) {
            
        }
-     
-       return roll;
-   }
-    
-    
+       if (adminFetch.equals("null")) {
+           
+           // If not admin, the code tries projectchef
+           String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
+           try {
+            projchefFetch = idb.fetchSingle(projchefQuery);
+           } 
+           catch (InfException exception) {
+               
+           }
+           if (projchefFetch.equals(aid)) {
+   
+               userType = UserType.projektchef;
+               } 
+           
+           // If not admin nor projektchef, the userType must be handläggare.
+            else {
+               
+               userType = UserType.handlaggare;
+               
+           }
+           
+       }
+   
+       
+       // Checks for admin type 1.
+       else if (adminFetch.equals("1")) {
+           
+           userType = UserType.admin1;
+           
+       }
+       // Checks for admin type 2. 
+       else if (adminFetch.equals("2")) {
+           
+           userType = UserType.admin2;
+       }
+       
+        return userType;
+   
+   
+    }
+
 }
+       
+       
+       
+       
+     
+

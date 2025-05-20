@@ -5,11 +5,10 @@
 
 package gui;
 import orgEntities.Anstalld;
-import db.*;
+import db.DatabaseInterface;
 import logicComponents.User.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import SQLHanterare.AnstalldHanterare;
 import SQLHanterare.*;
 
 
@@ -138,6 +137,7 @@ public class inloggning extends javax.swing.JFrame {
             
             try{
                 String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
+                // TESTKOD RADEN NEDAN
                 System.out.println(sqlFraga);
                 String dbLosen = idb.fetchSingle(sqlFraga);
                 if(losen.equals(dbLosen)){
@@ -151,8 +151,7 @@ public class inloggning extends javax.swing.JFrame {
                     User user = new User(anstalld);
                     CurrentUser.setUsr(user);
                     
-                    
-                    new Meny(idb, ePost).setVisible(true);
+                    new Meny().setVisible(true);
                     this.setVisible(false);
                     
                 }
@@ -160,7 +159,7 @@ public class inloggning extends javax.swing.JFrame {
                     felUppgifter.setVisible(true);
                 }
                 
-            } catch (Exception ex){
+            } catch (InfException ex){
                 System.out.println(ex.getMessage());
                 
             }

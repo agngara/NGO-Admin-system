@@ -4,6 +4,10 @@
  */
 package gui;
 
+import SQLHanterare.ProjektHanterare;
+import orgEntities.Projekt;
+
+
 /**
  *
  * @author theow
@@ -15,6 +19,8 @@ public class projektInfo extends javax.swing.JFrame {
      */
     public projektInfo() {
         initComponents();
+        
+       
     }
 
     /**
@@ -27,21 +33,39 @@ public class projektInfo extends javax.swing.JFrame {
     private void initComponents() {
 
         projektInfo = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         lbllProjName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(854, 480));
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout projektInfoLayout = new javax.swing.GroupLayout(projektInfo);
         projektInfo.setLayout(projektInfoLayout);
         projektInfoLayout.setHorizontalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(projektInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                .addContainerGap())
         );
         projektInfoLayout.setVerticalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
+            .addGroup(projektInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
         );
 
         lbllProjName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -56,7 +80,7 @@ public class projektInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbllProjName))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(730, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,7 +89,7 @@ public class projektInfo extends javax.swing.JFrame {
                 .addComponent(lbllProjName)
                 .addGap(18, 18, 18)
                 .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,6 +131,8 @@ public class projektInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbllProjName;
     private javax.swing.JPanel projektInfo;
     // End of variables declaration//GEN-END:variables

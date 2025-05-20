@@ -5,7 +5,7 @@
 package gui;
 import oru.inf.InfDB;
 import java.util.HashMap;
-import logicComponents.User.CurrentUser;
+import logicComponents.User.*;
 import orgEntities.Anstalld;
 
 
@@ -33,8 +33,8 @@ public class Meny extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblInloggadAnvandare.setText(namn);
         String aid = currentAnstalld.getAid();
-        String role = currentAnstalld.getRole(aid);
-        lblRole.setText(role);
+        UserType userType = currentAnstalld.getRole(aid);
+        lblRole.setText(userType.name());
         
         
         
@@ -76,6 +76,7 @@ public class Meny extends javax.swing.JFrame {
         visaProjekt = new javax.swing.JButton();
         LoggaUt = new javax.swing.JButton();
         lblRole = new javax.swing.JLabel();
+        btnAnställda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,32 +109,35 @@ public class Meny extends javax.swing.JFrame {
 
         lblRole.setText("Roll");
 
+        btnAnställda.setText("Anställda");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(visaHallbarhetsmal)
-                        .addGap(39, 39, 39)
-                        .addComponent(visaProjekt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LoggaUt)))
-                .addContainerGap(467, Short.MAX_VALUE))
+                .addGap(85, 85, 85)
+                .addComponent(visaHallbarhetsmal)
+                .addGap(39, 39, 39)
+                .addComponent(visaProjekt)
+                .addGap(38, 38, 38)
+                .addComponent(btnAnställda)
+                .addContainerGap(643, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblRole))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblInloggadAnvandare)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblInloggadAnvandare)
                 .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblRole)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LoggaUt)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,17 +147,18 @@ public class Meny extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(visaHallbarhetsmal)
+                            .addComponent(visaProjekt)
+                            .addComponent(btnAnställda)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(lblRole)))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(visaHallbarhetsmal)
-                    .addComponent(visaProjekt))
-                .addGap(39, 39, 39)
-                .addComponent(LoggaUt)
-                .addContainerGap(371, Short.MAX_VALUE))
+                        .addComponent(lblRole)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LoggaUt)))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
 
         pack();
@@ -211,6 +216,7 @@ public class Meny extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoggaUt;
+    private javax.swing.JButton btnAnställda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
     private javax.swing.JLabel lblRole;

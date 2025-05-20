@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package logicComponents.User;
+import SQLHanterare.AnstalldHanterare;
 import db.DatabaseInterface;
 import java.util.UUID;
 import orgEntities.Anstalld;
@@ -32,35 +33,15 @@ public class User {
         allocatedAnstalld = anstalld;
         UUID uuid = UUID.randomUUID();
         sessionID = uuid.toString();
-        userType = setUserType();
+        setUserType();
         
     }
     
-    public UserType setUserType() {
+    private void setUserType() {
         
-        String query = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE anstalld.epost = " + "'" + usrEmail + "'";
-        
-        try {
-            
-        String behorighet = idb.fetchSingle(query);
-        
-        if (behorighet.equals("1")) {
-            
-            userType = UserType.admin1;
-        }
-        else if (behorighet.equals("2"))
-        {
-            userType = UserType.admin2;
-        }
-               
-        
-        } catch (Exception ex) {
-            
-            userType = UserType.handlaggare;
-            
-        }
-        
-        return userType;
+        AnstalldHanterare anstalldHanterare = new AnstalldHanterare();
+        String aid = allocatedAnstalld.getAid();
+        userType = anstalldHanterare.fetchRole(aid);
         
     }
     
