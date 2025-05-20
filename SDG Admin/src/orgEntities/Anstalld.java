@@ -9,6 +9,7 @@ import oru.inf.InfDB;
 import db.DatabaseInterface;
 import SQLHanterare.AnstalldHanterare;
 import logicComponents.User.CurrentUser;
+import logicComponents.User.UserType;
 /**
  * This class stores information from corresponding table in the application database. Objects must be instantiated-
  * with an "hanterar"-class as argument, as the fields are populated through a HashMap in the "hanterar"-type class.
@@ -29,6 +30,8 @@ import logicComponents.User.CurrentUser;
    private String anstallningsdatum; 
    private String aid;
    
+   private AnstalldHanterare anstalldHanterare;
+   
    
    /**
     * This constructor constructs an object of the anstalld class by taking an insance of anstalldhanterare.
@@ -47,6 +50,8 @@ import logicComponents.User.CurrentUser;
         ePost = anstalldInfo.get("losenord");
         anstallningsdatum = anstalldInfo.get("anstallningsdatum");
         aid = anstalldInfo.get("aid");
+        
+        this.anstalldHanterare = anstalldHanterare;
        
        
        
@@ -136,22 +141,17 @@ import logicComponents.User.CurrentUser;
         {
             this.ePost = nyEpost;
         }
-        
-        
+                  
        
-        
-
         // Extra
         
-        public String getRole(String aid) {
+        public UserType getRole(String aid) {
             
-            String role = "";
             
-            ePost = CurrentUser.getUsr().getAnstalld().getEpost();
-            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(ePost);
-            role = anstalldHanterare.fetchRole(aid);
+            UserType userType = anstalldHanterare.fetchRole(aid);
             
-            return role;
+            
+            return userType;
             
           
         }

@@ -5,11 +5,10 @@
 
 package gui;
 import orgEntities.Anstalld;
-import db.*;
+import db.DatabaseInterface;
 import logicComponents.User.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
-import SQLHanterare.AnstalldHanterare;
 import SQLHanterare.*;
 
 
@@ -161,7 +160,7 @@ public class inloggning extends javax.swing.JFrame {
                     felUppgifter.setVisible(true);
                 }
                 
-            } catch (Exception ex){
+            } catch (InfException ex){
                 System.out.println(ex.getMessage());
                 
             }
