@@ -1,8 +1,14 @@
+
+
 package gui;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
 import gui.Meny;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
 
@@ -17,21 +23,44 @@ import logicComponents.User.User;
  * @author amandahelinlarsson
  */
 public class Hållbarhetsmål extends javax.swing.JFrame {
-
-    InfDB idb = DatabaseInterface.databaseConnection();
-    User usr = CurrentUser.getUsr();
+     private InfDB idb;
+     
     
+public Hållbarhetsmål(){
+    initComponents(); 
+    setExtendedState(MAXIMIZED_BOTH);
+    setLocationRelativeTo(null);
+    fyllTabell();
+    try {
+    idb = DatabaseInterface.databaseConnection(); 
+    } catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
+}
+}
     /**
      * Creates new form Hållbarhetsmål
      */
-    public Hållbarhetsmål() {
-        
-        
-        setLocationRelativeTo(null);
-        initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+    private void fyllTabell(){
+        try {
+            String query = "SELECT hid, namn, malnumer, beskrivning, prioritet FROM hallbarhetsmal";
+            ArrayList<HashMap< String, String >> hallbarhetsLista = idb.fetchRows(query);
+
+            String [] columnNames = {"hid, namn, malnumer, beskrivning, prioritet"};
+            DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+            for (HashMap<String, String> hallbarhetsmal : hallbarhetsLista){
+            String hid = hallbarhetsmal.get("hid");
+            String namn = hallbarhetsmal.get("namn");
+            String malnumer = hallbarhetsmal.get ("malnumer");
+            String beskrivning = hallbarhetsmal.get ("beskrivning");
+            String prioritet = hallbarhetsmal.get("prioritet");
+        model.addRow(new Object[] {hid, namn, malnumer, beskrivning, prioritet});
+        }
+        tblHallbarhetsmal.setModel(model);
+        } 
+        catch (InfException e) {}
     }
+        
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,16 +71,17 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        hallbarhetsmalBild = new javax.swing.JLabel();
         tillbakaTillMeny = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblHallbarhetsmal = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/800x500.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
-        jButton1.setText("Hållbarhetsmålen");
+        hallbarhetsmalBild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hbild800x500.jpg"))); // NOI18N
+        hallbarhetsmalBild.setText("jLabel1");
+        hallbarhetsmalBild.setMaximumSize(new java.awt.Dimension(500, 500));
+        hallbarhetsmalBild.setMinimumSize(new java.awt.Dimension(500, 500));
 
         tillbakaTillMeny.setText("TIllbaka till meny");
         tillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
@@ -60,29 +90,45 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
             }
         });
 
+        tblHallbarhetsmal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Hid", "Målnumer", "Beskrivning", "Prioritet"
+            }
+        ));
+        jScrollPane1.setViewportView(tblHallbarhetsmal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tillbakaTillMeny)
-                        .addGap(484, 484, 484)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 49, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(hallbarhetsmalBild, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tillbakaTillMeny)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(tillbakaTillMeny))
-                .addGap(27, 27, 27))
+                .addComponent(hallbarhetsmalBild, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tillbakaTillMeny)
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,7 +165,22 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Hållbarhetsmål.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+    try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Hållbarhetsmål.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Hållbarhetsmål.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Hållbarhetsmål.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Hållbarhetsmål.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -129,8 +190,12 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel hallbarhetsmalBild;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblHallbarhetsmal;
     private javax.swing.JButton tillbakaTillMeny;
     // End of variables declaration//GEN-END:variables
 }
+    
+       
+

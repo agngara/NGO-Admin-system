@@ -5,6 +5,8 @@
 package gui;
 
 import SQLHanterare.ProjektHanterare;
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
 import orgEntities.Projekt;
 
 
@@ -13,15 +15,53 @@ import orgEntities.Projekt;
  * @author theow
  */
 public class projektInfo extends javax.swing.JFrame {
+    
+    private Projekt projekt;
+    private String[] kolumnnamn;
+    
 
     /**
      * Creates new form projektInfo
      */
-    public projektInfo() {
+    public projektInfo(Projekt projekt) {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        String[] projInfo;
         
-       
+        this.projekt = projekt;
+        String[] kolumnNamn = new String[] {"aid", 
+            "fornamn", 
+            "efternamn", 
+            "adress", 
+            "epost",
+            "telefon",
+            "anstallningsdatum",
+            "losenord",
+            "avdelning"
+         };
+         
     }
+        
+    
+    public void fillTable() {
+        
+    Object[] rad = {
+    projekt.getProjektnamn(),
+    projekt.getBeskrivning(),
+    projekt.getStartdatum(),
+    projekt.getSlutdatum(),
+    projekt.getKostnad(),
+    projekt.getStatus(),
+    projekt.getPrioritet()
+    };
+        
+    DefaultTableModel nyModel = new DefaultTableModel(
+    new Object[][] {rad},
+    kolumnnamn);
+    
+    jTable1.setModel(nyModel);     
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,16 +89,14 @@ public class projektInfo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
             }
         ));
+        jTable1.setDoubleBuffered(true);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout projektInfoLayout = new javax.swing.GroupLayout(projektInfo);
         projektInfo.setLayout(projektInfoLayout);
         projektInfoLayout.setHorizontalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(projektInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
         );
         projektInfoLayout.setVerticalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +118,7 @@ public class projektInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbllProjName))
-                .addContainerGap(730, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +163,7 @@ public class projektInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new projektInfo().setVisible(true);
+                //new projektInfo().setVisible(true);
             }
         });
     }

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import logicComponents.User.UserType;
+import gui.Meny;
 
 /**
  *
@@ -21,42 +22,51 @@ import logicComponents.User.UserType;
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     
-    public projektruta(){
-initComponents(); setExtendedState(MAXIMIZED_BOTH);
+    
+ public projektruta(){
+    initComponents(); 
+    setExtendedState(MAXIMIZED_BOTH);
+    setLocationRelativeTo(null);
+try {
+    idb = DatabaseInterface.databaseConnection();
 fyllTabell();
+} catch (Exception e){
+    JOptionPane.showMessageDialog(this, "kunde inte ansluta till databasen:" + e.getMessage());
+}
+if (CurrentUser.getUsr() !=null) {
 UserType userType = CurrentUser.getUsr().getUserType();
 String userTypeString = userType.toString();
-setLocationRelativeTo(null);
-}
+} else {
+JOptionPane.showMessageDialog(this, "Ingen användare är inloggad.");
 
+}
+ }
     
-    /**
-     * fyller tabellen utifrån databasens information
-     */
- 
 private void fyllTabell(){
 try {
-String query = "SELECT projektnamn, Beskrivning, Startdatum, Slutdatum, Kostnad, Prioritet, Status, FROM Projekt";
+String query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM Projekt";
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-String [] columnNames = {"projektnamn", "Beskrivning", "Startdatum", "Slutdatum", "Kostnad", "Prioritet", "Status"};
+System.out.println("Antal projekt hämtade:" + projektlista.size());
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status"};
 DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 for (HashMap<String, String> projekt : projektlista){
+String pid = projekt.get("pid");
 String namn = projekt.get("projektnamn");
-String beskrivning = projekt.get ("Beskrivning");
-String start = projekt.get ("Startdatum");
-String slut = projekt.get ("Slutdatum");
-String prioritet = projekt.get("Prioritet");
-String kostnad = projekt.get ("Kostnad"); 
-String status = projekt.get ("Status");
-model.addRow(new Object[] {namn, start, slut, kostnad, prioritet, status});
+String beskrivning = projekt.get ("beskrivning");
+String start = projekt.get ("startdatum");
+String slut = projekt.get ("slutdatum");
+String prioritet = projekt.get("prioritet");
+String kostnad = projekt.get ("kostnad"); 
+String status = projekt.get ("status");
+model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status});
 }
 tblProjekt.setModel(model);
-} catch (InfException e){
+} catch (InfException e) {
 JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
 }
-   
-
 }
+
+
 
     
     /**
@@ -75,6 +85,7 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
         scrollPane1 = new java.awt.ScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
+        proTillbakaTillMeny = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,18 +104,31 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
 
         tblProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "pid", "projektnamn", "beskrivning", "Startdatum", "slutdatum", "kostnad", "prioritet", "status"
             }
         ));
         jScrollPane1.setViewportView(tblProjekt);
 
         scrollPane1.add(jScrollPane1);
+
+        proTillbakaTillMeny.setText("Tillbaka till meny");
+        proTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proTillbakaTillMenyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,13 +141,14 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
                             .addComponent(jButton2)
-                            .addComponent(jButton1)))
+                            .addComponent(jButton1)
+                            .addComponent(proTillbakaTillMeny)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +163,9 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(proTillbakaTillMeny)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,6 +174,11 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void proTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proTillbakaTillMenyActionPerformed
+        this.setVisible(false);
+        new Meny().setVisible(true);
+    }//GEN-LAST:event_proTillbakaTillMenyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +221,7 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton proTillbakaTillMeny;
     private java.awt.ScrollPane scrollPane1;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
