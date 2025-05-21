@@ -6,7 +6,7 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
-
+import orgEntities.Admin;
 /**
  *
  * @author theow
