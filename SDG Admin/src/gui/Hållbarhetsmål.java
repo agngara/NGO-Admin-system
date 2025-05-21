@@ -30,9 +30,9 @@ public Hållbarhetsmål(){
     initComponents(); 
     setExtendedState(MAXIMIZED_BOTH);
     setLocationRelativeTo(null);
-    fyllTabell();
     try {
-    idb = DatabaseInterface.databaseConnection(); 
+    idb = DatabaseInterface.databaseConnection();
+    fyllTabell();
     } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
 }
@@ -42,25 +42,32 @@ public Hållbarhetsmål(){
      */
     private void fyllTabell(){
         try {
-            String query = "SELECT hid, namn, malnumer, beskrivning, prioritet FROM hallbarhetsmal";
+            String query = "SELECT hid, namn, malnummer, beskrivning, prioritet FROM hallbarhetsmal";
             ArrayList<HashMap< String, String >> hallbarhetsLista = idb.fetchRows(query);
 
-            String [] columnNames = {"hid, namn, malnumer, beskrivning, prioritet"};
+            String [] columnNames = {"hid", "namn", "malnummer", "beskrivning", "prioritet"};
             DefaultTableModel model = new DefaultTableModel (columnNames, 0);
-            for (HashMap<String, String> hallbarhetsmal : hallbarhetsLista){
-            String hid = hallbarhetsmal.get("hid");
-            String namn = hallbarhetsmal.get("namn");
-            String malnumer = hallbarhetsmal.get ("malnumer");
-            String beskrivning = hallbarhetsmal.get ("beskrivning");
-            String prioritet = hallbarhetsmal.get("prioritet");
-        model.addRow(new Object[] {hid, namn, malnumer, beskrivning, prioritet});
+            
+            if (hallbarhetsLista == null || hallbarhetsLista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inga hållbarhetsmål hittades i databasen!");
+            } else {
+                for (HashMap<String, String> hallbarhetsmal : hallbarhetsLista){
+                String hid = hallbarhetsmal.get("hid");
+                String namn = hallbarhetsmal.get("namn");
+                String malnumer = hallbarhetsmal.get ("malnummer");
+                String beskrivning = hallbarhetsmal.get ("beskrivning");
+                String prioritet = hallbarhetsmal.get("prioritet");
+            model.addRow(new Object[] {hid, namn, malnumer, beskrivning, prioritet});
         }
-        tblHallbarhetsmal.setModel(model);
-        } 
-        catch (InfException e) {}
     }
-        
-        
+    tblHallbarhetsmal.setModel(model);
+    } catch (InfException e) {
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
+        }  
+    }
+            
+            
+            
 
     /**
      * This method is called from within the constructor to initialize the form.
