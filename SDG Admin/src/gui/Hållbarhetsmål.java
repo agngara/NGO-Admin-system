@@ -43,7 +43,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        tillHallbarhetsmalen = new javax.swing.JButton();
         tillbakaTillMeny = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,7 +51,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/800x500.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        jButton1.setText("Hållbarhetsmålen");
+        tillHallbarhetsmalen.setText("Hållbarhetsmålen");
 
         tillbakaTillMeny.setText("TIllbaka till meny");
         tillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +69,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tillbakaTillMeny)
                         .addGap(484, 484, 484)
-                        .addComponent(jButton1))
+                        .addComponent(tillHallbarhetsmalen))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 49, Short.MAX_VALUE))
         );
@@ -80,7 +80,7 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(tillHallbarhetsmalen)
                     .addComponent(tillbakaTillMeny))
                 .addGap(27, 27, 27))
         );
@@ -129,8 +129,8 @@ public class Hållbarhetsmål extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton tillHallbarhetsmalen;
     private javax.swing.JButton tillbakaTillMeny;
     // End of variables declaration//GEN-END:variables
 }

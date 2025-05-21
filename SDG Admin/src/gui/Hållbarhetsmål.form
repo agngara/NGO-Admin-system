@@ -28,7 +28,7 @@
                   <Group type="102" attributes="0">
                       <Component id="tillbakaTillMeny" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="484" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="tillHallbarhetsmalen" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" min="-2" pref="752" max="-2" attributes="0"/>
               </Group>
@@ -43,7 +43,7 @@
               <Component id="jLabel1" min="-2" pref="378" max="-2" attributes="0"/>
               <EmptySpace pref="29" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tillHallbarhetsmalen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tillbakaTillMeny" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="tillHallbarhetsmalen">
       <Properties>
         <Property name="text" type="java.lang.String" value="H&#xe5;llbarhetsm&#xe5;len"/>
       </Properties>
