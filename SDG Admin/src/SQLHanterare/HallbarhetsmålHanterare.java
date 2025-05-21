@@ -153,7 +153,7 @@ public class HallbarhetsmålHanterare {
 {
 try {
     String taBort = "DELETE FROM hallbarhetsmal WHERE hid = '" + h.getHid() + "'";
-    idb.update(taBort);
+    idb.delete(taBort);
     return true;
 }
 

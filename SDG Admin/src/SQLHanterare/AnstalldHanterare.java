@@ -161,7 +161,7 @@ public class AnstalldHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     try {
-        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + '" WHERE aid = "' + aid + "'";
+        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = '" + aid + "'";
         idb.update(ePost);
         return true;
 } 
@@ -231,7 +231,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 
 }
 
-public boolean andraAdress(String nyAdress)
+public boolean andraAdress(String aid, String nyAdress)
 {
     try {
 
@@ -249,7 +249,7 @@ public boolean andraAdress(String nyAdress)
 
 
 
-
+}
 
 // radera anställd
 
@@ -257,7 +257,7 @@ public boolean andraAdress(String nyAdress)
 {
 try {
     String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
-    idb.update(taBort);
+    idb.delete(taBort);
     return true;
 }
 
