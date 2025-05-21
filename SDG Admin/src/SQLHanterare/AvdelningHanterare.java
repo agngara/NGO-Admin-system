@@ -6,7 +6,7 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
-import orgEntities.Avdelning;
+
 
 /**
  *
@@ -41,13 +41,14 @@ public class AvdelningHanterare {
        return avdelning;
    }
     
-  public class AvdelningTest {
+  //Metoden nedan är avsedd för att kunna lägga till en ny avdelning. 
+   public class AvdelningTest {
     
     
-    public boolean laggTillAvdelning(String namn, String beskrivning)
+    public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
     {
         try {
-            String nyAvdelning = "INSERT INTO avdelning (namn, beskrivning) VALUES ('" + namn + "', '" + beskrivning + "')";
+            String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning) VALUES ('" + avdid + "', '" + namn + "', '" + beskrivning + "')";
             idb.insert(nyAvdelning);
             return true;
         }
@@ -151,32 +152,7 @@ public class AvdelningHanterare {
     
     
     
-    // metoden nedan är avsedd för att ändra avdelning
-    
-    public boolean uppdateraAvdelning(Avdelning a)
-    {
-        try {
-            String andradAvdelning = "UPDATE avdelning SET " + "namn = '" + a.getNamn() + "', " +
-            "beskrivning = '" + a.getBeskrivning() + "', " +
-            "adress = '" + a.getAdress() "', " + 
-            "epost = '" + a.getEpost() "', " +
-            "telefon = '" + a.getTelefon() "' " +
-            "WHERE avdid = '" = a.getAvdid() + "'";
-            
-            idb.update(andradAvdelning);
-            return true;
-           
-        }
-        
-        catch (Exception e)
-        {
-            
-            e.printStackTrace();
-            return false;
-            
-    }
-    
-    }  
+   
     
 
   }

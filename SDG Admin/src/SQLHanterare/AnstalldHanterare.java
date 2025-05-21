@@ -8,8 +8,11 @@ import db.DatabaseInterface;
 import orgEntities.Anstalld;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import java.util.UUID;
 import logicComponents.User.UserType;
 import oru.inf.InfException;
+import java.util.UUID;
+
 
 /**
  * This class handles database communication with the anstalld table.
@@ -124,7 +127,147 @@ public class AnstalldHanterare {
    
     }
    
+   public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+    {
+        
+        try
+        {
+             
+         String losenord = UUID.randomUUID().toString().substring(0, 9);
+         String aid = UUID.randomUUID().toString();
+         
+         String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
+         "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
+         idb.insert(laggTill);
+
+
+           System.out.println("Skapat lösenord: " + losenord); 
+            return true;
+        }
+        
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        
+        
    
+    }
+
+
+// koderna under avsedda för att ändra mina uppgifter.
+
+public boolean andraEpost(String aid, String nyEpost)
+{
+    try {
+        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + '" WHERE aid = "' + aid + "'";
+        idb.update(ePost);
+        return true;
+} 
+    catch (Exception e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
+
+    public boolean andraLosenord(String aid, String nyttLosenord)
+{
+    try {
+          String losenord = "UPDATE anstalld SET losenord = '" + nyttLosenord + "' WHERE aid = '" + aid + "'";
+          idb.update(losenord);
+          return true;
+}
+    catch (Exception e) {
+    
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+    
+    
+ 
+
+public boolean andraFornamn(String aid, String nyttFornamn)
+{
+    try {
+
+           String fornamn = "UPDATE anstalld SET fornamn = '" + nyttFornamn + "' WHERE aid = '" + aid + "'";
+           idb.update(fornamn);
+           return true;
+}
+    
+        catch (Exception e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+
+
+
+public boolean andraEfternamn(String aid, String nyttEfternamn)
+{
+    try {
+
+           String efternamn = "UPDATE anstalld SET efternamn = ' " + nyttEfternamn + " ' WHERE aid = ' " + aid + "'";
+           idb.update(efternamn);
+           return true;
+}
+    
+        catch (Exception e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+
+public boolean andraAdress(String nyAdress)
+{
+    try {
+
+           String adress = "UPDATE anstalld SET adress = ' " + nyAdress + " ' WHERE aid = ' " + aid + "'";
+           idb.update(adress);
+           return true;
+}
+    
+        catch (Exception e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+
+
+
+// radera anställd
+
+    public boolean taBortAnstalld (Anstalld a)
+{
+try {
+    String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
+    idb.update(taBort);
+    return true;
+}
+
+catch (Exception e)
+{
+e.printStackTrace();
+return false;
+}
+
+}
    
    
    
