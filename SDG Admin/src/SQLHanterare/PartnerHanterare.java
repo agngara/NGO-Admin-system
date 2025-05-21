@@ -42,6 +42,96 @@ public class PartnerHanterare {
    }
    
     
+   public boolean andraNamn(String pid, String nyttNamn)
+    {
+        try{
+            String namn = "UPDATE partner SET namn = '" + nyttNamn + "WHERE pid = '" + "'";
+            idb.update(namn);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+                
+    }
     
+    
+    
+    
+    public boolean andraKontaktperson(String pid, String nyKontaktperson)
+    {
+        try{
+            String kontaktperson = "UPDATE partner SET kontaktperson = '" + nyKontaktperson + "WHERE pid = '" + "'";
+            idb.update(kontaktperson);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false; 
+        }
+    }
+    
+    
+    
+     public boolean andraKontaktEpost(String pid, String nyKontaktEpost)
+    {
+        try{
+            String kontaktEpost = "UPDATE partner SET kontaktepost = '" + nyKontaktEpost + "WHERE pid = '" + "'";
+            idb.update(kontaktEpost);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false; 
+        }
+    }
+     
+     
+     
+    public boolean andraTelefon(String pid, String nyTelefon)
+    {
+        try{
+            String telefon = "UPDATE partner SET telefon = '" + nyTelefon + "WHERE pid = '" + "'";
+            idb.update(telefon);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false; 
+        }
+    }  
+     
+   public boolean andraAdress(String pid, String nyAdress)
+    {
+        try{
+            String adress = "UPDATE partner SET adress = '" + nyAdress + "WHERE pid = '" + "'";
+            idb.update(adress);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false; 
+        }
+    }  
+   
+   public boolean andraBranch(String pid, String nyBranch)
+    {
+        try{
+            String branch = "UPDATE partner SET branch = '" + nyBranch + "WHERE pid = '" + "'";
+            idb.update(branch);
+            return true;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return false; 
+        }
+    }   
     
 }
