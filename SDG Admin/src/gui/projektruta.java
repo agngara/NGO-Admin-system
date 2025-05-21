@@ -31,14 +31,14 @@ setLocationRelativeTo(null);
 
     
     /**
-     * Creates new form projektruta
+     * fyller tabellen utifrån databasens information
      */
  
 private void fyllTabell(){
 try {
-String query = "SELECT projektnamn, Beskrivning, Startdatum, Slutdatum, Budget, Prioritet, Status FROM Projekt";
+String query = "SELECT projektnamn, Beskrivning, Startdatum, Slutdatum, Kostnad, Prioritet, Status, FROM Projekt";
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-String [] columnNames = {"projektnamn", "Beskrivning", "Startdatum", "Slutdatum", "Budget", "Prioritet", "Status"};
+String [] columnNames = {"projektnamn", "Beskrivning", "Startdatum", "Slutdatum", "Kostnad", "Prioritet", "Status"};
 DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 for (HashMap<String, String> projekt : projektlista){
 String namn = projekt.get("projektnamn");
@@ -46,16 +46,15 @@ String beskrivning = projekt.get ("Beskrivning");
 String start = projekt.get ("Startdatum");
 String slut = projekt.get ("Slutdatum");
 String prioritet = projekt.get("Prioritet");
-String budget = projekt.get ("Budget"); 
+String kostnad = projekt.get ("Kostnad"); 
 String status = projekt.get ("Status");
-model.addRow(new Object[] {namn, start, slut, budget});
+model.addRow(new Object[] {namn, start, slut, kostnad, prioritet, status});
 }
 tblProjekt.setModel(model);
 } catch (InfException e){
 JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
 }
    
-
 
 }
 
