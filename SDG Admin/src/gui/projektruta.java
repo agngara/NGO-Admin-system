@@ -22,26 +22,35 @@ import gui.Meny;
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     
-    public projektruta(){
-initComponents(); setExtendedState(MAXIMIZED_BOTH);
+    
+ public projektruta(){
+initComponents(); 
+setExtendedState(MAXIMIZED_BOTH);
+setLocationRelativeTo(null);
+try {
+    idb = DatabaseInterface.databaseConnection();
 fyllTabell();
+} catch (Exception e){
+    JOptionPane.showMessageDialog(this, "kunde inte ansluta till databasen:" + e.getMessage());
+}
+if (CurrentUser.getUsr() !=null) {
 UserType userType = CurrentUser.getUsr().getUserType();
 String userTypeString = userType.toString();
-setLocationRelativeTo(null);
-}
+} else {
+JOptionPane.showMessageDialog(this, "Ingen användare är inloggad.");
 
+}
+ }
     
-    /**
-     * fyller tabellen utifrån databasens information
-     */
- 
 private void fyllTabell(){
 try {
-String query = "SELECT projektnamn, Beskrivning, Startdatum, Slutdatum, Kostnad, Prioritet, Status, FROM Projekt";
+String query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM Projekt";
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-String [] columnNames = {"projektnamn", "Beskrivning", "Startdatum", "Slutdatum", "Kostnad", "Prioritet", "Status"};
+System.out.println("Antal projekt hämtade:" + projektlista.size());
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status"};
 DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 for (HashMap<String, String> projekt : projektlista){
+String pid = projekt.get("pid");
 String namn = projekt.get("projektnamn");
 String beskrivning = projekt.get ("Beskrivning");
 String start = projekt.get ("Startdatum");
@@ -49,15 +58,15 @@ String slut = projekt.get ("Slutdatum");
 String prioritet = projekt.get("Prioritet");
 String kostnad = projekt.get ("Kostnad"); 
 String status = projekt.get ("Status");
-model.addRow(new Object[] {namn, start, slut, kostnad, prioritet, status});
+model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status});
 }
 tblProjekt.setModel(model);
-} catch (InfException e){
+} catch (InfException e) {
 JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
 }
-   
-
 }
+
+
 
     
     /**
@@ -94,13 +103,13 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
 
         tblProjekt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "pid", "projektnamn", "beskrivning", "Startdatum", "slutdatum", "kostnad", "prioritet", "status"
             }
         ));
         jScrollPane1.setViewportView(tblProjekt);
