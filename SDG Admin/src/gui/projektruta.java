@@ -51,12 +51,12 @@ DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 for (HashMap<String, String> projekt : projektlista){
 String pid = projekt.get("pid");
 String namn = projekt.get("projektnamn");
-String beskrivning = projekt.get ("Beskrivning");
-String start = projekt.get ("Startdatum");
-String slut = projekt.get ("Slutdatum");
-String prioritet = projekt.get("Prioritet");
-String kostnad = projekt.get ("Kostnad"); 
-String status = projekt.get ("Status");
+String beskrivning = projekt.get ("beskrivning");
+String start = projekt.get ("startdatum");
+String slut = projekt.get ("slutdatum");
+String prioritet = projekt.get("prioritet");
+String kostnad = projekt.get ("kostnad"); 
+String status = projekt.get ("status");
 model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status});
 }
 tblProjekt.setModel(model);
@@ -105,6 +105,12 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -128,11 +134,11 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                             .addComponent(jButton2)
                             .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
