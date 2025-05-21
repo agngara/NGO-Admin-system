@@ -170,7 +170,8 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_visaHallbarhetsmalActionPerformed
 
     private void visaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaProjektActionPerformed
-        // göra samma sak som metoden över men med filnamn för projekt
+        new projektruta().setVisible(true);
+        this.setVisible(false);   
     }//GEN-LAST:event_visaProjektActionPerformed
 
     private void LoggaUtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoggaUtActionPerformed
