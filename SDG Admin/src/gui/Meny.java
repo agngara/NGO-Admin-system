@@ -173,7 +173,11 @@ public class Meny extends javax.swing.JFrame {
         new projektruta().setVisible(true);
         this.setVisible(false);   
     }//GEN-LAST:event_visaProjektActionPerformed
+//        this.dispose(); // eller this.setVisible(false);
+//         projektruta projektForm = new projektruta();
+//         projektForm.setVisible(true);
 
+    
     private void LoggaUtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoggaUtActionPerformed
         this.dispose();
         inloggning inloggningForm = new inloggning();
