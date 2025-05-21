@@ -77,6 +77,7 @@ public class Meny extends javax.swing.JFrame {
         LoggaUt = new javax.swing.JButton();
         lblRole = new javax.swing.JLabel();
         btnAnställda = new javax.swing.JButton();
+        Projekt2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,18 +112,17 @@ public class Meny extends javax.swing.JFrame {
 
         btnAnställda.setText("Anställda");
 
+        Projekt2.setText("Projekt2");
+        Projekt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Projekt2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(visaHallbarhetsmal)
-                .addGap(39, 39, 39)
-                .addComponent(visaProjekt)
-                .addGap(38, 38, 38)
-                .addComponent(btnAnställda)
-                .addContainerGap(643, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblInloggadAnvandare)
@@ -138,6 +138,19 @@ public class Meny extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(LoggaUt)
                         .addGap(25, 25, 25))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(visaHallbarhetsmal)
+                        .addGap(38, 38, 38)
+                        .addComponent(Projekt2)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnAnställda))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(visaProjekt)))
+                .addContainerGap(645, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,14 +164,16 @@ public class Meny extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(visaHallbarhetsmal)
-                            .addComponent(visaProjekt)
-                            .addComponent(btnAnställda)))
+                            .addComponent(btnAnställda)
+                            .addComponent(Projekt2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(lblRole)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LoggaUt)))
-                .addContainerGap(495, Short.MAX_VALUE))
+                .addGap(115, 115, 115)
+                .addComponent(visaProjekt)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,8 +185,8 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_visaHallbarhetsmalActionPerformed
 
     private void visaProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaProjektActionPerformed
-        new projektruta().setVisible(true);
-        this.setVisible(false);   
+//        new projektruta().setVisible(true);
+//        this.setVisible(false);   
     }//GEN-LAST:event_visaProjektActionPerformed
 //        this.dispose(); // eller this.setVisible(false);
 //         projektruta projektForm = new projektruta();
@@ -183,6 +198,11 @@ public class Meny extends javax.swing.JFrame {
         inloggning inloggningForm = new inloggning();
         inloggningForm.setVisible(true);
     }//GEN-LAST:event_LoggaUtActionPerformed
+
+    private void Projekt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Projekt2ActionPerformed
+        new projektruta().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Projekt2ActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -221,6 +241,7 @@ public class Meny extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoggaUt;
+    private javax.swing.JButton Projekt2;
     private javax.swing.JButton btnAnställda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
