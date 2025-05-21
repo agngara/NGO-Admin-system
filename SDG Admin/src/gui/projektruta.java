@@ -5,13 +5,14 @@ package gui;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 import oru.inf.InfDB;
-import oru.inf.infException;
+import oru.inf.InfException;
 import db.DatabaseInterface;
 import javax.swing.JOptionPane;
 import logicComponents.User.CurrentUser;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import logicComponents.User.UserType;
 
 /**
  *
@@ -22,9 +23,10 @@ public class projektruta extends javax.swing.JFrame {
     
     public projektruta(){
 initComponents();
-idb = DatabaseInterface.databaseconnection();
+idb = DatabaseInterface.databaseConnection();
 fyllTabell();
-String usertype = CurrentUser.getUsr().getUserType();
+UserType userType = CurrentUser.getUsr().getUserType();
+String userTypeString = userType.toString();
 setLocationRelativeTo(null);
 }
 
@@ -36,7 +38,7 @@ private void fyllTabell(){
 try {
 String query = "SELECT projektnamn, Beskrivning, Startdatum, Slutdatum, Budget, Prioritet, Status FROM Projekt";
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-String [] columnNames = {"projektnamn", "beskrivning", "Startdatum", "Slutdatum", "Budget", "Prioritet", "Status"};
+String [] columnNames = {"projektnamn", "Beskrivning", "Startdatum", "Slutdatum", "Budget", "Prioritet", "Status"};
 DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 for (HashMap<String, String> projekt : projektlista){
 String namn = projekt.get("projektnamn");
