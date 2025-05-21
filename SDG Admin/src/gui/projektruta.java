@@ -22,14 +22,14 @@ public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     
     public projektruta(){
-initComponents();
-idb = DatabaseInterface.databaseConnection();
+initComponents(); setExtendedState(MAXIMIZED_BOTH);
 fyllTabell();
 UserType userType = CurrentUser.getUsr().getUserType();
 String userTypeString = userType.toString();
 setLocationRelativeTo(null);
 }
 
+    
     /**
      * Creates new form projektruta
      */
