@@ -28,7 +28,6 @@ setExtendedState(MAXIMIZED_BOTH);
 setLocationRelativeTo(null);
 try {
     idb = DatabaseInterface.databaseConnection();
-    JOptionPane.showMessageDialog(this, "Anslutning till databasen lyckades!");
 fyllTabell();
 } catch (Exception e){
     JOptionPane.showMessageDialog(this, "kunde inte ansluta till databasen:" + e.getMessage());
