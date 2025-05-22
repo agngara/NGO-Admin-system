@@ -5,6 +5,7 @@
 package SQLHanterare;
 
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import orgEntities.Anstalld;
 import oru.inf.InfDB;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.UUID;
 import logicComponents.User.UserType;
 import oru.inf.InfException;
 import java.util.UUID;
-
+import java.util.HashMap;
 
 /**
  * This class handles database communication with the anstalld table.
@@ -135,6 +136,39 @@ public class AnstalldHanterare {
    
    
     }
+   
+   
+   
+  /**
+ * Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
+ * handläggare på avdelningen, genom namn eller epost. 
+ *
+     * @param avdid 
+     * @param sok
+     
+ */ 
+ 
+   public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
+   {
+       try{
+           String sokning = "SELECT * FROM anstalld " +
+                   "WHERE avdid = '" + avdid + "' " +
+                   "AND (fornamn LIKE '%" + sok + "%' " +
+                   "OR efternamn LIKE '%" + sok + "%' " +
+                   "OR epost LIKE '%" + sok + "%')";
+           return idb.fetchRows(sokning);
+  
+       }
+       
+      catch (Exception e) {
+          e.printStackTrace();
+          return new ArrayList<>();
+       
+      }
+     
+   }
+   
+   
    
    
    /**
@@ -278,17 +312,15 @@ try {
     return true;
 }
 
-catch (Exception e)
-{
-e.printStackTrace();
-return false;
-}
+catch (Exception e) {
+    
+    e.printStackTrace();
+    
+    return false;
+    
+    }
 
 }
-   
-   
-   
-   
 
 }
        
