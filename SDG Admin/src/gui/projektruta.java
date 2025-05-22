@@ -79,6 +79,25 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
 }
 
 
+private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {
+String searchText = jTextField1.getText().toLowerCase();
+DefaultTableModel model = (DefaultTableModel) tblProjekt.getModel();
+DefaultTableModel filteredModel = new DefaultTableModel(
+new String [] {"pid", "projektnamn", "beskrivning", "startdatum", "sludatum", "kostnad", "prioritet", "status"}, 0
+);
+for (int i = 0; 1 < model.getRowCount(); i++) {
+String projectName = model.getValueAt(i, 1).toString().toLowerCase();
+if (projectName.contains(searchText)){
+filteredModel.addRow(new Object[]{
+model.getValueAt(i, 0), model.getValueAt(i, 1), model.getValueAt(i, 2),
+model.getValueAt(i, 3), model.getValueAt(i, 4), model.getValueAt(i, 5),
+model.getValueAt(i, 6), model.getValueAt(i, 7)
+});
+}
+}
+tblProjekt.setModel(filteredModel); 
+}
+
 
     
     /**
@@ -95,6 +114,9 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
         proTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,12 +150,24 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
         ));
         jScrollPane1.setViewportView(tblProjekt);
 
+        jLabel2.setText("Sök projekt");
+
+        jButton1.setText("Sök");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+>>>>>>> Stashed changes
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+>>>>>>> Stashed changes
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(proTillbakaTillMeny)
@@ -143,22 +177,60 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 886, Short.MAX_VALUE)
                                 .addComponent(jButton3)))
                         .addGap(270, 270, 270))))
+=======
+=======
+>>>>>>> Stashed changes
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 904, Short.MAX_VALUE)
+                                .addComponent(jButton3)))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(102, 102, 102))
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     .addComponent(jButton3))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(proTillbakaTillMeny)
                 .addContainerGap(101, Short.MAX_VALUE))
+=======
+=======
+>>>>>>> Stashed changes
+                    .addComponent(jButton3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(645, 645, 645)
+                        .addComponent(proTillbakaTillMeny))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
 
         pack();
@@ -205,11 +277,15 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton proTillbakaTillMeny;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
 }
+
 
