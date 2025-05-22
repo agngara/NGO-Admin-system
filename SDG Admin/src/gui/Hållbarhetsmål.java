@@ -132,7 +132,7 @@ public Hållbarhetsmål(){
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(tillbakaTillMeny)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +143,7 @@ public Hållbarhetsmål(){
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(tillbakaTillMeny)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
