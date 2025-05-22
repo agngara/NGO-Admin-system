@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui.projektfiler;
+import orgEntities.Projekt;
 
 /**
  *
@@ -15,6 +16,28 @@ public class EditProjectFields extends javax.swing.JFrame {
      */
     public EditProjectFields() {
         initComponents();
+    }
+    
+    public void setTextBoxes(Projekt projekt) {
+        
+        txtProjID1.setText(projekt.getPid());
+        txtBeskrivning.setText(projekt.getBeskrivning());
+        txtKostnad.setText(projekt.getKostnad());
+        txtLand.setText(projekt.getLand());      
+        txtPrioritet.setText(projekt.getPrioritet());
+        txtProjektChef.setText(projekt.getProjectChef());
+        txtProjektNamn.setText(projekt.getProjektnamn());
+        txtSlutDatum.setText(projekt.getSlutdatum());
+        txtStartDatum.setText(projekt.getStartdatum());
+        txtStatus.setText(projekt.getStatus());
+        
+
+        
+
+
+
+txt.setText(projekt.get());      
+        
     }
 
     /**
