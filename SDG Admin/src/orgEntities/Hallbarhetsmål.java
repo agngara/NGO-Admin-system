@@ -33,7 +33,7 @@ public class Hallbarhetsmål {
     }
     
     
-    public String gethid()
+    public String getHid()
     {
         return hid;
     }

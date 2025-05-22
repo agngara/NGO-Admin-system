@@ -26,9 +26,9 @@ public class projektruta extends javax.swing.JFrame {
 private Anstalld currentAnstalld;    
     
  public projektruta(){
-initComponents(); 
-setExtendedState(MAXIMIZED_BOTH);
-setLocationRelativeTo(null);
+    initComponents(); 
+    setExtendedState(MAXIMIZED_BOTH);
+    setLocationRelativeTo(null);
 try {
     idb = DatabaseInterface.databaseConnection();
 fyllTabell();
@@ -98,6 +98,7 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
         scrollPane1 = new java.awt.ScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
+        proTillbakaTillMeny = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +136,13 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
 
         scrollPane1.add(jScrollPane1);
 
+        proTillbakaTillMeny.setText("Tillbaka till meny");
+        proTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proTillbakaTillMenyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,7 +154,8 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
                             .addComponent(jButton2)
-                            .addComponent(jButton1)))
+                            .addComponent(jButton1)
+                            .addComponent(proTillbakaTillMeny)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +176,9 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(proTillbakaTillMeny)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,6 +187,11 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void proTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proTillbakaTillMenyActionPerformed
+        this.setVisible(false);
+        new Meny().setVisible(true);
+    }//GEN-LAST:event_proTillbakaTillMenyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +234,7 @@ JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.get
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton proTillbakaTillMeny;
     private java.awt.ScrollPane scrollPane1;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
