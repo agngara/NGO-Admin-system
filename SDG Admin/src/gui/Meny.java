@@ -76,7 +76,9 @@ public class Meny extends javax.swing.JFrame {
         visaProjekt = new javax.swing.JButton();
         LoggaUt = new javax.swing.JButton();
         lblRole = new javax.swing.JLabel();
-        btnAnställda = new javax.swing.JButton();
+        visaAnställda = new javax.swing.JButton();
+        visaAvdelning = new javax.swing.JButton();
+        visaPartners = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,7 +111,26 @@ public class Meny extends javax.swing.JFrame {
 
         lblRole.setText("Roll");
 
-        btnAnställda.setText("Anställda");
+        visaAnställda.setText("Anställda");
+        visaAnställda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visaAnställdaActionPerformed(evt);
+            }
+        });
+
+        visaAvdelning.setText("Avdelning");
+        visaAvdelning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visaAvdelningActionPerformed(evt);
+            }
+        });
+
+        visaPartners.setText("Partners");
+        visaPartners.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visaPartnersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,8 +157,12 @@ public class Meny extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(visaProjekt)
                 .addGap(45, 45, 45)
-                .addComponent(btnAnställda)
-                .addContainerGap(645, Short.MAX_VALUE))
+                .addComponent(visaAnställda)
+                .addGap(50, 50, 50)
+                .addComponent(visaAvdelning)
+                .addGap(62, 62, 62)
+                .addComponent(visaPartners)
+                .addContainerGap(377, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +176,10 @@ public class Meny extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(visaHallbarhetsmal)
-                            .addComponent(btnAnställda)
-                            .addComponent(visaProjekt)))
+                            .addComponent(visaAnställda)
+                            .addComponent(visaProjekt)
+                            .addComponent(visaAvdelning)
+                            .addComponent(visaPartners)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(lblRole)
@@ -173,16 +200,27 @@ public class Meny extends javax.swing.JFrame {
         new projektruta().setVisible(true);
         this.setVisible(false);   
     }//GEN-LAST:event_visaProjektActionPerformed
-//        this.dispose(); // eller this.setVisible(false);
-//         projektruta projektForm = new projektruta();
-//         projektForm.setVisible(true);
-
-    
+  
     private void LoggaUtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoggaUtActionPerformed
         this.dispose();
         inloggning inloggningForm = new inloggning();
         inloggningForm.setVisible(true);
     }//GEN-LAST:event_LoggaUtActionPerformed
+
+    private void visaAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaAvdelningActionPerformed
+        new Avdelning().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_visaAvdelningActionPerformed
+
+    private void visaAnställdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaAnställdaActionPerformed
+        new Anställda().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_visaAnställdaActionPerformed
+
+    private void visaPartnersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaPartnersActionPerformed
+        new Partners().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_visaPartnersActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -221,11 +259,13 @@ public class Meny extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoggaUt;
-    private javax.swing.JButton btnAnställda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
     private javax.swing.JLabel lblRole;
+    private javax.swing.JButton visaAnställda;
+    private javax.swing.JButton visaAvdelning;
     private javax.swing.JButton visaHallbarhetsmal;
+    private javax.swing.JButton visaPartners;
     private javax.swing.JButton visaProjekt;
     // End of variables declaration//GEN-END:variables
 }

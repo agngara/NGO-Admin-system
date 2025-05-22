@@ -49,8 +49,12 @@
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="visaProjekt" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="btnAnställda" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="645" max="32767" attributes="0"/>
+              <Component id="visaAnställda" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="visaAvdelning" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+              <Component id="visaPartners" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="377" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,8 +70,10 @@
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="visaHallbarhetsmal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAnställda" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="visaAnställda" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="visaProjekt" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="visaAvdelning" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="visaPartners" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -124,10 +130,29 @@
         <Property name="text" type="java.lang.String" value="Roll"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAnst&#xe4;llda">
+    <Component class="javax.swing.JButton" name="visaAnst&#xe4;llda">
       <Properties>
         <Property name="text" type="java.lang.String" value="Anst&#xe4;llda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visaAnst&#xe4;lldaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="visaAvdelning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Avdelning"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visaAvdelningActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="visaPartners">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Partners"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visaPartnersActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
