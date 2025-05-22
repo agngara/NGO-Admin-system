@@ -3,18 +3,67 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import db.DatabaseInterface;
+import gui.Anställda;
+import gui.Partners;
+import gui.Meny;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicComponents.User.CurrentUser;
+import logicComponents.User.User;
 /**
  *
  * @author stina
  */
 public class Partners extends javax.swing.JFrame {
-
+    private InfDB idb;
     /**
      * Creates new form Partners
      */
     public Partners() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        try {
+        idb = DatabaseInterface.databaseConnection();
+        fyllTabell();
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
+    }
+    }
+    
+    private void fyllTabell(){
+        try {
+            String query = "SELECT pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad FROM partner";
+            ArrayList<HashMap< String, String >> partnerLista = idb.fetchRows(query);
+
+            String [] columnNames = {"pid", "namn", "kontaktperson", "kontaktepost", "telefon", "adress", "branch", "stad"};
+            DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+            
+            if (partnerLista == null || partnerLista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inga partners hittades i databasen!");
+            } else {
+                for (HashMap<String, String> partner : partnerLista){
+                String pid = partner.get("pid");
+                String namn = partner.get("namn");
+                String kontaktperson = partner.get ("kontaktperson");
+                String kontaktepost = partner.get("kontaktepost");
+                String telefon = partner.get("telefon");
+                String adress = partner.get("adress");
+                String branch = partner.get("branch");
+                String stad = partner.get("stad");
+                
+            model.addRow(new Object[] {pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad});
+        }
+    }
+        tblPartners.setModel(model);
+    }   catch (InfException e) {
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning av partnerdata: " + e.getMessage());
+        }  
     }
 
     /**
@@ -29,7 +78,7 @@ public class Partners extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         parTillbakaTillMeny = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblpartners = new javax.swing.JTable();
+        tblPartners = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,7 +91,7 @@ public class Partners extends javax.swing.JFrame {
             }
         });
 
-        tblpartners.setModel(new javax.swing.table.DefaultTableModel(
+        tblPartners.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +102,7 @@ public class Partners extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblpartners);
+        jScrollPane1.setViewportView(tblPartners);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,19 +162,35 @@ public class Partners extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Partners.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+    try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Partners.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Partners.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Partners.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Partners.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Partners().setVisible(true);
+                new Anställda().setVisible(true);
             }
         });
     }
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton parTillbakaTillMeny;
-    private javax.swing.JTable tblpartners;
+    private javax.swing.JTable tblPartners;
     // End of variables declaration//GEN-END:variables
 }
