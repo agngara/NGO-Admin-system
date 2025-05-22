@@ -159,8 +159,12 @@ tblProjekt.setModel(filteredModel);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+>>>>>>> Stashed changes
 =======
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 >>>>>>> Stashed changes
@@ -174,10 +178,13 @@ tblProjekt.setModel(filteredModel);
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 886, Short.MAX_VALUE)
                                 .addComponent(jButton3)))
                         .addGap(270, 270, 270))))
 =======
+=======
+>>>>>>> Stashed changes
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 904, Short.MAX_VALUE)
                                 .addComponent(jButton3)))))
                 .addGap(18, 18, 18)
@@ -188,6 +195,9 @@ tblProjekt.setModel(filteredModel);
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(102, 102, 102))
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         );
         layout.setVerticalGroup(
@@ -199,6 +209,7 @@ tblProjekt.setModel(filteredModel);
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     .addComponent(jButton3))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,6 +217,8 @@ tblProjekt.setModel(filteredModel);
                 .addComponent(proTillbakaTillMeny)
                 .addContainerGap(101, Short.MAX_VALUE))
 =======
+=======
+>>>>>>> Stashed changes
                     .addComponent(jButton3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
