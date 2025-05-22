@@ -39,7 +39,7 @@ public class Projekt {
         kostnad = projekt.get("kostnad");
         status = projekt.get("status");
         prioritet = projekt.get("prioritet");
-        projektchef = projekt.get(projektchef);
+        projektchef = projekt.get("projektchef");
         
     }
     
