@@ -85,7 +85,7 @@ public class AnstalldHanterare {
        catch (InfException ex) {
            
        }
-       if (adminFetch.equals("null")) {
+       if (adminFetch == null) {
            
            // If not admin, the code tries projectchef
            String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";

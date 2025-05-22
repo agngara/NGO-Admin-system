@@ -49,15 +49,14 @@ try {
     currentAnstalld = CurrentUser.getUsr().getAnstalld();
     String aid = currentAnstalld.getAid();
     UserType userType = currentAnstalld.getRole(aid);
-    if (userType == UserType.admin1 || userType == UserType.admin2)
-    {
-        String userTypeString = userType.toString();
-        if (userTypeString.equals("Admin1")) {
-            query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
-
-    }
-    }
-query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+     
+    if (userType == UserType.handlaggare){
+         query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status" +
+                    "FROM projekt WHERE handlaggare_id = '" + aid + "'";
+    } else if (userType == UserType.admin1 || userType == UserType.admin2){
+    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+        } 
+    
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
 System.out.println("Antal projekt hämtade:" + projektlista.size());
 String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status"};
