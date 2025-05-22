@@ -129,6 +129,9 @@ public class AnstalldHanterare {
     }
    
    
+   // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
+   
+   
    
   /**
  * Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
@@ -138,6 +141,9 @@ public class AnstalldHanterare {
      * @param sok
      
  */ 
+   
+   
+   
  
    public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
    {
