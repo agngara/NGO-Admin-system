@@ -85,6 +85,11 @@ public class Avdelning extends javax.swing.JFrame {
         jLabel1.setText("Avdelning:");
 
         avdTillbakaTillMeny.setText("Tillbaka till meny");
+        avdTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avdTillbakaTillMenyActionPerformed(evt);
+            }
+        });
 
         tblAvdelning.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +130,11 @@ public class Avdelning extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void avdTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avdTillbakaTillMenyActionPerformed
+        this.setVisible(false);
+        new Meny().setVisible(true);
+    }//GEN-LAST:event_avdTillbakaTillMenyActionPerformed
 
     /**
      * @param args the command line arguments

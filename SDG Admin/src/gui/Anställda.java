@@ -3,20 +3,70 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import db.DatabaseInterface;
+import gui.Anställda;
+import gui.Meny;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logicComponents.User.CurrentUser;
+import logicComponents.User.User;
 /**
  *
+ * 
  * @author stina
  */
 public class Anställda extends javax.swing.JFrame {
-
+    private InfDB idb;
     /**
      * Creates new form Anställda
      */
     public Anställda() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        try {
+        idb = DatabaseInterface.databaseConnection();
+        fyllTabell();
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
+    }
     }
 
+    private void fyllTabell(){
+        try {
+            String query = "SELECT aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning FROM anstalld";
+            ArrayList<HashMap< String, String >> anstalldLista = idb.fetchRows(query);
+
+            String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning"};
+            DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+            
+            if (anstalldLista == null || anstalldLista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inga anställda hittades i databasen!");
+            } else {
+                for (HashMap<String, String> anstalld : anstalldLista){
+                String aid = anstalld.get("aid");
+                String fornamn = anstalld.get("fornamn");
+                String efternamn = anstalld.get ("efternamn");
+                String adress = anstalld.get ("adress");
+                String epost = anstalld.get("epost");
+                String telefon = anstalld.get("telefon");
+                String anstallningsdatum = anstalld.get("anstallningsdatum");
+                String losenord = anstalld.get("losenord");
+                String avdelning = anstalld.get("avdelning");
+                
+            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning});
+        }
+    }
+        tblAnställda.setModel(model);
+    }   catch (InfException e) {
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
+        }  
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,15 +79,20 @@ public class Anställda extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         ansTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAnställda = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Anställda:");
 
         ansTillbakaTillMeny.setText("Tillbaka till meny");
+        ansTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ansTillbakaTillMenyActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAnställda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +103,7 @@ public class Anställda extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAnställda);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +132,11 @@ public class Anställda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ansTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ansTillbakaTillMenyActionPerformed
+        this.setVisible(false);
+        new Meny().setVisible(true);
+    }//GEN-LAST:event_ansTillbakaTillMenyActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -103,7 +163,22 @@ public class Anställda extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Anställda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Anställda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Anställda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Anställda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Anställda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -111,11 +186,12 @@ public class Anställda extends javax.swing.JFrame {
             }
         });
     }
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ansTillbakaTillMeny;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAnställda;
     // End of variables declaration//GEN-END:variables
 }
