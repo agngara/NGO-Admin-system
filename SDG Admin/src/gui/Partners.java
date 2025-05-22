@@ -29,7 +29,7 @@ public class Partners extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         parTillbakaTillMeny = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblpartners = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,7 +42,7 @@ public class Partners extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblpartners.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +53,7 @@ public class Partners extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblpartners);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,7 +83,8 @@ public class Partners extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void parTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parTillbakaTillMenyActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new Meny().setVisible(true);
     }//GEN-LAST:event_parTillbakaTillMenyActionPerformed
 
     /**
@@ -124,7 +125,7 @@ public class Partners extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton parTillbakaTillMeny;
+    private javax.swing.JTable tblpartners;
     // End of variables declaration//GEN-END:variables
 }
