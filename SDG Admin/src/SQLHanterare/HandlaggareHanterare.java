@@ -41,5 +41,9 @@ public class HandlaggareHanterare {
    }
    
     
+<<<<<<< Updated upstream
+=======
+  
+>>>>>>> Stashed changes
     
 }
