@@ -41,6 +41,5 @@ public class HandlaggareHanterare {
    }
    
     
-    public boolean taBortHandlaggare()
     
 }

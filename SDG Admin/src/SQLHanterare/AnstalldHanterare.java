@@ -127,6 +127,14 @@ public class AnstalldHanterare {
    
     }
    
+   
+   /**
+ * Denna kod är avsedd för att lägga till en ny anställd
+ * Den skapar ävet ett slumpmässigt lösenord genom UUID
+ * och ett slumpmässigt aid
+ */
+   
+   
    public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     {
         
