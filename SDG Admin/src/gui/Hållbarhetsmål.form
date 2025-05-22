@@ -88,11 +88,12 @@
         <Component class="javax.swing.JTable" name="tblHallbarhetsmal">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Hid" type="java.lang.Object"/>
-                <Column editable="true" title="M&#xe5;lnumer" type="java.lang.Object"/>
-                <Column editable="true" title="Beskrivning" type="java.lang.Object"/>
-                <Column editable="true" title="Prioritet" type="java.lang.Object"/>
+              <Table columnCount="5" rowCount="4">
+                <Column editable="false" title="Hid" type="java.lang.Object"/>
+                <Column editable="false" title="Namn" type="java.lang.Object"/>
+                <Column editable="false" title="M&#xe5;lnumer" type="java.lang.Object"/>
+                <Column editable="false" title="Beskrivning" type="java.lang.Object"/>
+                <Column editable="false" title="Prioritet" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>

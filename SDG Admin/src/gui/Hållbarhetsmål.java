@@ -99,15 +99,23 @@ public Hållbarhetsmål(){
 
         tblHallbarhetsmal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hid", "Målnumer", "Beskrivning", "Prioritet"
+                "Hid", "Namn", "Målnumer", "Beskrivning", "Prioritet"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblHallbarhetsmal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

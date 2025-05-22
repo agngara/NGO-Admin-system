@@ -200,6 +200,22 @@ try {
 
 }
     
-    
+ // metoden nedan är avsedd för att ta bort handläggare från ett projekt
+  
+  public boolean taBortHandlaggare (String pid, String aid)
+  {
+      try {
+          String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'";
+          idb.delete(taBort);
+          return true;
+      }
+      
+      catch (Exception e)
+      {
+          e.printStackTrace();
+          return false;
+      }
+  }
+          
     
 }

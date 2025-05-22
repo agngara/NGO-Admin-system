@@ -75,8 +75,10 @@ public class projektInfo extends javax.swing.JFrame {
         projektInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lbllProjName = new javax.swing.JLabel();
+        lblInsikter = new javax.swing.JLabel();
         lblEditProject = new javax.swing.JLabel();
+        lbllProjName1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -109,10 +111,15 @@ public class projektInfo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lbllProjName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbllProjName.setText("Projektnamn");
+        lblInsikter.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblInsikter.setText("Insikter");
 
         lblEditProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pennaikon.png"))); // NOI18N
+
+        lbllProjName1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbllProjName1.setText("Projektnamn");
+
+        jButton1.setText("Se partners");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,26 +128,32 @@ public class projektInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(lbllProjName1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblEditProject))
-                    .addComponent(lbllProjName))
+                    .addComponent(lblInsikter))
                 .addContainerGap(1141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(lbllProjName)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
+                        .addComponent(lbllProjName1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(82, 82, 82)
                         .addComponent(lblEditProject)))
-                .addContainerGap(898, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(lblInsikter)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(774, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,10 +195,12 @@ public class projektInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblEditProject;
-    private javax.swing.JLabel lbllProjName;
+    private javax.swing.JLabel lblInsikter;
+    private javax.swing.JLabel lbllProjName1;
     private javax.swing.JPanel projektInfo;
     // End of variables declaration//GEN-END:variables
 }

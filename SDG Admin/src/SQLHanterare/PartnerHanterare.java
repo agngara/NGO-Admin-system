@@ -133,5 +133,20 @@ public class PartnerHanterare {
             return false; 
         }
     }   
+   
+   // metoden nedan är avsedd för att kunna lägga till en ny partner
+   
+   public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
+   {
+       try{
+           String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktperson + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
+           idb.insert(nyPartner);
+           return true;
+       }
+       catch (Exception e ){
+           e.printStackTrace();
+           return false;
+       }
+   }
     
 }
