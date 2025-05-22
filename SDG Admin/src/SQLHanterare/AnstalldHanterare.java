@@ -94,18 +94,27 @@ public class AnstalldHanterare {
            } 
            catch (InfException exception) {
                
+               if (projchefFetch == null)
+               {
+                   userType = UserType.handlaggare;
+               }
+               else {
+                   
+                   userType = UserType.projektchef;
+               }
+               
            }
-           if (projchefFetch.equals(aid)) {
+          /* if (projchefFetch.equals(aid)) {
    
                userType = UserType.projektchef;
                } 
            
            // If not admin nor projektchef, the userType must be handläggare.
-            else {
+            /*else {
                
                userType = UserType.handlaggare;
                
-           }
+           }*/
            
        }
    
