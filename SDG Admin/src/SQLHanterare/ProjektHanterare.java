@@ -41,8 +41,16 @@ public class ProjektHanterare {
        return projekt;
    }
    
- 
+ /**
+ * Denna kod är avsedd för att få ut statistik över kostnader för alla projekt,
+ * som handelaren är eller har varit projektansvarig för.
+ * 
+ */
       
+      
+      
+      
+     
      
  // koden nedan är avsedd för att kunna lägga till ett projekt. 
     
@@ -183,6 +191,15 @@ public class ProjektHanterare {
   }  
   
   
+
+
+
+
+
+
+
+
+// Denna kod är avsedd för att ta bort ett projekt
   
   public boolean taBortProjekt(Projekt p)
 {
