@@ -4,16 +4,17 @@ package gui;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import oru.inf.InfDB;
-import oru.inf.InfException;
+import orgEntities.Anstalld;
 import db.DatabaseInterface;
-import javax.swing.JOptionPane;
-import logicComponents.User.CurrentUser;
+import gui.Meny;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
-import gui.Meny;
 
 /**
  *
@@ -22,6 +23,7 @@ import gui.Meny;
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     
+private Anstalld currentAnstalld;    
     
  public projektruta(){
 initComponents(); 
@@ -31,20 +33,31 @@ try {
     idb = DatabaseInterface.databaseConnection();
 fyllTabell();
 } catch (Exception e){
-    JOptionPane.showMessageDialog(this, "kunde inte ansluta till databasen:" + e.getMessage());
+   
 }
 if (CurrentUser.getUsr() !=null) {
 UserType userType = CurrentUser.getUsr().getUserType();
 String userTypeString = userType.toString();
 } else {
-JOptionPane.showMessageDialog(this, "Ingen användare är inloggad.");
 
 }
  }
     
 private void fyllTabell(){
 try {
-String query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM Projekt";
+    String query = "";
+    currentAnstalld = CurrentUser.getUsr().getAnstalld();
+    String aid = currentAnstalld.getAid();
+    UserType userType = currentAnstalld.getRole(aid);
+    if (userType == UserType.admin1 || userType == UserType.admin2)
+    {
+        String userTypeString = userType.toString();
+        if (userTypeString.equals("Admin1")) {
+            query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+
+    }
+    }
+query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
 ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
 System.out.println("Antal projekt hämtade:" + projektlista.size());
 String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status"};
