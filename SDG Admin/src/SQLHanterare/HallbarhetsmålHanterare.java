@@ -155,6 +155,7 @@ try {
     String taBort = "DELETE FROM hallbarhetsmal WHERE hid = '" + h.getHid() + "'";
     idb.delete(taBort);
     return true;
+    
 }
 
     catch (Exception e) {
