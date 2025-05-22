@@ -145,7 +145,7 @@ public class PartnerHanterare {
    
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if (pid == null || namn == null || kontaktperson == null || kontaktperson == null || kontaktepost == null ||
+       if (pid == null || namn == null || kontaktperson == null || kontaktepost == null || 
            telefon == null || adress == null || branch = null || 
            pid.isEmpty() || namn.isEmpty() || telefon.isEmpty() || adress.isEmpty() ||
                branch.isEmpty()) {
