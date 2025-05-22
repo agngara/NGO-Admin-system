@@ -9,6 +9,7 @@ import com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme;
 
 
 
+
 /**
  *
  * @author agnesgaramvolgyi
@@ -23,6 +24,9 @@ public class SDGAdmin {
         
             FlatSpacegrayIJTheme.setup();
             new inloggning().setVisible(true);
+            
+
+            
         
     
     }

@@ -139,7 +139,7 @@ public class PartnerHanterare {
    
    
    
-
+/*
    
    // en bättre versom av lägg till partner 
    
@@ -163,5 +163,6 @@ public class PartnerHanterare {
            return false;
    }
 }
+*/
    
 }

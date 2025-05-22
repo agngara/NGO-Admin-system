@@ -31,7 +31,7 @@ public class Projekt {
     public Projekt (ProjektHanterare projektHanterare)
     {
         HashMap<String, String> projekt = projektHanterare.getProjekt();
-        
+       
         pid = projekt.get("pid");
         projektnamn = projekt.get("projektnamn");
         beskrivning = projekt.get("beskrivning");
@@ -41,8 +41,8 @@ public class Projekt {
         status = projekt.get("status");
         prioritet = projekt.get("prioritet");
         projektchef = projekt.get("projektchef");
-        land = projekt.get(land);
-        
+        land = projekt.get("land");
+    
     }
     
     

@@ -22,7 +22,7 @@ public class ProjektHanterare {
    public ProjektHanterare(String pid) {
        
        this.pid = pid;
-       query = "SELECT * FROM anstalld WHERE pid = " + "'" + pid + "'";
+       query = "SELECT * FROM projekt WHERE pid = " + "'" + pid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {

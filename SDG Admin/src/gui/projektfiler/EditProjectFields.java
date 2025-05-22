@@ -25,7 +25,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         txtKostnad.setText(projekt.getKostnad());
         txtLand.setText(projekt.getLand());      
         txtPrioritet.setText(projekt.getPrioritet());
-        txtProjektChef.setText(projekt.getProjectChef());
+        txtProjektChef.setText(projekt.getProjektchef());
         txtProjektNamn.setText(projekt.getProjektnamn());
         txtSlutDatum.setText(projekt.getSlutdatum());
         txtStartDatum.setText(projekt.getStartdatum());
@@ -36,7 +36,6 @@ public class EditProjectFields extends javax.swing.JFrame {
 
 
 
-txt.setText(projekt.get());      
         
     }
 
