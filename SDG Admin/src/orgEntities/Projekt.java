@@ -23,6 +23,7 @@ public class Projekt {
     private String status;
     private String prioritet;
     private String projektchef;
+    private String land;
     
     
     
@@ -40,6 +41,7 @@ public class Projekt {
         status = projekt.get("status");
         prioritet = projekt.get("prioritet");
         projektchef = projekt.get("projektchef");
+        land = projekt.get(land);
         
     }
     
@@ -90,5 +92,8 @@ public class Projekt {
     }
 
     
-    
+    public String getLand()
+    {
+        return land;
+    }
 }

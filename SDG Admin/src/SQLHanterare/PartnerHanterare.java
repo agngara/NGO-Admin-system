@@ -136,17 +136,32 @@ public class PartnerHanterare {
    
    // metoden nedan är avsedd för att kunna lägga till en ny partner
    
+   
+   
+   
+
+   
+   // en bättre versom av lägg till partner 
+   
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       try{
-           String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktperson + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
-           idb.insert(nyPartner);
-           return true;
-       }
-       catch (Exception e ){
-           e.printStackTrace();
+       if (pid == null || namn == null || kontaktperson == null || kontaktperson == null || kontaktepost == null ||
+           telefon == null || adress == null || branch = null || 
+           pid.isEmpty() || namn.isEmpty() || telefon.isEmpty() || adress.isEmpty() ||
+               branch.isEmpty()) {
+           System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
+       
+       try {
+            String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
+           idb.insert(nyPartner);
+           return true;
+       } catch (Exception e ){
+          System.out.println("Något gick fel" + e.getMessage());
+           e.printStackTrace();
+           return false;
    }
-    
+}
+   
 }
