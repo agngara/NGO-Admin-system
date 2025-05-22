@@ -85,7 +85,7 @@ public class AnstalldHanterare {
        catch (InfException ex) {
            
        }
-       if (adminFetch.equals("null")) {
+       if (adminFetch == null) {
            
            // If not admin, the code tries projectchef
            String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
@@ -126,6 +126,14 @@ public class AnstalldHanterare {
    
    
     }
+   
+   
+   /**
+ * Denna kod är avsedd för att lägga till en ny anställd
+ * Den skapar ävet ett slumpmässigt lösenord genom UUID
+ * och ett slumpmässigt aid
+ */
+   
    
    public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     {

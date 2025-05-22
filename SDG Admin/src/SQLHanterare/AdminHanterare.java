@@ -6,7 +6,9 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import java.util.UUID;
 import orgEntities.Admin;
+import orgEntities.Anstalld;
 /**
  *
  * @author theow
@@ -40,6 +42,55 @@ public class AdminHanterare {
         return admin;
         
     }
+    
+    
+     public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+    {
+        
+        try
+        {
+             
+         String losenord = UUID.randomUUID().toString().substring(0, 9);
+         String aid = UUID.randomUUID().toString();
+         
+         String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
+         "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
+         idb.insert(laggTill);
+
+
+           System.out.println("Skapat lösenord: " + losenord); 
+            return true;
+        }
+        
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        
+        
+   
+    }
+    
+    
+  // Ta bort en anställd
+
+    public boolean taBortAnstalld (Anstalld a)
+{
+try {
+    String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
+    idb.delete(taBort);
+    return true;
+}
+
+catch (Exception e)
+{
+e.printStackTrace();
+return false;
+}
+
+}
+    
     
     
 }
