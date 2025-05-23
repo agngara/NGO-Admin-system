@@ -66,7 +66,11 @@ public class AnstalldHanterare {
        
    } 
    
-   
+   /**
+    * This method gets the role of an anstalld, which then can be assigned to the user.
+    * @param inAid the aid of the anstalld
+    * @return returns usertype enum depending on which role was infered.
+    */
    public UserType fetchRole(String inAid) {
       
        UserType userType = UserType.handlaggare;
@@ -92,6 +96,7 @@ public class AnstalldHanterare {
            String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
            try {
             projchefFetch = idb.fetchSingle(projchefQuery);
+            
            } 
            catch (InfException exception) {
                

@@ -6,6 +6,7 @@ package gui.projektfiler;
 
 import SQLHanterare.ProjektHanterare;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import orgEntities.Projekt;
 
@@ -112,6 +113,11 @@ public class OneProjectView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         lblEditProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pennaikon.png"))); // NOI18N
+        lblEditProject.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEditProjectMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout projektInfoLayout = new javax.swing.GroupLayout(projektInfo);
         projektInfo.setLayout(projektInfoLayout);
@@ -170,6 +176,14 @@ public class OneProjectView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblEditProjectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProjectMouseClicked
+        String inPid = projekt.getPid();
+        EditProjectFields editProjectFields = new EditProjectFields();
+        editProjectFields.setVisible(true);
+
+        
+    }//GEN-LAST:event_lblEditProjectMouseClicked
 
     /**
      * @param args the command line arguments
