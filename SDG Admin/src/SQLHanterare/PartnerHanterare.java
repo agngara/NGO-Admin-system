@@ -44,6 +44,13 @@ public class PartnerHanterare {
     
    public boolean andraNamn(String pid, String nyttNamn)
     {
+       if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
+          
+           System.out.println("pid eller namn får inte vara tommna.");
+           return false;
+       }
+        
+        
         try{
             String namn = "UPDATE partner SET namn = '" + nyttNamn + "WHERE pid = '" + "'";
             idb.update(namn);
@@ -62,6 +69,12 @@ public class PartnerHanterare {
     
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
+         if (pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
+          
+           System.out.println("pid eller kontaktperson får inte vara tommna.");
+           return false;
+       }
+        
         try{
             String kontaktperson = "UPDATE partner SET kontaktperson = '" + nyKontaktperson + "WHERE pid = '" + "'";
             idb.update(kontaktperson);
@@ -78,6 +91,11 @@ public class PartnerHanterare {
     
      public boolean andraKontaktEpost(String pid, String nyKontaktEpost)
     {
+         if (pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
+          
+           System.out.println("pid eller kontaktepost får inte vara tommna.");
+           return false;
+       }
         try{
             String kontaktEpost = "UPDATE partner SET kontaktepost = '" + nyKontaktEpost + "WHERE pid = '" + "'";
             idb.update(kontaktEpost);
@@ -94,6 +112,12 @@ public class PartnerHanterare {
      
     public boolean andraTelefon(String pid, String nyTelefon)
     {
+        
+        if (pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
+          
+           System.out.println("pid eller telefon får inte vara tommna.");
+           return false;
+        }
         try{
             String telefon = "UPDATE partner SET telefon = '" + nyTelefon + "WHERE pid = '" + "'";
             idb.update(telefon);
@@ -105,9 +129,16 @@ public class PartnerHanterare {
             return false; 
         }
     }  
+    
+    
      
    public boolean andraAdress(String pid, String nyAdress)
     {
+          if (pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
+          
+           System.out.println("pid eller adress får inte vara tommna.");
+           return false;
+        }
         try{
             String adress = "UPDATE partner SET adress = '" + nyAdress + "WHERE pid = '" + "'";
             idb.update(adress);
@@ -122,6 +153,12 @@ public class PartnerHanterare {
    
    public boolean andraBranch(String pid, String nyBranch)
     {
+       {
+          if (pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
+          
+           System.out.println("pid eller branch får inte vara tommna.");
+           return false;
+        }
         try{
             String branch = "UPDATE partner SET branch = '" + nyBranch + "WHERE pid = '" + "'";
             idb.update(branch);
@@ -134,7 +171,8 @@ public class PartnerHanterare {
         }
     }   
    
-   // metoden nedan är avsedd för att kunna lägga till en ny partner
+    }
+       // metoden nedan är avsedd för att kunna lägga till en ny partner
    
    
    
@@ -146,7 +184,7 @@ public class PartnerHanterare {
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
        if (pid == null || namn == null || kontaktperson == null || kontaktepost == null || 
-           telefon == null || adress == null || branch = null || 
+           telefon == null || adress == null || branch == null || 
            pid.isEmpty() || namn.isEmpty() || telefon.isEmpty() || adress.isEmpty() ||
                branch.isEmpty()) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
