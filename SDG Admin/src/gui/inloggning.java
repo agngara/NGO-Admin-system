@@ -22,6 +22,8 @@ import orgEntities.Projekt;
 public class inloggning extends javax.swing.JFrame {
     
     private InfDB idb;
+    private String ePost;
+    private String losen;
     
 
     /** Creates new form inloggning */
@@ -29,7 +31,11 @@ public class inloggning extends javax.swing.JFrame {
         
         idb = DatabaseInterface.databaseConnection();
         initComponents();
+        setLocationRelativeTo(null);
         felUppgifter.setVisible(false);
+        itemLoginAdmin.setText("Admin login");
+        itemLoginHandlaggare.setText("Handläggare login");
+        itemLoginProjChef.setText("Projektchef login");
     }
 
     /** This method is called from within the constructor to
@@ -41,6 +47,10 @@ public class inloggning extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        itemLoginAdmin = new javax.swing.JMenuItem();
+        itemLoginProjChef = new javax.swing.JMenuItem();
+        itemLoginHandlaggare = new javax.swing.JMenuItem();
         loginNamn = new javax.swing.JLabel();
         loginPW = new javax.swing.JLabel();
         epostField = new javax.swing.JTextField();
@@ -49,10 +59,34 @@ public class inloggning extends javax.swing.JFrame {
         felUppgifter = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnDevMenu = new javax.swing.JButton();
+
+        itemLoginAdmin.setText("jMenuItem1");
+        itemLoginAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLoginAdminActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(itemLoginAdmin);
+
+        itemLoginProjChef.setText("jMenuItem1");
+        itemLoginProjChef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLoginProjChefActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(itemLoginProjChef);
+
+        itemLoginHandlaggare.setText("jMenuItem1");
+        itemLoginHandlaggare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLoginHandlaggareActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(itemLoginHandlaggare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(600, 700));
         setResizable(false);
         setSize(new java.awt.Dimension(500, 800));
 
@@ -75,16 +109,24 @@ public class inloggning extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("LOGGA IN");
 
+        btnDevMenu.setText("DevMenu2000");
+        btnDevMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDevMenuMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addGap(133, 133, 133)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(155, 155, 155))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(felUppgifter)
@@ -98,14 +140,19 @@ public class inloggning extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(epostField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pwField, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(112, 112, 112))))
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnDevMenu)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(17, 17, 17)
+                .addComponent(btnDevMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -127,8 +174,8 @@ public class inloggning extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
       
-        String ePost = epostField.getText();
-        String losen = pwField.getText();
+        ePost = epostField.getText();
+        losen = pwField.getText();
         
            
         if (ePost.isEmpty() || losen.isEmpty()) {                
@@ -157,6 +204,7 @@ public class inloggning extends javax.swing.JFrame {
                     new Meny().setVisible(true);
                     this.setVisible(false);
                     
+                    
                     ProjektHanterare projektHanterare = new ProjektHanterare("1");
                     Projekt projekt = new Projekt(projektHanterare);
                     new OneProjectView(projekt).setVisible(true);
@@ -173,6 +221,30 @@ public class inloggning extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void btnDevMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDevMenuMouseEntered
+        jPopupMenu1.show(this,450, 80);
+    }//GEN-LAST:event_btnDevMenuMouseEntered
+
+    private void itemLoginAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLoginAdminActionPerformed
+        epostField.setText("maria.g@example.com");
+        pwField.setText("password123");
+        loginButtonActionPerformed(evt);
+    }//GEN-LAST:event_itemLoginAdminActionPerformed
+
+    private void itemLoginProjChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLoginProjChefActionPerformed
+        epostField.setText("sofia.a@example.com");
+        pwField.setText("passwordabc");
+        loginButtonActionPerformed(evt);
+
+    }//GEN-LAST:event_itemLoginProjChefActionPerformed
+
+    private void itemLoginHandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLoginHandlaggareActionPerformed
+        epostField.setText("mohammed.ab@example.com");
+        pwField.setText("passwordxyz");
+        loginButtonActionPerformed(evt);
+
+    }//GEN-LAST:event_itemLoginHandlaggareActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,10 +282,15 @@ public class inloggning extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDevMenu;
     private javax.swing.JTextField epostField;
     private javax.swing.JLabel felUppgifter;
+    private javax.swing.JMenuItem itemLoginAdmin;
+    private javax.swing.JMenuItem itemLoginHandlaggare;
+    private javax.swing.JMenuItem itemLoginProjChef;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginNamn;
     private javax.swing.JLabel loginPW;

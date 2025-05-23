@@ -71,7 +71,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         btnRedigera = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblProjektID.setText("Project-ID");
 
