@@ -11,6 +11,8 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import SQLHanterare.AnstalldHanterare;
 import SQLHanterare.*;
+import gui.projektfiler.OneProjectView;
+import orgEntities.Projekt;
 
 
 /**
@@ -154,6 +156,10 @@ public class inloggning extends javax.swing.JFrame {
                     
                     new Meny().setVisible(true);
                     this.setVisible(false);
+                    
+                    ProjektHanterare projektHanterare = new ProjektHanterare("1");
+                    Projekt projekt = new Projekt(projektHanterare);
+                    new OneProjectView(projekt).setVisible(true);
                     
                 }
                 else{

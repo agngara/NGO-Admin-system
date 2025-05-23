@@ -42,7 +42,7 @@ public class Anställda extends javax.swing.JFrame {
             ArrayList<HashMap< String, String >> anstalldLista = idb.fetchRows(query);
 
             String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning"};
-            DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
             
             if (anstalldLista == null || anstalldLista.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Inga anställda hittades i databasen!");

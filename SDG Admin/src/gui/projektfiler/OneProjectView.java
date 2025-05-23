@@ -14,53 +14,64 @@ import orgEntities.Projekt;
  *
  * @author theow
  */
-public class projektInfo extends javax.swing.JFrame {
+public class OneProjectView extends javax.swing.JFrame {
     
     private Projekt projekt;
-    private String[] kolumnnamn;
+    private String[] kolumnNamn;
+    private Object[] rad;
     
 
     /**
      * Creates new form projektInfo
+     * @param projekt is a project to be displayed on this page.
      */
-    public projektInfo(Projekt projekt) {
+    public OneProjectView(Projekt projekt) {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         String[] projInfo;
-        
         this.projekt = projekt;
-        String[] kolumnNamn = new String[] {"aid", 
-            "fornamn", 
-            "efternamn", 
-            "adress", 
-            "epost",
-            "telefon",
-            "anstallningsdatum",
-            "losenord",
-            "avdelning"
+        String[] kolumnNamn = new String[] {
+            "Pid", 
+            "Projektnamn", 
+            "Beskrivning", 
+            "Startdatum", 
+            "Slutdatum",
+            "Kostnad",
+            "Status",
+            "Prioritet",
+            "Projektchef",
+            "land"
          };
+        
+        this.kolumnNamn = kolumnNamn;
+        
+         this.fillTable();
+
          
     }
         
     
     public void fillTable() {
         
-    Object[] rad = {
+    rad = new Object[]{
+    projekt.getPid(),
     projekt.getProjektnamn(),
     projekt.getBeskrivning(),
     projekt.getStartdatum(),
     projekt.getSlutdatum(),
     projekt.getKostnad(),
     projekt.getStatus(),
-    projekt.getPrioritet()
+    projekt.getPrioritet(),
+    projekt.getProjektchef(),
+    projekt.getLand(),
+    
     };
         
-    DefaultTableModel nyModel = new DefaultTableModel(
-    new Object[][] {rad},
-    kolumnnamn);
-    
+    DefaultTableModel nyModel = new DefaultTableModel(kolumnNamn, 0);
+    nyModel.addRow(rad);
     jTable1.setModel(nyModel);     
+ 
  }
 
     /**
@@ -75,8 +86,8 @@ public class projektInfo extends javax.swing.JFrame {
         projektInfo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblInsikter = new javax.swing.JLabel();
         lblEditProject = new javax.swing.JLabel();
+        lblInsikter = new javax.swing.JLabel();
         lbllProjName1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -84,6 +95,11 @@ public class projektInfo extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(854, 480));
 
+        projektInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jTable1.setBackground(new java.awt.Color(102, 102, 102));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null}
@@ -95,28 +111,32 @@ public class projektInfo extends javax.swing.JFrame {
         jTable1.setDoubleBuffered(true);
         jScrollPane1.setViewportView(jTable1);
 
+        lblEditProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pennaikon.png"))); // NOI18N
+
         javax.swing.GroupLayout projektInfoLayout = new javax.swing.GroupLayout(projektInfo);
         projektInfo.setLayout(projektInfoLayout);
         projektInfoLayout.setHorizontalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projektInfoLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1041, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblEditProject)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         projektInfoLayout.setVerticalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projektInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addGroup(projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEditProject)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblInsikter.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblInsikter.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblInsikter.setText("Insikter");
 
-        lblEditProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pennaikon.png"))); // NOI18N
-
-        lbllProjName1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbllProjName1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lbllProjName1.setText("Projektnamn");
 
         jButton1.setText("Se partners");
@@ -130,30 +150,22 @@ public class projektInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(lbllProjName1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblEditProject))
+                    .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblInsikter))
-                .addContainerGap(1141, Short.MAX_VALUE))
+                .addContainerGap(1220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(lbllProjName1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(lblEditProject)))
-                .addGap(47, 47, 47)
+                .addGap(37, 37, 37)
+                .addComponent(lbllProjName1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(136, 136, 136)
                 .addComponent(lblInsikter)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(774, Short.MAX_VALUE))
+                .addContainerGap(751, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,22 +188,27 @@ public class projektInfo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(projektInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OneProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(projektInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OneProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(projektInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OneProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(projektInfo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OneProjectView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new projektInfo().setVisible(true);
+                //new OneProjectView().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

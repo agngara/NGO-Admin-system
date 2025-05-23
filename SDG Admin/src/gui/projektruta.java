@@ -76,7 +76,9 @@ tblProjekt.setModel(model);
 } catch (InfException e) {
 JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
 }
+
 }
+
 
 
 
