@@ -30,7 +30,7 @@ public class ProjektHanterare {
            
            projekt = idb.fetchRow(query);
            
-       } catch (Exception exception) {
+       } catch (InfException exception) {
            
        }
         
@@ -74,7 +74,7 @@ public class ProjektHanterare {
             return true;
         }
         
-        catch (Exception e)
+        catch (InfException e)
         {
             e.printStackTrace();
             return false;
@@ -102,13 +102,14 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
       
   }
   }  
+  
  public boolean andraBeskrivning(String pid, String nyBeskrivning)
   {
       
@@ -124,7 +125,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -148,7 +149,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -170,7 +171,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -178,6 +179,7 @@ public class ProjektHanterare {
   }     
  
   }
+ 
  
  public boolean andraKostnad(String pid, String nyKostnad){
         {
@@ -193,13 +195,14 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
       
   }  
   }
+ 
  
  public boolean andraStatus(String pid, String nyStatus)
   {
@@ -216,7 +219,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -284,6 +287,7 @@ try {
 }
 
 }
+  
     
  // metoden nedan är avsedd för att ta bort handläggare från ett projekt
   
@@ -295,7 +299,7 @@ try {
           return true;
       }
       
-      catch (Exception e)
+      catch (InfException e)
       {
           e.printStackTrace();
           return false;

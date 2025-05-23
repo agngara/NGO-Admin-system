@@ -91,7 +91,7 @@ public class AvdelningHanterare {
             idb.update(namn);
             return true;
           }  
-         catch (Exception e)
+         catch (InfException e)
                  {
                  e.printStackTrace();
                  return false;
@@ -115,7 +115,7 @@ public class AvdelningHanterare {
             idb.update(beskrivning);
             return true;
             
-            } catch (Exception e) {
+            } catch (InfException e) {
                     
               e.printStackTrace();
               return false;
@@ -141,7 +141,7 @@ public class AvdelningHanterare {
             idb.update(adress);
             return true;
             
-            } catch (Exception e)
+            } catch (InfException e)
                     {
                     e.printStackTrace();
                     return false;
@@ -177,6 +177,7 @@ public class AvdelningHanterare {
     
     
     }
+   }
     
     public boolean andraTelefon(String avdid, String nyttTelefonnummer) {
             

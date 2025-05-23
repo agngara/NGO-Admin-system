@@ -131,39 +131,33 @@ public class AnstalldHanterare {
    
    // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
    
-   
-   
-  /**
- * Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
- * handläggare på avdelningen, genom namn eller epost. 
- *
-     * @param avdid 
-     * @param sok
-     
- */ 
-   
-   
-   
- 
-   public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
-   {
-       try{
-           String sokning = "SELECT * FROM anstalld " +
-                   "WHERE avdid = '" + avdid + "' " +
-                   "AND (fornamn LIKE '%" + sok + "%' " +
-                   "OR efternamn LIKE '%" + sok + "%' " +
-                   "OR epost LIKE '%" + sok + "%')";
-           return idb.fetchRows(sokning);
-  
+   public int projektKostnad(Anstalld a) {
+      
+       int kostnad = 0;
+       
+       try {
+          
+            String aid = a.getAid();
+            String summa = "SELECT SUM(kostnader) FROM projekt WHERE projektchef = '" + aid + "'";
+            String totala = idb.fetchSingle(summa);
+            
+            
+            
+          if (totala != null) {
+              
+           kostnad = Integer.parseInt(totala);
+       }  
+          
+       } catch (InfException e) {
+           
+           e.printStackTrace();
+         
        }
        
-      catch (InfException e) {
-          e.printStackTrace();
-          return new ArrayList<>();
+       return kostnad;
        
-      }
-     
    }
+   
    
    
    
