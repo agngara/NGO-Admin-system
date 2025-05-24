@@ -56,16 +56,21 @@ public class EditProjectFields extends javax.swing.JFrame {
                 
                 namn = hashmap.get("namn");
                 ComboLand.addItem(namn);
-                
-                
-                
-                
-                
+
             }
             
-            
-        
+            // Fill prioritet
+            ComboPrio.removeAllItems();
+            ComboPrio.addItem("Låg");
+            ComboPrio.addItem("Medel");
+            ComboPrio.addItem("Hög");
 
+            
+            // Fill status
+            comboStatus.removeAllItems();
+            comboStatus.addItem("Planerat");
+            comboStatus.addItem("Pågående");
+            comboStatus.addItem("Avslutat");
 }
         
 
@@ -97,7 +102,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         btnRedigera = new javax.swing.JButton();
         comboStatus = new javax.swing.JComboBox<>();
         ComboLand = new javax.swing.JComboBox<>();
-        ComboStatus = new javax.swing.JComboBox<>();
+        ComboPrio = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,7 +171,7 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         ComboLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        ComboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboPrio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,7 +213,7 @@ public class EditProjectFields extends javax.swing.JFrame {
                                             .addComponent(lblNamn)
                                             .addComponent(lblStatus))
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(ComboStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboPrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(ComboLand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(31, 31, 31))))
         );
@@ -240,7 +245,7 @@ public class EditProjectFields extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSlutDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboPrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKostnad)
@@ -323,7 +328,7 @@ public class EditProjectFields extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboLand;
-    private javax.swing.JComboBox<String> ComboStatus;
+    private javax.swing.JComboBox<String> ComboPrio;
     private javax.swing.JButton btnRedigera;
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel lblBeskrivning;

@@ -65,7 +65,7 @@
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="ComboStatus" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="ComboPrio" alignment="0" max="32767" attributes="0"/>
                                   <Component id="ComboLand" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -109,7 +109,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtSlutDatum" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ComboStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ComboPrio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -260,7 +260,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="ComboStatus">
+    <Component class="javax.swing.JComboBox" name="ComboPrio">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
