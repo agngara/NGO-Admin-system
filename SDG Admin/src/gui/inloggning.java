@@ -203,10 +203,7 @@ public class inloggning extends javax.swing.JFrame {
                     
                     new Meny().setVisible(true);
                     this.setVisible(false);
-                                       
-                    
-                    new OneProjectView("1").setVisible(true);
-                    
+                                                           
                 }
                 else{
                     felUppgifter.setVisible(true);
