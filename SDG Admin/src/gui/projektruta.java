@@ -7,6 +7,7 @@ package gui;
 import orgEntities.Anstalld;
 import db.DatabaseInterface;
 import gui.Meny;
+import gui.projektfiler.OneProjectView;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import logicComponents.User.UserType;
  */
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
+    private projektruta projektr;
     
 private Anstalld currentAnstalld;    
     
@@ -29,55 +31,93 @@ private Anstalld currentAnstalld;
     initComponents(); 
     setExtendedState(MAXIMIZED_BOTH);
     setLocationRelativeTo(null);
+    projektr = this;
 try {
     idb = DatabaseInterface.databaseConnection();
-fyllTabell();
+    fyllTabell();
 } catch (Exception e){
    
 }
 if (CurrentUser.getUsr() !=null) {
-UserType userType = CurrentUser.getUsr().getUserType();
-String userTypeString = userType.toString();
+    UserType userType = CurrentUser.getUsr().getUserType();
+    String userTypeString = userType.toString();
 } else {
 
 }
+    try {
+    this.tableMouseEvent(projektr);
+    } 
+    catch (Exception e) {
+        
+        System.out.println(e);
+    }
+
  }
     
 private void fyllTabell(){
-try {
-    String query = "";
-    currentAnstalld = CurrentUser.getUsr().getAnstalld();
-    String aid = currentAnstalld.getAid();
-    UserType userType = currentAnstalld.getRole(aid);
-     
-    if (userType == UserType.handlaggare){
-         query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status" +
-                    "FROM projekt WHERE handlaggare_id = '" + aid + "'";
-    } else if (userType == UserType.admin1 || userType == UserType.admin2){
-    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
-        } 
-    
-ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-System.out.println("Antal projekt hämtade:" + projektlista.size());
-String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status"};
-DefaultTableModel model = new DefaultTableModel (columnNames, 0);
-for (HashMap<String, String> projekt : projektlista){
-String pid = projekt.get("pid");
-String namn = projekt.get("projektnamn");
-String beskrivning = projekt.get ("beskrivning");
-String start = projekt.get ("startdatum");
-String slut = projekt.get ("slutdatum");
-String prioritet = projekt.get("prioritet");
-String kostnad = projekt.get ("kostnad"); 
-String status = projekt.get ("status");
-model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status});
-}
-tblProjekt.setModel(model);
-} catch (InfException e) {
-JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
-}
+        
+    try {
+        String query = "";
+        currentAnstalld = CurrentUser.getUsr().getAnstalld();
+        String aid = currentAnstalld.getAid();
+        UserType userType = currentAnstalld.getRole(aid);
+
+        if (userType == UserType.handlaggare){
+             query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status" +
+                        "FROM projekt WHERE handlaggare_id = '" + aid + "'";
+        } else if (userType == UserType.admin1 || userType == UserType.admin2){
+        query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+            } 
+
+        ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
+        System.out.println("Antal projekt hämtade:" + projektlista.size());
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status",""};
+
+    DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+
+    for (HashMap<String, String> projekt : projektlista){
+
+        String pid = projekt.get("pid");
+        String namn = projekt.get("projektnamn");
+        String beskrivning = projekt.get ("beskrivning");
+        String start = projekt.get ("startdatum");
+        String slut = projekt.get ("slutdatum");
+        String prioritet = projekt.get("prioritet");
+        String kostnad = projekt.get ("kostnad"); 
+        String status = projekt.get ("status");
+        model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status, "Visa"});
+    }
+
+    tblProjekt.setModel(model);
+    } catch (InfException e) {
+    JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
+    }
 
 }
+
+    public void tableMouseEvent(projektruta projektr) {
+        
+        tblProjekt.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = tblProjekt.rowAtPoint(evt.getPoint());
+        int col = tblProjekt.columnAtPoint(evt.getPoint());
+        if (row >= 0 && col == 8) {
+                
+            Object varde = tblProjekt.getValueAt(row, 0);
+            String pid = varde.toString();
+            OneProjectView oneProjectView = new OneProjectView(pid);
+            oneProjectView.setVisible(true);
+            projektr.setVisible(false);
+            
+            
+
+            }
+        }
+    }
+    );
+        
+    }
 
 
 

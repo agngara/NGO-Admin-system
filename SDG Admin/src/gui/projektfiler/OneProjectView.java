@@ -9,6 +9,8 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import orgEntities.Projekt;
+import gui.Meny;
+import gui.projektruta;
 
 
 /**
@@ -26,7 +28,11 @@ public class OneProjectView extends javax.swing.JFrame {
      * Creates new form projektInfo
      * @param projekt is a project to be displayed on this page.
      */
-    public OneProjectView(Projekt projekt) {
+    public OneProjectView(String pid) {
+        
+        ProjektHanterare projektHanterare = new ProjektHanterare(pid);
+        Projekt projekt = new Projekt(projektHanterare);
+        
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -91,6 +97,7 @@ public class OneProjectView extends javax.swing.JFrame {
         lblInsikter = new javax.swing.JLabel();
         lbllProjName1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnTillbakaTillProjektRuta = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -147,24 +154,43 @@ public class OneProjectView extends javax.swing.JFrame {
 
         jButton1.setText("Se partners");
 
+        btnTillbakaTillProjektRuta.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillProjektRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left.png"))); // NOI18N
+        btnTillbakaTillProjektRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTillbakaTillProjektRutaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(lbllProjName1)
-                    .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblInsikter))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblInsikter)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnTillbakaTillProjektRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(lbllProjName1)))
                 .addContainerGap(1220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(lbllProjName1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(lbllProjName1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btnTillbakaTillProjektRuta)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136)
@@ -179,11 +205,17 @@ public class OneProjectView extends javax.swing.JFrame {
 
     private void lblEditProjectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProjectMouseClicked
         String inPid = projekt.getPid();
-        EditProjectFields editProjectFields = new EditProjectFields();
+        EditProjectFields editProjectFields = new EditProjectFields(projekt);
         editProjectFields.setVisible(true);
 
         
     }//GEN-LAST:event_lblEditProjectMouseClicked
+
+    private void btnTillbakaTillProjektRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillProjektRutaActionPerformed
+        this.setVisible(false);
+        projektruta proj = new projektruta();
+        proj.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillProjektRutaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +258,7 @@ public class OneProjectView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnTillbakaTillProjektRuta;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

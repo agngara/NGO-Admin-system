@@ -3,41 +3,71 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui.projektfiler;
+import java.util.ArrayList;
 import orgEntities.Projekt;
+import java.util.HashMap;
+import SQLHanterare.*;
 
 /**
  *
  * @author theow
  */
 public class EditProjectFields extends javax.swing.JFrame {
-
+   
+    Projekt projekt; 
+     
+    
     /**
      * Creates new form EditProjectFields
      */
-    public EditProjectFields() {
+    public EditProjectFields(Projekt projekt) {
+        this.projekt = projekt;
         initComponents();
+        this.setTextBoxes();
+        
     }
     
-    public void setTextBoxes(Projekt projekt) {
+    public void setTextBoxes() {
         
         txtProjID1.setText(projekt.getPid());
         txtBeskrivning.setText(projekt.getBeskrivning());
         txtKostnad.setText(projekt.getKostnad());
-        txtLand.setText(projekt.getLand());      
-        txtPrioritet.setText(projekt.getPrioritet());
-        txtProjektChef.setText(projekt.getProjektchef());
+        //txtPrioritet.setText(projekt.getPrioritet());
+        //txtProjektChef.setText(projekt.getProjektchef());
         txtProjektNamn.setText(projekt.getProjektnamn());
         txtSlutDatum.setText(projekt.getSlutdatum());
         txtStartDatum.setText(projekt.getStartdatum());
-        txtStatus.setText(projekt.getStatus());
-        
+        //txtStatus.setText(projekt.getStatus());
+        this.fillComboBoxes();
 
-        
-
-
-
-        
     }
+        
+
+        public void fillComboBoxes() {
+        
+            //FIll land
+            ComboLand.removeAllItems();
+            LandHanterare landHanterare = new LandHanterare();
+            ArrayList<HashMap<String,String>> lander = landHanterare.fetchAllLand();
+            String namn = "";
+            
+            for (HashMap<String,String> hashmap : lander) {
+                
+                
+                namn = hashmap.get("namn");
+                ComboLand.addItem(namn);
+                
+                
+                
+                
+                
+            }
+            
+            
+        
+
+}
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,20 +86,18 @@ public class EditProjectFields extends javax.swing.JFrame {
         lblKostnad = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblPrioritet = new javax.swing.JLabel();
-        lblProjektChef = new javax.swing.JLabel();
         lblNamn = new javax.swing.JLabel();
         txtProjektNamn = new javax.swing.JTextField();
         txtProjID1 = new javax.swing.JTextField();
-        txtProjektChef = new javax.swing.JTextField();
         txtSlutDatum = new javax.swing.JTextField();
         txtKostnad = new javax.swing.JTextField();
-        txtLand = new javax.swing.JTextField();
         txtBeskrivning = new javax.swing.JTextField();
         txtStartDatum = new javax.swing.JTextField();
-        txtStatus = new javax.swing.JTextField();
-        txtPrioritet = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnRedigera = new javax.swing.JButton();
+        comboStatus = new javax.swing.JComboBox<>();
+        ComboLand = new javax.swing.JComboBox<>();
+        ComboStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,49 +117,29 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         lblPrioritet.setText("Prioritet");
 
-        lblProjektChef.setText("Projektchef");
-
         lblNamn.setText("Land");
 
-        txtProjektNamn.setText("jTextField1");
         txtProjektNamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProjektNamnActionPerformed(evt);
             }
         });
 
-        txtProjID1.setText("jTextField1");
         txtProjID1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProjID1ActionPerformed(evt);
             }
         });
 
-        txtProjektChef.setText("jTextField1");
-        txtProjektChef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProjektChefActionPerformed(evt);
-            }
-        });
-
-        txtSlutDatum.setText("jTextField1");
         txtSlutDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSlutDatumActionPerformed(evt);
             }
         });
 
-        txtKostnad.setText("jTextField1");
         txtKostnad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKostnadActionPerformed(evt);
-            }
-        });
-
-        txtLand.setText("jTextField1");
-        txtLand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLandActionPerformed(evt);
             }
         });
 
@@ -141,24 +149,9 @@ public class EditProjectFields extends javax.swing.JFrame {
             }
         });
 
-        txtStartDatum.setText("jTextField1");
         txtStartDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStartDatumActionPerformed(evt);
-            }
-        });
-
-        txtStatus.setText("jTextField1");
-        txtStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStatusActionPerformed(evt);
-            }
-        });
-
-        txtPrioritet.setText("jTextField1");
-        txtPrioritet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrioritetActionPerformed(evt);
             }
         });
 
@@ -167,7 +160,13 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         btnRedigera.setBackground(new java.awt.Color(7, 96, 216));
         btnRedigera.setForeground(new java.awt.Color(255, 255, 255));
-        btnRedigera.setText("Redigera");
+        btnRedigera.setText("Spara");
+
+        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        ComboLand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        ComboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,40 +176,40 @@ public class EditProjectFields extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblStartDatum)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitle)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtStartDatum, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtKostnad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(lblProjektID, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSlutDatum, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblKostnad, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblProjektChef, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBeskrivning, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProjektChef, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSlutDatum)
                             .addComponent(txtProjID1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBeskrivning, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(150, 150, 150)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtProjektNamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtLand, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtStartDatum, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboStatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtProjektNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblStartDatum)
                                             .addComponent(lblProjektNamn)
                                             .addComponent(lblPrioritet)
                                             .addComponent(lblNamn)
                                             .addComponent(lblStatus))
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txtPrioritet)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(ComboStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboLand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
@@ -226,42 +225,34 @@ public class EditProjectFields extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProjektNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProjID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblStartDatum)
+                    .addComponent(lblStatus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtStartDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSlutDatum)
-                    .addComponent(lblStartDatum))
+                    .addComponent(lblPrioritet))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStartDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSlutDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSlutDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblKostnad)
+                    .addComponent(lblNamn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKostnad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblPrioritet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrioritet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(lblKostnad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtKostnad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblProjektChef)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProjektChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNamn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(btnRedigera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblBeskrivning)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -279,10 +270,6 @@ public class EditProjectFields extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProjID1ActionPerformed
 
-    private void txtProjektChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjektChefActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProjektChefActionPerformed
-
     private void txtSlutDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSlutDatumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSlutDatumActionPerformed
@@ -291,10 +278,6 @@ public class EditProjectFields extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKostnadActionPerformed
 
-    private void txtLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLandActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLandActionPerformed
-
     private void txtBeskrivningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBeskrivningActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBeskrivningActionPerformed
@@ -302,14 +285,6 @@ public class EditProjectFields extends javax.swing.JFrame {
     private void txtStartDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDatumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStartDatumActionPerformed
-
-    private void txtStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStatusActionPerformed
-
-    private void txtPrioritetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrioritetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrioritetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,18 +316,20 @@ public class EditProjectFields extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditProjectFields().setVisible(true);
+                //new EditProjectFields().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboLand;
+    private javax.swing.JComboBox<String> ComboStatus;
     private javax.swing.JButton btnRedigera;
+    private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel lblBeskrivning;
     private javax.swing.JLabel lblKostnad;
     private javax.swing.JLabel lblNamn;
     private javax.swing.JLabel lblPrioritet;
-    private javax.swing.JLabel lblProjektChef;
     private javax.swing.JLabel lblProjektID;
     private javax.swing.JLabel lblProjektNamn;
     private javax.swing.JLabel lblSlutDatum;
@@ -361,13 +338,9 @@ public class EditProjectFields extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtBeskrivning;
     private javax.swing.JTextField txtKostnad;
-    private javax.swing.JTextField txtLand;
-    private javax.swing.JTextField txtPrioritet;
     private javax.swing.JTextField txtProjID1;
-    private javax.swing.JTextField txtProjektChef;
     private javax.swing.JTextField txtProjektNamn;
     private javax.swing.JTextField txtSlutDatum;
     private javax.swing.JTextField txtStartDatum;
-    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }

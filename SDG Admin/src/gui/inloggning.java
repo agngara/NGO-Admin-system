@@ -203,11 +203,9 @@ public class inloggning extends javax.swing.JFrame {
                     
                     new Meny().setVisible(true);
                     this.setVisible(false);
+                                       
                     
-                    
-                    ProjektHanterare projektHanterare = new ProjektHanterare("1");
-                    Projekt projekt = new Projekt(projektHanterare);
-                    new OneProjectView(projekt).setVisible(true);
+                    new OneProjectView("1").setVisible(true);
                     
                 }
                 else{

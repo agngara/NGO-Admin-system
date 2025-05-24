@@ -7,6 +7,8 @@ import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import orgEntities.Land;
+import java.util.ArrayList;
+import oru.inf.InfException;
 /**
  *
  * @author theow
@@ -18,10 +20,18 @@ public class LandHanterare {
    private String query;
    private String lid;
    
+   public LandHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+
+       
+       
+   }
+   
    public LandHanterare(String lid) {
        
        this.lid = lid;
-       query = "SELECT * FROM anstalld WHERE lid = " + "'" + lid + "'";
+       query = "SELECT * FROM land WHERE lid = " + "'" + lid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -40,6 +50,21 @@ public class LandHanterare {
        return land;
    }
    
+      public ArrayList fetchAllLand() 
+      {
+          ArrayList<HashMap<String,String>> lander = new ArrayList<>();
+          
+          String query = "SELECT * FROM land";
+          
+          try {
+          lander = idb.fetchRows(query);
+          }
+          catch (InfException e) {
+              
+          }
+          
+          return lander;
+      }
     
     
     
