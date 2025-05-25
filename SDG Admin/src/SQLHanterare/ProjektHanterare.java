@@ -247,10 +247,10 @@ public class ProjektHanterare {
   }
  
  
-  public boolean andraPrioritet(String pid, String nyProritet) {
+  public boolean andraPrioritet(String pid, String nyPrioritet) {
       
       {
-          if (pid == null || nyProritet == null || pid.isEmpty() || nyProritet.isEmpty()){
+          if (pid == null || nyPrioritet == null || pid.isEmpty() || nyPrioritet.isEmpty()){
           
            System.out.println("pid eller prioritet får inte vara tom.");
            return false;
