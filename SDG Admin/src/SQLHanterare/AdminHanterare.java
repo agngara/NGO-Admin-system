@@ -47,6 +47,18 @@ public class AdminHanterare {
      public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     {
         
+            
+          if 
+            (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() || telefon.isEmpty() || anstallningsdatum.isEmpty()) {
+           
+              System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
+              return false;
+            
+            
+        }
+       
+        
+        
         try
         {
              
@@ -58,7 +70,7 @@ public class AdminHanterare {
          idb.insert(laggTill);
 
 
-           System.out.println("Skapat lösenord: " + losenord); 
+           System.out.println("Anställd har skapats." + laggTill + "Med lösenord: " + losenord); 
             return true;
         }
         
@@ -73,23 +85,7 @@ public class AdminHanterare {
     }
     
     
-  // Ta bort en anställd
-
-    public boolean taBortAnstalld (Anstalld a)
-{
-try {
-    String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
-    idb.delete(taBort);
-    return true;
-}
-
-catch (Exception e)
-{
-e.printStackTrace();
-return false;
-}
-
-}
+ 
     
     
     

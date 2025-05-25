@@ -145,39 +145,33 @@ public class AnstalldHanterare {
    
    // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
    
-   
-   
-  /**
- * Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
- * handläggare på avdelningen, genom namn eller epost. 
- *
-     * @param avdid 
-     * @param sok
-     
- */ 
-   
-   
-   
- 
-   public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
-   {
-       try{
-           String sokning = "SELECT * FROM anstalld " +
-                   "WHERE avdid = '" + avdid + "' " +
-                   "AND (fornamn LIKE '%" + sok + "%' " +
-                   "OR efternamn LIKE '%" + sok + "%' " +
-                   "OR epost LIKE '%" + sok + "%')";
-           return idb.fetchRows(sokning);
-  
+   public int projektKostnad(Anstalld a) {
+      
+       int kostnad = 0;
+       
+       try {
+          
+            String aid = a.getAid();
+            String summa = "SELECT SUM(kostnader) FROM projekt WHERE projektchef = '" + aid + "'";
+            String totala = idb.fetchSingle(summa);
+            
+            
+            
+          if (totala != null) {
+              
+           kostnad = Integer.parseInt(totala);
+       }  
+          
+       } catch (InfException e) {
+           
+           e.printStackTrace();
+         
        }
        
-      catch (Exception e) {
-          e.printStackTrace();
-          return new ArrayList<>();
+       return kostnad;
        
-      }
-     
    }
+   
    
    
    
@@ -190,10 +184,20 @@ public class AnstalldHanterare {
    
    
    public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
-    {
+    
+   {
         
-        try
+       
         {
+        
+          if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
+          
+           System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
+           return false;
+           
+       }
+        
+        try {
              
          String losenord = UUID.randomUUID().toString().substring(0, 9);
          String aid = UUID.randomUUID().toString();
@@ -207,7 +211,7 @@ public class AnstalldHanterare {
             return true;
         }
         
-        catch (Exception e)
+        catch (InfException e)
         {
             e.printStackTrace();
             return false;
@@ -216,18 +220,27 @@ public class AnstalldHanterare {
         
    
     }
-
+   }
 
 // koderna under avsedda för att ändra mina uppgifter.
 
 public boolean andraEpost(String aid, String nyEpost)
 {
+    {
+        if (aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
+            System.out.println("aid eller epost får inte vara tom");
+            return false;
+        }
+    }
+           
+    
+    
     try {
         String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = '" + aid + "'";
         idb.update(ePost);
         return true;
 } 
-    catch (Exception e) {
+    catch (InfException e) {
     e.printStackTrace();
     return false; 
 }
@@ -236,12 +249,22 @@ public boolean andraEpost(String aid, String nyEpost)
 
     public boolean andraLosenord(String aid, String nyttLosenord)
 {
+    
+     {
+        if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
+            System.out.println("aid eller losenird får inte vara tom");
+            return false;
+        }
+    }
+    
+    
+    
     try {
           String losenord = "UPDATE anstalld SET losenord = '" + nyttLosenord + "' WHERE aid = '" + aid + "'";
           idb.update(losenord);
           return true;
 }
-    catch (Exception e) {
+    catch (InfException e) {
     
         e.printStackTrace();
         return false;
@@ -255,6 +278,14 @@ public boolean andraEpost(String aid, String nyEpost)
 
 public boolean andraFornamn(String aid, String nyttFornamn)
 {
+   {
+        if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
+            System.out.println("aid eller förnamn får inte vara tom");
+            return false;
+        }
+    }
+    
+    
     try {
 
            String fornamn = "UPDATE anstalld SET fornamn = '" + nyttFornamn + "' WHERE aid = '" + aid + "'";
@@ -262,7 +293,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
            return true;
 }
     
-        catch (Exception e)
+        catch (InfException e)
 
 {
         e.printStackTrace();
@@ -276,6 +307,15 @@ public boolean andraFornamn(String aid, String nyttFornamn)
 
 public boolean andraEfternamn(String aid, String nyttEfternamn)
 {
+     {
+        if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+            System.out.println("aid eller efternamn får inte vara tom");
+            return false;
+        }
+    }
+    
+    
+    
     try {
 
            String efternamn = "UPDATE anstalld SET efternamn = ' " + nyttEfternamn + " ' WHERE aid = ' " + aid + "'";
@@ -283,7 +323,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
            return true;
 }
     
-        catch (Exception e)
+        catch (InfException e)
 
 {
         e.printStackTrace();
@@ -295,6 +335,13 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 
 public boolean andraAdress(String aid, String nyAdress)
 {
+    {
+        if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+            System.out.println("aid eller adress får inte vara tom");
+            return false;
+        }
+    }
+    
     try {
 
            String adress = "UPDATE anstalld SET adress = ' " + nyAdress + " ' WHERE aid = ' " + aid + "'";
@@ -302,7 +349,7 @@ public boolean andraAdress(String aid, String nyAdress)
            return true;
 }
     
-        catch (Exception e)
+        catch (InfException e)
 
 {
         e.printStackTrace();
@@ -313,17 +360,31 @@ public boolean andraAdress(String aid, String nyAdress)
 
 }
 
-// radera anställd
+/**
+ * Denna klass raderar en anställd från databasen baserat på deras aid.
+ * Valdideringen sker genom att i if-satsen kollar den att aid inte
+ * är null eller tom
+ * 
+ */
 
     public boolean taBortAnstalld (Anstalld a)
 {
 try {
+    
+    String aid = a.getAid();
+    
+    if (aid == null || aid.isEmpty()) {
+        System.out.println("Aid är tom");
+        return false;
+    }
+    
     String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
     idb.delete(taBort);
-    return true;
+    System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
+    return true;    
 }
 
-catch (Exception e) {
+catch (InfException e) {
     
     e.printStackTrace();
     
