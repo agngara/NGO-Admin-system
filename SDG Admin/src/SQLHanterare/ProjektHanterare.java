@@ -77,12 +77,30 @@ public class ProjektHanterare {
    
     }
 
-// koderna nedan är avsedda för att ändra uppgifter om ett projekt  
+/* The methods below aims to update the rows of a projekt, where the project in question is decided by the first parameter. 
+    The new value in the database table is decided by the second parameter.
+*/
+ 
+ 
+  public boolean andraPid(String pid, String nyPid) {
+      
+      try {
+          String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
+          return true;
+      }
+      
+      catch (Exception e) {
+          e.printStackTrace();
+          return false;
+          
+      }
+      
+  }
     
   public boolean andraProjektnamn(String pid, String nyttNamn)
   {
       try{
-          String namn = "UPDATE projekt SET namn = '" + nyttNamn + "'";
+          String namn = "UPDATE projekt SET projektnamn = '" + nyttNamn + "' WHERE pid = '" + pid + "'";
           idb.update(namn);
           return true;
       }
@@ -97,7 +115,7 @@ public class ProjektHanterare {
  public boolean andraBeskrivning(String pid, String nyBeskrivning)
   {
       try{
-          String beskrivning = "UPDATE projekt SET beskrivning = '" + nyBeskrivning + "'";
+          String beskrivning = "UPDATE projekt SET beskrivning = '" + nyBeskrivning + "' WHERE pid = '" + pid + "'";
           idb.update(beskrivning);
           return true;
       }
@@ -114,7 +132,7 @@ public class ProjektHanterare {
  public boolean andraStartdatum(String pid, String nyttStartdatum)
   {
       try{
-          String startdatum = "UPDATE projekt SET beskrivning = '" + nyttStartdatum + "'";
+          String startdatum = "UPDATE projekt SET startdatum = '" + nyttStartdatum + "' WHERE pid = '" + pid + "'";
           idb.update(startdatum);
           return true;
       }
@@ -129,7 +147,7 @@ public class ProjektHanterare {
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
       try{
-          String slutdatum = "UPDATE projekt SET slutdatum = '" + nyttSlutdatum + "'";
+          String slutdatum = "UPDATE projekt SET slutdatum = '" + nyttSlutdatum + "' WHERE pid = '" + pid + "'";
           idb.update(slutdatum);
           return true;
       }
@@ -146,7 +164,7 @@ public class ProjektHanterare {
  public boolean andraKostnad(String pid, String nyKostnad)
   {
       try{
-          String kostnad = "UPDATE projekt SET kostnad = '" + nyKostnad + "'";
+          String kostnad = "UPDATE projekt SET kostnad = '" + nyKostnad + "' WHERE pid = '" + pid + "'";
           idb.update(kostnad);
           return true;
       }
@@ -162,7 +180,7 @@ public class ProjektHanterare {
  public boolean andraStatus(String pid, String nyStatus)
   {
       try{
-          String status = "UPDATE projekt SET status = '" + nyStatus + "'";
+          String status = "UPDATE projekt SET status = '" + nyStatus + "' WHERE pid = '" + pid + "'";
           idb.update(status);
           return true;
       }
@@ -177,10 +195,10 @@ public class ProjektHanterare {
  
  
  
-  public boolean andraPrioritet(String pid, String nyProritet)
+  public boolean andraPrioritet(String pid, String nyPrioritet)
   {
       try{
-          String prioritet = "UPDATE projekt SET prioritet = '" + nyProritet + "'";
+          String prioritet = "UPDATE projekt SET prioritet = '" + nyPrioritet + "' WHERE pid = '" + pid + "'";
           idb.update(prioritet);
           return true;
       }
@@ -193,16 +211,40 @@ public class ProjektHanterare {
   }  
   
   
+public boolean andraProjektchef(String pid, String nyProjektchef) {
+    
+    try {
+        String projektchef = "UPDATE projekt SET projektchef = " + "'" + nyProjektchef + "'";
+        return true;
+        
+    }
+    
+    catch (Exception e) {
+        e.printStackTrace();
+        return false;
+        
+    }
+    
+}
+
+public boolean andraLand(String pid, String nyttLand) {
+    
+    try {
+        String land = "UPDATE projekt SET land = " + "'" + nyttLand + "'";
+        return true;
+    } 
+    
+    catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+/*
+The methods below aim to remove information from the projekt-table. 
+*/
 
 
-
-
-
-
-
-
-// Denna kod är avsedd för att ta bort ett projekt
-  
   public boolean taBortProjekt(Projekt p)
 {
 try {

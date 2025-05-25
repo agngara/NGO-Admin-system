@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import orgEntities.Projekt;
 import java.util.HashMap;
 import SQLHanterare.*;
+import gui.projektfiler.OneProjectView;
 
 /**
  *
@@ -14,16 +15,23 @@ import SQLHanterare.*;
  */
 public class EditProjectFields extends javax.swing.JFrame {
    
-    Projekt projekt; 
+    Projekt projekt;
+    ProjektHanterare ph;
+    String pid;
+    OneProjectView oneProjectView;
+    
      
     
     /**
      * Creates new form EditProjectFields
      */
-    public EditProjectFields(Projekt projekt) {
+    public EditProjectFields(Projekt projekt, OneProjectView oneProjectView) {
         this.projekt = projekt;
         initComponents();
         this.setTextBoxes();
+        pid = projekt.getPid();
+        ph = new ProjektHanterare(pid);
+        this.oneProjectView = oneProjectView;
         
     }
     
@@ -43,35 +51,108 @@ public class EditProjectFields extends javax.swing.JFrame {
     }
         
 
-        public void fillComboBoxes() {
+    public void fillComboBoxes() {
+
+        //FIll land
+        ComboLand.removeAllItems();
+        LandHanterare landHanterare = new LandHanterare();
+        ArrayList<HashMap<String,String>> lander = landHanterare.fetchAllLand();
+        String namn = "";
+
+        for (HashMap<String,String> hashmap : lander) {
+
+
+            namn = hashmap.get("namn");
+            ComboLand.addItem(namn);
+
+        }
+        String land = projekt.getLand();
+        ComboLand.setSelectedItem(land);
+
+        // Fill prioritet
+        ComboPrio.removeAllItems();
+        ComboPrio.addItem("Låg");
+        ComboPrio.addItem("Medel");
+        ComboPrio.addItem("Hög");
         
-            //FIll land
-            ComboLand.removeAllItems();
-            LandHanterare landHanterare = new LandHanterare();
-            ArrayList<HashMap<String,String>> lander = landHanterare.fetchAllLand();
-            String namn = "";
-            
-            for (HashMap<String,String> hashmap : lander) {
-                
-                
-                namn = hashmap.get("namn");
-                ComboLand.addItem(namn);
+        String prio = projekt.getPrioritet();
+        ComboPrio.setSelectedItem(prio);
 
-            }
-            
-            // Fill prioritet
-            ComboPrio.removeAllItems();
-            ComboPrio.addItem("Låg");
-            ComboPrio.addItem("Medel");
-            ComboPrio.addItem("Hög");
 
-            
-            // Fill status
-            comboStatus.removeAllItems();
-            comboStatus.addItem("Planerat");
-            comboStatus.addItem("Pågående");
-            comboStatus.addItem("Avslutat");
+        // Fill status
+        comboStatus.removeAllItems();
+        comboStatus.addItem("Planerat");
+        comboStatus.addItem("Pågående");
+        comboStatus.addItem("Avslutat");
+        
+        String status = projekt.getStatus();
+        comboStatus.setSelectedItem(status);
 }
+     
+
+    public void setProjectInfo() {
+        String pid = txtProjID1.getText();
+        if (!ph.andraPid(this.pid, pid)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projekt-ID.");
+            return;
+        }
+
+        String beskrivning = txtBeskrivning.getText();
+        if (!ph.andraBeskrivning(pid, beskrivning)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera beskrivning.");
+            return;
+        }
+
+        String kostnad = txtKostnad.getText();
+        if (!ph.andraKostnad(pid, kostnad)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera kostnad.");
+            return;
+        }
+
+        String prio = (String) ComboPrio.getSelectedItem();
+        if (!ph.andraPrioritet(pid, prio)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera prioritet.");
+            return;
+        }
+
+        String projektnamn = txtProjektNamn.getText();
+        if (!ph.andraProjektnamn(pid, projektnamn)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projektnamn.");
+            return;
+        }
+
+        String slutDatum = txtSlutDatum.getText();
+        if (!ph.andraSlutdatum(pid, slutDatum)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera slutdatum.");
+            return;
+        }
+
+        String startDatum = txtStartDatum.getText();
+        if (!ph.andraStartdatum(pid, startDatum)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera startdatum.");
+            return;
+        }
+
+        String status = (String) comboStatus.getSelectedItem();
+        if (!ph.andraStatus(pid, status)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera status.");
+            return;
+        }
+
+        String land = (String) ComboLand.getSelectedItem();
+        if (!ph.andraLand(pid, land)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera land.");
+            return;
+        }
+
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
+
+    }
+        
+    
+        
+        
         
 
     /**
@@ -166,6 +247,11 @@ public class EditProjectFields extends javax.swing.JFrame {
         btnRedigera.setBackground(new java.awt.Color(7, 96, 216));
         btnRedigera.setForeground(new java.awt.Color(255, 255, 255));
         btnRedigera.setText("Spara");
+        btnRedigera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedigeraActionPerformed(evt);
+            }
+        });
 
         comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -290,6 +376,12 @@ public class EditProjectFields extends javax.swing.JFrame {
     private void txtStartDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDatumActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStartDatumActionPerformed
+
+    private void btnRedigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraActionPerformed
+        setProjectInfo();
+        oneProjectView.fillTable();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRedigeraActionPerformed
 
     /**
      * @param args the command line arguments
