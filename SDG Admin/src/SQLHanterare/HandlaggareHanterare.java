@@ -205,7 +205,7 @@ public boolean andraAdress(String aid, String nyAdress)
     
     try {
 
-           String adress = "UPDATE anstalld SET adress = ' " + nyAdress + " ' WHERE aid = ' " + aid + "'";
+           String adress = "UPDATE anstalld SET adress = '" + nyAdress +  "WHERE aid = ' " + aid + "'";
            idb.update(adress);
            return true;
 }
@@ -219,6 +219,27 @@ public boolean andraAdress(String aid, String nyAdress)
 
 
 
+}
+
+
+//lägg till handläggare
+public boolean laggTillHandlaggare(String aid, String ansvarighetsomrade) {
+    
+   if (!Validering.tomFalt(aid, "aid") || !Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
+       return false;
+   }
+    
+    
+    try {
+    String laggTill = "INSERT INTO handlaggare (aid, ansvarighetsomrade) VALUES ('" + aid + "', '" + ansvarighetsomrade + "')";
+    idb.insert(laggTill);
+    return true;    
+    }
+    
+    catch (InfException e) {
+        e.getStackTrace();
+        return false;
+    }
 }
     
 }
