@@ -6,6 +6,7 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import oru.inf.InfException;
 
 
@@ -49,8 +50,8 @@ public class AvdelningHanterare {
     public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
     {
         
-          if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          
+          //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
+          if(!Validering.tomFalt(avdid, "avdid") || !Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
            return false;
            
@@ -62,7 +63,7 @@ public class AvdelningHanterare {
             idb.insert(nyAvdelning);
             return true;
         }
-        catch (Exception e)
+        catch (InfException e)
         {
             e.printStackTrace();
             return false;

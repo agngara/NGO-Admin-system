@@ -14,6 +14,8 @@ import logicComponents.User.UserType;
 import oru.inf.InfException;
 import java.util.UUID;
 import java.util.HashMap;
+import logicComponents.Validering;
+import oru.inf.InfDB;
 
 /**
  * This class handles database communication with the anstalld table.
@@ -188,9 +190,15 @@ public class AnstalldHanterare {
    {
         
        
-        {
+        if (!Validering.tomFalt(fornamn, "fornamn") ||
+             !Validering.tomFalt(efternamn, "efternamn") ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigEpost(epost) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.giltigEpost(anstallningsdatum)) {
         
-          if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
+          //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
@@ -220,14 +228,16 @@ public class AnstalldHanterare {
         
    
     }
-   }
+   
 
 // koderna under avsedda för att ändra mina uppgifter.
 
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
+        if (!Validering.tomFalt(nyEpost, "epost") &&
+        !Validering.giltigEpost(nyEpost)) {
+    //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
             return false;
         }
@@ -251,7 +261,8 @@ public boolean andraEpost(String aid, String nyEpost)
 {
     
      {
-        if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
+          if (!Validering.tomFalt(nyttLosenord, "losenord")) {
+        //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
             System.out.println("aid eller losenird får inte vara tom");
             return false;
         }
@@ -279,7 +290,8 @@ public boolean andraEpost(String aid, String nyEpost)
 public boolean andraFornamn(String aid, String nyttFornamn)
 {
    {
-        if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
+        if (!Validering.tomFalt(nyttFornamn, "fornamn")) {
+        //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
             System.out.println("aid eller förnamn får inte vara tom");
             return false;
         }
@@ -308,13 +320,14 @@ public boolean andraFornamn(String aid, String nyttFornamn)
 public boolean andraEfternamn(String aid, String nyttEfternamn)
 {
      {
-        if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+        if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
+        //if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
             System.out.println("aid eller efternamn får inte vara tom");
             return false;
-        }
-    }
+       
     
     
+}
     
     try {
 
@@ -332,11 +345,14 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 
 
 }
+}
 
 public boolean andraAdress(String aid, String nyAdress)
 {
     {
-        if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+        
+        if(!Validering.tomFalt(nyAdress, "adress")) {
+        //if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
             System.out.println("aid eller adress får inte vara tom");
             return false;
         }
@@ -367,24 +383,21 @@ public boolean andraAdress(String aid, String nyAdress)
  * 
  */
 
-    public boolean taBortAnstalld (Anstalld a)
-{
-try {
-    
+    public boolean taBortAnstalld (Anstalld a) {
+
     String aid = a.getAid();
-    
-    if (aid == null || aid.isEmpty()) {
+    if (!Validering.tomFalt(aid, aid)) {
         System.out.println("Aid är tom");
         return false;
     }
-    
+   try { 
     String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
     idb.delete(taBort);
     System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
     return true;    
 }
 
-catch (InfException e) {
+    catch (InfException e) {
     
     e.printStackTrace();
     
@@ -394,9 +407,9 @@ catch (InfException e) {
 
 }
 
-}
+
        
-       
+}      
        
        
      

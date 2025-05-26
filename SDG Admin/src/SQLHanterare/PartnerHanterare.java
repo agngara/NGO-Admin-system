@@ -4,9 +4,12 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import orgEntities.Partner;
+import oru.inf.InfException;
 
 /**
  *
@@ -177,16 +180,20 @@ public class PartnerHanterare {
    
    
    
-/*
+
    
    // en bättre versom av lägg till partner 
    
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if (pid == null || namn == null || kontaktperson == null || kontaktepost == null || 
-           telefon == null || adress == null || branch == null || 
-           pid.isEmpty() || namn.isEmpty() || telefon.isEmpty() || adress.isEmpty() ||
-               branch.isEmpty()) {
+       if  (!Validering.tomFalt(pid, "pid") ||
+             !Validering.tomFalt(namn, "namn") ||
+             !Validering.tomFalt(kontaktperson, "kontaktperson") ||
+             !Validering.giltigEpost(kontaktepost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.tomFalt(branch, "branch"))
+              {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
@@ -201,6 +208,32 @@ public class PartnerHanterare {
            return false;
    }
 }
-*/
    
+   
+  public ArrayList<HashMap<String, String>> getAllPartners()
+  {
+  
+      try {
+          
+          String sql = "SELECT * FROM partner"; 
+          
+            ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+            return rader;
+            
+     
+      }
+      
+      
+      catch (InfException e) {
+        
+          e.printStackTrace();
+         
+          
+      }
+  }
+ 
 }
+   
+   
+   
+  
