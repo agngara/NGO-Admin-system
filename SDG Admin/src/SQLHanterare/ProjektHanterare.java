@@ -91,6 +91,12 @@ public class ProjektHanterare {
  
   public boolean andraPid(String pid, String nyPid) {
       
+      if (pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
+          System.out.println("pid får inte vara tom");
+          return false;
+      }
+
+      
       try {
           String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
           return true;
@@ -271,12 +277,6 @@ public class ProjektHanterare {
   
   
 }
-
-
-
-
-
-
 
   
 public boolean andraProjektchef(String pid, String nyProjektchef) {
