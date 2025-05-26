@@ -46,16 +46,21 @@
                           <Component id="txtProjID1" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtBeskrivning" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="btnRedigera" min="-2" pref="93" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="comboStatus" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="txtProjektNamn" pref="308" max="32767" attributes="0"/>
+                                  <Component id="txtProjektNamn" pref="265" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblProjektNamn" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -98,7 +103,10 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtStartDatum" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtStartDatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="comboStatus" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -110,6 +118,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtSlutDatum" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboPrio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -138,7 +147,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblProjektID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Project-ID"/>
+        <Property name="text" type="java.lang.String" value="Project-ID*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblProjektNamn">
@@ -277,6 +286,16 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc5;&#xc5;&#xc5;&#xc5;-MM-DD"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc5;&#xc5;&#xc5;&#xc5;-MM-DD"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
