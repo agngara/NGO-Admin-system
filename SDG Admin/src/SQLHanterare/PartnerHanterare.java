@@ -114,7 +114,7 @@ public class PartnerHanterare {
             idb.update(kontaktEpost);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -180,7 +180,7 @@ public class PartnerHanterare {
             idb.update(branch);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -255,15 +255,16 @@ public class PartnerHanterare {
       catch (InfException e) {
         
           e.printStackTrace();
+          return new ArrayList<>();
          
           
       }
+  
   }
-  
-  
-  
  
 }
+  
+
    
    
    

@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import orgEntities.Handlaggare;
 import oru.inf.InfException;
 /**
@@ -48,6 +49,7 @@ public class HandlaggareHanterare {
  *
      * @param avdid 
      * @param sok
+     * @return 
      
  */ 
    
@@ -73,5 +75,150 @@ public class HandlaggareHanterare {
       }
      
    }  
+   
+   
+   // koderna under avsedda för att ändra mina uppgifter.
+
+public boolean andraEpost(String aid, String nyEpost)
+{
+    {
+        if (!Validering.tomFalt(nyEpost, "epost") ||
+        !Validering.giltigEpost(nyEpost)) {
+    //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
+            System.out.println("aid eller epost får inte vara tom");
+            return false;
+        }
+    }
+           
+    
+    
+    try {
+        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = '" + aid + "'";
+        idb.update(ePost);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
+
+    public boolean andraLosenord(String aid, String nyttLosenord)
+{
+    
+     {
+          if (!Validering.tomFalt(nyttLosenord, "losenord")) {
+        //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
+            System.out.println("aid eller losenird får inte vara tom");
+            return false;
+        }
+    }
+    
+    
+    
+    try {
+          String losenord = "UPDATE anstalld SET losenord = '" + nyttLosenord + "' WHERE aid = '" + aid + "'";
+          idb.update(losenord);
+          return true;
+}
+    catch (InfException e) {
+    
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+    
+   
+public boolean andraFornamn(String aid, String nyttFornamn)
+{
+   {
+        if (!Validering.tomFalt(nyttFornamn, "fornamn")) {
+        //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
+            System.out.println("aid eller förnamn får inte vara tom");
+            return false;
+        }
+    }
+    
+    
+    try {
+
+           String fornamn = "UPDATE anstalld SET fornamn = '" + nyttFornamn + "' WHERE aid = '" + aid + "'";
+           idb.update(fornamn);
+           return true;
+}
+    
+        catch (InfException e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+
+
+
+public boolean andraEfternamn(String aid, String nyttEfternamn)
+{
+     {
+        if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
+        //if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+            System.out.println("aid eller efternamn får inte vara tom");
+            return false;
+       
+    
+    
+}
+    
+    try {
+
+           String efternamn = "UPDATE anstalld SET efternamn = ' " + nyttEfternamn + " ' WHERE aid = ' " + aid + "'";
+           idb.update(efternamn);
+           return true;
+}
+    
+        catch (InfException e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+}
+}
+
+public boolean andraAdress(String aid, String nyAdress)
+{
+    {
+        
+        if(!Validering.tomFalt(nyAdress, "adress")) {
+        //if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+            System.out.println("aid eller adress får inte vara tom");
+            return false;
+        }
+    }
+    
+    try {
+
+           String adress = "UPDATE anstalld SET adress = ' " + nyAdress + " ' WHERE aid = ' " + aid + "'";
+           idb.update(adress);
+           return true;
+}
+    
+        catch (InfException e)
+
+{
+        e.printStackTrace();
+        return false;
+}
+
+
+
+}
     
 }
