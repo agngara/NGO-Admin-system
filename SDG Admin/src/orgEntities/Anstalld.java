@@ -20,6 +20,7 @@ import logicComponents.User.UserType;
 
 
  public class Anstalld {
+
     
    private String fornamn;
    private String efternamn;
@@ -31,6 +32,7 @@ import logicComponents.User.UserType;
    private String aid;
    
    private AnstalldHanterare anstalldHanterare;
+    private String avdelning;
    
    
    /**
@@ -109,6 +111,16 @@ import logicComponents.User.UserType;
             return aid;
         }
         
+        public String getAnstallningsdatum() 
+        {
+            return anstallningsdatum;
+        }
+        
+        public String getAvdelning() 
+        {
+            return avdelning; 
+        }
+        
         
         // för att kunna ändra uppgifter för Anställd
         
@@ -155,8 +167,9 @@ import logicComponents.User.UserType;
             
           
         }
-    
-    
+
+
+
  }
     
 
