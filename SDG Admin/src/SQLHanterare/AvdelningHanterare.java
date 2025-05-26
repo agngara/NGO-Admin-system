@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import oru.inf.InfException;
 
 
@@ -67,8 +68,8 @@ public class AvdelningHanterare {
     public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
     {
         
-          if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          
+          //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
+          if(!Validering.tomFalt(avdid, "avdid") || !Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
            return false;
            
@@ -80,7 +81,7 @@ public class AvdelningHanterare {
             idb.insert(nyAvdelning);
             return true;
         }
-        catch (Exception e)
+        catch (InfException e)
         {
             e.printStackTrace();
             return false;
@@ -97,7 +98,8 @@ public class AvdelningHanterare {
     public boolean andraNamn(String avdid, String nyttNamn)
     {
         {
-          if (avdid == null || nyttNamn == null || avdid.isEmpty() || nyttNamn.isEmpty()){
+          if (!Validering.tomFalt(nyttNamn, "namn")) {
+            //(avdid == null || nyttNamn == null || avdid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("avdid eller namn får inte vara tommna.");
            return false;
@@ -123,7 +125,8 @@ public class AvdelningHanterare {
     {
         
          {
-          if (avdid == null || nyBeskrivning == null || avdid.isEmpty() || nyBeskrivning.isEmpty()){
+            if(!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
+          //if (avdid == null || nyBeskrivning == null || avdid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("avdid eller beskrivning får inte vara tommna.");
            return false;
@@ -147,7 +150,8 @@ public class AvdelningHanterare {
     public boolean andraAdress(String avdid, String nyAdress)
     {
         {
-          if (avdid == null || nyAdress == null || avdid.isEmpty() || nyAdress.isEmpty()){
+          if (!Validering.tomFalt(nyAdress, "adress")) {
+//(avdid == null || nyAdress == null || avdid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("avdid eller adress får inte vara tom.");
            return false;
@@ -173,8 +177,8 @@ public class AvdelningHanterare {
     public boolean andraEpost(String avdid, String nyEpost)
     {
          {
-          if (avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
-          
+          //if //(avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
+          if (!Validering.giltigEpost(nyEpost) || !Validering.tomFalt(nyEpost, "epost")) {
            System.out.println("avdid eller epost får inte vara tom.");
            return false;
         }
@@ -201,7 +205,8 @@ public class AvdelningHanterare {
             
             
          {
-          if (avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
+          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) || !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
+//(avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
           
            System.out.println("avdid eller telefon får inte vara tom.");
            return false;

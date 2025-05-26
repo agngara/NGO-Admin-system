@@ -8,6 +8,7 @@ import oru.inf.InfDB;
 import java.util.HashMap;
 import orgEntities.Land;
 import java.util.ArrayList;
+import logicComponents.Validering;
 import oru.inf.InfException;
 /**
  *
@@ -67,5 +68,29 @@ public class LandHanterare {
       }
     
     
-    
+    public boolean laggTillLand(String lid, String namn, String sprak, String valuta, String tidszon, String politiskStruktur, String ekonomi)
+    {       
+            if (!Validering.tomFalt(lid, "Land-Id") ||
+                !Validering.tomFalt(namn, "Namn")   ||
+                !Validering.tomFalt(sprak, "Språk") ||
+                !Validering.tomFalt(valuta, "Valuta") ||
+                !Validering.tomFalt(tidszon, "Tidszon") ||
+                !Validering.tomFalt(politiskStruktur, "PolitiskStruktur") ||
+                !Validering.tomFalt(ekonomi, "Ekonomi")) {
+                return false; 
+    }
+             try {
+            String uppdateradeUppgifter = "INSERT INTO land (namn, sprak, valuta, tidszon, politisk_struktur, ekonomi) VALUES ('" + namn + "', '" + sprak + "', '" + valuta + "', '" + tidszon + "', '" + politiskStruktur + "', '" + ekonomi + "')";
+            idb.insert(uppdateradeUppgifter);
+            return true;
+                
+        }
+        catch (InfException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        
+        
+    }    
 }

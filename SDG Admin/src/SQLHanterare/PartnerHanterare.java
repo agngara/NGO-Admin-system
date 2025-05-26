@@ -4,9 +4,12 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import orgEntities.Partner;
+import oru.inf.InfException;
 
 /**
  *
@@ -18,6 +21,13 @@ public class PartnerHanterare {
    private HashMap<String, String> partner;
    private String query;
    private String pid;
+   
+   
+   public PartnerHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
    
    public PartnerHanterare(String pid) {
        
@@ -44,7 +54,8 @@ public class PartnerHanterare {
     
    public boolean andraNamn(String pid, String nyttNamn)
     {
-       if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
+       if (!Validering.tomFalt(nyttNamn, "namn")) {
+//(pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("pid eller namn får inte vara tommna.");
            return false;
@@ -69,7 +80,8 @@ public class PartnerHanterare {
     
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
-         if (pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
+         if (Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
+//(pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
           
            System.out.println("pid eller kontaktperson får inte vara tommna.");
            return false;
@@ -80,7 +92,7 @@ public class PartnerHanterare {
             idb.update(kontaktperson);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -91,7 +103,8 @@ public class PartnerHanterare {
     
      public boolean andraKontaktEpost(String pid, String nyKontaktEpost)
     {
-         if (pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
+         if (!Validering.tomFalt(nyKontaktEpost, "kontaktepost")) {
+//(pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
           
            System.out.println("pid eller kontaktepost får inte vara tommna.");
            return false;
@@ -101,7 +114,7 @@ public class PartnerHanterare {
             idb.update(kontaktEpost);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -113,7 +126,8 @@ public class PartnerHanterare {
     public boolean andraTelefon(String pid, String nyTelefon)
     {
         
-        if (pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
+        if (!Validering.tomFalt(nyTelefon, "telefon") && !Validering.giltigtTelefonnummer(nyTelefon)) {
+//(pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
           
            System.out.println("pid eller telefon får inte vara tommna.");
            return false;
@@ -123,7 +137,7 @@ public class PartnerHanterare {
             idb.update(telefon);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -134,7 +148,8 @@ public class PartnerHanterare {
      
    public boolean andraAdress(String pid, String nyAdress)
     {
-          if (pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
+          if (!Validering.tomFalt(nyAdress, "adress")) {
+//(pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("pid eller adress får inte vara tommna.");
            return false;
@@ -144,7 +159,7 @@ public class PartnerHanterare {
             idb.update(adress);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -154,7 +169,8 @@ public class PartnerHanterare {
    public boolean andraBranch(String pid, String nyBranch)
     {
        {
-          if (pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
+          if (!Validering.tomFalt(nyBranch, "branch")) {
+//(pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
           
            System.out.println("pid eller branch får inte vara tommna.");
            return false;
@@ -164,7 +180,7 @@ public class PartnerHanterare {
             idb.update(branch);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -177,16 +193,20 @@ public class PartnerHanterare {
    
    
    
-/*
+
    
    // en bättre versom av lägg till partner 
    
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if (pid == null || namn == null || kontaktperson == null || kontaktepost == null || 
-           telefon == null || adress == null || branch == null || 
-           pid.isEmpty() || namn.isEmpty() || telefon.isEmpty() || adress.isEmpty() ||
-               branch.isEmpty()) {
+       if  (!Validering.tomFalt(pid, "pid") ||
+             !Validering.tomFalt(namn, "namn") ||
+             !Validering.tomFalt(kontaktperson, "kontaktperson") ||
+             !Validering.giltigEpost(kontaktepost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.tomFalt(branch, "branch"))
+              {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
@@ -195,12 +215,57 @@ public class PartnerHanterare {
             String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
            idb.insert(nyPartner);
            return true;
-       } catch (Exception e ){
+       } catch (InfException e ){
           System.out.println("Något gick fel" + e.getMessage());
            e.printStackTrace();
            return false;
    }
 }
-*/
+       
+     public ArrayList<HashMap<String, String>> getAllPartners() {
+         
+         try {
+             String sql = "SELECT * FROM partner";
+              ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+              return rader;
+         }
+         
+         catch (InfException e) {
+             
+             e.printStackTrace();
+         }
+     }  
+       
    
+   
+  public ArrayList<HashMap<String, String>> getAllPartners()
+  {
+  
+      try {
+          
+          String sql = "SELECT * FROM partner"; 
+          
+            ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+            return rader;
+            
+     
+      }
+      
+      
+      catch (InfException e) {
+        
+          e.printStackTrace();
+          return new ArrayList<>();
+         
+          
+      }
+  
+  }
+ 
 }
+  
+
+   
+   
+   
+  

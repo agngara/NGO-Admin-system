@@ -4,6 +4,7 @@
  */
 package gui.projektfiler;
 
+import SQLHanterare.PartnerHanterare;
 import SQLHanterare.ProjektHanterare;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -11,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import orgEntities.Projekt;
 import gui.Meny;
 import gui.projektruta;
+import java.util.ArrayList;
+import logicComponents.User.CurrentUser;
+import logicComponents.User.UserType;
+import orgEntities.Partner;
 
 
 /**
@@ -23,6 +28,7 @@ public class OneProjectView extends javax.swing.JFrame {
     private String[] kolumnNamn;
     private Object[] rad;
     private OneProjectView oneProjectView;
+    private Partner partner; 
     
     
 
@@ -37,6 +43,13 @@ public class OneProjectView extends javax.swing.JFrame {
         Projekt projekt = new Projekt(projektHanterare);
         
         initComponents();
+        
+        
+         if (CurrentUser.getUsr().getUserType() != UserType.projektchef || CurrentUser.getUsr().getUserType() != UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
+            
+             lblEditPartners.setVisible(false);
+            
+        }
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         String[] projInfo;
@@ -59,6 +72,7 @@ public class OneProjectView extends javax.swing.JFrame {
          this.fillTable();
          
     }
+    
 
 
     
@@ -96,6 +110,16 @@ public class OneProjectView extends javax.swing.JFrame {
     nyModel.setRowCount(0);
     
     }
+    
+    public void fillPartnerTable() {
+        
+        ArrayList<HashMap<String, String>> rader = new PartnerHanterare().getAllPartners;
+        
+        
+        for ()
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,30 +131,35 @@ public class OneProjectView extends javax.swing.JFrame {
     private void initComponents() {
 
         projektInfo = new javax.swing.JPanel();
-        lblEditProject = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblEditProject1 = new javax.swing.JLabel();
         lblInsikter = new javax.swing.JLabel();
         lbllProjName1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         btnTillbakaTillProjektRuta = new javax.swing.JToggleButton();
         lblPartners = new javax.swing.JLabel();
-        lblEkonomi1 = new javax.swing.JLabel();
+        lblEkonomi = new javax.swing.JLabel();
         lblTeam = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblkronor = new javax.swing.JLabel();
+        lblDisplayKostnadSoFar = new javax.swing.JLabel();
+        lblDisplayKostnad2 = new javax.swing.JLabel();
+        lblKostnadCompare = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPartners = new javax.swing.JTable();
+        lblEditPartners = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(854, 480));
 
         projektInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        lblEditProject.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
-        lblEditProject.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEditProjectMouseClicked(evt);
-            }
-        });
 
         jTable1.setBackground(new java.awt.Color(29, 29, 29));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -145,25 +174,38 @@ public class OneProjectView extends javax.swing.JFrame {
         jTable1.setDoubleBuffered(true);
         jScrollPane1.setViewportView(jTable1);
 
+        lblEditProject1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
+        lblEditProject1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEditProject1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout projektInfoLayout = new javax.swing.GroupLayout(projektInfo);
         projektInfo.setLayout(projektInfoLayout);
         projektInfoLayout.setHorizontalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projektInfoLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1041, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEditProject)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(228, Short.MAX_VALUE))
+            .addGroup(projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, projektInfoLayout.createSequentialGroup()
+                    .addContainerGap(1383, Short.MAX_VALUE)
+                    .addComponent(lblEditProject1)
+                    .addGap(168, 168, 168)))
         );
         projektInfoLayout.setVerticalGroup(
             projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(projektInfoLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEditProject)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(projektInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(projektInfoLayout.createSequentialGroup()
+                    .addGap(36, 36, 36)
+                    .addComponent(lblEditProject1)
+                    .addContainerGap(36, Short.MAX_VALUE)))
         );
 
         lblInsikter.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -171,8 +213,6 @@ public class OneProjectView extends javax.swing.JFrame {
 
         lbllProjName1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lbllProjName1.setText("Projektnamn");
-
-        jButton1.setText("Se partners");
 
         btnTillbakaTillProjektRuta.setBackground(new java.awt.Color(7, 96, 216));
         btnTillbakaTillProjektRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
@@ -185,21 +225,173 @@ public class OneProjectView extends javax.swing.JFrame {
         lblPartners.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblPartners.setText("Partners");
 
-        lblEkonomi1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblEkonomi1.setText("Ekonomi");
+        lblEkonomi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblEkonomi.setText("Ekonomi");
 
         lblTeam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTeam.setText("Team");
+
+        jPanel2.setBackground(new java.awt.Color(40, 40, 40));
+
+        jPanel3.setBackground(new java.awt.Color(40, 40, 40));
+
+        lblkronor.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblkronor.setForeground(new java.awt.Color(7, 96, 216));
+        lblkronor.setText("kr");
+
+        lblDisplayKostnadSoFar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblDisplayKostnadSoFar.setText("Kostnad hittils");
+
+        lblDisplayKostnad2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblDisplayKostnad2.setForeground(new java.awt.Color(7, 96, 216));
+        lblDisplayKostnad2.setText("30000");
+
+        lblKostnadCompare.setText("Kostnaden är 30% högre än medelvärdet för samtliga projekt");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDisplayKostnadSoFar)
+                    .addComponent(lblDisplayKostnad2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblkronor)
+                .addGap(130, 130, 130))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(lblKostnadCompare)))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
+                .addGap(76, 76, 76)
+                .addComponent(lblDisplayKostnadSoFar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDisplayKostnad2)
+                    .addComponent(lblkronor))
+                .addGap(100, 100, 100)
+                .addComponent(lblKostnadCompare)
+                .addContainerGap(272, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel6.setBackground(new java.awt.Color(40, 40, 40));
+
+        tblPartners.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblPartners);
+
+        lblEditPartners.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
+        lblEditPartners.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEditPartnersMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblEditPartners)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(lblEditPartners)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(40, 40, 40));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 426, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 374, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(40, 40, 40));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 456, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,24 +409,21 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(lbllProjName1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(454, 454, 454)
+                        .addGap(239, 239, 239)
+                        .addComponent(lblEkonomi)
+                        .addGap(412, 412, 412)
                         .addComponent(lblPartners)
-                        .addGap(258, 258, 258)
-                        .addComponent(lblTeam)
-                        .addGap(207, 207, 207)
-                        .addComponent(jButton1))
+                        .addGap(421, 421, 421)
+                        .addComponent(lblTeam))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addComponent(lblInsikter))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1277, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(114, 114, 114)
-                    .addComponent(lblEkonomi1)
-                    .addContainerGap(2297, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1095, 1095, 1095)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,25 +434,18 @@ public class OneProjectView extends javax.swing.JFrame {
                     .addComponent(btnTillbakaTillProjektRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(projektInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(lblInsikter)
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPartners)
-                            .addComponent(lblTeam))))
+                .addGap(48, 48, 48)
+                .addComponent(lblInsikter)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPartners)
+                    .addComponent(lblTeam)
+                    .addComponent(lblEkonomi))
                 .addGap(16, 16, 16)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(456, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(281, 281, 281)
-                    .addComponent(lblEkonomi1)
-                    .addContainerGap(798, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -275,12 +457,18 @@ public class OneProjectView extends javax.swing.JFrame {
         proj.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillProjektRutaActionPerformed
 
-    private void lblEditProjectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProjectMouseClicked
+    private void lblEditPartnersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPartnersMouseClicked
+        
+        
         String inPid = projekt.getPid();
         EditProjectFields editProjectFields = new EditProjectFields(projekt, oneProjectView);
         editProjectFields.setVisible(true);
 
-    }//GEN-LAST:event_lblEditProjectMouseClicked
+    }//GEN-LAST:event_lblEditPartnersMouseClicked
+
+    private void lblEditProject1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProject1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEditProject1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -324,16 +512,28 @@ public class OneProjectView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnTillbakaTillProjektRuta;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblEditProject;
-    private javax.swing.JLabel lblEkonomi1;
+    private javax.swing.JLabel lblDisplayKostnad2;
+    private javax.swing.JLabel lblDisplayKostnadSoFar;
+    private javax.swing.JLabel lblEditPartners;
+    private javax.swing.JLabel lblEditProject1;
+    private javax.swing.JLabel lblEkonomi;
     private javax.swing.JLabel lblInsikter;
+    private javax.swing.JLabel lblKostnadCompare;
     private javax.swing.JLabel lblPartners;
     private javax.swing.JLabel lblTeam;
+    private javax.swing.JLabel lblkronor;
     private javax.swing.JLabel lbllProjName1;
     private javax.swing.JPanel projektInfo;
+    private javax.swing.JTable tblPartners;
     // End of variables declaration//GEN-END:variables
 }

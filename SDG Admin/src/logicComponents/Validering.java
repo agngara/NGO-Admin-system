@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class Validering {
     
- public static boolean tomFalt(String text, String fältnamn) {
+ public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
-         JOptionPane.showMessageDialog(null, fältnamn + " får inte vara tom. ");
+         JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
          return false;
      }
      
@@ -23,7 +23,7 @@ public class Validering {
  }
  
  public static boolean giltigEpost(String epost) {
-     if (!epost.matches("^[\\\\w.-]+@[\\\\w.-]+\\\\.\\\\w+$")) {
+     if (!epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")) {
          JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
          return false;
      }
@@ -42,7 +42,7 @@ public class Validering {
  }
       
   public static boolean giltigtDatum(String datum) {
-      if (!datum.matches("^\\\\d{4}-\\\\d{2}-\\\\d{2}$")) {
+      if (!datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
          JOptionPane.showMessageDialog(null, "Datum måste vara u formatet ÅÅÅÅ-MM-DD.");
          return false;
       }
@@ -73,6 +73,12 @@ public class Validering {
           return false;
         }
     } 
+    
+    
+
+    public static boolean giltigDouble(String kostnad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
  

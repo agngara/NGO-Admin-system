@@ -6,6 +6,7 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import orgEntities.Projekt;
 import oru.inf.InfException;
 
@@ -61,12 +62,20 @@ public class ProjektHanterare {
     public boolean laggTillProjekt(String pid, String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
     {
         
-        if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          
+       // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
+          if (!Validering.tomFalt(pid, "pid") ||
+             !Validering.tomFalt(projektnamn, "projektnamn") ||
+             !Validering.tomFalt(beskrivning, "beskrivning") ||
+             !Validering.giltigtDatum(startdatum) ||
+             !Validering.giltigtDatum(slutdatum) ||
+             !Validering.giltigDouble(kostnad) ||
+             !Validering.tomFalt(status, "status") ||
+             !Validering.tomFalt(prioritet, "prioritet")) {
+
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
-           
-       }
+            }
+       
         try
         {
             String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + pid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
@@ -83,6 +92,8 @@ public class ProjektHanterare {
         
    
     }
+    
+   
 
 /* The methods below aims to update the rows of a projekt, where the project in question is decided by the first parameter. 
     The new value in the database table is decided by the second parameter.
@@ -99,6 +110,7 @@ public class ProjektHanterare {
       
       try {
           String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
+          idb.update(query);
           return true;
       }
       
@@ -114,7 +126,8 @@ public class ProjektHanterare {
   {
       
       {
-          if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
+          if (!Validering.tomFalt(nyttNamn, "projektnamn")) {
+          //if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("pid eller namn får inte vara tom.");
            return false;
@@ -138,12 +151,13 @@ public class ProjektHanterare {
   {
       
       {
-          if (pid == null || nyBeskrivning == null || pid.isEmpty() || nyBeskrivning.isEmpty()){
+             if (!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
+            //if (pid == null || nyBeskrivning == null || pid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("pid eller beskrivning får inte vara tom.");
            return false;
-        }
-      try{
+         }
+      try {
           String beskrivning = "UPDATE projekt SET beskrivning = '" + nyBeskrivning + "' WHERE pid = '" + pid + "'";
           idb.update(beskrivning);
           return true;
@@ -161,8 +175,9 @@ public class ProjektHanterare {
  public boolean andraStartdatum(String pid, String nyttStartdatum)
   {
       
-       {
-          if (pid == null || nyttStartdatum == null || pid.isEmpty() || nyttStartdatum.isEmpty()){
+       { if (!Validering.tomFalt(nyttStartdatum, "startdatum") &&
+            !Validering.giltigtDatum(nyttStartdatum)) {
+          //if (pid == null || nyttStartdatum == null || pid.isEmpty() || nyttStartdatum.isEmpty()){
           
            System.out.println("pid eller startdatum får inte vara tom.");
            return false;
@@ -183,7 +198,8 @@ public class ProjektHanterare {
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
       {
-          if (pid == null || nyttSlutdatum == null || pid.isEmpty() || nyttSlutdatum.isEmpty()){
+          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") &&
+            !Validering.giltigtDatum(nyttSlutdatum)){
           
            System.out.println("pid eller slutdatum får inte vara tom.");
            return false;
@@ -207,7 +223,8 @@ public class ProjektHanterare {
  
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
+          //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
+          if(!Validering.giltigDouble(nyKostnad) && !Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
            return false;
@@ -228,10 +245,11 @@ public class ProjektHanterare {
   }
  
  
- public boolean andraStatus(String pid, String nyStatus)
+ public boolean andraStatus(String pid, String nyStatus) 
   {
       {
-          if (pid == null || nyStatus == null || pid.isEmpty() || nyStatus.isEmpty()){
+            if (!Validering.tomFalt(nyStatus, "status")) {
+            //if (pid == null || nyStatus == null || pid.isEmpty() || nyStatus.isEmpty()){
           
            System.out.println("pid eller status får inte vara tom.");
            return false;
@@ -256,7 +274,8 @@ public class ProjektHanterare {
   public boolean andraPrioritet(String pid, String nyPrioritet) {
       
       {
-          if (pid == null || nyPrioritet == null || pid.isEmpty() || nyPrioritet.isEmpty()){
+          if (!Validering.tomFalt(nyPrioritet, "prioritering")) {
+                //if (pid == null || nyPrioritet == null || pid.isEmpty() || nyPrioritet.isEmpty()){
           
            System.out.println("pid eller prioritet får inte vara tom.");
            return false;
@@ -281,8 +300,13 @@ public class ProjektHanterare {
   
 public boolean andraProjektchef(String pid, String nyProjektchef) {
     
-    try {
+    
+    if (!Validering.tomFalt(nyProjektchef, "projektchef")) {
+    return false;
+}
+ try {
         String projektchef = "UPDATE projekt SET projektchef = " + "'" + nyProjektchef + "'";
+        idb.update(projektchef);
         return true;
         
     }
@@ -296,9 +320,15 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
 }
 
 public boolean andraLand(String pid, String nyttLand) {
-    
+
+
+    if (!Validering.tomFalt(nyttLand, "land")) {
+    return false;
+
+}
     try {
         String land = "UPDATE projekt SET land = " + "'" + nyttLand + "'";
+        idb.update(land);
         return true;
     } 
     
@@ -326,7 +356,7 @@ try {
     }
     
     String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
-    idb.update(taBort);
+    idb.delete(taBort);
     System.out.println("Projekt borttaget: " + p.getProjektnamn());
     return true;
 }
@@ -344,6 +374,10 @@ try {
   
   public boolean taBortHandlaggare (String pid, String aid)
   {
+      if (!Validering.tomFalt(pid, "pid") && !Validering.tomFalt(aid, "aid")) {
+          return false;
+      }
+      
       try {
           String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'";
           idb.delete(taBort);
