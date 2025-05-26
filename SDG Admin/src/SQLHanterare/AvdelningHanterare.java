@@ -4,6 +4,7 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import oru.inf.InfException;
@@ -36,11 +37,28 @@ public class AvdelningHanterare {
         
        
    }
+
+    public AvdelningHanterare() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
    
    public HashMap getAvdelning() {
        
        return avdelning;
    }
+
+    public ArrayList<HashMap<String, String>> fetchAllAvdelning() {
+        ArrayList<HashMap<String, String>> rows = new ArrayList<>();
+        String AllQuery = "SELECT * FROM avdelning";
+        try {
+            rows = idb.fetchRows(query);
+        }
+        catch (InfException e) {
+            System.out.println(e);
+        }
+        
+        return rows;
+    }
     
   //Metoden nedan är avsedd för att kunna lägga till en ny avdelning. 
    public class AvdelningTest {

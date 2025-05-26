@@ -14,6 +14,7 @@ import logicComponents.User.UserType;
 import oru.inf.InfException;
 import java.util.UUID;
 import java.util.HashMap;
+import logicComponents.Validering;
 
 /**
  * This class handles database communication with the anstalld table.
@@ -223,7 +224,73 @@ public class AnstalldHanterare {
    }
 
 // koderna under avsedda för att ändra mina uppgifter.
+   
+ public boolean andraAid(String aid, String nyAid)
+{
+    {
+        if (!Validering.tomFalt(nyAid, "aid")) {
+//(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
+            System.out.println("aid får inte vara tom");
+            return false;
+        }
+    }
+               
+    try {
+        String nyttAid = "UPDATE anstalld SET aid = '" + nyAid + "' WHERE aid = '" + aid + "'";
+        idb.update(nyttAid);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}  
+   
+ 
+  public boolean andraAvdelning(String avdelning, String nyAvdelning)
+{
+    {
+        if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
+            System.out.println("Avdelning får inte vara tom");
+            return false;
+        }
+    }
+           
+    try {
+        String nyttAvdelning = "UPDATE anstalld SET avdelning = '" + nyAvdelning + "' WHERE aid = '" + avdelning + "'";
+        idb.update(nyttAvdelning);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
 
+
+ public boolean andraAnstallningsdatum(String ansdatum, String nyAnsdatum)
+{
+    {
+        if (!Validering.tomFalt(nyAnsdatum, "ansdatum")) {
+            System.out.println("Anställningsdatum får inte vara tom");
+            return false;
+        }
+    }
+           
+    try {
+        String nyttAnsdatum = "UPDATE anstalld SET anställningsdatum = '" + nyAnsdatum + "' WHERE aid = '" + ansdatum + "'";
+        idb.update(nyttAnsdatum);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}    
+ 
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
