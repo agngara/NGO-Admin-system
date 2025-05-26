@@ -218,41 +218,32 @@ public class PartnerHanterare {
        
      public ArrayList<HashMap<String, String>> getAllPartners() {
          
+
+
+     }
+     
+     public ArrayList<HashMap<String, String>> getPartnersByPID(String pid) {
+    
+         ArrayList<HashMap<String, String>> rader = new ArrayList<>();
+         
+         
+         
          try {
-             String sql = "SELECT * FROM partner";
-              ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
-              return rader;
+             String sql = "SELECT * FROM partner WHERE pid = ;" + "'" + pid + "'";
+              rader = idb.fetchRows(sql);    
          }
          
          catch (InfException e) {
              
              e.printStackTrace();
          }
-     }  
        
    
-   
-  public ArrayList<HashMap<String, String>> getAllPartners()
-  {
-  
-      try {
-          
-          String sql = "SELECT * FROM partner"; 
-          
-            ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
-            return rader;
-            
-     
-      }
-      
-      
-      catch (InfException e) {
-        
-          e.printStackTrace();
-         
-          
-      }
-  }
+         return rader;
+    
+}
+
+ 
  
 }
    
