@@ -14,7 +14,7 @@ import gui.Anställda;
  *
  * @author theow
  */
-public class EditAnställda1 extends javax.swing.JFrame {
+public class LäggTillAnställd1 extends javax.swing.JFrame {
    
     Anstalld anstalld;
     AnstalldHanterare ah;
@@ -25,17 +25,13 @@ public class EditAnställda1 extends javax.swing.JFrame {
     /**
      * Creates new form EditProjectFields
      */
-    public EditAnställda1(Anstalld anstalld) {
+    public LäggTillAnställd1(Anstalld anstalld) {
         this.anstalld = anstalld;
         initComponents();
         this.setTextBoxes();
         aid = anstalld.getAid();
 //        ah = new AnstalldHanterare(aid);
         
-    }
-
-    public EditAnställda1(String aid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     public void setTextBoxes() {
@@ -160,6 +156,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         txtTelefon = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
         bAndraLösen = new javax.swing.JButton();
+        bnGenereraLosen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,6 +244,8 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
         bAndraLösen.setText("Ändra lösenord");
 
+        bnGenereraLosen.setText("Generera Lösenord");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,20 +279,19 @@ public class EditAnställda1 extends javax.swing.JFrame {
                                 .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblFörklarDatum)
+                                .addGap(95, 95, 95)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(95, 95, 95)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblLosenord)
-                                                    .addComponent(lblAvdelning))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(bnGenereraLosen)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bAndraLösen)))))
+                                        .addComponent(bAndraLösen))
+                                    .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblLosenord)
+                                            .addComponent(lblAvdelning))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE))))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +322,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
                             .addComponent(lblFörklarDatum)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(bAndraLösen)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bAndraLösen)
+                            .addComponent(bnGenereraLosen))))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFornamn)
@@ -416,14 +416,16 @@ public class EditAnställda1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditAnställda1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LäggTillAnställd1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditAnställda1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LäggTillAnställd1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditAnställda1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LäggTillAnställd1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditAnställda1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LäggTillAnställd1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -437,6 +439,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAndraLösen;
+    private javax.swing.JButton bnGenereraLosen;
     private javax.swing.JButton btnRedigera;
     private javax.swing.JComboBox<String> comboAvdelning;
     private javax.swing.JLabel lbAnstalldID;
