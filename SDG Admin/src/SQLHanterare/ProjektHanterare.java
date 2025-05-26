@@ -110,6 +110,7 @@ public class ProjektHanterare {
       
       try {
           String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
+          idb.update(query);
           return true;
       }
       
@@ -305,6 +306,7 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
 }
  try {
         String projektchef = "UPDATE projekt SET projektchef = " + "'" + nyProjektchef + "'";
+        idb.update(projektchef);
         return true;
         
     }
@@ -326,6 +328,7 @@ public boolean andraLand(String pid, String nyttLand) {
 }
     try {
         String land = "UPDATE projekt SET land = " + "'" + nyttLand + "'";
+        idb.update(land);
         return true;
     } 
     
@@ -353,7 +356,7 @@ try {
     }
     
     String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
-    idb.update(taBort);
+    idb.delete(taBort);
     System.out.println("Projekt borttaget: " + p.getProjektnamn());
     return true;
 }

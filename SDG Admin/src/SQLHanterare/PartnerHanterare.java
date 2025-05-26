@@ -54,7 +54,8 @@ public class PartnerHanterare {
     
    public boolean andraNamn(String pid, String nyttNamn)
     {
-       if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
+       if (!Validering.tomFalt(nyttNamn, "namn")) {
+//(pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("pid eller namn får inte vara tommna.");
            return false;
@@ -79,7 +80,8 @@ public class PartnerHanterare {
     
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
-         if (pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
+         if (Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
+//(pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
           
            System.out.println("pid eller kontaktperson får inte vara tommna.");
            return false;
@@ -90,7 +92,7 @@ public class PartnerHanterare {
             idb.update(kontaktperson);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -101,7 +103,8 @@ public class PartnerHanterare {
     
      public boolean andraKontaktEpost(String pid, String nyKontaktEpost)
     {
-         if (pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
+         if (!Validering.tomFalt(nyKontaktEpost, "kontaktepost")) {
+//(pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
           
            System.out.println("pid eller kontaktepost får inte vara tommna.");
            return false;
@@ -123,7 +126,8 @@ public class PartnerHanterare {
     public boolean andraTelefon(String pid, String nyTelefon)
     {
         
-        if (pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
+        if (!Validering.tomFalt(nyTelefon, "telefon") && !Validering.giltigtTelefonnummer(nyTelefon)) {
+//(pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
           
            System.out.println("pid eller telefon får inte vara tommna.");
            return false;
@@ -133,7 +137,7 @@ public class PartnerHanterare {
             idb.update(telefon);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -144,7 +148,8 @@ public class PartnerHanterare {
      
    public boolean andraAdress(String pid, String nyAdress)
     {
-          if (pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
+          if (!Validering.tomFalt(nyAdress, "adress")) {
+//(pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("pid eller adress får inte vara tommna.");
            return false;
@@ -154,7 +159,7 @@ public class PartnerHanterare {
             idb.update(adress);
             return true;
         }
-        catch(Exception e)
+        catch(InfException e)
         {
             e.printStackTrace();
             return false; 
@@ -164,7 +169,8 @@ public class PartnerHanterare {
    public boolean andraBranch(String pid, String nyBranch)
     {
        {
-          if (pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
+          if (!Validering.tomFalt(nyBranch, "branch")) {
+//(pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
           
            System.out.println("pid eller branch får inte vara tommna.");
            return false;
@@ -253,6 +259,9 @@ public class PartnerHanterare {
           
       }
   }
+  
+  
+  
  
 }
    

@@ -80,7 +80,8 @@ public class AvdelningHanterare {
     public boolean andraNamn(String avdid, String nyttNamn)
     {
         {
-          if (avdid == null || nyttNamn == null || avdid.isEmpty() || nyttNamn.isEmpty()){
+          if (!Validering.tomFalt(nyttNamn, "namn")) {
+            //(avdid == null || nyttNamn == null || avdid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("avdid eller namn får inte vara tommna.");
            return false;
@@ -106,7 +107,8 @@ public class AvdelningHanterare {
     {
         
          {
-          if (avdid == null || nyBeskrivning == null || avdid.isEmpty() || nyBeskrivning.isEmpty()){
+            if(!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
+          //if (avdid == null || nyBeskrivning == null || avdid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("avdid eller beskrivning får inte vara tommna.");
            return false;
@@ -130,7 +132,8 @@ public class AvdelningHanterare {
     public boolean andraAdress(String avdid, String nyAdress)
     {
         {
-          if (avdid == null || nyAdress == null || avdid.isEmpty() || nyAdress.isEmpty()){
+          if (!Validering.tomFalt(nyAdress, "adress")) {
+//(avdid == null || nyAdress == null || avdid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("avdid eller adress får inte vara tom.");
            return false;
@@ -156,8 +159,8 @@ public class AvdelningHanterare {
     public boolean andraEpost(String avdid, String nyEpost)
     {
          {
-          if (avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
-          
+          //if //(avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
+          if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
            System.out.println("avdid eller epost får inte vara tom.");
            return false;
         }
@@ -184,7 +187,8 @@ public class AvdelningHanterare {
             
             
          {
-          if (avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
+          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) && !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
+//(avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
           
            System.out.println("avdid eller telefon får inte vara tom.");
            return false;
