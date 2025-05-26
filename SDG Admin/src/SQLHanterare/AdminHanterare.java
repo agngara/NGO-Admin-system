@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import orgEntities.Admin;
 import orgEntities.Anstalld;
+import oru.inf.InfException;
 /**
  *
  * @author theow
@@ -74,7 +75,7 @@ public class AdminHanterare {
             return true;
         }
         
-        catch (Exception e)
+        catch (InfException e)
         {
             e.printStackTrace();
             return false;

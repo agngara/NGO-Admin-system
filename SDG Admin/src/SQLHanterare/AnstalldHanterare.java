@@ -196,7 +196,7 @@ public class AnstalldHanterare {
              !Validering.giltigEpost(epost) ||
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.giltigEpost(anstallningsdatum)) {
+             !Validering.giltigtDatum(anstallningsdatum)) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
@@ -235,7 +235,7 @@ public class AnstalldHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") &&
+        if (!Validering.tomFalt(nyEpost, "epost") ||
         !Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
@@ -386,7 +386,7 @@ public boolean andraAdress(String aid, String nyAdress)
     public boolean taBortAnstalld (Anstalld a) {
 
     String aid = a.getAid();
-    if (!Validering.tomFalt(aid, aid)) {
+    if (!Validering.tomFalt(aid, "anställningsID")) {
         System.out.println("Aid är tom");
         return false;
     }

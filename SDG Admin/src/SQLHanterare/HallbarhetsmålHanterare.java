@@ -111,7 +111,7 @@ public class HallbarhetsmålHanterare {
     public boolean andraMalnummer(String hid, String nyttMalnummer)
     {
          {
-         if (!Validering.giltigInt(nyttMalnummer, "malnummer") && !Validering.tomFalt(nyttMalnummer, "malnummer")) {
+         if (!Validering.giltigInt(nyttMalnummer, "malnummer") || !Validering.tomFalt(nyttMalnummer, "malnummer")) {
 //(hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
              
              
