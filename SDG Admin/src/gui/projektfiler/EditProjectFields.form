@@ -152,42 +152,42 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblProjektNamn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Projektnamn"/>
+        <Property name="text" type="java.lang.String" value="Projektnamn*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblStartDatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Startdatum"/>
+        <Property name="text" type="java.lang.String" value="Startdatum*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBeskrivning">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Beskrivning"/>
+        <Property name="text" type="java.lang.String" value="Beskrivning*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSlutDatum">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Slutdatum"/>
+        <Property name="text" type="java.lang.String" value="Slutdatum*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblKostnad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Kostnad"/>
+        <Property name="text" type="java.lang.String" value="Kostnad*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblStatus">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Status"/>
+        <Property name="text" type="java.lang.String" value="Status*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPrioritet">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Prioritet"/>
+        <Property name="text" type="java.lang.String" value="Prioritet*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNamn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Land"/>
+        <Property name="text" type="java.lang.String" value="Land*"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtProjektNamn">

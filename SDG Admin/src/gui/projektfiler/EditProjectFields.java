@@ -193,21 +193,21 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         lblProjektID.setText("Project-ID*");
 
-        lblProjektNamn.setText("Projektnamn");
+        lblProjektNamn.setText("Projektnamn*");
 
-        lblStartDatum.setText("Startdatum");
+        lblStartDatum.setText("Startdatum*");
 
-        lblBeskrivning.setText("Beskrivning");
+        lblBeskrivning.setText("Beskrivning*");
 
-        lblSlutDatum.setText("Slutdatum");
+        lblSlutDatum.setText("Slutdatum*");
 
-        lblKostnad.setText("Kostnad");
+        lblKostnad.setText("Kostnad*");
 
-        lblStatus.setText("Status");
+        lblStatus.setText("Status*");
 
-        lblPrioritet.setText("Prioritet");
+        lblPrioritet.setText("Prioritet*");
 
-        lblNamn.setText("Land");
+        lblNamn.setText("Land*");
 
         txtProjektNamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
