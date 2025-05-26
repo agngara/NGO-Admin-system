@@ -6,6 +6,7 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import logicComponents.Validering;
 import orgEntities.Hallbarhetsmål;
 import oru.inf.InfException;
 /**
@@ -47,8 +48,12 @@ public class HallbarhetsmålHanterare {
     {
        
          {
-        
-          if (namn == null || malnummer == null || beskrivning == null || prioritet == null || namn.isEmpty() || malnummer.isEmpty() || beskrivning.isEmpty() || prioritet.isEmpty()) {
+            if (!Validering.tomFalt(namn, "namn") || 
+            !Validering.giltigInt(malnummer, "malnummer") ||
+            !Validering.tomFalt(malnummer, "malnummer") ||
+            !Validering.tomFalt(beskrivning, "beskrivning") ||
+            !Validering.tomFalt(prioritet, "prioritet")) {
+         // if (namn == null || malnummer == null || beskrivning == null || prioritet == null || namn.isEmpty() || malnummer.isEmpty() || beskrivning.isEmpty() || prioritet.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Hållbarhetsmål kan inte läggas till");
            return false;
@@ -78,7 +83,8 @@ public class HallbarhetsmålHanterare {
     public boolean andraNamn(String hid, String nyttNamn)
             
      {
-         if (hid == null || nyttNamn == null || hid.isEmpty() || nyttNamn.isEmpty()) {
+         if (!Validering.tomFalt(nyttNamn, "namn")) {
+//(hid == null || nyttNamn == null || hid.isEmpty() || nyttNamn.isEmpty()) {
              
              
              
@@ -105,7 +111,8 @@ public class HallbarhetsmålHanterare {
     public boolean andraMalnummer(String hid, String nyttMalnummer)
     {
          {
-         if (hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
+         if (!Validering.giltigInt(nyttMalnummer, "malnummer") && !Validering.tomFalt(nyttMalnummer, "malnummer")) {
+//(hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
              
              
              
@@ -137,7 +144,8 @@ public class HallbarhetsmålHanterare {
     public boolean andraBeskrivning(String hid, String nyBeskrivning)
     {
          {
-         if (hid == null || nyBeskrivning == null || hid.isEmpty() || nyBeskrivning.isEmpty()) {
+         if (!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
+//(hid == null || nyBeskrivning == null || hid.isEmpty() || nyBeskrivning.isEmpty()) {
              
              
              
@@ -165,7 +173,8 @@ public class HallbarhetsmålHanterare {
      public boolean andraPrioritet (String hid, String nyPrioritet)
              
      {
-         if (hid == null || nyPrioritet == null || hid.isEmpty() || nyPrioritet.isEmpty()) {
+         if (!Validering.tomFalt(nyPrioritet, "nyPrioritet")) {
+//(hid == null || nyPrioritet == null || hid.isEmpty() || nyPrioritet.isEmpty()) {
              
              
              
@@ -218,17 +227,17 @@ public class HallbarhetsmålHanterare {
     
       public boolean taBortHallbarhetsmal(Hallbarhetsmål h)
 {
-    try {
+   
     
     String hid = h.getHid();
     
     
-    if (hid == null || hid.isEmpty()) {
+    if (!Validering.tomFalt(hid, "hid")) {
         System.out.println("Hid är tom");
         return false;
     }
     
-    
+    try {
     String taBort = "DELETE FROM hallbarhetsmal WHERE hid = '" + h.getHid() + "'";
     idb.delete(taBort);
     
