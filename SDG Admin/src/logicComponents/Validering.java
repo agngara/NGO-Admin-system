@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class Validering {
     
- public static boolean tomFalt(String text, String fältnamn) {
+ public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
-         JOptionPane.showMessageDialog(null, fältnamn + " får inte vara tom. ");
+         JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
          return false;
      }
      
