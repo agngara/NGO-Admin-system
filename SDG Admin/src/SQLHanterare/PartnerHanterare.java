@@ -202,12 +202,27 @@ public class PartnerHanterare {
             String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
            idb.insert(nyPartner);
            return true;
-       } catch (Exception e ){
+       } catch (InfException e ){
           System.out.println("Något gick fel" + e.getMessage());
            e.printStackTrace();
            return false;
    }
 }
+       
+     public ArrayList<HashMap<String, String>> getAllPartners() {
+         
+         try {
+             String sql = "SELECT * FROM partner";
+              ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+              return rader;
+         }
+         
+         catch (InfException e) {
+             
+             e.printStackTrace();
+         }
+     }  
+       
    
    
   public ArrayList<HashMap<String, String>> getAllPartners()
