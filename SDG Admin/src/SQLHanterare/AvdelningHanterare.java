@@ -160,7 +160,7 @@ public class AvdelningHanterare {
     {
          {
           //if //(avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
-          if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
+          if (!Validering.giltigEpost(nyEpost) || !Validering.tomFalt(nyEpost, "epost")) {
            System.out.println("avdid eller epost får inte vara tom.");
            return false;
         }
@@ -187,7 +187,7 @@ public class AvdelningHanterare {
             
             
          {
-          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) && !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
+          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) || !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
 //(avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
           
            System.out.println("avdid eller telefon får inte vara tom.");
