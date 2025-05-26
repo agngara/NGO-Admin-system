@@ -22,6 +22,13 @@ public class PartnerHanterare {
    private String query;
    private String pid;
    
+   
+   public PartnerHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
+   
    public PartnerHanterare(String pid) {
        
        this.pid = pid;
