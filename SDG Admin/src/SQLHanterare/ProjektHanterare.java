@@ -102,7 +102,8 @@ public class ProjektHanterare {
  
   public boolean andraPid(String pid, String nyPid) {
       
-      if (pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
+      if (!Validering.tomFalt(pid, nyPid)) {
+//(pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
           System.out.println("pid får inte vara tom");
           return false;
       }
@@ -287,7 +288,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -311,7 +312,7 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
         
     }
     
-    catch (Exception e) {
+    catch (InfException e) {
         e.printStackTrace();
         return false;
         
@@ -332,7 +333,7 @@ public boolean andraLand(String pid, String nyttLand) {
         return true;
     } 
     
-    catch (Exception e) {
+    catch (InfException e) {
         e.printStackTrace();
         return false;
     }
@@ -349,7 +350,7 @@ try {
     
     String pid = p.getPid();
 
-    if (pid == null || pid.isEmpty()) {
+    if (!Validering.tomFalt(pid, pid)){
     
     System.out.println("Pid är tom");
     return false; 
@@ -374,7 +375,7 @@ try {
   
   public boolean taBortHandlaggare (String pid, String aid)
   {
-      if (!Validering.tomFalt(pid, "pid") && !Validering.tomFalt(aid, "aid")) {
+      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
           return false;
       }
       
