@@ -28,10 +28,13 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     public LäggTillAnställd1(Anstalld anstalld) {
         this.anstalld = anstalld;
         initComponents();
-        this.setTextBoxes();
         aid = anstalld.getAid();
 //        ah = new AnstalldHanterare(aid);
         
+    }
+
+    public LäggTillAnställd1() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     public void setTextBoxes() {
@@ -44,7 +47,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtTelefon.setText(anstalld.getTelefonnummer());
         txtEpost.setText(anstalld.getEpost());
         txtAnsDatum.setText(anstalld.getAnstallningsdatum());
-        //txtStatus.setText(projekt.getStatus());
+        
         this.fillComboBoxes();
 
     }
@@ -57,6 +60,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
         ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.fetchAllAvdelning();
         String namn = "";
+        comboAvdelning.addItem(""); 
 
         for (HashMap<String,String> hashmap : avdelning) {
 
@@ -65,8 +69,10 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             comboAvdelning.addItem(namn);
 
         }
-        String avdelningNamn = anstalld.getAvdelning();
-        comboAvdelning.setSelectedItem(avdelning);
+        comboAvdelning.setSelectedIndex(0);
+
+//        String avdelningNamn = anstalld.getAvdelning();
+//        comboAvdelning.setSelectedItem(avdelning);
         
 }
      

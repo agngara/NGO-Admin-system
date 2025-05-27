@@ -8,6 +8,7 @@ import oru.inf.InfException;
 import db.DatabaseInterface;
 import gui.Anställda;
 import gui.Meny;
+import gui.anställdafiler.LäggTillAnställd1;
 import gui.anställdafiler.EditAnställda1;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import logicComponents.User.User;
  */
 public class Anställda extends javax.swing.JFrame {
     private InfDB idb;
+    private String aid;
     /**
      * Creates new form Anställda
      */
@@ -106,10 +108,12 @@ public class Anställda extends javax.swing.JFrame {
         ansTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAnställda = new javax.swing.JTable();
+        bnLaggTillAnstalld = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Anställda:");
+        jLabel1.setToolTipText("");
 
         ansTillbakaTillMeny.setText("Tillbaka till meny");
         ansTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
@@ -131,27 +135,40 @@ public class Anställda extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAnställda);
 
+        bnLaggTillAnstalld.setText("Lägg till anställd");
+        bnLaggTillAnstalld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnLaggTillAnstalldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bnLaggTillAnstalld))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(ansTillbakaTillMeny)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ansTillbakaTillMeny)
+                    .addComponent(bnLaggTillAnstalld))
                 .addGap(18, 18, 18))
         );
 
@@ -162,6 +179,12 @@ public class Anställda extends javax.swing.JFrame {
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_ansTillbakaTillMenyActionPerformed
+
+    private void bnLaggTillAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillAnstalldActionPerformed
+        new LäggTillAnställd1().setVisible(true);
+        this.setVisible(false);   
+
+    }//GEN-LAST:event_bnLaggTillAnstalldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,12 +239,14 @@ public class Anställda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ansTillbakaTillMeny;
+    private javax.swing.JButton bnLaggTillAnstalld;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAnställda;
     // End of variables declaration//GEN-END:variables
 
-    public String getaid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getAid() 
+    {
+       return aid;
     }
 }
