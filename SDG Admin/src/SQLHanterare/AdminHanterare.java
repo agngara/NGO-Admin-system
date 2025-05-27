@@ -110,7 +110,7 @@ public class AdminHanterare {
              !Validering.tomFalt(beskrivning, "beskrivning") &&
              !Validering.giltigtDatum(startdatum) &&
              !Validering.giltigtDatum(slutdatum) &&
-             !Validering.giltigDouble(kostnad) &&
+             //!Validering.giltigDouble(kostnad) &&
              !Validering.tomFalt(status, "status") &&
              !Validering.tomFalt(prioritet, "prioritet")) {
 

@@ -149,24 +149,24 @@ public class LandHanterare {
     }
     
     
-    public boolean andraValuta(String nyValuta) {
-     
-//  if(!Validering.giltigDouble(nyValuta, "Valuta") && Validering.tomFalt(nyValuta, "Valuta")) {
-            return false;
-        }
-        
-        try {
-            String valuta = "UPDATE land SET valuta = '" + nyValuta + "'WHERE lid = '" + lid + "'";
-            idb.update(valuta);
-            return true;
-            
-        }
-        
-        catch (InfException e) {
-            e.printStackTrace();
-            return false; 
-        }
-    }
+//    public boolean andraValuta(String nyValuta) {
+//     
+////  if(!Validering.giltigDouble(nyValuta, "Valuta") && Validering.tomFalt(nyValuta, "Valuta")) {
+//            return false;
+//        }
+//        
+//        try {
+//            String valuta = "UPDATE land SET valuta = '" + nyValuta + "'WHERE lid = '" + lid + "'";
+//            idb.update(valuta);
+//            return true;
+//            
+//        }
+//        
+//        catch (InfException e) {
+//            e.printStackTrace();
+//            return false; 
+//        }
+//    }
     
     
     

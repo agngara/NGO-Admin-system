@@ -329,7 +329,7 @@ public boolean andraLand(String pid, String nyttLand) {
 
 }
     try {
-        String land = "UPDATE projekt SET land = " + "'" + nyttLand + "'WHERE pid = '" + pid + "'";
+        String land = "UPDATE projekt SET land = '" + nyttLand +  "WHERE pid = ' " + pid + "'";
         idb.update(land);
         return true;
     } 
