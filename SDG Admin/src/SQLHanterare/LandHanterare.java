@@ -150,7 +150,8 @@ public class LandHanterare {
     
     
     public boolean andraValuta(String nyValuta) {
-        if(!Validering.giltigDouble(nyValuta, "Valuta") && Validering.tomFalt(nyValuta, "Valuta")) {
+     
+//  if(!Validering.giltigDouble(nyValuta, "Valuta") && Validering.tomFalt(nyValuta, "Valuta")) {
             return false;
         }
         
