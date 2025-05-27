@@ -64,20 +64,20 @@ public class Validering {
     }
     
     
-    public static boolean giltigDouble(String text, String faltnamn) {
-        try {
-            Double.valueOf(text);
-            return true;
-        } catch (NumberFormatException e) {
-          JOptionPane.showMessageDialog(null, faltnamn + " måste vara ett tal (t.ex 123,54");
-          return false;
-        }
-    } 
+//   // public static boolean giltigDouble(String text, String faltnamn) {
+//        try {
+//            Double.valueOf(text);
+//            return true;
+//        } catch (NumberFormatException e) {
+//          JOptionPane.showMessageDialog(null, faltnamn + " måste vara ett tal (t.ex 123,54");
+//          return false;
+//        }
+//    } 
     
     
 
-    public static boolean giltigDouble(String kostnad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    //public static boolean giltigDouble(String kostnad) {
+       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
@@ -91,4 +91,4 @@ public class Validering {
     
     
     
-}
+

@@ -69,7 +69,7 @@ public class ProjektHanterare {
              Validering.tomFalt(beskrivning, "beskrivning") &&
              Validering.giltigtDatum(startdatum) &&
              Validering.giltigtDatum(slutdatum) &&
-             Validering.giltigDouble(kostnad) &&
+             //Validering.giltigDouble(kostnad) &&
              Validering.tomFalt(status, "status") &&
              Validering.tomFalt(prioritet, "prioritet")) {
 
@@ -225,8 +225,8 @@ public class ProjektHanterare {
  
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
-          if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
+          if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
+          //if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
            return false;
