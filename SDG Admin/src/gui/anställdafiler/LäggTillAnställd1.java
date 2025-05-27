@@ -217,7 +217,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         });
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitle.setText("Redigera Anställd");
+        lblTitle.setText("Lägg till anställd");
 
         btnRedigera.setBackground(new java.awt.Color(7, 96, 216));
         btnRedigera.setForeground(new java.awt.Color(255, 255, 255));
@@ -393,8 +393,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             
         }
         
-        
-   
     }//GEN-LAST:event_btnRedigeraActionPerformed
 
     private void txtEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEpostActionPerformed

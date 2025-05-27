@@ -23,16 +23,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="tillbakaTillMeny" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="769" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="hallbarhetsmalBild" alignment="0" min="-2" pref="792" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="792" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="hallbarhetsmalBild" alignment="0" min="-2" pref="792" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="792" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="tillbakaTillMeny" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="185" max="32767" attributes="0"/>
@@ -47,8 +49,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="257" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="tillbakaTillMeny" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="78" max="32767" attributes="0"/>
+              <Component id="tillbakaTillMeny" min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +72,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="tillbakaTillMeny">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="66" red="0" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="TIllbaka till meny"/>
       </Properties>
       <Events>
