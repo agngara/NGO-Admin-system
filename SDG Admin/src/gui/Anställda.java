@@ -112,9 +112,12 @@ public class Anställda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Anställda:");
         jLabel1.setToolTipText("");
 
+        ansTillbakaTillMeny.setBackground(new java.awt.Color(0, 102, 255));
+        ansTillbakaTillMeny.setForeground(new java.awt.Color(255, 255, 255));
         ansTillbakaTillMeny.setText("Tillbaka till meny");
         ansTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +138,8 @@ public class Anställda extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAnställda);
 
+        bnLaggTillAnstalld.setBackground(new java.awt.Color(0, 102, 255));
+        bnLaggTillAnstalld.setForeground(new java.awt.Color(255, 255, 255));
         bnLaggTillAnstalld.setText("Lägg till anställd");
         bnLaggTillAnstalld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,12 +169,12 @@ public class Anställda extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ansTillbakaTillMeny)
-                    .addComponent(bnLaggTillAnstalld))
-                .addGap(18, 18, 18))
+                    .addComponent(bnLaggTillAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
         pack();
