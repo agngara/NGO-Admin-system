@@ -249,11 +249,24 @@ public class PartnerHanterare {
       }
   
   }
+  
+      public ArrayList getPartnerByProject(String projektID) {
+          
+          ArrayList<HashMap<String, String>> rows = new ArrayList<>();
+          String byProjectQuery = "SELECT * FROM partner WHERE partner.pid IN (SELECT partner_pid FROM projekt_partner WHERE projekt_partner.pid = " + "'" + projektID + "'";
+          
+          try {
+             rows = idb.fetchRows(query);
+          } catch (InfException e) {
+              System.out.println(e);
+          }
+          
+          return rows;
+
+}
  
 }
   
 
    
    
-   
-  

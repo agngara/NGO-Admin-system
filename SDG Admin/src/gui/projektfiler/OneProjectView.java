@@ -113,11 +113,29 @@ public class OneProjectView extends javax.swing.JFrame {
     
     public void fillPartnerTable() {
         
-        ArrayList<HashMap<String, String>> rader = new PartnerHanterare().getAllPartners;
+        ArrayList<HashMap<String, String>> rader = new PartnerHanterare().getPartnerByProject(projekt.getPid());
+        String [] columnNames = {"Projekt-ID, Namn, Kontaktperson, kontaktepost, telefon, adress, branch, stad"};
         
+      
+        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+
         
-        for ()
+        for (HashMap<String, String> rad : rader) {
+                        
+            String pid = rad.get("pid");
+            String namn = rad.get("namn");
+            String kontaktperson = rad.get("kontaktperson");
+            String kontaktepost = rad.get("kontaktepost");
+            String telefon = rad.get("telefon");
+            String adress = rad.get("adress");
+            String branch = rad.get("branch");
+            String stad = rad.get("stad");
+           
+            model.addRow(new Object[] {pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad});
+            
+        }
         
+        tblPartners.setModel(model);
         
     }
 
