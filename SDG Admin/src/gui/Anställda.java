@@ -61,7 +61,7 @@ public class Anställda extends javax.swing.JFrame {
                 String losenord = anstalld.get("losenord");
                 String avdelning = anstalld.get("avdelning");
                 
-            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Visa"});
+            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Redigera"});
         }
     }
         tblAnställda.setModel(model);
