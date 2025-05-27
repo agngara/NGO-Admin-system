@@ -20,23 +20,19 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     AnstalldHanterare ah;
     String aid;
     
-     
-    
+      
     /**
      * Creates new form EditProjectFields
      */
-    public LäggTillAnställd1(Anstalld anstalld) {
-        this.anstalld = anstalld;
+    public LäggTillAnställd1() {
+        anstalld = new Anstalld();
         initComponents();
-        aid = anstalld.getAid();
+        //aid = anstalld.getAid();
 //        ah = new AnstalldHanterare(aid);
         
     }
-
-    public LäggTillAnställd1() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
+    //Kan tas bort
     public void setTextBoxes() {
         
         txtansID1.setText(anstalld.getAid());

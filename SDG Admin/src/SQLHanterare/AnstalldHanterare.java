@@ -194,8 +194,8 @@ public class AnstalldHanterare {
         
        
         if (!Validering.tomFalt(fornamn, "fornamn") &&
-             Validering.tomFalt(efternamn, "efternamn") &&
-             Validering.tomFalt(adress, "adress") &&
+             !Validering.tomFalt(efternamn, "efternamn") &&
+             !Validering.tomFalt(adress, "adress") &&
              Validering.giltigEpost(epost) &&
              Validering.tomFalt(adress, "adress") &&
              Validering.giltigtTelefonnummer(telefon) &&
