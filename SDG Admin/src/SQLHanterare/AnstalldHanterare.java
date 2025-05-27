@@ -73,7 +73,7 @@ public class AnstalldHanterare {
     * @param inAid the aid of the anstalld
     * @return returns usertype enum depending on which role was infered.
     */
-   public UserType fetchRole(String inAid) throws InfException {
+   public UserType fetchRole(String inAid) {
       
        UserType userType = UserType.handlaggare;
        String roll = "";
@@ -147,37 +147,6 @@ public class AnstalldHanterare {
    
    // ny version av getRoll
    
-  /* public UserType fetchRole(String aid) {
-       UserType underType = UserType.handlaggare; 
-       
-       
-       try {
-          String kollaAdmin = "SELECT behorighetsniva FROM admin WHERE aid = '" + aid + "'";
-          String adminResultat = idb.fetchSingle(kollaAdmin);
-          
-          if (adminResultat != null) {
-              if(adminResultat.equals("1")) {
-                  return UserType.admin1;
-              } else if (adminResultat.equals("2")) {
-                  return UserType.admin2;
-              }
-          }
-          
-          
-          
-          String kollaProjektchef = "SELECT projektchef FROM projekt WHERE projektchef = '" + aid + "'";
-          String projektResultat = idb.fetchSingle(kollaProjektchef);
-          
-          if (projektResultat !=null && projektResultat.equals(aid)) {
-              return UserType.projektchef;
-          }
-          
-          return UserType.handlaggare;
-       } catch (InfException e) {
-           e.printStackTrace();
-           return UserType.handlaggare;
-       }
-   }
    
    // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
    
