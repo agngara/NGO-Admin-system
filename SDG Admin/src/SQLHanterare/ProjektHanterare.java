@@ -153,7 +153,7 @@ public class ProjektHanterare {
   {
       
       {
-             if (!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
+             if (!Validering.tomFalt(nyBeskrivning, "beskrivning") || !Validering.tomFalt(pid, "pid")) {
             //if (pid == null || nyBeskrivning == null || pid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("pid eller beskrivning får inte vara tom.");
