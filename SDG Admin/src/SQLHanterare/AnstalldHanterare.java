@@ -146,6 +146,7 @@ public class AnstalldHanterare {
    
    
    // ny version av getRoll
+   // anställdahnaterare borde ge tbx anställda. En anställdhanterare och 0-m anställda. 
    
    
    // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
@@ -187,13 +188,22 @@ public class AnstalldHanterare {
  * och ett slumpmässigt aid
  */
    
+   // Om någon skapar null lösen geras ett lsöenord, annars kan vara bra att lägga till så man kan skapa ett lösen. 
    
-   public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+   public boolean laggTillAnstalld(String losenord, String aid, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
         
+        
+        if (losenord == null) {
+            losenord = UUID.randomUUID().toString();
+        }
+      
        
-        if (!Validering.tomFalt(fornamn, "förnamn") ||
+        if (
+             !Validering.tomFalt(losenord, "lösenord") ||
+             !Validering.tomFalt(aid, "aid") ||
+             !Validering.tomFalt(fornamn, "förnamn") ||
              !Validering.tomFalt(efternamn, "efternamn") ||
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
@@ -210,8 +220,8 @@ public class AnstalldHanterare {
         
         try {
              
-         String losenord = UUID.randomUUID().toString().substring(0, 9);
-         String aid = UUID.randomUUID().toString();
+         
+         
          
          String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
          "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
@@ -449,7 +459,8 @@ public boolean andraAdress(String aid, String nyAdress)
 
 /**
  * Denna klass raderar en anställd från databasen baserat på deras aid.Valdideringen sker genom att i if-satsen kollar den att aid inte
- är null eller tom
+ är null eller tom.
+ * UPPDATERAD version för att få bort anställd genom att ta bort främmande nycklar från andra tabeller. 
  *
      * @param a 
      * @return  
@@ -464,7 +475,17 @@ public boolean andraAdress(String aid, String nyAdress)
         return false;
     }
    try { 
-    String taBort = "DELETE FROM anstalld WHERE aid = '" + aid + "'";
+    
+       // ta bort från alla tabeller där aid finns som nyckel. 
+       
+       String taBortAdmin = "DELETE FROM admin WHERE aid = '" + aid + "'";
+       String taBortHand = "DELETE FROM handlaggare WHERE aid = '" + aid + "'";
+       String taBortAnsPro = "DELETE FROM ans_proj WHERE aid = '" + aid + "'";
+       String taBort = "DELETE FROM anstalld WHERE aid = '" + aid + "'";
+       
+    idb.delete(taBortAdmin);
+    idb.delete(taBortHand);
+    idb.delete(taBortAnsPro);
     idb.delete(taBort);
     System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
     return true;    

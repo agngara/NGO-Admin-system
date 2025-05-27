@@ -57,15 +57,24 @@ public class AdminHanterare {
  */
     //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
-    public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+    public boolean laggTillAnstalld(String losenord, String aid, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
         
+        
+        if (losenord == null) {
+            losenord = UUID.randomUUID().toString();
+        }
+      
        
-        if (!Validering.tomFalt(fornamn, "fornamn") ||
+        if (
+             !Validering.tomFalt(losenord, "lösenord") ||
+             !Validering.tomFalt(aid, "aid") ||
+             !Validering.tomFalt(fornamn, "förnamn") ||
              !Validering.tomFalt(efternamn, "efternamn") ||
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
+             !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigtTelefonnummer(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
@@ -78,8 +87,8 @@ public class AdminHanterare {
         
         try {
              
-         String losenord = UUID.randomUUID().toString().substring(0, 9);
-         String aid = UUID.randomUUID().toString();
+         
+         
          
          String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
          "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
@@ -96,8 +105,9 @@ public class AdminHanterare {
             return false;
         }
         
-    
-   } 
+        
+   
+    }
     
  // Metoden lägger till ett projekt 
     
@@ -105,14 +115,14 @@ public class AdminHanterare {
     {
         
        // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          if (!Validering.tomFalt(pid, "pid") ||
-             !Validering.tomFalt(projektnamn, "projektnamn") ||
-             !Validering.tomFalt(beskrivning, "beskrivning") ||
+          if (!Validering.tomFalt(pid, "Pid") ||
+             !Validering.tomFalt(projektnamn, "Projektnamn") ||
+             !Validering.tomFalt(beskrivning, "Beskrivning") ||
              !Validering.giltigtDatum(startdatum) ||
              !Validering.giltigtDatum(slutdatum) ||
-             //!Validering.giltigDouble(kostnad) ||
-             !Validering.tomFalt(status, "status") ||
-             !Validering.tomFalt(prioritet, "prioritet")) {
+             !Validering.giltigDouble(kostnad) ||
+             !Validering.tomFalt(status, "Status") ||
+             !Validering.tomFalt(prioritet, "Prioritet")) {
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;

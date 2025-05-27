@@ -5,6 +5,9 @@
 package logicComponents;
 
 import javax.swing.JOptionPane;
+import orgEntities.Anstalld;
+import orgEntities.Avdelning;
+import orgEntities.Projekt;
 
 /**
  *
@@ -51,30 +54,22 @@ public class Validering {
      
   }
      
+  //ta bort denna. Kan ju bara vara nummer.... 
   
-    public static boolean giltigInt (int text, String faltnamn) {
+    
+    
+    public static boolean giltigDouble(String text) {
         try {
-            
+            Double.parseDouble(text);
             return true;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, faltnamn + " måste vara ett helttal.m ");
-            return false;
+          JOptionPane.showMessageDialog(null, " måste vara ett tal (t.ex 123,54");
+          return false;
         }
-        
-    }
+    } 
     
     
-//   // public static boolean giltigDouble(String text) {
-//        try {
-//            Double.parseDouble(text);
-//            return true;
-//        } catch (NumberFormatException e) {
-//          JOptionPane.showMessageDialog(null, " måste vara ett tal (t.ex 123,54");
-//          return false;
-//        }
-//    } 
-    
-    
+      
 
     }
     

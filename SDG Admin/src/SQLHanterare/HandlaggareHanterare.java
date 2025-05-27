@@ -66,6 +66,8 @@ public class HandlaggareHanterare {
        try{
            String sokning = "SELECT * FROM anstalld " +
                    "WHERE avdid = '" + avdid + "' " +
+                   // exsists kollar om selecten inanför parantesterna retunerar minst en rad. 
+                   "AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid)" +
                    "AND (fornamn LIKE '%" + sok + "%' " +
                    "OR efternamn LIKE '%" + sok + "%' " +
                    "OR epost LIKE '%" + sok + "%')";
