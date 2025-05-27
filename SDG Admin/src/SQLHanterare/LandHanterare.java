@@ -70,13 +70,13 @@ public class LandHanterare {
     
     public boolean laggTillLand(String lid, String namn, String sprak, String valuta, String tidszon, String politiskStruktur, String ekonomi)
     {       
-            if (!Validering.tomFalt(lid, "Land-Id") ||
-                !Validering.tomFalt(namn, "Namn")   ||
-                !Validering.tomFalt(sprak, "Språk") ||
-                !Validering.tomFalt(valuta, "Valuta") ||
-                !Validering.tomFalt(tidszon, "Tidszon") ||
-                !Validering.tomFalt(politiskStruktur, "PolitiskStruktur") ||
-                !Validering.tomFalt(ekonomi, "Ekonomi")) {
+            if (!Validering.tomFalt(lid, "Land-Id") &&
+                Validering.tomFalt(namn, "Namn")   &&
+                Validering.tomFalt(sprak, "Språk") &&
+                Validering.tomFalt(valuta, "Valuta") &&
+                Validering.tomFalt(tidszon, "Tidszon") &&
+                Validering.tomFalt(politiskStruktur, "PolitiskStruktur") &&
+                Validering.tomFalt(ekonomi, "Ekonomi")) {
                 return false; 
     }
              try {
@@ -150,7 +150,7 @@ public class LandHanterare {
     
     
     public boolean andraValuta(String nyValuta) {
-        if(!Validering.giltigDouble(nyValuta, "Valuta") || !Validering.tomFalt(nyValuta, "Valuta")) {
+        if(!Validering.giltigDouble(nyValuta, "Valuta") && Validering.tomFalt(nyValuta, "Valuta")) {
             return false;
         }
         

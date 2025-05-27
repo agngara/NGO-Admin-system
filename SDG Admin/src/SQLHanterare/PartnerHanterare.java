@@ -126,7 +126,7 @@ public class PartnerHanterare {
     public boolean andraTelefon(String pid, String nyTelefon)
     {
         
-        if (!Validering.tomFalt(nyTelefon, "telefon") && !Validering.giltigtTelefonnummer(nyTelefon)) {
+        if (!Validering.tomFalt(nyTelefon, "telefon") && Validering.giltigtTelefonnummer(nyTelefon)) {
 //(pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
           
            System.out.println("pid eller telefon får inte vara tommna.");
@@ -197,13 +197,13 @@ public class PartnerHanterare {
    
    public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if  (!Validering.tomFalt(pid, "pid") ||
-             !Validering.tomFalt(namn, "namn") ||
-             !Validering.tomFalt(kontaktperson, "kontaktperson") ||
-             !Validering.giltigEpost(kontaktepost) ||
-             !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.tomFalt(adress, "adress") ||
-             !Validering.tomFalt(branch, "branch"))
+       if  (!Validering.tomFalt(pid, "pid") &&
+             Validering.tomFalt(namn, "namn") &&
+             Validering.tomFalt(kontaktperson, "kontaktperson") &&
+             Validering.giltigEpost(kontaktepost) &&
+             Validering.giltigtTelefonnummer(telefon) &&
+             Validering.tomFalt(adress, "adress") &&
+             Validering.tomFalt(branch, "branch"))
               {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
