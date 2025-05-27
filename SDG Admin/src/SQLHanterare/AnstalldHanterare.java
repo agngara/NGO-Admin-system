@@ -73,7 +73,7 @@ public class AnstalldHanterare {
     * @param inAid the aid of the anstalld
     * @return returns usertype enum depending on which role was infered.
     */
-   public UserType fetchRole(String inAid) {
+   public UserType fetchRole(String inAid) throws InfException {
       
        UserType userType = UserType.handlaggare;
        String roll = "";
@@ -147,7 +147,7 @@ public class AnstalldHanterare {
    
    // ny version av getRoll
    
-   public UserType fetchRole(String aid) {
+  /* public UserType fetchRole(String aid) {
        UserType underType = UserType.handlaggare; 
        
        
@@ -168,7 +168,14 @@ public class AnstalldHanterare {
           String kollaProjektchef = "SELECT projektchef FROM projekt WHERE projektchef = '" + aid + "'";
           String projektResultat = idb.fetchSingle(kollaProjektchef);
           
-          if ()
+          if (projektResultat !=null && projektResultat.equals(aid)) {
+              return UserType.projektchef;
+          }
+          
+          return UserType.handlaggare;
+       } catch (InfException e) {
+           e.printStackTrace();
+           return UserType.handlaggare;
        }
    }
    
