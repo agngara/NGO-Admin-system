@@ -323,10 +323,6 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
 
 public boolean andraLand(String pid, int lid) {
 
-
-    if (!Validering.giltigInt(lid, "Land")) {
-    return false;
-
 }
     try {
         String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;

@@ -466,7 +466,7 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addComponent(lblTeam)
                         .addGap(12, 12, 12)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 407, Short.MAX_VALUE))
+                .addGap(0, 432, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(40, 40, 40));
@@ -504,7 +504,7 @@ public class OneProjectView extends javax.swing.JFrame {
                                 .addComponent(lblPartners))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1528, 1528, 1528)
+                                .addGap(1560, 1560, 1560)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
