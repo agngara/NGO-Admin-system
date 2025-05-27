@@ -140,10 +140,15 @@ private void fyllTabell(){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButton3.setBackground(new java.awt.Color(51, 102, 255));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Partners");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Projekt");
 
+        proTillbakaTillMeny.setBackground(new java.awt.Color(51, 102, 255));
+        proTillbakaTillMeny.setForeground(new java.awt.Color(255, 255, 255));
         proTillbakaTillMeny.setText("Tillbaka till meny");
         proTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +190,7 @@ private void fyllTabell(){
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 886, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 848, Short.MAX_VALUE)
                                 .addComponent(jButton3)))
                         .addGap(270, 270, 270))))
         );
@@ -195,12 +200,12 @@ private void fyllTabell(){
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(proTillbakaTillMeny)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(proTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();

@@ -90,6 +90,8 @@ public Hållbarhetsmål(){
         hallbarhetsmalBild.setMaximumSize(new java.awt.Dimension(500, 500));
         hallbarhetsmalBild.setMinimumSize(new java.awt.Dimension(500, 500));
 
+        tillbakaTillMeny.setBackground(new java.awt.Color(0, 102, 255));
+        tillbakaTillMeny.setForeground(new java.awt.Color(255, 255, 255));
         tillbakaTillMeny.setText("TIllbaka till meny");
         tillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,14 +125,15 @@ public Hållbarhetsmål(){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tillbakaTillMeny)
-                        .addGap(769, 769, 769))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(hallbarhetsmalBild, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(149, 149, 149)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hallbarhetsmalBild, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(tillbakaTillMeny)))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,8 +144,8 @@ public Hållbarhetsmål(){
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(tillbakaTillMeny)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(tillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();

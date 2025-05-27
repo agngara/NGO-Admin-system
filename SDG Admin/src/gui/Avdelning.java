@@ -82,8 +82,12 @@ public class Avdelning extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Avdelning:");
 
+        avdTillbakaTillMeny.setBackground(new java.awt.Color(0, 102, 255));
+        avdTillbakaTillMeny.setForeground(new java.awt.Color(255, 255, 255));
         avdTillbakaTillMeny.setText("Tillbaka till meny");
         avdTillbakaTillMeny.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,8 +128,8 @@ public class Avdelning extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(avdTillbakaTillMeny)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
