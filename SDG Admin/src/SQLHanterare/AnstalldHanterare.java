@@ -193,13 +193,13 @@ public class AnstalldHanterare {
    {
         
        
-        if (!Validering.tomFalt(fornamn, "fornamn") &&
-             !Validering.tomFalt(efternamn, "efternamn") &&
-             !Validering.tomFalt(adress, "adress") &&
-             Validering.giltigEpost(epost) &&
-             Validering.tomFalt(adress, "adress") &&
-             Validering.giltigtTelefonnummer(telefon) &&
-             Validering.giltigtDatum(anstallningsdatum)) {
+        if (!Validering.tomFalt(fornamn, "förnamn") ||
+             !Validering.tomFalt(efternamn, "efternamn") ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigEpost(epost) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.giltigtDatum(anstallningsdatum)) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
@@ -304,8 +304,8 @@ public class AnstalldHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") &&
-        Validering.giltigEpost(nyEpost)) {
+        if (!Validering.tomFalt(nyEpost, "epost") ||
+        !Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
             return false;
@@ -330,7 +330,7 @@ public boolean andraEpost(String aid, String nyEpost)
 {
     
      {
-          if (!Validering.tomFalt(nyttLosenord, "losenord")) {
+          if (!Validering.tomFalt(nyttLosenord, "lösenord")) {
         //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
             System.out.println("aid eller losenird får inte vara tom");
             return false;
@@ -359,7 +359,7 @@ public boolean andraEpost(String aid, String nyEpost)
 public boolean andraFornamn(String aid, String nyttFornamn)
 {
    {
-        if (!Validering.tomFalt(nyttFornamn, "fornamn")) {
+        if (!Validering.tomFalt(nyttFornamn, "förnamn")) {
         //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
             System.out.println("aid eller förnamn får inte vara tom");
             return false;
@@ -448,10 +448,11 @@ public boolean andraAdress(String aid, String nyAdress)
 }
 
 /**
- * Denna klass raderar en anställd från databasen baserat på deras aid.
- * Valdideringen sker genom att i if-satsen kollar den att aid inte
- * är null eller tom
- * 
+ * Denna klass raderar en anställd från databasen baserat på deras aid.Valdideringen sker genom att i if-satsen kollar den att aid inte
+ är null eller tom
+ *
+     * @param a 
+     * @return  
  */
 
     public boolean taBortAnstalld (Anstalld a) {

@@ -200,7 +200,7 @@ public class ProjektHanterare {
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
       {
-          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") &&
+          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") ||
             Validering.giltigtDatum(nyttSlutdatum)){
           
            System.out.println("pid eller slutdatum får inte vara tom.");
