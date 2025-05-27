@@ -62,14 +62,14 @@ public class AvdelningHanterare {
     }
     
   //Metoden nedan är avsedd för att kunna lägga till en ny avdelning. 
-   public class AvdelningTest {
+   
     
     
     public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
     {
         
           //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          if(!Validering.tomFalt(avdid, "avdid") || !Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
+          if(!Validering.tomFalt(avdid, "avdid") && !Validering.tomFalt(namn, "namn") && !Validering.tomFalt(beskrivning, "beskrivning")) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
            return false;
            
@@ -107,7 +107,7 @@ public class AvdelningHanterare {
         
         
         try {
-            String namn = "UPDATE avdelning SET namn = '" + nyttNamn + "'WHERE avdid'" + avdid  + "'";
+            String namn = "UPDATE avdelning SET namn = '" + nyttNamn + "'WHERE avdid'" + avdid + "'";
             idb.update(namn);
             return true;
           }  
@@ -159,7 +159,7 @@ public class AvdelningHanterare {
         
         
         try{
-            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "'WHERE aid'" + avdid + "'";
+            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "'WHERE avdid'" + avdid + "'";
             idb.update(adress);
             return true;
             
@@ -178,13 +178,13 @@ public class AvdelningHanterare {
     {
          {
           //if //(avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
-          if (!Validering.giltigEpost(nyEpost) || !Validering.tomFalt(nyEpost, "epost")) {
+          if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
            System.out.println("avdid eller epost får inte vara tom.");
            return false;
         }
   
         try{
-          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "'WHERE aid'" + avdid + "'";
+          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "'WHERE avdid'" + avdid + "'";
             idb.update(epost);
             return true;  
         }
@@ -199,13 +199,13 @@ public class AvdelningHanterare {
     
     
     }
-   }
+   
     
     public boolean andraTelefon(String avdid, String nyttTelefonnummer) {
             
             
          {
-          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) || !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
+          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) && !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
 //(avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
           
            System.out.println("avdid eller telefon får inte vara tom.");
@@ -213,7 +213,7 @@ public class AvdelningHanterare {
         }
     {
         try{
-            String telefonnummer = "UPDATE avdelning SET telefon = '" + nyttTelefonnummer + "WHERE aid" + avdid + "'";
+            String telefonnummer = "UPDATE avdelning SET telefon = '" + nyttTelefonnummer + "WHERE avdid" + avdid + "'";
             idb.update(telefonnummer);
             return true;
             

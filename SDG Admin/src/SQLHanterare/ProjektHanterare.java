@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import logicComponents.Validering;
+import orgEntities.Hallbarhetsmål;
 import orgEntities.Projekt;
 import oru.inf.InfException;
 
@@ -395,12 +396,50 @@ try {
     // Metoden nedan är avsedd att lägga till uppgifter om vem som är projektansvarig
   
   public boolean laggTillProjektansvarig (String projektchef) {
+      
       if(!Validering.tomFalt(projektchef, "projektchef")) {
           return false;
       }
       
      try { 
-        String laggTill = "INSERT INTO projekt VALUES projektchef ="
-     } 
+        String laggTill = "INSERT INTO projekt (projektchef) VALUES  ('" + projektchef + "')";
+        idb.insert(laggTill);
+        return true;
+     } catch (InfException e) {
+         e.printStackTrace();
+         return false; 
+     }
   }
+  
+  
+   public boolean taBortProjektchef (Projekt p)
+{
+   
+    
+    String pid = p.getPid();
+    
+    
+    if (!Validering.tomFalt(pid, "pid")) {
+        
+        return false;
+    }
+    
+    try {
+    String taBort = "DELETE projektchef FROM projekt WHERE pid = '" + p.getPid() + "'";
+    idb.delete(taBort);
+    
+    System.out.println("Projektchef borttagen: " + p.getProjektchef());
+    return true;
+    
 }
+
+    catch (InfException e) {
+        
+    e.printStackTrace();
+    return false;
+}
+
+}    
+}
+
+    

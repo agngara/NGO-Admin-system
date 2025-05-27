@@ -190,13 +190,13 @@ public class AnstalldHanterare {
    {
         
        
-        if (!Validering.tomFalt(fornamn, "fornamn") ||
-             !Validering.tomFalt(efternamn, "efternamn") ||
-             !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigEpost(epost) ||
-             !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.giltigtDatum(anstallningsdatum)) {
+        if (!Validering.tomFalt(fornamn, "fornamn") &&
+             Validering.tomFalt(efternamn, "efternamn") &&
+             Validering.tomFalt(adress, "adress") &&
+             Validering.giltigEpost(epost) &&
+             Validering.tomFalt(adress, "adress") &&
+             Validering.giltigtTelefonnummer(telefon) &&
+             Validering.giltigtDatum(anstallningsdatum)) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
@@ -255,7 +255,7 @@ public class AnstalldHanterare {
 }  
    
  
-  public boolean andraAvdelning(String avdelning, String nyAvdelning)
+  public boolean andraAvdelning(String avdid, String nyAvdelning)
 {
     {
         if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
@@ -265,7 +265,7 @@ public class AnstalldHanterare {
     }
            
     try {
-        String nyttAvdelning = "UPDATE anstalld SET avdelning = '" + nyAvdelning + "' WHERE aid = '" + avdelning + "'";
+        String nyttAvdelning = "UPDATE anstalld SET avdelning = '" + nyAvdelning + "' WHERE avdid = '" + avdid + "'";
         idb.update(nyttAvdelning);
         return true;
 } 
@@ -301,8 +301,8 @@ public class AnstalldHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") ||
-        !Validering.giltigEpost(nyEpost)) {
+        if (!Validering.tomFalt(nyEpost, "epost") &&
+        Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
             return false;
@@ -397,7 +397,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
     
     try {
 
-           String efternamn = "UPDATE anstalld SET efternamn = ' " + nyttEfternamn + " ' WHERE aid = ' " + aid + "'";
+           String efternamn = "UPDATE anstalld SET efternamn = '" + nyttEfternamn + "' WHERE aid = '" + aid + "'";
            idb.update(efternamn);
            return true;
 }
