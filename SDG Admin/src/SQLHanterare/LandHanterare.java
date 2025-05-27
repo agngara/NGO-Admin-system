@@ -131,13 +131,13 @@ public class LandHanterare {
     }
     
     public boolean andraSprak(String nyttSprak) {
-        if (!Validering.tomFalt(nyttSprak, "Språk")) {
+        if (Validering.tomFalt(nyttSprak, "Språk")) {
             
             return false;
         }
         
         try {
-            String sprak = "UPDATE land SET sprak = '" + nyttSprak + "'WHERE lid = '" + lid + "'";
+            String sprak = "UPDATE land SET sprak = '" + nyttSprak + "WHERE lid = '" + "'";
             idb.update(sprak);
             return true;
         }
