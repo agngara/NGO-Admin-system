@@ -188,9 +188,7 @@ public class PartnerHanterare {
     }   
    
     }
-       // metoden nedan är avsedd för att kunna lägga till en ny partner
-   
-   
+       
    
    
 

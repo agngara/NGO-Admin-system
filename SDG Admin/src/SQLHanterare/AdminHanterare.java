@@ -61,12 +61,12 @@ public class AdminHanterare {
    {
         
        
-        if (!Validering.tomFalt(fornamn, "fornamn") ||
-             !Validering.tomFalt(efternamn, "efternamn") ||
-             !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigEpost(epost) ||
-             !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigtTelefonnummer(telefon) ||
+        if (!Validering.tomFalt(fornamn, "fornamn") &&
+             !Validering.tomFalt(efternamn, "efternamn") &&
+             !Validering.tomFalt(adress, "adress") &&
+             !Validering.giltigEpost(epost) &&
+             !Validering.tomFalt(adress, "adress") &&
+             !Validering.giltigtTelefonnummer(telefon) &&
              !Validering.giltigtDatum(anstallningsdatum)) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
@@ -105,13 +105,13 @@ public class AdminHanterare {
     {
         
        // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          if (!Validering.tomFalt(pid, "pid") ||
-             !Validering.tomFalt(projektnamn, "projektnamn") ||
-             !Validering.tomFalt(beskrivning, "beskrivning") ||
-             !Validering.giltigtDatum(startdatum) ||
-             !Validering.giltigtDatum(slutdatum) ||
-             !Validering.giltigDouble(kostnad) ||
-             !Validering.tomFalt(status, "status") ||
+          if (!Validering.tomFalt(pid, "pid") &&
+             !Validering.tomFalt(projektnamn, "projektnamn") &&
+             !Validering.tomFalt(beskrivning, "beskrivning") &&
+             !Validering.giltigtDatum(startdatum) &&
+             !Validering.giltigtDatum(slutdatum) &&
+             !Validering.giltigDouble(kostnad) &&
+             !Validering.tomFalt(status, "status") &&
              !Validering.tomFalt(prioritet, "prioritet")) {
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
