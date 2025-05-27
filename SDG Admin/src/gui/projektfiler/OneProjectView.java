@@ -4,6 +4,7 @@
  */
 package gui.projektfiler;
 
+import SQLHanterare.HandlaggareHanterare;
 import SQLHanterare.PartnerHanterare;
 import SQLHanterare.ProjektHanterare;
 import java.util.HashMap;
@@ -69,8 +70,10 @@ public class OneProjectView extends javax.swing.JFrame {
         
         this.kolumnNamn = kolumnNamn;
         
+        // These calls fills the tables of the page.
          this.fillTable();
          this.fillPartnerTable();
+         this.fillTeamTable();
          
     }
     
@@ -137,6 +140,31 @@ public class OneProjectView extends javax.swing.JFrame {
         }
         
         tblPartners.setModel(model);
+        
+    }
+    
+    public void fillTeamTable() {
+        
+        ArrayList<HashMap<String, String>> rader = new HandlaggareHanterare().getAllHandlaggare();
+        String [] columnNames = {"Anställnings-ID", "Ansvarighetsområde", "Mentor"};
+        
+      
+        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+
+        
+        for (HashMap<String, String> rad : rader) {
+                        
+            String aid = rad.get("aid");
+            String ansvar = rad.get("ansvarighetsomrade");
+            String mentor = rad.get("mentor");
+            
+           
+            model.addRow(new Object[] {aid, ansvar, mentor});
+            
+        }
+        
+        tblTeam.setModel(model);
+        
         
     }
 
