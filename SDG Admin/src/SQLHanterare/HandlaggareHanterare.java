@@ -21,6 +21,11 @@ public class HandlaggareHanterare {
    private String query;
    private String aid;
    
+   public HandlaggareHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+   }
+   
    public HandlaggareHanterare(String email) {
        
        this.aid = aid;
@@ -259,5 +264,29 @@ public boolean laggTillHandlaggare(String aid, String ansvarighetsomrade) {
           return rows;
     
 }*/
+
+public ArrayList<HashMap<String, String>> getAllHandlaggare()
+  {
+  
+      try {
+          
+          String sql = "SELECT * FROM handlaggare"; 
+          
+            ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
+            return rader;
+            
+     
+      }
+      
+      
+      catch (InfException e) {
+        
+          e.printStackTrace();
+          return new ArrayList<>();
+         
+          
+      }
+  
+  }
     
 }

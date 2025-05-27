@@ -52,7 +52,7 @@ public class Validering {
   }
      
   
-    public static boolean giltigInt (int text, int faltnamn) {
+    public static boolean giltigInt (int text, String faltnamn) {
         try {
             
             return true;

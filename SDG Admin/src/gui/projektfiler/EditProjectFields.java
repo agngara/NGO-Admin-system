@@ -140,7 +140,10 @@ public class EditProjectFields extends javax.swing.JFrame {
         }
 
         String land = (String) ComboLand.getSelectedItem();
-        if (!ph.andraLand(pid, land)) {
+        System.out.println(land);
+        int lid = new LandHanterare().getLIDbyNamn(land);
+        System.out.println("Hämtad lid" + lid);
+        if (!ph.andraLand(pid, lid)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera land.");
             return false;
         }

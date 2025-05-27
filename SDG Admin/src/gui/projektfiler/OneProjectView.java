@@ -4,6 +4,7 @@
  */
 package gui.projektfiler;
 
+import SQLHanterare.HandlaggareHanterare;
 import SQLHanterare.PartnerHanterare;
 import SQLHanterare.ProjektHanterare;
 import java.util.HashMap;
@@ -69,8 +70,10 @@ public class OneProjectView extends javax.swing.JFrame {
         
         this.kolumnNamn = kolumnNamn;
         
+        // These calls fills the tables of the page.
          this.fillTable();
          this.fillPartnerTable();
+         this.fillTeamTable();
          
     }
     
@@ -137,6 +140,31 @@ public class OneProjectView extends javax.swing.JFrame {
         }
         
         tblPartners.setModel(model);
+        
+    }
+    
+    public void fillTeamTable() {
+        
+        ArrayList<HashMap<String, String>> rader = new HandlaggareHanterare().getAllHandlaggare();
+        String [] columnNames = {"Anställnings-ID", "Ansvarighetsområde", "Mentor"};
+        
+      
+        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+
+        
+        for (HashMap<String, String> rad : rader) {
+                        
+            String aid = rad.get("aid");
+            String ansvar = rad.get("ansvarighetsomrade");
+            String mentor = rad.get("mentor");
+            
+           
+            model.addRow(new Object[] {aid, ansvar, mentor});
+            
+        }
+        
+        tblTeam.setModel(model);
+        
         
     }
 
@@ -469,19 +497,20 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(lbllProjName1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(lblInsikter))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblEkonomi)
-                                .addGap(285, 285, 285)
+                                .addGap(354, 354, 354)
                                 .addComponent(lblPartners))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(1528, 1528, 1528)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEkonomi)
+                            .addComponent(lblInsikter))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

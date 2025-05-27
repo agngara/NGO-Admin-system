@@ -226,4 +226,23 @@ public class LandHanterare {
             return false; 
         }
     }
+   
+      public int getLIDbyNamn(String landnamn) {
+       
+       int lid = 0;
+       try {
+           String query = "SELECT lid FROM land WHERE namn = " + "'" + landnamn + "'";       
+           String response = idb.fetchSingle(query);
+           lid = Integer.parseInt(response);
+       } catch (InfException e) 
+               {
+                   e.printStackTrace();
+                   System.out.println(e);
+               }
+       
+       return lid;
+   }
 }
+   
+   
+
