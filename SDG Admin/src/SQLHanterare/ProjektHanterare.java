@@ -177,8 +177,8 @@ public class ProjektHanterare {
  public boolean andraStartdatum(String pid, String nyttStartdatum)
   {
       
-       { if (!Validering.tomFalt(nyttStartdatum, "startdatum") &&
-            Validering.giltigtDatum(nyttStartdatum)) {
+       if (!Validering.tomFalt(nyttStartdatum, "startdatum") ||
+            !Validering.giltigtDatum(nyttStartdatum)) {
           //if (pid == null || nyttStartdatum == null || pid.isEmpty() || nyttStartdatum.isEmpty()){
           
            System.out.println("pid eller startdatum får inte vara tom.");
@@ -196,12 +196,12 @@ public class ProjektHanterare {
       }
       
   }   
-  }   
+     
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
-      {
-          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") ||
-            Validering.giltigtDatum(nyttSlutdatum)){
+      
+          if (!Validering.tomFalt(nyttSlutdatum, "slutdatum") ||
+            !Validering.giltigtDatum(nyttSlutdatum)){
           
            System.out.println("pid eller slutdatum får inte vara tom.");
            return false;
@@ -220,9 +220,10 @@ public class ProjektHanterare {
       
   }     
  
-  }
+  
  
- 
+
+
  public boolean andraKostnad(String pid, String nyKostnad){
         {
           //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
@@ -341,61 +342,63 @@ public boolean andraLand(String pid, int lid) {
 The methods below aim to remove information from the projekt-table. 
 */
 
-
-  public boolean taBortProjekt(Projekt p)
-{
-try {
-    
-    String pid = p.getPid();
-
-    if (!Validering.tomFalt(pid, pid)){
-    
-    System.out.println("Pid är tom");
-    return false; 
-    }
-    
-    String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
-    idb.delete(taBort);
-    System.out.println("Projekt borttaget: " + p.getProjektnamn());
-    return true;
-}
-
-        catch (InfException e) {
-
-        e.printStackTrace();
-        return false;
-}
-
-}
-  
+//
+//  public boolean taBortProjekt(Projekt p)
+//{
+//try {
+//    
+//    String pid = p.getPid();
+//
+//    if (!Validering.tomFalt(pid, pid)){
+//    
+//    System.out.println("Pid är tom");
+//    return false; 
+//    }
+//    
+//    String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
+//    idb.delete(taBort);
+//    System.out.println("Projekt borttaget: " + p.getProjektnamn());
+//    return true;
+//}
+//
+//        catch (InfException e) {
+//
+//        e.printStackTrace();
+//        return false;
+//}
+//
+//}
+//  
     
  // metoden nedan är avsedd för att ta bort handläggare från ett projekt
   
-  public boolean taBortHandlaggare (String pid, String aid)
-  {
-      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
-          return false;
-      }
-      
-      try {
-          String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid) '" + "'";
-          idb.delete(taBort);
-          return true;
-      }
-      
-      catch (InfException e)
-      {
-          e.printStackTrace();
-          return false;
-      }
-  }
-          
+//  public boolean taBortHandlaggare (String pid, String aid)
+//  {
+//      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
+//          return false;
+//      }
+//      
+//      try {
+//          String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid) '" + "'";
+//          idb.delete(taBort);
+//          return true;
+//      }
+//      
+//      catch (InfException e)
+//      {
+//          e.printStackTrace();
+//          return false;
+//      }
+//  }
+//          
     // Metoden nedan är avsedd att lägga till uppgifter om vem som är projektansvarig
   
  
   }
   
-  
+
+
+
   
 
     
