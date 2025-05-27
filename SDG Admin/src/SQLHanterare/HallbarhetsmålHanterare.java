@@ -49,7 +49,7 @@ public class HallbarhetsmålHanterare {
        
          {
             if (!Validering.tomFalt(namn, "namn") &&
-            Validering.giltigInt(malnummer, "malnummer") &&
+            //Validering.giltigInt(malnummer, "malnummer") &&
             Validering.tomFalt(malnummer, "malnummer") &&
             Validering.tomFalt(beskrivning, "beskrivning") &&
             Validering.tomFalt(prioritet, "prioritet")) {
@@ -108,35 +108,35 @@ public class HallbarhetsmålHanterare {
     }
     
     
-    public boolean andraMalnummer(String hid, String nyttMalnummer)
-    {
-         {
-         if (!Validering.giltigInt(nyttMalnummer, "malnummer") && Validering.tomFalt(nyttMalnummer, "malnummer")) {
-//(hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
-             
-             
-             
-             System.out.println("hid eller målnummer får inte vara tomt");
-             return false;
-         }
-        
-        
-        
-        
-        try{
-            String malnummer = "UPDATE hallbarhetsmal SET malnummer = '" + nyttMalnummer + "WHERE hid = '" + "'";
-            idb.update(malnummer);
-            return true;
-        }
-        
-        catch (InfException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    
-    }
+//    public boolean andraMalnummer(int nyttMalnummer, int )
+//    {
+//         {
+//         if (!Validering.giltigInt(nyttMalnummer)) {
+////(hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
+//             
+//             
+//             
+//             System.out.println("hid eller målnummer får inte vara tomt");
+//             return false;
+//         }
+//        
+//        
+//        
+//        
+//        try{
+//            String malnummer = "UPDATE hallbarhetsmal SET malnummer = '" + nyttMalnummer + "WHERE hid = '" + "'";
+//            idb.update(malnummer);
+//            return true;
+//        }
+//        
+//        catch (InfException e)
+//        {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+//    
+//    }
     
     
     
