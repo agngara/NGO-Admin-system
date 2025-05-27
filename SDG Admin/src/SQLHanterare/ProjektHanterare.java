@@ -324,12 +324,12 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
 public boolean andraLand(String pid, String nyttLand) {
 
 
-    if (!Validering.tomFalt(nyttLand, "land")) {
+    if (!Validering.tomFalt(nyttLand, "land") || !Validering.tomFalt(pid, pid)) {
     return false;
 
 }
     try {
-        String land = "UPDATE projekt SET land = '" + nyttLand +  "WHERE pid = ' " + pid + "'";
+        String land = "UPDATE projekt SET land = '" + nyttLand + "' WHERE pid = '" + pid + "'";
         idb.update(land);
         return true;
     } 

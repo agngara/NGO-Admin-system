@@ -64,20 +64,18 @@ public class Validering {
     }
     
     
-//   // public static boolean giltigDouble(String text, String faltnamn) {
+//   // public static boolean giltigDouble(String text) {
 //        try {
-//            Double.valueOf(text);
+//            Double.parseDouble(text);
 //            return true;
 //        } catch (NumberFormatException e) {
-//          JOptionPane.showMessageDialog(null, faltnamn + " måste vara ett tal (t.ex 123,54");
+//          JOptionPane.showMessageDialog(null, " måste vara ett tal (t.ex 123,54");
 //          return false;
 //        }
 //    } 
     
     
 
-    //public static boolean giltigDouble(String kostnad) {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
