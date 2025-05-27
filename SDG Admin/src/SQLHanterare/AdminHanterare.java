@@ -55,6 +55,7 @@ public class AdminHanterare {
      * @param anstallningsdatum
      * @return 
  */
+    //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
     public boolean laggTillAnstalld(String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
@@ -65,7 +66,6 @@ public class AdminHanterare {
              !Validering.tomFalt(efternamn, "efternamn") ||
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
-             !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigtTelefonnummer(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
