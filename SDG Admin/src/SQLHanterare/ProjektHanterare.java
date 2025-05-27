@@ -200,7 +200,7 @@ public class ProjektHanterare {
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
       {
-          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") &&
+          if (!Validering.tomFalt(nyttSlutdatum, "startdatum") ||
             Validering.giltigtDatum(nyttSlutdatum)){
           
            System.out.println("pid eller slutdatum får inte vara tom.");
@@ -225,8 +225,8 @@ public class ProjektHanterare {
  
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
-          //if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
+          //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
+          if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
            return false;
@@ -373,12 +373,12 @@ try {
   
   public boolean taBortHandlaggare (String pid, String aid)
   {
-      if (!Validering.tomFalt(pid, "pid") && Validering.tomFalt(aid, "aid")) {
+      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
           return false;
       }
       
       try {
-          String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'";
+          String taBort = "DELETE handlaggare FROM projekt WHERE pid = '" + pid + "' AND aid = '" + aid + "'AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid) '" + "'";
           idb.delete(taBort);
           return true;
       }
