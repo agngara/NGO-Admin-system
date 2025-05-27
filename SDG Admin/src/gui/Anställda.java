@@ -8,6 +8,7 @@ import oru.inf.InfException;
 import db.DatabaseInterface;
 import gui.Anställda;
 import gui.Meny;
+import gui.anställdafiler.EditAnställda1;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -58,7 +59,7 @@ public class Anställda extends javax.swing.JFrame {
                 String losenord = anstalld.get("losenord");
                 String avdelning = anstalld.get("avdelning");
                 
-            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning});
+            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Visa"});
         }
     }
         tblAnställda.setModel(model);
@@ -67,6 +68,31 @@ public class Anställda extends javax.swing.JFrame {
         }  
     }
         
+    
+ public void tableMouseEvent(EditAnställda1 editAnställda1) {
+        
+        tblAnställda.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = tblAnställda.rowAtPoint(evt.getPoint());
+        int col = tblAnställda.columnAtPoint(evt.getPoint());
+        if (row >= 0 && col == 8) {
+                
+            Object varde = tblAnställda.getValueAt(row, 0);
+            String aid = varde.toString();
+            EditAnställda1 EditAnställda1 = new EditAnställda1(aid);
+            EditAnställda1.setVisible(true);
+            EditAnställda1.setVisible(false);
+            
+            
+
+            }
+        }
+    }
+    );    
+ }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,4 +220,8 @@ public class Anställda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAnställda;
     // End of variables declaration//GEN-END:variables
+
+    public String getaid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

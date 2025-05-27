@@ -102,7 +102,8 @@ public class ProjektHanterare {
  
   public boolean andraPid(String pid, String nyPid) {
       
-      if (pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
+      if (!Validering.tomFalt(pid, nyPid)) {
+//(pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
           System.out.println("pid får inte vara tom");
           return false;
       }
@@ -110,6 +111,7 @@ public class ProjektHanterare {
       
       try {
           String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
+          idb.update(query);
           return true;
       }
       
@@ -286,7 +288,7 @@ public class ProjektHanterare {
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
       }
@@ -305,11 +307,12 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
 }
  try {
         String projektchef = "UPDATE projekt SET projektchef = " + "'" + nyProjektchef + "'";
+        idb.update(projektchef);
         return true;
         
     }
     
-    catch (Exception e) {
+    catch (InfException e) {
         e.printStackTrace();
         return false;
         
@@ -326,10 +329,11 @@ public boolean andraLand(String pid, String nyttLand) {
 }
     try {
         String land = "UPDATE projekt SET land = " + "'" + nyttLand + "'";
+        idb.update(land);
         return true;
     } 
     
-    catch (Exception e) {
+    catch (InfException e) {
         e.printStackTrace();
         return false;
     }
@@ -346,14 +350,14 @@ try {
     
     String pid = p.getPid();
 
-    if (pid == null || pid.isEmpty()) {
+    if (!Validering.tomFalt(pid, pid)){
     
     System.out.println("Pid är tom");
     return false; 
     }
     
     String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
-    idb.update(taBort);
+    idb.delete(taBort);
     System.out.println("Projekt borttaget: " + p.getProjektnamn());
     return true;
 }
@@ -371,7 +375,7 @@ try {
   
   public boolean taBortHandlaggare (String pid, String aid)
   {
-      if (!Validering.tomFalt(pid, "pid") && !Validering.tomFalt(aid, "aid")) {
+      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
           return false;
       }
       

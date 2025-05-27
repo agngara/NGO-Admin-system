@@ -196,7 +196,7 @@ public class AnstalldHanterare {
              !Validering.giltigEpost(epost) ||
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.giltigEpost(anstallningsdatum)) {
+             !Validering.giltigtDatum(anstallningsdatum)) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
@@ -231,11 +231,77 @@ public class AnstalldHanterare {
    
 
 // koderna under avsedda för att ändra mina uppgifter.
+   
+ public boolean andraAid(String aid, String nyAid)
+{
+    {
+        if (!Validering.tomFalt(nyAid, "aid")) {
+//(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
+            System.out.println("aid får inte vara tom");
+            return false;
+        }
+    }
+               
+    try {
+        String nyttAid = "UPDATE anstalld SET aid = '" + nyAid + "' WHERE aid = '" + aid + "'";
+        idb.update(nyttAid);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}  
+   
+ 
+  public boolean andraAvdelning(String avdelning, String nyAvdelning)
+{
+    {
+        if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
+            System.out.println("Avdelning får inte vara tom");
+            return false;
+        }
+    }
+           
+    try {
+        String nyttAvdelning = "UPDATE anstalld SET avdelning = '" + nyAvdelning + "' WHERE aid = '" + avdelning + "'";
+        idb.update(nyttAvdelning);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
 
+
+ public boolean andraAnstallningsdatum(String ansdatum, String nyAnsdatum)
+{
+    {
+        if (!Validering.tomFalt(nyAnsdatum, "ansdatum")) {
+            System.out.println("Anställningsdatum får inte vara tom");
+            return false;
+        }
+    }
+           
+    try {
+        String nyttAnsdatum = "UPDATE anstalld SET anställningsdatum = '" + nyAnsdatum + "' WHERE aid = '" + ansdatum + "'";
+        idb.update(nyttAnsdatum);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}    
+ 
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") &&
+        if (!Validering.tomFalt(nyEpost, "epost") ||
         !Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
@@ -347,6 +413,8 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 }
 }
 
+
+
 public boolean andraAdress(String aid, String nyAdress)
 {
     {
@@ -386,7 +454,7 @@ public boolean andraAdress(String aid, String nyAdress)
     public boolean taBortAnstalld (Anstalld a) {
 
     String aid = a.getAid();
-    if (!Validering.tomFalt(aid, aid)) {
+    if (!Validering.tomFalt(aid, "anställningsID")) {
         System.out.println("Aid är tom");
         return false;
     }
