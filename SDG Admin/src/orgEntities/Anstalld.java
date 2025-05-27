@@ -39,6 +39,10 @@ import logicComponents.User.UserType;
     * This constructor constructs an object of the anstalld class by taking an insance of anstalldhanterare.
     * @param anstalldHanterare 
     */
+    
+    //Skapade en tom konstruktor, kan tas bort om anstalld klassen inte används i LäggTillAnstalld
+    public Anstalld() {}
+    
    public Anstalld(AnstalldHanterare anstalldHanterare) {
        
        HashMap<String, String> anstalldInfo = anstalldHanterare.getAnstalld();

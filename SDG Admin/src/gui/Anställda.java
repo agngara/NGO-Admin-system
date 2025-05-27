@@ -24,6 +24,7 @@ import logicComponents.User.User;
 public class Anställda extends javax.swing.JFrame {
     private InfDB idb;
     private String aid;
+    private Anställda anställda;
     /**
      * Creates new form Anställda
      */
@@ -31,12 +32,20 @@ public class Anställda extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+        anställda = this;
         try {
         idb = DatabaseInterface.databaseConnection();
         fyllTabell();
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
-    }
+        }
+         try {
+            this.tableMouseEvent(anställda);
+        } 
+        catch (Exception e) {
+        
+            System.out.println(e);
+        }
     }
 
     private void fyllTabell(){
@@ -44,14 +53,14 @@ public class Anställda extends javax.swing.JFrame {
             String query = "SELECT aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning FROM anstalld";
             ArrayList<HashMap< String, String >> anstalldLista = idb.fetchRows(query);
 
-            String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning"};
+            String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning", "Redigera"};
             DefaultTableModel model = new DefaultTableModel(columnNames, 0);
             
             if (anstalldLista == null || anstalldLista.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Inga anställda hittades i databasen!");
             } else {
                 for (HashMap<String, String> anstalld : anstalldLista){
-                String aid = anstalld.get("aid");
+                String anstalldAid = anstalld.get("aid");
                 String fornamn = anstalld.get("fornamn");
                 String efternamn = anstalld.get ("efternamn");
                 String adress = anstalld.get ("adress");
@@ -60,31 +69,30 @@ public class Anställda extends javax.swing.JFrame {
                 String anstallningsdatum = anstalld.get("anstallningsdatum");
                 String losenord = anstalld.get("losenord");
                 String avdelning = anstalld.get("avdelning");
-                
-            model.addRow(new Object[] {aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Redigera"});
+                model.addRow(new Object[] {anstalldAid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Redigera"});
         }
     }
         tblAnställda.setModel(model);
     }   catch (InfException e) {
-        JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning av data: " + e.getMessage());
         }  
     }
         
     
- public void tableMouseEvent(EditAnställda1 editAnställda1) {
+ public void tableMouseEvent(Anställda anställda) {
         
         tblAnställda.addMouseListener(new java.awt.event.MouseAdapter() {
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
         int row = tblAnställda.rowAtPoint(evt.getPoint());
         int col = tblAnställda.columnAtPoint(evt.getPoint());
-        if (row >= 0 && col == 8) {
+        if (row >= 0 && col == 9) {
                 
             Object varde = tblAnställda.getValueAt(row, 0);
-            String aid = varde.toString();
-            EditAnställda1 EditAnställda1 = new EditAnställda1(aid);
-            EditAnställda1.setVisible(true);
-            EditAnställda1.setVisible(false);
+            String Aid = varde.toString();
+            EditAnställda1 editAnställda1 = new EditAnställda1(Aid);
+            editAnställda1.setVisible(true);
+            anställda.setVisible(false);
             
             
 
@@ -127,13 +135,13 @@ public class Anställda extends javax.swing.JFrame {
 
         tblAnställda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
             }
         ));
         jScrollPane1.setViewportView(tblAnställda);
