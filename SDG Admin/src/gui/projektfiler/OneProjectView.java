@@ -47,7 +47,7 @@ public class OneProjectView extends javax.swing.JFrame {
         
          if (CurrentUser.getUsr().getUserType() != UserType.projektchef || CurrentUser.getUsr().getUserType() != UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
             
-             lblEditPartners.setVisible(false);
+             btnEditTeam.setVisible(false);
             
         }
         setExtendedState(MAXIMIZED_BOTH);
@@ -169,8 +169,11 @@ public class OneProjectView extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPartners = new javax.swing.JTable();
-        lblEditPartners = new javax.swing.JLabel();
+        lblEditPartners1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblTeam = new javax.swing.JTable();
+        btnEditTeam = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -335,10 +338,10 @@ public class OneProjectView extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblPartners);
 
-        lblEditPartners.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
-        lblEditPartners.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEditPartners1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
+        lblEditPartners1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblEditPartnersMouseClicked(evt);
+                lblEditPartners1MouseClicked(evt);
             }
         });
 
@@ -349,7 +352,7 @@ public class OneProjectView extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblEditPartners)
+                    .addComponent(lblEditPartners1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -357,7 +360,7 @@ public class OneProjectView extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(lblEditPartners)
+                .addComponent(lblEditPartners1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -365,15 +368,45 @@ public class OneProjectView extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(40, 40, 40));
 
+        tblTeam.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tblTeam);
+
+        btnEditTeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen32.png"))); // NOI18N
+        btnEditTeam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditTeamMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEditTeam)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(btnEditTeam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -439,7 +472,7 @@ public class OneProjectView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1095, 1095, 1095)
+                        .addGap(1557, 1557, 1557)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -475,18 +508,22 @@ public class OneProjectView extends javax.swing.JFrame {
         proj.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillProjektRutaActionPerformed
 
-    private void lblEditPartnersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPartnersMouseClicked
+    private void btnEditTeamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditTeamMouseClicked
         
         
         String inPid = projekt.getPid();
         EditProjectFields editProjectFields = new EditProjectFields(projekt, oneProjectView);
         editProjectFields.setVisible(true);
 
-    }//GEN-LAST:event_lblEditPartnersMouseClicked
+    }//GEN-LAST:event_btnEditTeamMouseClicked
 
     private void lblEditProject1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProject1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblEditProject1MouseClicked
+
+    private void lblEditPartners1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPartners1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEditPartners1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -529,6 +566,7 @@ public class OneProjectView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnEditTeam;
     private javax.swing.JToggleButton btnTillbakaTillProjektRuta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -539,10 +577,11 @@ public class OneProjectView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDisplayKostnad2;
     private javax.swing.JLabel lblDisplayKostnadSoFar;
-    private javax.swing.JLabel lblEditPartners;
+    private javax.swing.JLabel lblEditPartners1;
     private javax.swing.JLabel lblEditProject1;
     private javax.swing.JLabel lblEkonomi;
     private javax.swing.JLabel lblInsikter;
@@ -553,5 +592,6 @@ public class OneProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel lbllProjName1;
     private javax.swing.JPanel projektInfo;
     private javax.swing.JTable tblPartners;
+    private javax.swing.JTable tblTeam;
     // End of variables declaration//GEN-END:variables
 }
