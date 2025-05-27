@@ -48,11 +48,11 @@ public class HallbarhetsmålHanterare {
     {
        
          {
-            if (!Validering.tomFalt(namn, "namn") || 
-            !Validering.giltigInt(malnummer, "malnummer") ||
-            !Validering.tomFalt(malnummer, "malnummer") ||
-            !Validering.tomFalt(beskrivning, "beskrivning") ||
-            !Validering.tomFalt(prioritet, "prioritet")) {
+            if (!Validering.tomFalt(namn, "namn") &&
+            Validering.giltigInt(malnummer, "malnummer") &&
+            Validering.tomFalt(malnummer, "malnummer") &&
+            Validering.tomFalt(beskrivning, "beskrivning") &&
+            Validering.tomFalt(prioritet, "prioritet")) {
          // if (namn == null || malnummer == null || beskrivning == null || prioritet == null || namn.isEmpty() || malnummer.isEmpty() || beskrivning.isEmpty() || prioritet.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Hållbarhetsmål kan inte läggas till");
@@ -111,7 +111,7 @@ public class HallbarhetsmålHanterare {
     public boolean andraMalnummer(String hid, String nyttMalnummer)
     {
          {
-         if (!Validering.giltigInt(nyttMalnummer, "malnummer") || !Validering.tomFalt(nyttMalnummer, "malnummer")) {
+         if (!Validering.giltigInt(nyttMalnummer, "malnummer") && Validering.tomFalt(nyttMalnummer, "malnummer")) {
 //(hid == null || nyttMalnummer == null || hid.isEmpty() || nyttMalnummer.isEmpty()) {
              
              

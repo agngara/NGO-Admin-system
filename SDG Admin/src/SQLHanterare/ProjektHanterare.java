@@ -64,14 +64,14 @@ public class ProjektHanterare {
     {
         
        // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          if (!Validering.tomFalt(pid, "pid") ||
-             !Validering.tomFalt(projektnamn, "projektnamn") ||
-             !Validering.tomFalt(beskrivning, "beskrivning") ||
-             !Validering.giltigtDatum(startdatum) ||
-             !Validering.giltigtDatum(slutdatum) ||
-             !Validering.giltigDouble(kostnad) ||
-             !Validering.tomFalt(status, "status") ||
-             !Validering.tomFalt(prioritet, "prioritet")) {
+          if (!Validering.tomFalt(pid, "pid") &&
+             Validering.tomFalt(projektnamn, "projektnamn") &&
+             Validering.tomFalt(beskrivning, "beskrivning") &&
+             Validering.giltigtDatum(startdatum) &&
+             Validering.giltigtDatum(slutdatum) &&
+             Validering.giltigDouble(kostnad) &&
+             Validering.tomFalt(status, "status") &&
+             Validering.tomFalt(prioritet, "prioritet")) {
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
@@ -103,7 +103,7 @@ public class ProjektHanterare {
  
   public boolean andraPid(String pid, String nyPid) {
       
-      if (!Validering.tomFalt(pid, nyPid)) {
+      if (!Validering.tomFalt(pid, "gammal pid") || !Validering.tomFalt(nyPid, "ny pid")) {
 //(pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
           System.out.println("pid får inte vara tom");
           return false;
@@ -111,12 +111,12 @@ public class ProjektHanterare {
 
       
       try {
-          String query = "UPDATE projekt SET pid = " + "'" + nyPid + "'";
-          idb.update(query);
+          String fraga = "UPDATE projekt SET pid = '" + nyPid + "' WHERE pid = '" + pid + "'";
+          idb.update(fraga);
           return true;
       }
       
-      catch (Exception e) {
+      catch (InfException e) {
           e.printStackTrace();
           return false;
           
@@ -178,7 +178,7 @@ public class ProjektHanterare {
   {
       
        { if (!Validering.tomFalt(nyttStartdatum, "startdatum") &&
-            !Validering.giltigtDatum(nyttStartdatum)) {
+            Validering.giltigtDatum(nyttStartdatum)) {
           //if (pid == null || nyttStartdatum == null || pid.isEmpty() || nyttStartdatum.isEmpty()){
           
            System.out.println("pid eller startdatum får inte vara tom.");
@@ -201,7 +201,7 @@ public class ProjektHanterare {
   {
       {
           if (!Validering.tomFalt(nyttSlutdatum, "startdatum") &&
-            !Validering.giltigtDatum(nyttSlutdatum)){
+            Validering.giltigtDatum(nyttSlutdatum)){
           
            System.out.println("pid eller slutdatum får inte vara tom.");
            return false;
@@ -226,7 +226,7 @@ public class ProjektHanterare {
  public boolean andraKostnad(String pid, String nyKostnad){
         {
           //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
-          if(!Validering.giltigDouble(nyKostnad) && !Validering.tomFalt(nyKostnad, "kostnad")) {
+          if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
            return false;
@@ -376,7 +376,7 @@ try {
   
   public boolean taBortHandlaggare (String pid, String aid)
   {
-      if (!Validering.tomFalt(pid, "pid") || !Validering.tomFalt(aid, "aid")) {
+      if (!Validering.tomFalt(pid, "pid") && Validering.tomFalt(aid, "aid")) {
           return false;
       }
       
@@ -395,51 +395,10 @@ try {
           
     // Metoden nedan är avsedd att lägga till uppgifter om vem som är projektansvarig
   
-  public boolean laggTillProjektansvarig (String projektchef) {
-      
-      if(!Validering.tomFalt(projektchef, "projektchef")) {
-          return false;
-      }
-      
-     try { 
-        String laggTill = "INSERT INTO projekt (projektchef) VALUES  ('" + projektchef + "')";
-        idb.insert(laggTill);
-        return true;
-     } catch (InfException e) {
-         e.printStackTrace();
-         return false; 
-     }
+ 
   }
   
   
-   public boolean taBortProjektchef (Projekt p)
-{
-   
-    
-    String pid = p.getPid();
-    
-    
-    if (!Validering.tomFalt(pid, "pid")) {
-        
-        return false;
-    }
-    
-    try {
-    String taBort = "DELETE projektchef FROM projekt WHERE pid = '" + p.getPid() + "'";
-    idb.delete(taBort);
-    
-    System.out.println("Projektchef borttagen: " + p.getProjektchef());
-    return true;
-    
-}
-
-    catch (InfException e) {
-        
-    e.printStackTrace();
-    return false;
-}
-
-}    
-}
+  
 
     

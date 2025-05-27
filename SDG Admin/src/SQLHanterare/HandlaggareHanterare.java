@@ -82,8 +82,8 @@ public class HandlaggareHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") ||
-        !Validering.giltigEpost(nyEpost)) {
+        if (!Validering.tomFalt(nyEpost, "epost") &&
+        Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
             System.out.println("aid eller epost får inte vara tom");
             return false;
@@ -225,7 +225,7 @@ public boolean andraAdress(String aid, String nyAdress)
 //lägg till handläggare
 public boolean laggTillHandlaggare(String aid, String ansvarighetsomrade) {
     
-   if (!Validering.tomFalt(aid, "aid") || !Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
+   if (!Validering.tomFalt(aid, "aid") && Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
        return false;
    }
     

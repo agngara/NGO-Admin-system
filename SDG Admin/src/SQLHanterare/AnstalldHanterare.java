@@ -145,6 +145,33 @@ public class AnstalldHanterare {
     }
    
    
+   // ny version av getRoll
+   
+   public UserType fetchRole(String aid) {
+       UserType underType = UserType.handlaggare; 
+       
+       
+       try {
+          String kollaAdmin = "SELECT behorighetsniva FROM admin WHERE aid = '" + aid + "'";
+          String adminResultat = idb.fetchSingle(kollaAdmin);
+          
+          if (adminResultat != null) {
+              if(adminResultat.equals("1")) {
+                  return UserType.admin1;
+              } else if (adminResultat.equals("2")) {
+                  return UserType.admin2;
+              }
+          }
+          
+          
+          
+          String kollaProjektchef = "SELECT projektchef FROM projekt WHERE projektchef = '" + aid + "'";
+          String projektResultat = idb.fetchSingle(kollaProjektchef);
+          
+          if ()
+       }
+   }
+   
    // metoden nedan är avsedd för att kunna hämta totala projektkostnaden
    
    public int projektKostnad(Anstalld a) {
@@ -277,17 +304,17 @@ public class AnstalldHanterare {
 }
 
 
- public boolean andraAnstallningsdatum(String ansdatum, String nyAnsdatum)
+ public boolean andraAnstallningsdatum(String aid, String nyAnsdatum)
 {
     {
-        if (!Validering.tomFalt(nyAnsdatum, "ansdatum")) {
+        if (!Validering.tomFalt(nyAnsdatum, "anställningsdatum") && Validering.giltigtDatum(nyAnsdatum)) {
             System.out.println("Anställningsdatum får inte vara tom");
             return false;
         }
     }
            
     try {
-        String nyttAnsdatum = "UPDATE anstalld SET anställningsdatum = '" + nyAnsdatum + "' WHERE aid = '" + ansdatum + "'";
+        String nyttAnsdatum = "UPDATE anstalld SET anställningsdatum = '" + nyAnsdatum + "' WHERE aid = '" + aid + "'";
         idb.update(nyttAnsdatum);
         return true;
 } 
@@ -454,12 +481,13 @@ public boolean andraAdress(String aid, String nyAdress)
     public boolean taBortAnstalld (Anstalld a) {
 
     String aid = a.getAid();
+    
     if (!Validering.tomFalt(aid, "anställningsID")) {
         System.out.println("Aid är tom");
         return false;
     }
    try { 
-    String taBort = "DELETE FROM anstalld WHERE aid = '" + a.getAid() + "'";
+    String taBort = "DELETE FROM anstalld WHERE aid = '" + aid + "'";
     idb.delete(taBort);
     System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
     return true;    
