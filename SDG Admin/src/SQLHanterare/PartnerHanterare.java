@@ -222,19 +222,7 @@ public class PartnerHanterare {
    }
 }
        
-     public ArrayList<HashMap<String, String>> getAllPartners() {
-         
-         try {
-             String sql = "SELECT * FROM partner";
-              ArrayList<HashMap<String, String>> rader = idb.fetchRows(sql);
-              return rader;
-         }
-         
-         catch (InfException e) {
-             
-             e.printStackTrace();
-         }
-     }  
+   
        
    
    

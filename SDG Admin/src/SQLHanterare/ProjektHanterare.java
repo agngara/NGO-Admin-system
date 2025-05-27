@@ -392,5 +392,15 @@ try {
       }
   }
           
-    
+    // Metoden nedan är avsedd att lägga till uppgifter om vem som är projektansvarig
+  
+  public boolean laggTillProjektansvarig (String projektchef) {
+      if(!Validering.tomFalt(projektchef, "projektchef")) {
+          return false;
+      }
+      
+     try { 
+        String laggTill = "INSERT INTO projekt VALUES projektchef ="
+     } 
+  }
 }
