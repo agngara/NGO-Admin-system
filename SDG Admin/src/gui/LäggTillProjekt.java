@@ -60,16 +60,16 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         // Fill Projektchef
         comboProjektchef.removeAllItems();
         ProjektHanterare projektHanterare = new ProjektHanterare();
-        ArrayList<HashMap<String,String>> projektchef = projektHanterare.fetchSingleProjektchef();
+        ArrayList<HashMap<String,String>> projektchef = projektHanterare.fetchAllProjekt();
         String chef = ""; 
 
         for (HashMap<String,String> hashmap : projektchef) {
 
-            chef = hashmap.get("chef");
+            chef = hashmap.get("projektchef");
             comboProjektchef.addItem(chef);
         }
 
-        String projektchefchef = projekt.getLand();
+        String projektchefchef = projekt.getProjektchef();
         comboLand.setSelectedItem(projektchefchef);  
         
         // Fill Land
@@ -91,20 +91,28 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         
     private void sparaProjekt() {
        
+        // DETTA MÅSTE KOLLAS OM DET ÄR RÄTT!!!!
         
         String projektnamn = txtProjektNamn.getText();
         String startdatum = txtStartDatum.getText();
         String slutdatum = txtSlutDatum.getText();
         String beskrivning = txtBeskrivning.getText();
         String kostnad = txtKostnad.getText();
-        /* fixa combobax 
-        String status = txtStatus.getText();
-        String prioritet = txtPrioritet.getText();
-        String projektchef = txtProjketchef.getText();
-        */
+        
+        String prioritet = (String) comboStatus.getSelectedItem();
+        String status = (String) comboStatus.getSelectedItem();
+        String projektchef = (String) comboProjektchef.getSelectedItem();
         String land = (String) comboLand.getSelectedItem();
         
+//        String prioritet() = "";
+//        String status = "";
+//        String projektchef = "";
         String landId = "1";
+        
+        try {
+            String sqlFraga = "select projektchef from projekt where namn = '" + projektchef + "'";
+            projektchef = idb.fetchSingle(sqlFraga);
+        } catch (InfException ex) {}
         
         try {
             String sqlFraga = "select lid from land where namn = '" + land + "'";
@@ -112,7 +120,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         } catch (InfException ex) {}
         
        
-        boolean ok = ph.laggTillProjekt(projektnamn, startdatum, slutdatum, kostnad, beskrivning, statusid, prioritetid, projektchefid, landId)
+        boolean ok = ph.laggTillProjekt(projektnamn, startdatum, slutdatum, kostnad, beskrivning, prioritet, status, projektchef, landId);
         if (ok) {
             javax.swing.JOptionPane.showMessageDialog(this, "Projket sparat!");
             this.setVisible(false);

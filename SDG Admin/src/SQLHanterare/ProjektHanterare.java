@@ -4,6 +4,7 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import logicComponents.Validering;
@@ -355,6 +356,10 @@ public boolean andraLand(String pid, int lid) {
         return false;
     }
 }
+
+    public ArrayList<HashMap<String, String>> fetchAllProjekt() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
 /*
