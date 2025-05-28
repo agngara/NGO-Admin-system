@@ -38,6 +38,10 @@ public class AdminHanterare {
         
        
    }
+
+    public AdminHanterare() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
    
     public HashMap getAdmin() {
         
@@ -58,25 +62,23 @@ public class AdminHanterare {
  */
     //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
-    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum, String avdelning)
     
    {
         
         //om lösenord ej inmatas, skapas ett lösenod genom UUID. 
         if (losenord == null) {
             losenord = UUID.randomUUID().toString();
-        }
-      
+        } 
        
         if (
-             !Validering.tomFalt(losenord, "lösenord") ||
-             !Validering.tomFalt(fornamn, "förnamn") ||
-             !Validering.tomFalt(efternamn, "efternamn") ||
-             !Validering.tomFalt(adress, "adress") ||
+             Validering.tomFalt(fornamn, "förnamn") ||
+             Validering.tomFalt(efternamn, "efternamn") ||
+             Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
-             !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.giltigtDatum(anstallningsdatum)) {
+             !Validering.giltigtDatum(anstallningsdatum) ||
+             Validering.tomFalt(avdelning, "avdelning")) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
@@ -87,22 +89,22 @@ public class AdminHanterare {
         
         try {
             // här skapas ett aid och för att göra aid "unikt" hämtar den det högsta aid och sedan lägger till +1
-         String korrektAid = "SELECT MAX(aid) FROM anstalld";
-         String maxAid = idb.fetchSingle(korrektAid);
+            String korrektAid = "SELECT MAX(aid) FROM anstalld";
+            String maxAid = idb.fetchSingle(korrektAid);
          
-         int nyttAid = 1;
-         if (maxAid != null) {
+            int nyttAid = 1;
+            if (maxAid != null) {
              nyttAid = Integer.parseInt(maxAid) + 1; }
              
          
          
          
-         String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
-         "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
-         idb.insert(laggTill);
+            String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning) " + 
+            "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdelning + ")";
+            idb.insert(laggTill);
 
 
-           System.out.println("Skapat lösenord: " + losenord); 
+            System.out.println("Skapat lösenord: " + losenord); 
             return true;
         }
         

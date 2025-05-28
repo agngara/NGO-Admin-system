@@ -8,6 +8,10 @@ import orgEntities.*;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.Anställda;
+import oru.inf.InfDB;
+import db.DatabaseInterface;
+import oru.inf.InfException;
+
         
 
 /**
@@ -18,7 +22,10 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
    
     Anstalld anstalld;
     AnstalldHanterare ah;
+    AdminHanterare adh;
     String aid;
+    private InfDB idb;
+
     
       
     /**
@@ -26,27 +33,30 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
      */
     public LäggTillAnställd1() {
         anstalld = new Anstalld();
+        idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
+        
         //aid = anstalld.getAid();
-//        ah = new AnstalldHanterare(aid);
+        ah = new AnstalldHanterare(aid);
+        adh = new AdminHanterare(aid);
         
     }
     
     //Kan tas bort
-    public void setTextBoxes() {
-        
-        txtansID1.setText(anstalld.getAid());
-        txtAdress.setText(anstalld.getAdress());
-        txtEfternamn.setText(anstalld.getEfternamn());
-        txtFornamn.setText(anstalld.getFornamn());
-        txtLosenord.setText(anstalld.getLosenord());
-        txtTelefon.setText(anstalld.getTelefon());
-        txtEpost.setText(anstalld.getEpost());
-        txtAnsDatum.setText(anstalld.getAnstallningsdatum());
-//        this.fillComboBoxes();
+//    public void setTextBoxes() {
+//        
+//        txtansID1.setText(anstalld.getAid());
+//        txtAdress.setText(anstalld.getAdress());
+//        txtEfternamn.setText(anstalld.getEfternamn());
+//        txtFornamn.setText(anstalld.getFornamn());
+//        txtLosenord.setText(anstalld.getLosenord());
+//        txtTelefon.setText(anstalld.getTelefon());
+//        txtEpost.setText(anstalld.getEpost());
+//        txtAnsDatum.setText(anstalld.getAnstallningsdatum());
+////        this.fillComboBoxes();
 
-    }
+    //}
         
 
     public void fillComboBoxes() {
@@ -70,70 +80,103 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         comboAvdelning.setSelectedItem(avdelningNamn);
         
 }
-     
-    public boolean setAnstalldInfo() {
-        String aid = txtansID1.getText();
-        if (!ah.andraAid(this.aid, aid)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelnings-ID.");
-            return false;
-        }
-
-        String Adress = txtAdress.getText();
-        if (!ah.andraAdress(aid, Adress)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
-            return false;
-        }
-
-        String Efternamn = txtEfternamn.getText();
-        if (!ah.andraEfternamn(aid, Efternamn)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera efternamn.");
-            return false;
-        }
-
-        String Losenord = txtLosenord.getText();
-        if (!ah.andraLosenord(aid, Losenord)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
-            return false;
-        }
-
-        String Fornamn = txtFornamn.getText();
-        if (!ah.andraFornamn(aid, Fornamn)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera förnamn.");
-            return false;
-        }
-
-        String epost = txtEpost.getText();
-        if (!ah.andraEpost(aid, epost)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera e-post.");
-            return false;
-        }
-
-        String telefon = txtTelefon.getText();
-        if (!ah.andraTelefon(aid, telefon)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
-            return false;
-        }
-        
-        String Anstallningsdatum = txtAnsDatum.getText();
-        if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
-            return false;
-        }
-
-        String Avdelning = (String) comboAvdelning.getSelectedItem();
-        if (!ah.andraAvdelning(aid, Avdelning)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
-            return false;
-        }
-
- 
-        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
-        
-        return true;
-
-    }
-        
+     // tar bort (this.aid, aid) 
     
+//    public boolean setAnstalldInfo() {
+//        String aid = txtansID1.getText();
+//        if (!ah.andraAid(this.aid, aid)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställnings-ID.");
+//            return false;
+//        }
+//
+//        String Adress = txtAdress.getText();
+//        if (!ah.andraAdress(aid, Adress)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
+//            return false;
+//        }
+//
+//        String Efternamn = txtEfternamn.getText();
+//        if (!ah.andraEfternamn(aid, Efternamn)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera efternamn.");
+//            return false;
+//        }
+//
+//        String Losenord = txtLosenord.getText();
+//        if (!ah.andraLosenord(aid, Losenord)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
+//            return false;
+//        }
+//
+//        String Fornamn = txtFornamn.getText();
+//        if (!ah.andraFornamn(aid, Fornamn)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera förnamn.");
+//            return false;
+//        }
+//
+//        String epost = txtEpost.getText();
+//        if (!ah.andraEpost(aid, epost)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera e-post.");
+//            return false;
+//        }
+//
+//        String telefon = txtTelefon.getText();
+//        if (!ah.andraTelefon(aid, telefon)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
+//            return false;
+//        }
+//        
+//        String Anstallningsdatum = txtAnsDatum.getText();
+//        if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
+//            return false;
+//        }
+//
+//        String Avdelning = (String) comboAvdelning.getSelectedItem();
+//        if (!ah.andraAvdelning(aid, Avdelning)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
+//            return false;
+//        }
+//
+// 
+//        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
+//        
+//        return true;
+//
+//    }
+        
+    private void sparaAnstalld() {
+       
+        //aid potentiellt auto increment
+        
+        //idb.insert(epost);
+        //idb.insert("insert into anstalld (aid, adress, efternamn")
+        // idb.insert();
+        
+        String adress = txtAdress.getText();
+        String efternamn = txtEfternamn.getText();
+        String fornamn = txtFornamn.getText();
+        String losenord = txtLosenord.getText();
+        String telefon = txtTelefon.getText();
+        String epost = txtEpost.getText();
+        String anstallningsdatum = txtAnsDatum.getText();
+        String avdelning = (String) comboAvdelning.getSelectedItem();
+        
+        String avdelningsId = "1";
+        
+        try {
+            String sqlFraga = "select avdid from avdelning where namn = '" + avdelning + "'";
+            avdelningsId = idb.fetchSingle(sqlFraga);
+        } catch (InfException ex) {}
+        
+       
+        boolean ok = adh.laggTillAnstalld(losenord, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelningsId);
+        if (ok) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Anställd sparad!");
+            this.setVisible(false);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara anställd.");
+        }
+    }
         
         
       
@@ -161,7 +204,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtAdress = new javax.swing.JTextField();
         txtAnsDatum = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        btnRedigera = new javax.swing.JButton();
+        btnSparaAnstalld = new javax.swing.JButton();
         comboAvdelning = new javax.swing.JComboBox<>();
         lblFörklarDatum = new javax.swing.JLabel();
         txtEpost = new javax.swing.JTextField();
@@ -226,12 +269,12 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTitle.setText("Lägg till anställd");
 
-        btnRedigera.setBackground(new java.awt.Color(7, 96, 216));
-        btnRedigera.setForeground(new java.awt.Color(255, 255, 255));
-        btnRedigera.setText("Spara");
-        btnRedigera.addActionListener(new java.awt.event.ActionListener() {
+        btnSparaAnstalld.setBackground(new java.awt.Color(7, 96, 216));
+        btnSparaAnstalld.setForeground(new java.awt.Color(255, 255, 255));
+        btnSparaAnstalld.setText("Spara");
+        btnSparaAnstalld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRedigeraActionPerformed(evt);
+                btnSparaAnstalldActionPerformed(evt);
             }
         });
 
@@ -276,28 +319,32 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                         .addComponent(lblTitle)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtAnsDatum, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEfternamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                    .addComponent(lbAnstalldID, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFornamn, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFornamn)
-                                    .addComponent(txtansID1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addComponent(lblAnsDatum)))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFörklarDatum)
+                                    .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtAnsDatum, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtEfternamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                            .addComponent(lbAnstalldID, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblFornamn, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtFornamn)
+                                            .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(lblAnsDatum)))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblFörklarDatum))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(txtansID1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(95, 95, 95)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                             .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
@@ -363,7 +410,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 .addComponent(lblEpost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
         );
@@ -395,13 +442,10 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnsDatumActionPerformed
 
-    private void btnRedigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraActionPerformed
-        
-        if (setAnstalldInfo()) {
-            
-        }
-        
-    }//GEN-LAST:event_btnRedigeraActionPerformed
+    private void btnSparaAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaAnstalldActionPerformed
+
+        sparaAnstalld();     
+    }//GEN-LAST:event_btnSparaAnstalldActionPerformed
 
     private void txtEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEpostActionPerformed
         // TODO add your handling code here:
@@ -457,7 +501,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnGenereraLosen;
-    private javax.swing.JButton btnRedigera;
+    private javax.swing.JButton btnSparaAnstalld;
     private javax.swing.JToggleButton btnTillbakaTillAnställd1;
     private javax.swing.JComboBox<String> comboAvdelning;
     private javax.swing.JLabel lbAnstalldID;

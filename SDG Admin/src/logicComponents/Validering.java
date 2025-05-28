@@ -19,14 +19,15 @@ public class Validering {
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
          JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
-         return false;
+         return true;
      }
      
-     return true;
+     return false;
  }
  
  public static boolean giltigEpost(String epost) {
-     if (epost == null || !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")) {
+     //er gamla regex !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")
+     if (epost == null) {
          JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
          return false;
      }
