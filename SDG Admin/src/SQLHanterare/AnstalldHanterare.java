@@ -37,6 +37,23 @@ public class AnstalldHanterare {
        
    }
    
+   public AnstalldHanterare(String aid, String filler) {
+       
+       this.email = email;
+       query = "SELECT * FROM anstalld WHERE aid = " + "'" + aid + "'";
+       idb = DatabaseInterface.databaseConnection();
+       
+       try {
+           
+           anstalld = idb.fetchRow(query);
+           
+       } catch (Exception exception) {
+           
+       }
+       
+   }
+   
+   
    /**
     * This constructor takes an email and fetches info to populate the anstalld hashmap.
     * @param email to be entered as query.
