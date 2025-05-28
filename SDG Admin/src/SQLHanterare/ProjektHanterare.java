@@ -117,7 +117,6 @@ public class ProjektHanterare {
   public boolean andraPid(String pid, String nyPid) {
       
       if (!Validering.tomFalt(pid, "gammal pid") || !Validering.tomFalt(nyPid, "ny pid")) {
-//(pid == null || nyPid == null || pid.isEmpty() || nyPid.isEmpty()){
           System.out.println("pid får inte vara tom");
           return false;
       }
@@ -142,7 +141,6 @@ public class ProjektHanterare {
       
       {
           if (!Validering.tomFalt(nyttNamn, "projektnamn")) {
-          //if (pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("pid eller namn får inte vara tom.");
            return false;
@@ -167,7 +165,6 @@ public class ProjektHanterare {
       
       {
              if (!Validering.tomFalt(nyBeskrivning, "beskrivning") || !Validering.tomFalt(pid, "pid")) {
-            //if (pid == null || nyBeskrivning == null || pid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("pid eller beskrivning får inte vara tom.");
            return false;
@@ -192,7 +189,6 @@ public class ProjektHanterare {
       
        if (!Validering.tomFalt(nyttStartdatum, "startdatum") ||
             !Validering.giltigtDatum(nyttStartdatum)) {
-          //if (pid == null || nyttStartdatum == null || pid.isEmpty() || nyttStartdatum.isEmpty()){
           
            System.out.println("pid eller startdatum får inte vara tom.");
            return false;
@@ -239,7 +235,6 @@ public class ProjektHanterare {
 
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          //if (pid == null || nyKostnad == null || pid.isEmpty() || nyKostnad.isEmpty()){
           if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
@@ -265,7 +260,6 @@ public class ProjektHanterare {
   {
       {
             if (!Validering.tomFalt(nyStatus, "status")) {
-            //if (pid == null || nyStatus == null || pid.isEmpty() || nyStatus.isEmpty()){
           
            System.out.println("pid eller status får inte vara tom.");
            return false;
@@ -291,7 +285,6 @@ public class ProjektHanterare {
       
       {
           if (!Validering.tomFalt(nyPrioritet, "prioritering")) {
-                //if (pid == null || nyPrioritet == null || pid.isEmpty() || nyPrioritet.isEmpty()){
           
            System.out.println("pid eller prioritet får inte vara tom.");
            return false;

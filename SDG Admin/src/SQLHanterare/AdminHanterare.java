@@ -49,7 +49,7 @@ public class AdminHanterare {
  * 
      * @param losenord
      * @param fornamn
-     * @param efternamn
+     * @param efternamn 6465
      * @param adress
      * @param epost
      * @param telefon
@@ -121,7 +121,6 @@ public class AdminHanterare {
     public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
     {
         
-       // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
           if (!Validering.tomFalt(projektnamn, "Projektnamn") ||
              !Validering.tomFalt(beskrivning, "Beskrivning") ||
              !Validering.giltigtDatum(startdatum) ||
