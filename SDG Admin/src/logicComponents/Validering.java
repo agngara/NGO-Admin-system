@@ -25,39 +25,39 @@ public class Validering {
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
          JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
-         return true;
+         return false; // texten är giltig
      }
      
-     return false;
+     return true;
  }
  
  public static boolean giltigEpost(String epost) {
      //er gamla regex !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")
-     if (epost == null) {
+     if (epost == null)  {
          JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
-         return true;
+         return false;
      }
      
-    return false;
+    return true;
  }
 
  public static boolean giltigtTelefonnummer(String telefon) {
      if (telefon == null || !telefon.matches("^\\d{7,15}$")) {
      JOptionPane.showMessageDialog(null, "Ogilitig telefonnummer. ");
-     return true;
+     return false;
  }
      
      
-     return false; 
+     return true; 
  }
       
   public static boolean giltigtDatum(String datum) {
       if (datum == null || !datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
          JOptionPane.showMessageDialog(null, "Datum måste vara u formatet ÅÅÅÅ-MM-DD.");
-         return true;
+         return false;
       }
       
-     return false; 
+     return true; 
      
   }
      
@@ -71,7 +71,7 @@ public class Validering {
             return true;
         } catch (NumberFormatException e) {
           JOptionPane.showMessageDialog(null, " måste vara ett tal (t.ex 123,54");
-          return true;
+          return false;
         }
     } 
 

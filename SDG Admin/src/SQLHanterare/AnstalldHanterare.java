@@ -73,6 +73,8 @@ public class AnstalldHanterare {
        }
        
    }
+  
+   
    
    
    /**
@@ -163,6 +165,37 @@ public class AnstalldHanterare {
    
    
    // ny version av getRoll
+   
+//   public UserType fetchRRole(String aid) {
+//       
+//       UserType userType = UserType.handlaggare;
+//       
+//       
+//       
+//       
+//       try {
+//           String checkAdmin = "SELECT behorighetsniva FROM admin WHERE aid = '" + aid + "'";
+//           String adminResultat = idb.fetchSingle(checkAdmin);
+//           if (adminResultat != null) {
+//               if (adminResultat.equals("1")) {
+//                   return UserType.admin1;
+//               } else if (adminResultat.equals("2")) {
+//                   return UserType.admin2; 
+//               }
+//           }
+//           
+//       }
+//       
+//       
+//       String checkChef = "SELECT projektchef FROM projekt WHERE projektchef = '" + aid + "'";
+//       String chefResultat = idb.fetchSingle(checkChef);
+//       if (chefResultat != null && chefResultat.equals(aid)) {
+//           return UserType.projektchef;
+//       }
+//     
+//       return UserType.handlaggare;
+//   }
+//   
    // anställdahnaterare borde ge tbx anställda. En anställdhanterare och 0-m anställda. 
    
    
