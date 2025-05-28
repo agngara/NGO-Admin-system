@@ -16,7 +16,7 @@ import oru.inf.InfException;
  * @author theow
  */
 public class AdminHanterare {
-    
+        
    private InfDB idb;
    private HashMap<String, String> admin;
    private String query;
