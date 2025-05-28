@@ -72,17 +72,19 @@ public class ProjektHanterare {
  
     
     
-    public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
+    public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet, String projektchef, String land)
     {
         
-          if ( !Validering.tomFalt(projektnamn, "projektnamn") ||
+          if (!Validering.tomFalt(projektnamn, "projektnamn") ||
              !Validering.tomFalt(beskrivning, "beskrivning") ||
              !Validering.giltigtDatum(startdatum) ||
              !Validering.giltigtDatum(slutdatum) ||
              !Validering.giltigDouble(kostnad) ||
              !Validering.tomFalt(status, "status") ||
-             !Validering.tomFalt(prioritet, "prioritet"))
-            {
+             !Validering.tomFalt(prioritet, "prioritet") ||
+             !Validering.tomFalt(projektchef, "Projektchef") ||
+             !Validering.tomFalt(land, "Land")) {
+            
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
@@ -98,7 +100,7 @@ public class ProjektHanterare {
              nyttPid = Integer.parseInt(maxPid) + 1;
              
             }
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet)" + "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
+            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land )" + "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "', '" + projektchef + "', '" + land + ")";
             idb.insert(laggTill);
             return true;
         }
