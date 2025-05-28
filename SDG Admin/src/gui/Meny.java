@@ -82,10 +82,18 @@ public class Meny extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblInloggadAnvandare.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblInloggadAnvandare.setForeground(new java.awt.Color(255, 255, 255));
+        lblInloggadAnvandare.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblInloggadAnvandare.setText("Namn");
 
-        jLabel1.setText("Vad vill du göra idag?");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Välkommen!");
 
+        visaHallbarhetsmal.setBackground(new java.awt.Color(0, 102, 255));
+        visaHallbarhetsmal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        visaHallbarhetsmal.setForeground(new java.awt.Color(255, 255, 255));
         visaHallbarhetsmal.setText("Hållbarhetsmål");
         visaHallbarhetsmal.setActionCommand("visaHallbarhetsmal");
         visaHallbarhetsmal.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +102,9 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        visaProjekt.setBackground(new java.awt.Color(0, 102, 255));
+        visaProjekt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        visaProjekt.setForeground(new java.awt.Color(255, 255, 255));
         visaProjekt.setText("Projekt");
         visaProjekt.setActionCommand("visaProjekt");
         visaProjekt.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +114,7 @@ public class Meny extends javax.swing.JFrame {
         });
 
         LoggaUt.setBackground(new java.awt.Color(0, 102, 255));
+        LoggaUt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         LoggaUt.setForeground(new java.awt.Color(255, 255, 255));
         LoggaUt.setText("Logga ut");
         LoggaUt.addActionListener(new java.awt.event.ActionListener() {
@@ -111,8 +123,14 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        lblRole.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRole.setForeground(new java.awt.Color(255, 255, 255));
+        lblRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRole.setText("Roll");
 
+        visaAnställda.setBackground(new java.awt.Color(0, 102, 255));
+        visaAnställda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        visaAnställda.setForeground(new java.awt.Color(255, 255, 255));
         visaAnställda.setText("Anställda");
         visaAnställda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +138,9 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        visaAvdelning.setBackground(new java.awt.Color(0, 102, 255));
+        visaAvdelning.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        visaAvdelning.setForeground(new java.awt.Color(255, 255, 255));
         visaAvdelning.setText("Avdelning");
         visaAvdelning.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +148,9 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        visaPartners.setBackground(new java.awt.Color(0, 102, 255));
+        visaPartners.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        visaPartners.setForeground(new java.awt.Color(255, 255, 255));
         visaPartners.setText("Partners");
         visaPartners.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,52 +163,57 @@ public class Meny extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(visaHallbarhetsmal)
-                .addGap(30, 30, 30)
-                .addComponent(visaProjekt)
-                .addGap(45, 45, 45)
-                .addComponent(visaAnställda)
-                .addGap(50, 50, 50)
-                .addComponent(visaAvdelning)
-                .addGap(62, 62, 62)
-                .addComponent(visaPartners)
-                .addContainerGap(377, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LoggaUt)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 798, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(visaHallbarhetsmal))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(147, 147, 147)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(visaProjekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(visaAnställda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(visaAvdelning, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                .addComponent(visaPartners, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(29, 29, 29)
+                            .addComponent(jLabel1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblInloggadAnvandare)
-                    .addComponent(lblRole))
-                .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LoggaUt)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel1)
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(visaHallbarhetsmal)
-                            .addComponent(visaAnställda)
-                            .addComponent(visaProjekt)
-                            .addComponent(visaAvdelning)
-                            .addComponent(visaPartners)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(lblInloggadAnvandare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblRole)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(495, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(LoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(visaHallbarhetsmal)
+                        .addGap(30, 30, 30)
+                        .addComponent(visaProjekt)
+                        .addGap(35, 35, 35)
+                        .addComponent(visaAnställda)
+                        .addGap(32, 32, 32)
+                        .addComponent(visaAvdelning)))
+                .addGap(34, 34, 34)
+                .addComponent(visaPartners)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         pack();
