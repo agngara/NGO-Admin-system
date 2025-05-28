@@ -26,7 +26,7 @@ public class Projekt {
     private String land;
     
     
-    
+    public Projekt() {}
     
     public Projekt (ProjektHanterare projektHanterare)
     {
