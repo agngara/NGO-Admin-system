@@ -190,7 +190,7 @@ public class AnstalldHanterare {
    
    // Om någon skapar null lösen geras ett lsöenord, annars kan vara bra att lägga till så man kan skapa ett lösen. 
    
-   public boolean laggTillAnstalld(String losenord, String aid, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+   public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
         
@@ -201,8 +201,7 @@ public class AnstalldHanterare {
       
        
         if (
-             !Validering.tomFalt(losenord, "lösenord") ||
-             !Validering.tomFalt(aid, "aid") ||
+             !Validering.tomFalt(losenord, "lösenord") || 
              !Validering.tomFalt(fornamn, "förnamn") ||
              !Validering.tomFalt(efternamn, "efternamn") ||
              !Validering.tomFalt(adress, "adress") ||
@@ -220,11 +219,17 @@ public class AnstalldHanterare {
         
         try {
              
+         String korrektAid = "SELECT MAX(aid) FROM anstalld";
+         String maxAid = idb.fetchSingle(korrektAid);
          
+         int nyttAid = 1;
+         if (maxAid != null) {
+             nyttAid = Integer.parseInt(maxAid) + 1;
+         }
          
          
          String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
-         "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
+         "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
          idb.insert(laggTill);
 
 
