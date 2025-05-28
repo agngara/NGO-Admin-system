@@ -58,17 +58,23 @@ public class ProjektHanterare {
  
  
       
-      
+     /**
+ * Metoden nedan är avsedd för att lägga till ett projekt
+ * metoden skapar ett pid genom att hitta max pid och sedan addera 1
+ * 
+ * 
+ * 
+ * 
+ */ 
       
      
      
- // koden nedan är avsedd för att kunna lägga till ett projekt. 
+ 
     
     
     public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
     {
         
-       // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
           if ( !Validering.tomFalt(projektnamn, "projektnamn") ||
              !Validering.tomFalt(beskrivning, "beskrivning") ||
              !Validering.giltigtDatum(startdatum) ||
@@ -106,6 +112,10 @@ public class ProjektHanterare {
         
    
     }
+    
+    
+    
+     
     
    
 

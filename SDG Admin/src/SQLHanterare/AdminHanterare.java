@@ -48,6 +48,11 @@ public class AdminHanterare {
         return admin;
         
     }
+    // metoden skapar ett random lösen och används sedan i metoden laggTillAnstalld
+    
+    public String genereraLosenord() {
+       return UUID.randomUUID().toString();
+   }
     /**
  * Metoden nedan lägger till en anställd 
  * 
@@ -59,25 +64,31 @@ public class AdminHanterare {
      * @param telefon
      * @param anstallningsdatum
      * @return 
+     *  Denna kod är avsedd för att lägga till en ny anställd
+     * Den skapar ävet ett slumpmässigt lösenord genom UUID
+     * och ett slumpmässigt aid
+     * Om lösenord inte inmatas så skapas ett genererat losen ord, via metoden genereraLosenord
  */
-    //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
+    
+//Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
     public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum, String avdelning)
     
    {
         
         //om lösenord ej inmatas, skapas ett lösenod genom UUID. 
-        if (losenord == null) {
-            losenord = UUID.randomUUID().toString();
+        if (losenord == null || losenord.isEmpty()) {
+       
+          losenord = genereraLosenord();
         } 
        
         if (
              Validering.tomFalt(fornamn, "förnamn") ||
              Validering.tomFalt(efternamn, "efternamn") ||
              Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigEpost(epost) ||
-             !Validering.giltigtTelefonnummer(telefon) ||
-             !Validering.giltigtDatum(anstallningsdatum) ||
+             Validering.giltigEpost(epost) ||
+             Validering.giltigtTelefonnummer(telefon) ||
+             Validering.giltigtDatum(anstallningsdatum) ||
              Validering.tomFalt(avdelning, "avdelning")) {
         
           //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
@@ -120,47 +131,7 @@ public class AdminHanterare {
     
  // Metoden lägger till ett projekt 
     
-    public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
-    {
-        
-          if (!Validering.tomFalt(projektnamn, "Projektnamn") ||
-             !Validering.tomFalt(beskrivning, "Beskrivning") ||
-             !Validering.giltigtDatum(startdatum) ||
-             !Validering.giltigtDatum(slutdatum) ||
-             !Validering.giltigDouble(kostnad) ||
-             !Validering.tomFalt(status, "Status") ||
-             !Validering.tomFalt(prioritet, "Prioritet"))
-              {
-
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
-           return false;
-            }
-       
-        try
-        {
-            
-            
-            String korrektPid = "SELECT MAX(pid) FROM projekt";
-            String maxPid = idb.fetchSingle(korrektPid);
-            
-            int nyttPid = 1;
-            if (maxPid != null) {
-             nyttPid = Integer.parseInt(maxPid) + 1; }
-            
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
-            idb.insert(laggTill);
-            return true;
-        }
-        
-        catch (InfException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-        
-        
    
-    }
     
     
 }
