@@ -126,14 +126,14 @@ public class ProjektHanterare {
  
   public boolean andraPid(String pid, String nyPid) {
       
-      if (!Validering.tomFalt(pid, "gammal pid") || !Validering.tomFalt(nyPid, "ny pid")) {
-          System.out.println("pid får inte vara tom");
+      if (Validering.tomFalt(nyPid, "ny pid")) {
+          System.out.println("pid får inte vara tom" + this.pid);
           return false;
       }
 
       
       try {
-          String fraga = "UPDATE projekt SET pid = '" + nyPid + "' WHERE pid = '" + pid + "'";
+          String fraga = "UPDATE projekt SET pid = '" + nyPid + "WHERE pid = '" + pid + "'";
           idb.update(fraga);
           return true;
       }
@@ -245,7 +245,7 @@ public class ProjektHanterare {
 
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          if(!Validering.giltigDouble(nyKostnad) && Validering.tomFalt(nyKostnad, "kostnad")) {
+          if(!Validering.giltigDouble(nyKostnad) || !Validering.tomFalt(nyKostnad, "kostnad")) {
           
            System.out.println("pid eller kostnad får inte vara tom.");
            return false;

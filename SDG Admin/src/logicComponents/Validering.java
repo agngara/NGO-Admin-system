@@ -25,10 +25,10 @@ public class Validering {
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
          JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
-         return true;
+         return false;
      }
      
-     return false;
+     return true;
  }
  
  public static boolean giltigEpost(String epost) {
