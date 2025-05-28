@@ -34,9 +34,6 @@ public class EditAnställda1 extends javax.swing.JFrame {
         
     }
 
-    public EditAnställda1(String aid) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     public void setTextBoxes() {
         

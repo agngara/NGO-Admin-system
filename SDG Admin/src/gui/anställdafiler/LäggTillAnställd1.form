@@ -59,20 +59,16 @@
                               <Component id="lblFörklarDatum" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="bnGenereraLosen" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="bAndraLösen" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="txtLosenord" pref="265" max="32767" attributes="0"/>
+                                  <Component id="comboAvdelning" alignment="0" pref="265" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="bnGenereraLosen" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblLosenord" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblAvdelning" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="comboAvdelning" alignment="0" pref="265" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -116,10 +112,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bAndraLösen" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bnGenereraLosen" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="bnGenereraLosen" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -282,11 +275,6 @@
     <Component class="javax.swing.JLabel" name="lblTelefon">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefon"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="bAndraL&#xf6;sen">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc4;ndra l&#xf6;senord"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="bnGenereraLosen">

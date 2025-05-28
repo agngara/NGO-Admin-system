@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import SQLHanterare.AnstalldHanterare;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
+import orgEntities.Anstalld;
+
 /**
  *
  * 
@@ -88,9 +91,11 @@ public class Anställda extends javax.swing.JFrame {
         int col = tblAnställda.columnAtPoint(evt.getPoint());
         if (row >= 0 && col == 9) {
                 
-            Object varde = tblAnställda.getValueAt(row, 0);
-            String Aid = varde.toString();
-            EditAnställda1 editAnställda1 = new EditAnställda1(Aid);
+//            Object varde = tblAnställda.getValueAt(row, 0);
+//            String Aid = varde.toString();
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare();
+            Anstalld anstalld = new Anstalld(anstalldHanterare);
+            EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
             editAnställda1.setVisible(true);
             anställda.setVisible(false);
             
@@ -141,7 +146,7 @@ public class Anställda extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+                "Anställnings ID", "Förnamn", "Efternamn", "Adress", "Epost", "Telefon", "Anställningsdatum", "Lösenord", "Avdelning", "Redigera"
             }
         ));
         jScrollPane1.setViewportView(tblAnställda);

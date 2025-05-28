@@ -157,7 +157,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         lblEpost = new javax.swing.JLabel();
         txtTelefon = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
-        bAndraLösen = new javax.swing.JButton();
         bnGenereraLosen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -244,8 +243,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
 
         lblTelefon.setText("Telefon");
 
-        bAndraLösen.setText("Ändra lösenord");
-
         bnGenereraLosen.setText("Generera Lösenord");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,17 +280,14 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                                 .addComponent(lblFörklarDatum)
                                 .addGap(95, 95, 95)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(bnGenereraLosen)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bAndraLösen))
                                     .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(bnGenereraLosen)
                                             .addComponent(lblLosenord)
                                             .addComponent(lblAvdelning))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,9 +318,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                             .addComponent(lblFörklarDatum)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bAndraLösen)
-                            .addComponent(bnGenereraLosen))))
+                        .addComponent(bnGenereraLosen)))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFornamn)
@@ -438,7 +430,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAndraLösen;
     private javax.swing.JButton bnGenereraLosen;
     private javax.swing.JButton btnRedigera;
     private javax.swing.JComboBox<String> comboAvdelning;
