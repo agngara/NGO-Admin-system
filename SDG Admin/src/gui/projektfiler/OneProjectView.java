@@ -195,7 +195,7 @@ public class OneProjectView extends javax.swing.JFrame {
     }
     
     
-    public boolean removePartner() {
+    public String removePartner() {
         
         
         int selectedRow = tblPartners.getSelectedRow();
@@ -203,11 +203,17 @@ public class OneProjectView extends javax.swing.JFrame {
 
         if (selectedRow != -1) { 
             String partnerID = (String) tblPartners.getValueAt(selectedRow, 0);
+            return partnerID;
             
             
         } else {
+            
             System.out.println("Ingen rad är vald.");
+            return "Ingen rad är vald";
         }
+        
+        
+        
         
         
     }
