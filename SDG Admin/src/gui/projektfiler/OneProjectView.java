@@ -19,6 +19,7 @@ import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
 import logicComponents.Validering;
 import orgEntities.Partner;
+import orgEntities.Anstalld;
 
 
 /**
@@ -79,6 +80,9 @@ public class OneProjectView extends javax.swing.JFrame {
          
          // This fills the cost of the table in the economy jpanel
          this.setKostnad();
+         
+         //Hides edit buttons if user is not admin or projektchef.
+         //this.HideBigBossControlls();
     }
     
 
@@ -265,7 +269,28 @@ public class OneProjectView extends javax.swing.JFrame {
 
         }
     }
+   
+        public void setKostnad() {
+        
+        lblDisplayKostnad2.setText(projekt.getKostnad() + "kr");
+    }
+        
+        public void HideBigBossControlls() {
             
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare();
+            HashMap<String, String> anstalldrow = anstalldHanterare.getProjChefByProject(projekt.getPid());
+            Anstalld anstalld = new Anstalld(anstalldrow);
+            
+            if (CurrentUser.getUsr().getAnstalld() != anstalld || CurrentUser.getUsr().getUserType()!= UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
+                
+                lblEditProject1.setVisible(false);
+                lblAddPartner1.setVisible(false);
+                lblRemovePartner.setVisible(false);
+                lblRemoveHandlaggare.setVisible(false);
+                lblAddHandlaggare.setVisible(false);
+            }
+            
+        }
         
     
     
@@ -735,10 +760,7 @@ public class OneProjectView extends javax.swing.JFrame {
                                              
     }//GEN-LAST:event_lblRemoveHandlaggareMouseClicked
 
-    public void setKostnad() {
-        
-        lblDisplayKostnad2.setText(projekt.getKostnad() + "kr");
-    }
+
     
     /**
      * @param args the command line arguments

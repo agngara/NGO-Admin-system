@@ -25,7 +25,7 @@ public class Validering {
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
          JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
-         return false; // texten är giltig
+         return false;
      }
      
      return true;
