@@ -350,6 +350,7 @@ public boolean andraLand(String pid, int lid) {
         return false;
     }
 }
+}
 
 /*
 The methods below aim to remove information from the projekt-table. 
