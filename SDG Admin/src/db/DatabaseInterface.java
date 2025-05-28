@@ -25,7 +25,6 @@ public class DatabaseInterface {
         try {
             idb = new InfDB("sdgsweden", "3306", "dbAdmin2024", "dbAdmin2024PW");
             // TESTKOD
-            System.out.println("Databasanslutning lyckades.");
         } catch (InfException ex){
             System.out.println(ex.getMessage());
             System.err.println("Fel vid databasanslutning: " + ex.getMessage());

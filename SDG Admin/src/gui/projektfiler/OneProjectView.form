@@ -354,21 +354,18 @@
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="lblDisplayKostnadSoFar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="lblKostnadCompare" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblKostnadCompare" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace pref="89" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblDisplayKostnadSoFar" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblkronor" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -377,33 +374,19 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           <Component id="lblDisplayKostnadSoFar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblDisplayKostnad2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblkronor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="lblKostnadCompare" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="353" max="32767" attributes="0"/>
+                          <EmptySpace pref="376" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel1">
-                </Component>
-                <Component class="javax.swing.JLabel" name="lblkronor">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="24" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="d8" green="60" red="7" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="kr"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblDisplayKostnadSoFar">
                   <Properties>
@@ -497,6 +480,9 @@
                   <Image iconType="3" name="/images/delete-symbol.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRemovePartnerMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAddPartner1">
               <Properties>
@@ -594,6 +580,9 @@
                   <Image iconType="3" name="/images/addition.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddHandlaggareMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblRemoveHandlaggare">
               <Properties>
@@ -601,6 +590,9 @@
                   <Image iconType="3" name="/images/delete-symbol.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRemoveHandlaggareMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

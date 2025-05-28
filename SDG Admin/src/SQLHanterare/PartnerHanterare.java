@@ -316,12 +316,20 @@ public class PartnerHanterare {
       }
       
       
-//      public boolean removePartnerFromProject(String projektID, String partneriD) {
-//          
-//          String query =
-//          
-//          
-//      }
+      public boolean removePartnerFromProject(String projektID, String partnerID) {
+          
+          String query = "DELETE FROM projekt_partner WHERE pid = " + projektID + " AND partner_pid = " + partnerID + ";";
+          try {
+              idb.delete(query);
+              return true;
+          } catch (InfException e) {
+              e.printStackTrace();
+              System.out.println(e);
+          }
+          
+          return false;
+          
+      }
  
 }
   
