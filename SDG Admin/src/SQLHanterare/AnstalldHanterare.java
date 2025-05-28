@@ -225,7 +225,7 @@ public class AnstalldHanterare {
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
              !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.giltigtTelefon(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
           
@@ -349,6 +349,30 @@ public boolean andraEpost(String aid, String nyEpost)
     try {
         String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = '" + aid + "'";
         idb.update(ePost);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
+
+public boolean andraTelefon(String aid, String nyTelefon)
+{
+    {
+        if (!Validering.tomFalt(nyTelefon, "telefon") ||
+        !Validering.giltigEpost(nyTelefon)) {
+            System.out.println("aid eller telefon får inte vara tom");
+            return false;
+        }
+    }
+           
+    
+    
+    try {
+        String telefon = "UPDATE anstalld SET telefon = '" + nyTelefon + "' WHERE aid = '" + aid + "'";
+        idb.update(telefon);
         return true;
 } 
     catch (InfException e) {

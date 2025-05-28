@@ -67,6 +67,10 @@ public class Validering {
           return false;
         }
     } 
+
+    public static boolean giltigtTelefon(String telefon) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
       

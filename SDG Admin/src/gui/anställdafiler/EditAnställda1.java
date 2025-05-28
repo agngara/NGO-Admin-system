@@ -45,7 +45,6 @@ public class EditAnställda1 extends javax.swing.JFrame {
         txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
         txtAnsDatum.setText(anstalld.getAnstallningsdatum());
-        //txtStatus.setText(projekt.getStatus());
         this.fillComboBoxes();
 
     }
