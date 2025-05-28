@@ -221,9 +221,6 @@ public class PartnerHanterare {
 }
        
    
-       
-   
-   
   public ArrayList<HashMap<String, String>> getAllPartners()
   {
   
@@ -252,9 +249,6 @@ public class PartnerHanterare {
           
           ArrayList<HashMap<String, String>> rows = new ArrayList<>();
           String byProjectQuery = "SELECT * FROM partner WHERE partner.pid IN (SELECT partner_pid FROM projekt_partner WHERE projekt_partner.pid = " + projektID + ");";
-
-
-          System.out.println(byProjectQuery);
           
           try {
              rows = idb.fetchRows(byProjectQuery);
@@ -265,6 +259,23 @@ public class PartnerHanterare {
           return rows;
 
 }
+      
+      
+      public boolean addPartnerToProject(String projektID, String partnerID) {
+          
+          String query = "INSERT INTO projekt_partner VALUES(" + projektID + "," + partnerID + ");";
+          System.out.println(query);
+
+          try {
+              idb.insert(query);
+              return true;
+          } catch (InfException e) {
+              e.getStackTrace();
+              System.out.println(e);
+          }
+          
+          return false;
+      }
  
 }
   

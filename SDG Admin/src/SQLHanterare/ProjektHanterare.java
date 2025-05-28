@@ -22,6 +22,11 @@ public class ProjektHanterare {
    private String query;
    private String pid;
    
+   public ProjektHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+   }
+   
    public ProjektHanterare(String pid) {
        
        this.pid = pid;
@@ -329,23 +334,22 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
     }
     
 }
-}
 
-//public boolean andraLand(String pid, int lid) {
-//
-//}
-//    try {
-//        String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;
-//        System.out.println(land);
-//        idb.update(land);
-//        return true;
-//    } 
-//    
-//    catch (InfException e) {
-//        e.printStackTrace();
-//        return false;
-//    }
-//}
+public boolean andraLand(String pid, int lid) {
+
+
+    try {
+        String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;
+        System.out.println(land);
+        idb.update(land);
+        return true;
+    } 
+    
+    catch (InfException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
 /*
 The methods below aim to remove information from the projekt-table. 
