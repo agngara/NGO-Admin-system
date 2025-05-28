@@ -22,6 +22,12 @@ public class AvdelningHanterare {
    private String query;
    private String avdid;
    
+   public AvdelningHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
+   
    public AvdelningHanterare(String avdid) {
        
        this.avdid = avdid;
@@ -38,10 +44,6 @@ public class AvdelningHanterare {
         
        
    }
-
-    public AvdelningHanterare() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
    
    public HashMap getAvdelning() {
        
@@ -65,11 +67,11 @@ public class AvdelningHanterare {
    
     
     
-    public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
+    public boolean laggTillAvdelning(String namn, String beskrivning)
     {
         
           //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          if(!Validering.tomFalt(avdid, "avdid") && !Validering.tomFalt(namn, "namn") && !Validering.tomFalt(beskrivning, "beskrivning")) {
+          if(!Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
            return false;
            
@@ -77,17 +79,30 @@ public class AvdelningHanterare {
         
         
         try {
-            String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning) VALUES ('" + avdid + "', '" + namn + "', '" + beskrivning + "')";
-            idb.insert(nyAvdelning);
-            return true;
-        }
+        
+        String korrektAvdid = "SELECT MAX(avdid) FROM avdelning";
+        String maxAvdid = idb.fetchSingle(korrektAvdid);
+        
+        int nyttAvdid = 1;
+        if (maxAvdid != null) {
+        nyttAvdid = Integer.parseInt(maxAvdid) + 1;   
+        }   
+            
+        String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning)" + "VALUES ('" + nyttAvdid + "', '" + namn + "', '" + beskrivning + "')";
+        idb.insert(nyAvdelning);
+        return true; }
+        
         catch (InfException e)
-        {
+       {
             e.printStackTrace();
             return false;
-        }
+        
+       }
         
     }
+    
+    
+    
    /**
  * Metoderna nedan är avsedda för att ändra uppgifter om avdelning
  * Koderna använder sig av validerig som säkerställer att uppgifter om avdid fylls i samt fältet som önskas ändras-
@@ -99,7 +114,6 @@ public class AvdelningHanterare {
     {
         {
           if (!Validering.tomFalt(nyttNamn, "namn")) {
-            //(avdid == null || nyttNamn == null || avdid.isEmpty() || nyttNamn.isEmpty()){
           
            System.out.println("avdid eller namn får inte vara tommna.");
            return false;
@@ -126,7 +140,6 @@ public class AvdelningHanterare {
         
          {
             if(!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
-          //if (avdid == null || nyBeskrivning == null || avdid.isEmpty() || nyBeskrivning.isEmpty()){
           
            System.out.println("avdid eller beskrivning får inte vara tommna.");
            return false;
@@ -151,7 +164,6 @@ public class AvdelningHanterare {
     {
         {
           if (!Validering.tomFalt(nyAdress, "adress")) {
-//(avdid == null || nyAdress == null || avdid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("avdid eller adress får inte vara tom.");
            return false;
@@ -177,7 +189,7 @@ public class AvdelningHanterare {
     public boolean andraEpost(String avdid, String nyEpost)
     {
          {
-          //if //(avdid == null || nyEpost == null || avdid.isEmpty() || nyEpost.isEmpty()){
+             
           if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
            System.out.println("avdid eller epost får inte vara tom.");
            return false;
@@ -206,7 +218,6 @@ public class AvdelningHanterare {
             
          {
           if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) && !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
-//(avdid == null || nyttTelefonnummer == null || avdid.isEmpty() || nyttTelefonnummer.isEmpty()){
           
            System.out.println("avdid eller telefon får inte vara tom.");
            return false;
@@ -230,7 +241,27 @@ public class AvdelningHanterare {
          
     }
     
+    public ArrayList<HashMap<String, String>> getAllAvdelning()
+  {
+  
+      ArrayList<HashMap<String, String>> rader = new ArrayList<HashMap<String, String>>();
+      try {
+          
+          String sql = "SELECT * FROM avdelning"; 
+          
+            rader = idb.fetchRows(sql);
+            return rader;
+            
+      } catch (InfException e) {
+          e.printStackTrace();
+          System.out.println(e);
+      }
+        
+     return rader;
+    
+    
    }
+}
          
     
     

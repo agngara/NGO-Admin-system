@@ -68,19 +68,30 @@ public class LandHanterare {
       }
     
     
-    public boolean laggTillLand(String lid, String namn, String sprak, String valuta, String tidszon, String politiskStruktur, String ekonomi)
+    public boolean laggTillLand(String namn, String sprak, String valuta, String tidszon, String politiskStruktur, String ekonomi)
     {       
-            if (!Validering.tomFalt(lid, "Land-Id") &&
-                Validering.tomFalt(namn, "Namn")   &&
-                Validering.tomFalt(sprak, "Språk") &&
-                Validering.tomFalt(valuta, "Valuta") &&
-                Validering.tomFalt(tidszon, "Tidszon") &&
-                Validering.tomFalt(politiskStruktur, "PolitiskStruktur") &&
-                Validering.tomFalt(ekonomi, "Ekonomi")) {
+            if (!Validering.tomFalt(namn, "Namn")   ||
+                !Validering.tomFalt(sprak, "Språk") ||
+                !Validering.tomFalt(valuta, "Valuta") ||
+                !Validering.tomFalt(tidszon, "Tidszon") ||
+                !Validering.tomFalt(politiskStruktur, "PolitiskStruktur") ||
+                !Validering.tomFalt(ekonomi, "Ekonomi")) {
                 return false; 
     }
              try {
-            String uppdateradeUppgifter = "INSERT INTO land (namn, sprak, valuta, tidszon, politisk_struktur, ekonomi) VALUES ('" + namn + "', '" + sprak + "', '" + valuta + "', '" + tidszon + "', '" + politiskStruktur + "', '" + ekonomi + "')";
+             // genererat nytt lid  
+             String korrektLid = "SELECT MAX(lid) FROM land";
+             String maxLid = idb.fetchSingle(korrektLid);
+             
+             int nyttLid = 1;
+             if (maxLid != null) {
+                  nyttLid = Integer.parseInt(maxLid) + 1; 
+            }
+            
+                 
+                 
+                                            
+            String uppdateradeUppgifter = "INSERT INTO land (lid, namn, sprak, valuta, tidszon, politisk_struktur, ekonomi) " + "VALUES ('" + nyttLid + "', '" + namn + "', '" + sprak + "', '" + valuta + "', '" + tidszon + "', '" + politiskStruktur + "', '" + ekonomi + "')";
             idb.insert(uppdateradeUppgifter);
             return true;
                 

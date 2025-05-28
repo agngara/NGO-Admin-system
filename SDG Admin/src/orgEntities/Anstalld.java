@@ -25,7 +25,7 @@ import logicComponents.User.UserType;
    private String fornamn;
    private String efternamn;
    private String adress;
-   private String telefonnummer;
+   private String telefon;
    private String losenord;
    private String ePost;
    private String anstallningsdatum; 
@@ -51,7 +51,7 @@ import logicComponents.User.UserType;
         fornamn = anstalldInfo.get("fornamn");
         efternamn = anstalldInfo.get("efternamn");
         adress = anstalldInfo.get("adress");
-        telefonnummer = anstalldInfo.get("telefonnummer");
+        telefon = anstalldInfo.get("telefon");
         losenord = anstalldInfo.get("losenord");
         ePost = anstalldInfo.get("losenord");
         anstallningsdatum = anstalldInfo.get("anstallningsdatum");
@@ -71,7 +71,7 @@ import logicComponents.User.UserType;
         fornamn = anstalld.get("fornamn");
         efternamn = anstalld.get("efternamn");
         adress = anstalld.get("adress");
-        telefonnummer = anstalld.get("telefonnummer");
+        telefon = anstalld.get("telefon");
         losenord = anstalld.get("losenord");
         ePost = anstalld.get("ePost");
         anstallningsdatum = anstalld.get("anstallningsdatum");
@@ -94,9 +94,9 @@ import logicComponents.User.UserType;
             return adress;
         }
         
-        public String getTelefonnummer()
+        public String getTelefon()
         {
-            return telefonnummer;
+            return telefon;
         }
         
         
@@ -143,9 +143,9 @@ import logicComponents.User.UserType;
             this.adress = nyAdress;
         }
         
-        public void setTelefonnummer(String nyttTelefonnummer)
+        public void setTelefon(String nyttTelefon)
         {
-            this.telefonnummer = nyttTelefonnummer;
+            this.telefon = nyttTelefon;
         }
         
         public void setLosenord(String nyttLosenord)

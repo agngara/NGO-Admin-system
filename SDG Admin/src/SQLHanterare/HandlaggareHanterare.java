@@ -173,7 +173,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 {
      {
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
-        //if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+            
             System.out.println("aid eller efternamn får inte vara tom");
             return false;
        
@@ -204,7 +204,7 @@ public boolean andraAdress(String aid, String nyAdress)
     {
         
         if(!Validering.tomFalt(nyAdress, "adress")) {
-        //if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+
             System.out.println("aid eller adress får inte vara tom");
             return false;
         }
@@ -232,7 +232,7 @@ public boolean andraAdress(String aid, String nyAdress)
 //lägg till handläggare
 public boolean laggTillHandlaggare(String aid, String ansvarighetsomrade) {
     
-   if (!Validering.tomFalt(aid, "aid") && Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
+   if (!Validering.tomFalt(aid, "aid") || Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
        return false;
    }
     

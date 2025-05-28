@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import SQLHanterare.AnstalldHanterare;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
+import orgEntities.Anstalld;
+
 /**
  *
  * 
@@ -89,8 +92,10 @@ public class Anställda extends javax.swing.JFrame {
         if (row >= 0 && col == 9) {
                 
             Object varde = tblAnställda.getValueAt(row, 0);
-            String Aid = varde.toString();
-            EditAnställda1 editAnställda1 = new EditAnställda1(Aid);
+            String aid = varde.toString();
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
+            Anstalld anstalld = new Anstalld(anstalldHanterare);
+            EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
             editAnställda1.setVisible(true);
             anställda.setVisible(false);
             
@@ -117,6 +122,7 @@ public class Anställda extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAnställda = new javax.swing.JTable();
         bnLaggTillAnstalld = new javax.swing.JButton();
+        bnTaBortAnstalld = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,7 +147,7 @@ public class Anställda extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+                "Anställnings ID", "Förnamn", "Efternamn", "Adress", "Epost", "Telefon", "Anställningsdatum", "Lösenord", "Avdelning", "Redigera"
             }
         ));
         jScrollPane1.setViewportView(tblAnställda);
@@ -152,6 +158,15 @@ public class Anställda extends javax.swing.JFrame {
         bnLaggTillAnstalld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnLaggTillAnstalldActionPerformed(evt);
+            }
+        });
+
+        bnTaBortAnstalld.setBackground(new java.awt.Color(51, 102, 255));
+        bnTaBortAnstalld.setForeground(new java.awt.Color(255, 255, 255));
+        bnTaBortAnstalld.setText("Ta bort anställd");
+        bnTaBortAnstalld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnTaBortAnstalldActionPerformed(evt);
             }
         });
 
@@ -167,6 +182,8 @@ public class Anställda extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bnTaBortAnstalld)
+                            .addGap(43, 43, 43)
                             .addComponent(bnLaggTillAnstalld))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
@@ -181,7 +198,8 @@ public class Anställda extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnLaggTillAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnTaBortAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
         );
 
@@ -198,6 +216,10 @@ public class Anställda extends javax.swing.JFrame {
         this.setVisible(false);   
 
     }//GEN-LAST:event_bnLaggTillAnstalldActionPerformed
+
+    private void bnTaBortAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAnstalldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bnTaBortAnstalldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,6 +275,7 @@ public class Anställda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ansTillbakaTillMeny;
     private javax.swing.JButton bnLaggTillAnstalld;
+    private javax.swing.JButton bnTaBortAnstalld;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAnställda;

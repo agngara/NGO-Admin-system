@@ -25,42 +25,43 @@ public class Validering {
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
          JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
-         return false;
+         return true;
      }
      
-     return true;
+     return false;
  }
  
  public static boolean giltigEpost(String epost) {
-     if (epost == null || !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")) {
+     //er gamla regex !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")
+     if (epost == null) {
          JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
-         return false;
+         return true;
      }
      
-    return true;
+    return false;
  }
 
  public static boolean giltigtTelefonnummer(String telefon) {
      if (telefon == null || !telefon.matches("^\\d{7,15}$")) {
      JOptionPane.showMessageDialog(null, "Ogilitig telefonnummer. ");
-     return false;
+     return true;
  }
      
      
-     return true; 
+     return false; 
  }
       
   public static boolean giltigtDatum(String datum) {
       if (datum == null || !datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
          JOptionPane.showMessageDialog(null, "Datum måste vara u formatet ÅÅÅÅ-MM-DD.");
-         return false;
+         return true;
       }
       
-     return true; 
+     return false; 
      
   }
      
-  //ta bort denna. Kan ju bara vara nummer.... 
+  
   
     
     
@@ -70,9 +71,11 @@ public class Validering {
             return true;
         } catch (NumberFormatException e) {
           JOptionPane.showMessageDialog(null, " måste vara ett tal (t.ex 123,54");
-          return false;
+          return true;
         }
     } 
+
+    
     
     public static boolean finnsHandlaggare(String aid) {
         String varde = "";

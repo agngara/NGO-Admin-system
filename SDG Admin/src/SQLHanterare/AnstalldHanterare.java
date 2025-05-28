@@ -37,6 +37,23 @@ public class AnstalldHanterare {
        
    }
    
+   public AnstalldHanterare(String aid, String filler) {
+       
+       this.email = email;
+       query = "SELECT * FROM anstalld WHERE aid = " + "'" + aid + "'";
+       idb = DatabaseInterface.databaseConnection();
+       
+       try {
+           
+           anstalld = idb.fetchRow(query);
+           
+       } catch (Exception exception) {
+           
+       }
+       
+   }
+   
+   
    /**
     * This constructor takes an email and fetches info to populate the anstalld hashmap.
     * @param email to be entered as query.
@@ -178,27 +195,28 @@ public class AnstalldHanterare {
        
    }
    
+   // Metod för att generera lösenord
    
-   
-   
+   public String genereraLosenord() {
+       return UUID.randomUUID().toString();
+   }
+  
    
    /**
  * Denna kod är avsedd för att lägga till en ny anställd
  * Den skapar ävet ett slumpmässigt lösenord genom UUID
  * och ett slumpmässigt aid
+ * Om lösenord inte inmatas så skapas ett genererat losen ord, via metoden genereraLosenord
  */
    
-   // Om någon skapar null lösen geras ett lsöenord, annars kan vara bra att lägga till så man kan skapa ett lösen. 
    
    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
-        
-        
-        if (losenord == null) {
-            losenord = UUID.randomUUID().toString();
-        }
-      
+      if (losenord == null || losenord.isEmpty()) {
+       
+          losenord = genereraLosenord();
+      }
        
         if (
              !Validering.tomFalt(losenord, "lösenord") || 
@@ -210,7 +228,6 @@ public class AnstalldHanterare {
              !Validering.giltigtTelefonnummer(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
-          //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
@@ -341,12 +358,36 @@ public boolean andraEpost(String aid, String nyEpost)
     
 }
 
+public boolean andraTelefon(String aid, String nyTelefon)
+{
+    {
+        if (!Validering.tomFalt(nyTelefon, "telefon") ||
+        !Validering.giltigEpost(nyTelefon)) {
+            System.out.println("aid eller telefon får inte vara tom");
+            return false;
+        }
+    }
+           
+    
+    
+    try {
+        String telefon = "UPDATE anstalld SET telefon = '" + nyTelefon + "' WHERE aid = '" + aid + "'";
+        idb.update(telefon);
+        return true;
+} 
+    catch (InfException e) {
+    e.printStackTrace();
+    return false; 
+}
+    
+}
+
     public boolean andraLosenord(String aid, String nyttLosenord)
 {
     
      {
           if (!Validering.tomFalt(nyttLosenord, "lösenord")) {
-        //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
+       
             System.out.println("aid eller losenird får inte vara tom");
             return false;
         }
@@ -375,7 +416,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
 {
    {
         if (!Validering.tomFalt(nyttFornamn, "förnamn")) {
-        //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
+        
             System.out.println("aid eller förnamn får inte vara tom");
             return false;
         }
@@ -405,7 +446,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 {
      {
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
-        //if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+       
             System.out.println("aid eller efternamn får inte vara tom");
             return false;
        
@@ -438,7 +479,7 @@ public boolean andraAdress(String aid, String nyAdress)
     {
         
         if(!Validering.tomFalt(nyAdress, "adress")) {
-        //if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+            
             System.out.println("aid eller adress får inte vara tom");
             return false;
         }

@@ -11,6 +11,8 @@ import logicComponents.Validering;
 import orgEntities.Partner;
 import oru.inf.InfException;
 
+
+
 /**
  *
  * @author theow
@@ -55,7 +57,7 @@ public class PartnerHanterare {
    public boolean andraNamn(String pid, String nyttNamn)
     {
        if (!Validering.tomFalt(nyttNamn, "namn")) {
-//(pid == null || nyttNamn == null || pid.isEmpty() || nyttNamn.isEmpty()){
+
           
            System.out.println("pid eller namn får inte vara tommna.");
            return false;
@@ -81,7 +83,7 @@ public class PartnerHanterare {
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
          if (Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
-//(pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
+
           
            System.out.println("pid eller kontaktperson får inte vara tommna.");
            return false;
@@ -104,7 +106,7 @@ public class PartnerHanterare {
      public boolean andraKontaktEpost(String pid, String nyKontaktEpost)
     {
          if (!Validering.tomFalt(nyKontaktEpost, "kontaktepost")) {
-//(pid == null || nyKontaktEpost == null || pid.isEmpty() || nyKontaktEpost.isEmpty()){
+
           
            System.out.println("pid eller kontaktepost får inte vara tommna.");
            return false;
@@ -127,7 +129,6 @@ public class PartnerHanterare {
     {
         
         if (!Validering.tomFalt(nyTelefon, "telefon") && Validering.giltigtTelefonnummer(nyTelefon)) {
-//(pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
           
            System.out.println("pid eller telefon får inte vara tommna.");
            return false;
@@ -149,7 +150,6 @@ public class PartnerHanterare {
    public boolean andraAdress(String pid, String nyAdress)
     {
           if (!Validering.tomFalt(nyAdress, "adress")) {
-//(pid == null || nyAdress == null || pid.isEmpty() || nyAdress.isEmpty()){
           
            System.out.println("pid eller adress får inte vara tommna.");
            return false;
@@ -170,7 +170,6 @@ public class PartnerHanterare {
     {
        {
           if (!Validering.tomFalt(nyBranch, "branch")) {
-//(pid == null || nyBranch == null || pid.isEmpty() || nyBranch.isEmpty()){
           
            System.out.println("pid eller branch får inte vara tommna.");
            return false;
@@ -190,30 +189,69 @@ public class PartnerHanterare {
     }
        
    
+   //ta bort partner OBS vet ej om denna fungerar
    
+//   public boolean taBortPartner(String id) {
+//       
+//       try {
+//           
+//       String taBortPP = "DELETE FROM projekt_partner WHERE partner_pid = '" + id + "'";
+//       idb.delete(taBortPP);
+//       
+//       String taBortP = "DELETE FROM partner WHERE pid = '" + id + "'";
+//       idb.delete(taBortP);
+//       
+//       return true;
+//           
+//       } catch (InfException e) {
+//           
+//           e.printStackTrace();
+//           return false;
+//       }
+      
+       
+       
+       
+   
+  
 
+
+   // en bättre versom av lägg till partner + med nyttPid som skapas genom SELECT som tar max pid och sedan lägger till + 1. 
    
-   // en bättre versom av lägg till partner 
-   
-   public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
+   public boolean laggTillPartner(String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if  (!Validering.tomFalt(pid, "pid") &&
-             Validering.tomFalt(namn, "namn") &&
-             Validering.tomFalt(kontaktperson, "kontaktperson") &&
-             Validering.giltigEpost(kontaktepost) &&
-             Validering.giltigtTelefonnummer(telefon) &&
-             Validering.tomFalt(adress, "adress") &&
-             Validering.tomFalt(branch, "branch"))
-              {
+       
+       if   (!Validering.tomFalt(namn, "namn") ||
+             !Validering.tomFalt(kontaktperson, "kontaktperson") ||
+             !Validering.giltigEpost(kontaktepost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.tomFalt(branch, "branch"))    {
+             
+              
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
        
        try {
-            String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
-           idb.insert(nyPartner);
-           return true;
-       } catch (InfException e ){
+            
+         String korrektPid = "SELECT MAX(pid) FROM partner";
+         String maxPid = idb.fetchSingle(korrektPid);
+         
+         int nyttPid = 1;
+         if (maxPid != null) {
+             nyttPid = Integer.parseInt(maxPid) + 1; 
+           
+         }
+             
+             
+         String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch)" + "VALUES ('" + nyttPid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
+         idb.insert(nyPartner);
+         return true;
+         
+       }
+           
+         catch (InfException e ){
           System.out.println("Något gick fel" + e.getMessage());
            e.printStackTrace();
            return false;
@@ -260,7 +298,7 @@ public class PartnerHanterare {
 
 }
       
-      
+      //validering så att partner ska finnas och partnern ska inte redan vara tillag till projeket. 
       public boolean addPartnerToProject(String projektID, String partnerID) {
           
           String query = "INSERT INTO projekt_partner VALUES(" + projektID + "," + partnerID + ");";
