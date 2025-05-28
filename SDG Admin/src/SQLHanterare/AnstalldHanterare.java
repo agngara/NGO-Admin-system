@@ -225,7 +225,7 @@ public class AnstalldHanterare {
              !Validering.tomFalt(adress, "adress") ||
              !Validering.giltigEpost(epost) ||
              !Validering.tomFalt(adress, "adress") ||
-             !Validering.giltigtTelefon(telefon) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
           
