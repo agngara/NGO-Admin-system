@@ -152,7 +152,7 @@ public class Anställda extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAnställda);
 
-        bnLaggTillAnstalld.setBackground(new java.awt.Color(0, 102, 255));
+        bnLaggTillAnstalld.setBackground(new java.awt.Color(0, 204, 0));
         bnLaggTillAnstalld.setForeground(new java.awt.Color(255, 255, 255));
         bnLaggTillAnstalld.setText("Lägg till anställd");
         bnLaggTillAnstalld.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +161,7 @@ public class Anställda extends javax.swing.JFrame {
             }
         });
 
-        bnTaBortAnstalld.setBackground(new java.awt.Color(51, 102, 255));
+        bnTaBortAnstalld.setBackground(new java.awt.Color(204, 0, 0));
         bnTaBortAnstalld.setForeground(new java.awt.Color(255, 255, 255));
         bnTaBortAnstalld.setText("Ta bort anställd");
         bnTaBortAnstalld.addActionListener(new java.awt.event.ActionListener() {
@@ -176,16 +176,15 @@ public class Anställda extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bnTaBortAnstalld)
-                            .addGap(43, 43, 43)
-                            .addComponent(bnLaggTillAnstalld))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bnTaBortAnstalld)
+                        .addGap(43, 43, 43)
+                        .addComponent(bnLaggTillAnstalld))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -193,9 +192,9 @@ public class Anställda extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnLaggTillAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +212,7 @@ public class Anställda extends javax.swing.JFrame {
 
     private void bnLaggTillAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillAnstalldActionPerformed
         new LäggTillAnställd1().setVisible(true);
-        this.setVisible(false);   
+//        this.setVisible(false);   
 
     }//GEN-LAST:event_bnLaggTillAnstalldActionPerformed
 

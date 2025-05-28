@@ -136,6 +136,8 @@ private void fyllTabell(){
         proTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProjekt = new javax.swing.JTable();
+        bnTaBortProjekt = new javax.swing.JButton();
+        bnLaggTillProjekt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,14 +172,37 @@ private void fyllTabell(){
         ));
         jScrollPane1.setViewportView(tblProjekt);
 
+        bnTaBortProjekt.setBackground(new java.awt.Color(204, 0, 0));
+        bnTaBortProjekt.setForeground(new java.awt.Color(255, 255, 255));
+        bnTaBortProjekt.setText("Ta bort projekt");
+        bnTaBortProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnTaBortProjektActionPerformed(evt);
+            }
+        });
+
+        bnLaggTillProjekt.setBackground(new java.awt.Color(0, 204, 0));
+        bnLaggTillProjekt.setForeground(new java.awt.Color(255, 255, 255));
+        bnLaggTillProjekt.setText("Lägg till projekt");
+        bnLaggTillProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnLaggTillProjektActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(proTillbakaTillMeny)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(proTillbakaTillMeny)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bnTaBortProjekt)
+                        .addGap(30, 30, 30)
+                        .addComponent(bnLaggTillProjekt))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(138, Short.MAX_VALUE))
@@ -185,13 +210,16 @@ private void fyllTabell(){
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(proTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(proTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnTaBortProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnLaggTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,6 +229,15 @@ private void fyllTabell(){
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_proTillbakaTillMenyActionPerformed
+
+    private void bnTaBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortProjektActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bnTaBortProjektActionPerformed
+
+    private void bnLaggTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillProjektActionPerformed
+        // new xxx ().setVisible(true);
+        //        this.setVisible(false);
+    }//GEN-LAST:event_bnLaggTillProjektActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +275,8 @@ private void fyllTabell(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnLaggTillProjekt;
+    private javax.swing.JButton bnTaBortProjekt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton proTillbakaTillMeny;

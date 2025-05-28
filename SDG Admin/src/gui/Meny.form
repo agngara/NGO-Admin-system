@@ -45,12 +45,12 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="624" max="32767" attributes="0"/>
+              <EmptySpace pref="375" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblInloggadAnvandare" min="-2" pref="148" max="-2" attributes="0"/>
                           <Component id="lblRole" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="lblInloggadAnvandare" min="-2" pref="397" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
