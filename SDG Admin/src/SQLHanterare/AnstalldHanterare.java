@@ -501,8 +501,22 @@ public boolean andraAdress(String aid, String nyAdress)
 
 }
 
-
-       
+public HashMap getProjChefByProject(String pid) {
+    
+    String query = "SELECT * FROM anstalld WHERE anstalld.aid IN (SELECT projektchef FROM projekt WHERE pid = " + pid + ");";
+    System.out.println(query);
+    HashMap<String, String> row = new HashMap<>();
+    try {
+    row = idb.fetchRow(query);
+    } catch (InfException e) {
+        e.getStackTrace();
+        System.out.println(e);
+    }
+    
+    return row;
+    
+}
+    
 }      
        
        

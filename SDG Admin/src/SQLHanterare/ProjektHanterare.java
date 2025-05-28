@@ -22,6 +22,11 @@ public class ProjektHanterare {
    private String query;
    private String pid;
    
+   public ProjektHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+   }
+   
    public ProjektHanterare(String pid) {
        
        this.pid = pid;

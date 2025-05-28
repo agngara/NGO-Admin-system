@@ -5,6 +5,7 @@
 package sdg.admin;
 import gui.inloggning;
 import com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 
 
@@ -22,7 +23,8 @@ public class SDGAdmin {
     public static void main(String[] args) {
         // TODO code application logic here
         
-            FlatSpacegrayIJTheme.setup();
+            FlatMacDarkLaf.setup();
+            //FlatSpacegrayIJTheme.setup();
             new inloggning().setVisible(true);
             
 
