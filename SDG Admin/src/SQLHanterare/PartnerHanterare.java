@@ -80,7 +80,7 @@ public class PartnerHanterare {
     
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
-         if (Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
+         if (!Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
 //(pid == null || nyKontaktperson == null || pid.isEmpty() || nyKontaktperson.isEmpty()){
           
            System.out.println("pid eller kontaktperson får inte vara tommna.");
@@ -126,7 +126,7 @@ public class PartnerHanterare {
     public boolean andraTelefon(String pid, String nyTelefon)
     {
         
-        if (!Validering.tomFalt(nyTelefon, "telefon") && Validering.giltigtTelefonnummer(nyTelefon)) {
+        if (!Validering.tomFalt(nyTelefon, "telefon") || !Validering.giltigtTelefonnummer(nyTelefon)) {
 //(pid == null || nyTelefon == null || pid.isEmpty() || nyTelefon.isEmpty()){
           
            System.out.println("pid eller telefon får inte vara tommna.");

@@ -47,6 +47,7 @@ public class AdminHanterare {
     /**
  * Metoden nedan lägger till en anställd 
  * 
+     * @param losenord
      * @param fornamn
      * @param efternamn
      * @param adress
@@ -57,11 +58,11 @@ public class AdminHanterare {
  */
     //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
-    public boolean laggTillAnstalld(String losenord, String aid, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
         
-        
+        //om lösenord ej inmatas, skapas ett lösenod genom UUID. 
         if (losenord == null) {
             losenord = UUID.randomUUID().toString();
         }
@@ -86,12 +87,19 @@ public class AdminHanterare {
        }
         
         try {
+            // här skapas ett aid och för att göra aid "unikt" hämtar den det högsta aid och sedan lägger till +1
+         String korrektAid = "SELECT MAX(aid) FROM anstalld";
+         String maxAid = idb.fetchSingle(korrektAid);
+         
+         int nyttAid = 1;
+         if (maxAid != null) {
+             nyttAid = Integer.parseInt(maxAid) + 1; }
              
          
          
          
          String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
-         "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
+         "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
          idb.insert(laggTill);
 
 
@@ -111,18 +119,18 @@ public class AdminHanterare {
     
  // Metoden lägger till ett projekt 
     
-    public boolean laggTillProjekt(String pid, String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
+    public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
     {
         
        // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          if (!Validering.tomFalt(pid, "Pid") ||
-             !Validering.tomFalt(projektnamn, "Projektnamn") ||
+          if (!Validering.tomFalt(projektnamn, "Projektnamn") ||
              !Validering.tomFalt(beskrivning, "Beskrivning") ||
              !Validering.giltigtDatum(startdatum) ||
              !Validering.giltigtDatum(slutdatum) ||
              !Validering.giltigDouble(kostnad) ||
              !Validering.tomFalt(status, "Status") ||
-             !Validering.tomFalt(prioritet, "Prioritet")) {
+             !Validering.tomFalt(prioritet, "Prioritet"))
+              {
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
@@ -130,7 +138,16 @@ public class AdminHanterare {
        
         try
         {
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + pid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
+            
+            
+             String korrektPid = "SELECT MAX(pid) FROM projekt";
+            String maxPid = idb.fetchSingle(korrektPid);
+            
+            int nyttPid = 1;
+            if (maxPid != null) {
+             nyttPid = Integer.parseInt(maxPid) + 1; }
+            
+            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
             idb.insert(laggTill);
             return true;
         }

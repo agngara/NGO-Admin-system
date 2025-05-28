@@ -60,18 +60,18 @@ public class ProjektHanterare {
  // koden nedan är avsedd för att kunna lägga till ett projekt. 
     
     
-    public boolean laggTillProjekt(String pid, String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
+    public boolean laggTillProjekt(String projektnamn, String beskrivning, String startdatum, String slutdatum, String kostnad, String status, String prioritet)
     {
         
        // if (pid == null || projektnamn == null || beskrivning == null || startdatum == null || slutdatum == null || kostnad == null || status == null || prioritet == null || pid.isEmpty() || projektnamn.isEmpty() || beskrivning.isEmpty() || startdatum.isEmpty() ||  slutdatum.isEmpty() || kostnad.isEmpty() || status.isEmpty() || prioritet.isEmpty()) {
-          if (!Validering.tomFalt(pid, "pid") &&
-             Validering.tomFalt(projektnamn, "projektnamn") &&
-             Validering.tomFalt(beskrivning, "beskrivning") &&
-             Validering.giltigtDatum(startdatum) &&
-             Validering.giltigtDatum(slutdatum) &&
-             //Validering.giltigDouble(kostnad) &&
-             Validering.tomFalt(status, "status") &&
-             Validering.tomFalt(prioritet, "prioritet")) {
+          if ( !Validering.tomFalt(projektnamn, "projektnamn") ||
+             !Validering.tomFalt(beskrivning, "beskrivning") ||
+             !Validering.giltigtDatum(startdatum) ||
+             !Validering.giltigtDatum(slutdatum) ||
+             !Validering.giltigDouble(kostnad) ||
+             !Validering.tomFalt(status, "status") ||
+             !Validering.tomFalt(prioritet, "prioritet"))
+            {
 
            System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
@@ -79,7 +79,15 @@ public class ProjektHanterare {
        
         try
         {
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + pid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
+            String korrektPid = "SELECT MAX(pid) FROM projekt";
+            String maxPid = idb.fetchSingle(korrektPid);
+            
+            int nyttPid = 1;
+            if (maxPid != null) {
+             nyttPid = Integer.parseInt(maxPid) + 1;
+             
+            }
+            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet) VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "')";
             idb.insert(laggTill);
             return true;
         }
@@ -321,22 +329,23 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
     }
     
 }
-
-public boolean andraLand(String pid, int lid) {
-
 }
-    try {
-        String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;
-        System.out.println(land);
-        idb.update(land);
-        return true;
-    } 
-    
-    catch (InfException e) {
-        e.printStackTrace();
-        return false;
-    }
-}
+
+//public boolean andraLand(String pid, int lid) {
+//
+//}
+//    try {
+//        String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;
+//        System.out.println(land);
+//        idb.update(land);
+//        return true;
+//    } 
+//    
+//    catch (InfException e) {
+//        e.printStackTrace();
+//        return false;
+//    }
+//}
 
 /*
 The methods below aim to remove information from the projekt-table. 
@@ -394,8 +403,9 @@ The methods below aim to remove information from the projekt-table.
     // Metoden nedan är avsedd att lägga till uppgifter om vem som är projektansvarig
   
  
-  }
   
+  
+
 
 
 
