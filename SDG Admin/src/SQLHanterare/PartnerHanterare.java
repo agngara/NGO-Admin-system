@@ -193,27 +193,42 @@ public class PartnerHanterare {
    
 
    
-   // en bättre versom av lägg till partner 
+   // en bättre versom av lägg till partner + med nyttPid som skapas genom SELECT som tar max pid och sedan lägger till + 1. 
    
-   public boolean laggTillPartner(String pid, String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
+   public boolean laggTillPartner(String namn, String kontaktperson, String kontaktepost, String telefon, String adress, String branch)
    {
-       if  (!Validering.tomFalt(pid, "pid") &&
-             Validering.tomFalt(namn, "namn") &&
-             Validering.tomFalt(kontaktperson, "kontaktperson") &&
-             Validering.giltigEpost(kontaktepost) &&
-             Validering.giltigtTelefonnummer(telefon) &&
-             Validering.tomFalt(adress, "adress") &&
-             Validering.tomFalt(branch, "branch"))
-              {
+       
+       if   (!Validering.tomFalt(namn, "namn") ||
+             !Validering.tomFalt(kontaktperson, "kontaktperson") ||
+             !Validering.giltigEpost(kontaktepost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.tomFalt(branch, "branch"))    {
+             
+              
            System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
        
        try {
-            String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch) VALUES ('" + pid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
-           idb.insert(nyPartner);
-           return true;
-       } catch (InfException e ){
+            
+         String korrektPid = "SELECT MAX(pid) FROM partner";
+         String maxPid = idb.fetchSingle(korrektPid);
+         
+         int nyttPid = 1;
+         if (maxPid != null) {
+             nyttPid = Integer.parseInt(maxPid) + 1; 
+           
+         }
+             
+             
+         String nyPartner = "INSERT INTO partner (pid, namn, kontaktperson, kontaktepost, telefon, adress, branch)" + "VALUES ('" + nyttPid + "', '" + namn + "', '" + kontaktperson + "', '" + kontaktepost + "', '" + telefon + "', '" + adress + "', '" + branch + "')";
+         idb.insert(nyPartner);
+         return true;
+         
+       }
+           
+         catch (InfException e ){
           System.out.println("Något gick fel" + e.getMessage());
            e.printStackTrace();
            return false;

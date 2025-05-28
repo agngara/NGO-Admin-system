@@ -195,27 +195,28 @@ public class AnstalldHanterare {
        
    }
    
+   // Metod för att generera lösenord
    
-   
-   
+   public String genereraLosenord() {
+       return UUID.randomUUID().toString();
+   }
+  
    
    /**
  * Denna kod är avsedd för att lägga till en ny anställd
  * Den skapar ävet ett slumpmässigt lösenord genom UUID
  * och ett slumpmässigt aid
+ * Om lösenord inte inmatas så skapas ett genererat losen ord, via metoden genereraLosenord
  */
    
-   // Om någon skapar null lösen geras ett lsöenord, annars kan vara bra att lägga till så man kan skapa ett lösen. 
    
    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
-        
-        
-        if (losenord == null) {
-            losenord = UUID.randomUUID().toString();
-        }
-      
+      if (losenord == null || losenord.isEmpty()) {
+       
+          losenord = genereraLosenord();
+      }
        
         if (
              !Validering.tomFalt(losenord, "lösenord") || 
@@ -227,7 +228,6 @@ public class AnstalldHanterare {
              !Validering.giltigtTelefonnummer(telefon) ||
              !Validering.giltigtDatum(anstallningsdatum)) {
         
-          //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
