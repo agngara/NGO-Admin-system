@@ -291,6 +291,57 @@ public ArrayList<HashMap<String, String>> getAllHandlaggare()
   
   }
 
-
+public boolean addHandlaggareToProject(String projektID, String handlaggarID) {
+          
+          //String query = "INSERT INTO ans_proj VALUES(" + projektID + "," + handlaggarID + ");";
+          String query = "INSERT INTO ans_proj (pid, aid) " + "VALUES " + "(" + projektID + ", " + handlaggarID + ");";
+          System.out.println(query);
+          
+          try {
+              idb.insert(query);
+              return true;
+          } catch (InfException e) {
+              e.getStackTrace();
+              System.out.println(e);
+          }
+          
+          return false;
+      }
     
+
+
+public ArrayList getHandlaggareByProject(String pid) {
+    
+    ArrayList<HashMap<String, String>> rader = new ArrayList();
+    String query = "SELECT * FROM handlaggare WHERE aid IN (SELECT aid FROM anstalld WHERE aid IN (SELECT aid FROM ans_proj WHERE pid = " + pid + "));";
+    System.out.println("Från getHandlaggareByPorject: " + query);
+
+    try {
+        rader = idb.fetchRows(query);
+        
+    } catch (InfException e) {
+        
+        e.printStackTrace();
+        System.out.println(e);
+        
+    }
+    
+    return rader;
+}
+
+      public boolean removeHandlaggareFromProject(String projektID, String aid) {
+          
+          String query = "DELETE FROM ans_proj WHERE pid = " + projektID + " AND aid  = " + aid + ";";
+          try {
+              idb.delete(query);
+              return true;
+          } catch (InfException e) {
+              e.printStackTrace();
+              System.out.println(e);
+          }
+          
+          return false;
+          
+      }
+
 }

@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 import orgEntities.Anstalld;
 import orgEntities.Avdelning;
 import orgEntities.Projekt;
+import db.DatabaseInterface;
+import java.util.HashMap;
+import oru.inf.InfDB;
+import oru.inf.InfException;
 
 /**
  *
@@ -15,6 +19,8 @@ import orgEntities.Projekt;
  * Denna fil innehåller metoder som kallas på vid behov av datavalidering
  */
 public class Validering {
+    
+    private static InfDB idb = DatabaseInterface.databaseConnection();
     
  public static boolean tomFalt(String text, String faltnamn) {
      if (text == null || text.trim().isEmpty()) {
@@ -68,7 +74,47 @@ public class Validering {
         }
     } 
     
+    public static boolean finnsHandlaggare(String aid) {
+        String varde = "";
+        String query = "SELECT aid FROM handlaggare WHERE aid = " + aid + ";";
+        try {
+            varde = idb.fetchSingle(query);
+            }
+        catch (InfException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        
+        if (varde == null) {
+            System.out.println("Handlaggaren finns inte i databasen");
+            return false;
+        } 
+        
+        return true;
+    }
     
+    public static boolean finnsHandlaggareIprojekt(String aid, String pid) {
+        
+        String query = "SELECT * FROM ans_proj WHERE pid = " + pid + " AND aid = " + aid;
+        System.out.println(query);
+        HashMap<String, String> row = new HashMap();
+        
+        try {
+            row = idb.fetchRow(query);
+        } catch (InfException e) {
+            
+            System.out.println(e);
+            e.printStackTrace();
+            return false;
+        }
+        if (row.get("pid").equals(pid) && row.get("pid").equals(pid)) {
+             
+            return true;
+        }
+        
+        
+        return false;
+    }
       
 
     }

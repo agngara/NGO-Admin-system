@@ -77,6 +77,8 @@ public class OneProjectView extends javax.swing.JFrame {
          this.fillPartnerTable();
          this.fillTeamTable();
          
+         // This fills the cost of the table in the economy jpanel
+         this.setKostnad();
     }
     
 
@@ -117,8 +119,26 @@ public class OneProjectView extends javax.swing.JFrame {
     
     }
     
-    public void fillPartnerTable() {
+    public void updatePartnerTable() {
+    
         
+    DefaultTableModel nyModel = (DefaultTableModel) tblPartners.getModel();
+    nyModel.setRowCount(0);
+        
+    }
+
+    
+    public void updateTeamTable() {
+     
+    DefaultTableModel nyModel = (DefaultTableModel) tblTeam.getModel();
+    nyModel.setRowCount(0);
+        
+    }
+    
+    
+    
+    public void fillPartnerTable() {
+        this.updatePartnerTable();
         ArrayList<HashMap<String, String>> rader = new PartnerHanterare().getPartnerByProject(projekt.getPid());
         String [] columnNames = {"Partner-ID", "Namn", "Kontaktperson", "kontaktepost", "telefon", "adress", "branch", "stad"};
         
@@ -147,13 +167,14 @@ public class OneProjectView extends javax.swing.JFrame {
     
     public void fillTeamTable() {
         
+        this.updateTeamTable();
         HashMap<String, String> projchef = new AnstalldHanterare().getProjChefByProject(projekt.getPid());
         String fornamn = projchef.get("fornamn");
         String efternamn = projchef.get("efternamn");
         
         lblProjChef.setText("Projektchef: " + fornamn + " " + efternamn);
         
-        ArrayList<HashMap<String, String>> rader = new HandlaggareHanterare().getAllHandlaggare();
+        ArrayList<HashMap<String, String>> rader = new HandlaggareHanterare().getHandlaggareByProject(projekt.getPid());
         String [] columnNames = {"Anställnings-ID", "Ansvarighetsområde", "Mentor"};
         
       
@@ -184,6 +205,7 @@ public class OneProjectView extends javax.swing.JFrame {
         if (Validering.giltigDouble(id) && Validering.tomFalt("Partner-ID", id)) {
             
         partnerHanterare.addPartnerToProject(projekt.getPid(), id);
+        fillPartnerTable();
         JOptionPane.showMessageDialog(rootPane,"Partner tillagd.","Lägg till projektpartner", 2);
         return true;
         }
@@ -195,28 +217,59 @@ public class OneProjectView extends javax.swing.JFrame {
     }
     
     
-    public String removePartner() {
+    public void removePartner(String partnerID) {
         
-        
-        int selectedRow = tblPartners.getSelectedRow();
-        int column = 1; 
+   
+        if (new PartnerHanterare().removePartnerFromProject(projekt.getPid(), partnerID)) {
+            JOptionPane.showMessageDialog(rootPane, "Partner borttagen.");
+            fillPartnerTable();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort partner.");
 
-        if (selectedRow != -1) { 
-            String partnerID = (String) tblPartners.getValueAt(selectedRow, 0);
-            return partnerID;
-            
-            
-        } else {
-            
-            System.out.println("Ingen rad är vald.");
-            return "Ingen rad är vald";
         }
-        
-        
-        
-        
-        
     }
+    // TODO: fixa validering, någon call ger oönskad return (boolean)
+    public boolean addTeamMemberGUI() {
+    
+        String id = JOptionPane.showInputDialog("Lägg till handläggare");
+        HandlaggareHanterare handlaggareHanterare = new HandlaggareHanterare();
+        
+        //if (Validering.giltigDouble(id) && !Validering.tomFalt("Handläggar-ID", id) && !Validering.finnsHandlaggare(id) && !Validering.finnsHandlaggareIprojekt(id, projekt.getPid())) {
+          
+        handlaggareHanterare.addHandlaggareToProject(projekt.getPid(), id);
+        fillTeamTable();
+        JOptionPane.showMessageDialog(rootPane,"Partner tillagd.","Lägg till projektpartner", 2);
+        return true;
+        //}
+        //else {
+        //JOptionPane.showMessageDialog(rootPane,"Ange ett giltigt partner-ID.","Lägg till projektpartner", 1);
+        //return false;
+
+        //}
+
+        
+    } 
+    
+        public void removeTeamMember(String aid) {
+        
+   
+        if (new HandlaggareHanterare().removeHandlaggareFromProject(projekt.getPid(),aid)) {
+            JOptionPane.showMessageDialog(rootPane, "Handläggare borttagen.");
+            fillTeamTable();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort handläggare");
+
+        }
+    }
+            
+        
+    
+    
+
     
 
     /**
@@ -240,7 +293,6 @@ public class OneProjectView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblkronor = new javax.swing.JLabel();
         lblDisplayKostnadSoFar = new javax.swing.JLabel();
         lblDisplayKostnad2 = new javax.swing.JLabel();
         lblKostnadCompare = new javax.swing.JLabel();
@@ -318,10 +370,6 @@ public class OneProjectView extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(40, 40, 40));
 
-        lblkronor.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblkronor.setForeground(new java.awt.Color(7, 96, 216));
-        lblkronor.setText("kr");
-
         lblDisplayKostnadSoFar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDisplayKostnadSoFar.setText("Kostnad hittils");
 
@@ -341,32 +389,27 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addGap(156, 156, 156)
                         .addComponent(jLabel1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(lblDisplayKostnadSoFar))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(lblKostnadCompare)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDisplayKostnad2)
+                            .addComponent(lblKostnadCompare))))
                 .addContainerGap(89, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDisplayKostnadSoFar)
-                    .addComponent(lblDisplayKostnad2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblkronor)
-                .addGap(78, 78, 78))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addGap(105, 105, 105)
+                .addGap(54, 54, 54)
                 .addComponent(lblDisplayKostnadSoFar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDisplayKostnad2)
-                    .addComponent(lblkronor))
-                .addGap(77, 77, 77)
+                .addGap(51, 51, 51)
+                .addComponent(lblDisplayKostnad2)
+                .addGap(60, 60, 60)
                 .addComponent(lblKostnadCompare)
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -401,6 +444,11 @@ public class OneProjectView extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tblPartners);
 
         lblRemovePartner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-symbol.png"))); // NOI18N
+        lblRemovePartner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRemovePartnerMouseClicked(evt);
+            }
+        });
 
         lblAddPartner1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addition.png"))); // NOI18N
         lblAddPartner1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -455,8 +503,18 @@ public class OneProjectView extends javax.swing.JFrame {
         lblProjChef.setText("Projektchef: ");
 
         lblAddHandlaggare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/addition.png"))); // NOI18N
+        lblAddHandlaggare.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAddHandlaggareMouseClicked(evt);
+            }
+        });
 
         lblRemoveHandlaggare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-symbol.png"))); // NOI18N
+        lblRemoveHandlaggare.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRemoveHandlaggareMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -628,6 +686,60 @@ public class OneProjectView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_lblAddPartner1MouseClicked
 
+    private void lblRemovePartnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemovePartnerMouseClicked
+        
+        int selectedRow = tblPartners.getSelectedRow();
+        int column = 1; 
+        String partnerID = "";
+        partnerID = (String) tblPartners.getValueAt(selectedRow, 0);
+
+        if (selectedRow != -1) { 
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort denna partner?") == JOptionPane.YES_OPTION ) {
+            
+                removePartner(partnerID);
+            }
+            
+            
+        } else {
+            
+            System.out.println("Ingen rad är vald.");
+        }
+    }//GEN-LAST:event_lblRemovePartnerMouseClicked
+
+    private void lblAddHandlaggareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddHandlaggareMouseClicked
+        
+        this.addTeamMemberGUI();
+        
+        
+    }//GEN-LAST:event_lblAddHandlaggareMouseClicked
+
+    private void lblRemoveHandlaggareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveHandlaggareMouseClicked
+        int selectedRow = tblTeam.getSelectedRow();
+        int column = 1; 
+        String partnerID = "";
+        String aid = (String) tblTeam.getValueAt(selectedRow, 0);
+
+        if (selectedRow != -1) { 
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort denna handläggare?") == JOptionPane.YES_OPTION ) {
+         
+                this.removeTeamMember(aid);
+            }
+            
+            
+        } else {
+            
+            System.out.println("Ingen rad är vald.");
+        }
+                                             
+    }//GEN-LAST:event_lblRemoveHandlaggareMouseClicked
+
+    public void setKostnad() {
+        
+        lblDisplayKostnad2.setText(projekt.getKostnad() + "kr");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -669,6 +781,7 @@ public class OneProjectView extends javax.swing.JFrame {
     }
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnTillbakaTillProjektRuta;
     private javax.swing.JLabel jLabel1;
@@ -695,7 +808,6 @@ public class OneProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel lblRemoveHandlaggare;
     private javax.swing.JLabel lblRemovePartner;
     private javax.swing.JLabel lblTeam;
-    private javax.swing.JLabel lblkronor;
     private javax.swing.JLabel lbllProjName1;
     private javax.swing.JPanel projektInfo;
     private javax.swing.JTable tblPartners;
