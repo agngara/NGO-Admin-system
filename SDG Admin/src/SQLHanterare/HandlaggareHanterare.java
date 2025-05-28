@@ -290,5 +290,7 @@ public ArrayList<HashMap<String, String>> getAllHandlaggare()
       }
   
   }
+
+
     
 }
