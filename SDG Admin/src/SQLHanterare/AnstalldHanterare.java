@@ -387,7 +387,7 @@ public boolean andraTelefon(String aid, String nyTelefon)
     
      {
           if (!Validering.tomFalt(nyttLosenord, "lösenord")) {
-        //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
+       
             System.out.println("aid eller losenird får inte vara tom");
             return false;
         }
@@ -416,7 +416,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
 {
    {
         if (!Validering.tomFalt(nyttFornamn, "förnamn")) {
-        //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
+        
             System.out.println("aid eller förnamn får inte vara tom");
             return false;
         }
@@ -446,7 +446,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
 {
      {
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
-        //if (aid == null || nyttEfternamn == null || aid.isEmpty() || nyttEfternamn.isEmpty()) {
+       
             System.out.println("aid eller efternamn får inte vara tom");
             return false;
        
@@ -479,7 +479,7 @@ public boolean andraAdress(String aid, String nyAdress)
     {
         
         if(!Validering.tomFalt(nyAdress, "adress")) {
-        //if (aid == null || nyAdress == null || aid.isEmpty() || nyAdress.isEmpty()) {
+            
             System.out.println("aid eller adress får inte vara tom");
             return false;
         }
