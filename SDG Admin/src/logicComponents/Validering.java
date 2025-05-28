@@ -54,7 +54,7 @@ public class Validering {
      
   }
      
-  //ta bort denna. Kan ju bara vara nummer.... 
+  
   
     
     

@@ -65,11 +65,11 @@ public class AvdelningHanterare {
    
     
     
-    public boolean laggTillAvdelning(String avdid, String namn, String beskrivning)
+    public boolean laggTillAvdelning(String namn, String beskrivning)
     {
         
           //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          if(!Validering.tomFalt(avdid, "avdid") && !Validering.tomFalt(namn, "namn") && !Validering.tomFalt(beskrivning, "beskrivning")) {
+          if(!Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
            System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
            return false;
            
@@ -77,17 +77,30 @@ public class AvdelningHanterare {
         
         
         try {
-            String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning) VALUES ('" + avdid + "', '" + namn + "', '" + beskrivning + "')";
-            idb.insert(nyAvdelning);
-            return true;
-        }
+        
+        String korrektAvdid = "SELECT MAX(avdid) FROM avdelning";
+        String maxAvdid = idb.fetchSingle(korrektAvdid);
+        
+        int nyttAvdid = 1;
+        if (maxAvdid != null) {
+        nyttAvdid = Integer.parseInt(maxAvdid) + 1;   
+        }   
+            
+        String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning)" + "VALUES ('" + nyttAvdid + "', '" + namn + "', '" + beskrivning + "')";
+        idb.insert(nyAvdelning);
+        return true; }
+        
         catch (InfException e)
-        {
+       {
             e.printStackTrace();
             return false;
-        }
+        
+       }
         
     }
+    
+    
+    
    /**
  * Metoderna nedan är avsedda för att ändra uppgifter om avdelning
  * Koderna använder sig av validerig som säkerställer att uppgifter om avdid fylls i samt fältet som önskas ändras-

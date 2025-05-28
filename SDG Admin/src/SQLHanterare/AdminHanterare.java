@@ -70,7 +70,6 @@ public class AdminHanterare {
        
         if (
              !Validering.tomFalt(losenord, "lösenord") ||
-             !Validering.tomFalt(aid, "aid") ||
              !Validering.tomFalt(fornamn, "förnamn") ||
              !Validering.tomFalt(efternamn, "efternamn") ||
              !Validering.tomFalt(adress, "adress") ||
@@ -140,7 +139,7 @@ public class AdminHanterare {
         {
             
             
-             String korrektPid = "SELECT MAX(pid) FROM projekt";
+            String korrektPid = "SELECT MAX(pid) FROM projekt";
             String maxPid = idb.fetchSingle(korrektPid);
             
             int nyttPid = 1;
