@@ -79,6 +79,8 @@ public class Partners extends javax.swing.JFrame {
         parTillbakaTillMeny = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPartners = new javax.swing.JTable();
+        bnLaggTillPartner = new javax.swing.JButton();
+        bnTaBortPartner = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +110,24 @@ public class Partners extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPartners);
 
+        bnLaggTillPartner.setBackground(new java.awt.Color(0, 204, 0));
+        bnLaggTillPartner.setForeground(new java.awt.Color(255, 255, 255));
+        bnLaggTillPartner.setText("Lägg till partner");
+        bnLaggTillPartner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnLaggTillPartnerActionPerformed(evt);
+            }
+        });
+
+        bnTaBortPartner.setBackground(new java.awt.Color(204, 0, 0));
+        bnTaBortPartner.setForeground(new java.awt.Color(255, 255, 255));
+        bnTaBortPartner.setText("Ta bort partner");
+        bnTaBortPartner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnTaBortPartnerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,9 +135,15 @@ public class Partners extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bnTaBortPartner)
+                            .addGap(18, 18, 18)
+                            .addComponent(bnLaggTillPartner))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,9 +152,12 @@ public class Partners extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnLaggTillPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bnTaBortPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
@@ -139,6 +168,15 @@ public class Partners extends javax.swing.JFrame {
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_parTillbakaTillMenyActionPerformed
+
+    private void bnLaggTillPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillPartnerActionPerformed
+        // new xxx ().setVisible(true);
+        //        this.setVisible(false);
+    }//GEN-LAST:event_bnLaggTillPartnerActionPerformed
+
+    private void bnTaBortPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortPartnerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bnTaBortPartnerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +230,8 @@ public class Partners extends javax.swing.JFrame {
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bnLaggTillPartner;
+    private javax.swing.JButton bnTaBortPartner;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton parTillbakaTillMeny;
