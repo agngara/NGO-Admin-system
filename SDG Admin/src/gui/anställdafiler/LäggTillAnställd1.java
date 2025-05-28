@@ -27,6 +27,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     public LäggTillAnställd1() {
         anstalld = new Anstalld();
         initComponents();
+        fillComboBoxes();
         //aid = anstalld.getAid();
 //        ah = new AnstalldHanterare(aid);
         
@@ -43,8 +44,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
         txtAnsDatum.setText(anstalld.getAnstallningsdatum());
-        
-        this.fillComboBoxes();
+//        this.fillComboBoxes();
 
     }
         
@@ -54,9 +54,9 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         //FIll Avdelning
         comboAvdelning.removeAllItems();
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
-        ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.fetchAllAvdelning();
+        ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.getAllAvdelning();
         String namn = "";
-        comboAvdelning.addItem(""); 
+//        comboAvdelning.addItem(""); 
 
         for (HashMap<String,String> hashmap : avdelning) {
 
@@ -65,10 +65,9 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             comboAvdelning.addItem(namn);
 
         }
-        comboAvdelning.setSelectedIndex(0);
-
-//        String avdelningNamn = anstalld.getAvdelning();
-//        comboAvdelning.setSelectedItem(avdelning);
+//        comboAvdelning.setSelectedIndex(0);
+        String avdelningNamn = anstalld.getAvdelning();
+        comboAvdelning.setSelectedItem(avdelningNamn);
         
 }
      
@@ -103,6 +102,18 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             return false;
         }
 
+        String epost = txtEpost.getText();
+        if (!ah.andraEpost(aid, epost)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera e-post.");
+            return false;
+        }
+
+        String telefon = txtTelefon.getText();
+        if (!ah.andraTelefon(aid, telefon)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
+            return false;
+        }
+        
         String Anstallningsdatum = txtAnsDatum.getText();
         if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
@@ -125,7 +136,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     
         
         
-        
+      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -223,8 +234,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 btnRedigeraActionPerformed(evt);
             }
         });
-
-        comboAvdelning.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblFörklarDatum.setText("ÅÅÅÅ-MM-DD");
 
