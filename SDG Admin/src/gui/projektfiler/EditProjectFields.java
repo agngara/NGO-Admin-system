@@ -92,7 +92,7 @@ public class EditProjectFields extends javax.swing.JFrame {
 
     public boolean setProjectInfo() {
         String pid = txtProjID1.getText();
-        if (!ph.andraPid(this.pid, pid)) {
+        if (!ph.andraPid(pid, pid)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projekt-ID.");
             return false;
         }
