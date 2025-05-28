@@ -42,7 +42,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         txtEfternamn.setText(anstalld.getEfternamn());
         txtFornamn.setText(anstalld.getFornamn());
         txtLosenord.setText(anstalld.getLosenord());
-        txtTelefon.setText(anstalld.getTelefonnummer());
+        txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
         txtAnsDatum.setText(anstalld.getAnstallningsdatum());
         //txtStatus.setText(projekt.getStatus());
@@ -56,7 +56,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         //FIll Avdelning
         comboAvdelning.removeAllItems();
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
-        ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.fetchAllAvdelning();
+        ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.getAllAvdelning();
         String namn = "";
 
         for (HashMap<String,String> hashmap : avdelning) {
@@ -157,6 +157,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         txtTelefon = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
         bAndraLösen = new javax.swing.JButton();
+        btnTillbakaTillAnställda = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -244,6 +245,14 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
         bAndraLösen.setText("Ändra lösenord");
 
+        btnTillbakaTillAnställda.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillAnställda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
+        btnTillbakaTillAnställda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTillbakaTillAnställdaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,9 +260,6 @@ public class EditAnställda1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitle)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,39 +277,44 @@ public class EditAnställda1 extends javax.swing.JFrame {
                                     .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addComponent(lblAnsDatum)))
                         .addGap(18, 18, 18)
+                        .addComponent(lblFörklarDatum)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bAndraLösen))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFörklarDatum)
+                                .addGap(95, 95, 95)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(95, 95, 95)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblLosenord)
-                                                    .addComponent(lblAvdelning))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bAndraLösen)))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblLosenord)
+                                            .addComponent(lblAvdelning))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE))))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEpost)
                             .addComponent(lblTelefon))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbakaTillAnställda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(236, 236, 236)
+                        .addComponent(lblTitle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblTitle)
-                .addGap(34, 34, 34)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(btnTillbakaTillAnställda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbAnstalldID)
                     .addComponent(lblLosenord))
@@ -396,6 +407,12 @@ public class EditAnställda1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonActionPerformed
 
+    private void btnTillbakaTillAnställdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillAnställdaActionPerformed
+        this.setVisible(false);
+        Anställda anst = new Anställda();
+        anst.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillAnställdaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -435,6 +452,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAndraLösen;
     private javax.swing.JButton btnRedigera;
+    private javax.swing.JToggleButton btnTillbakaTillAnställda;
     private javax.swing.JComboBox<String> comboAvdelning;
     private javax.swing.JLabel lbAnstalldID;
     private javax.swing.JLabel lblAdress;

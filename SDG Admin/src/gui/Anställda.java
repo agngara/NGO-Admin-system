@@ -91,9 +91,9 @@ public class Anställda extends javax.swing.JFrame {
         int col = tblAnställda.columnAtPoint(evt.getPoint());
         if (row >= 0 && col == 9) {
                 
-//            Object varde = tblAnställda.getValueAt(row, 0);
-//            String Aid = varde.toString();
-            AnstalldHanterare anstalldHanterare = new AnstalldHanterare();
+            Object varde = tblAnställda.getValueAt(row, 0);
+            String aid = varde.toString();
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
             Anstalld anstalld = new Anstalld(anstalldHanterare);
             EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
             editAnställda1.setVisible(true);

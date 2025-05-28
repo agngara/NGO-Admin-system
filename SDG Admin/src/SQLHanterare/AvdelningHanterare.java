@@ -22,6 +22,12 @@ public class AvdelningHanterare {
    private String query;
    private String avdid;
    
+   public AvdelningHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
+   
    public AvdelningHanterare(String avdid) {
        
        this.avdid = avdid;
@@ -38,10 +44,6 @@ public class AvdelningHanterare {
         
        
    }
-
-    public AvdelningHanterare() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
    
    public HashMap getAvdelning() {
        
@@ -230,7 +232,27 @@ public class AvdelningHanterare {
          
     }
     
+    public ArrayList<HashMap<String, String>> getAllAvdelning()
+  {
+  
+      ArrayList<HashMap<String, String>> rader = new ArrayList<HashMap<String, String>>();
+      try {
+          
+          String sql = "SELECT * FROM avdelning"; 
+          
+            rader = idb.fetchRows(sql);
+            return rader;
+            
+      } catch (InfException e) {
+          e.printStackTrace();
+          System.out.println(e);
+      }
+        
+     return rader;
+    
+    
    }
+}
          
     
     

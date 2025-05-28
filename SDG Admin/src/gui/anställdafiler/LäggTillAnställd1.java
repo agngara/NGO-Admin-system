@@ -40,7 +40,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtEfternamn.setText(anstalld.getEfternamn());
         txtFornamn.setText(anstalld.getFornamn());
         txtLosenord.setText(anstalld.getLosenord());
-        txtTelefon.setText(anstalld.getTelefonnummer());
+        txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
         txtAnsDatum.setText(anstalld.getAnstallningsdatum());
         
@@ -158,6 +158,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtTelefon = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
         bnGenereraLosen = new javax.swing.JButton();
+        btnTillbakaTillAnställd1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -245,6 +246,14 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
 
         bnGenereraLosen.setText("Generera Lösenord");
 
+        btnTillbakaTillAnställd1.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillAnställd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
+        btnTillbakaTillAnställd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTillbakaTillAnställd1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,6 +262,8 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(229, 229, 229)
                         .addComponent(lblTitle)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -272,22 +283,20 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                                     .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addComponent(lblAnsDatum)))
                         .addGap(18, 18, 18)
+                        .addComponent(lblFörklarDatum)
+                        .addGap(95, 95, 95)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                            .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFörklarDatum)
-                                .addGap(95, 95, 95)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(bnGenereraLosen)
-                                            .addComponent(lblLosenord)
-                                            .addComponent(lblAvdelning))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(bnGenereraLosen)
+                                    .addComponent(lblLosenord)
+                                    .addComponent(lblAvdelning))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,9 +307,11 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblTitle)
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTitle))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbAnstalldID)
                     .addComponent(lblLosenord))
@@ -339,13 +350,13 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 .addComponent(lblTelefon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(lblEpost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -391,6 +402,12 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonActionPerformed
 
+    private void btnTillbakaTillAnställd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillAnställd1ActionPerformed
+        this.setVisible(false);
+        Anställda anst = new Anställda();
+        anst.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillAnställd1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -432,6 +449,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnGenereraLosen;
     private javax.swing.JButton btnRedigera;
+    private javax.swing.JToggleButton btnTillbakaTillAnställd1;
     private javax.swing.JComboBox<String> comboAvdelning;
     private javax.swing.JLabel lbAnstalldID;
     private javax.swing.JLabel lblAdress;
