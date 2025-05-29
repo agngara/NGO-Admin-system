@@ -24,6 +24,10 @@ import logicComponents.User.UserType;
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     private projektruta projektr;
+    private javax.swing.JComboBox<String> jCombobox1;
+    
+                
+    
     
 private Anstalld currentAnstalld;    
     
@@ -32,6 +36,7 @@ private Anstalld currentAnstalld;
     setExtendedState(MAXIMIZED_BOTH);
     setLocationRelativeTo(null);
     projektr = this;
+    
 try {
     idb = DatabaseInterface.databaseConnection();
     fyllTabell();
@@ -42,6 +47,14 @@ public void actionPerformed(java.awt.event.ActionEvent evt) {
 searchDateByActionPerformed(evt);
 }
 });
+
+   
+
+    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+jComboBox1ActionPerformed(evt);
+}
+    });
 
 
    
@@ -155,6 +168,45 @@ return;
     }
     }
 
+private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+    try {
+        String selectedStatus = (String) jComboBox1.getSelectedItem();
+        String query;
+        if (selectedStatus.equals("Alla")){
+            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
+                    "FROM projekt p";
+} else { 
+            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
+                    "FROM projekt p " +
+            "WHERE p.Status = '" + selectedStatus +"'";
+
+        }
+        System.out.println("SQL-fråga: " + query);
+        ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
+        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status" };
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        for (HashMap<String, String> projekt : projektlista ){
+            String pid = projekt.get("pid");
+            String namn = projekt.get("projektnamn");
+            String beskrivning = projekt.get("beskrivning");
+            String start = projekt.get("startdatum");
+            String slut = projekt.get("slutdatum");
+            String prioritet = projekt.get("prioritet");
+            String kostnad = projekt.get("kostnad");
+            String status = projekt.get("status");
+            
+            model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+}
+tblProjekt.setModel(model);
+} catch (InfException e) {
+e.printStackTrace();
+JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage());
+}
+
+        }
+        
+
+
 
 
 
@@ -166,7 +218,7 @@ public void tableMouseEvent(projektruta projektr) {
     public void mouseClicked(java.awt.event.MouseEvent evt) {
         int row = tblProjekt.rowAtPoint(evt.getPoint());
         int col = tblProjekt.columnAtPoint(evt.getPoint());
-        if (row >= 0 && col == 7) {
+        if (row >= 0 && col == 8) {
                 
             Object varde = tblProjekt.getValueAt(row, 0);
             String pid = varde.toString();
@@ -265,7 +317,7 @@ public void tableMouseEvent(projektruta projektr) {
 
         jCheckBox1.setText("Visa bara projekt på min avdelning");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alla", "Planerat", "Pågående", "Avslutat" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
