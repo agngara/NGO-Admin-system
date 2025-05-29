@@ -101,7 +101,9 @@ public class ProjektHanterare {
              nyttPid = Integer.parseInt(maxPid) + 1;
              
             }
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land )" + "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "', '" + projektchef + "', '" + land + ")";
+            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) " +
+             "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '" +
+             status + "', '" + prioritet + "', '" + projektchef + "', '" + land + "')";
             idb.insert(laggTill);
             return true;
         }
