@@ -4,6 +4,7 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import logicComponents.Validering;
@@ -126,16 +127,20 @@ public class ProjektHanterare {
 */
  
  
-  public boolean andraPid(String pid, String nyPid) {
+  public boolean andraPid(String nyPid,String gammaltpid) {
       
-      if (Validering.tomFalt(nyPid, "ny pid")) {
-          System.out.println("pid får inte vara tom" + this.pid);
-          return false;
-      }
+   
+      if (!Validering.tomFalt(gammaltpid, "gammal pid")) return false;
+      if (!Validering.tomFalt(nyPid, "nyPid")) return false;
+
 
       
       try {
-          String fraga = "UPDATE projekt SET pid = '" + nyPid + "WHERE pid = '" + pid + "'";
+          
+         
+          
+          
+          String fraga = "UPDATE projekt SET pid = " + nyPid + " WHERE pid = " + gammaltpid;
           idb.update(fraga);
           return true;
       }
@@ -154,12 +159,12 @@ public class ProjektHanterare {
       {
           if (!Validering.tomFalt(nyttNamn, "projektnamn")) {
           
-           System.out.println("pid eller namn får inte vara tom.");
+          
            return false;
         }
   
       try{
-          String namn = "UPDATE projekt SET projektnamn = '" + nyttNamn + "' WHERE pid = '" + pid + "'";
+          String namn = "UPDATE projekt " + "SET projektnamn = '" + nyttNamn + "' WHERE pid = " + pid;
           idb.update(namn);
           return true;
       }
@@ -176,15 +181,24 @@ public class ProjektHanterare {
   {
       
       {
-             if (!Validering.tomFalt(nyBeskrivning, "beskrivning") || !Validering.tomFalt(pid, "pid")) {
+              if (!Validering.tomFalt(pid, "pid")) return false;
           
-           System.out.println("pid eller beskrivning får inte vara tom.");
-           return false;
-         }
+         
+             
+              if (!Validering.tomFalt(nyBeskrivning, "beskrivning")) return false;  
+                 
+                 
+              
+                   
+          
+          
+         
+       
+          String beskrivning = "UPDATE projekt " + "SET beskrivning = '" + nyBeskrivning + "' WHERE pid = " + pid;
+          System.out.println("swl" + beskrivning);
       try {
-          String beskrivning = "UPDATE projekt SET beskrivning = '" + nyBeskrivning + "' WHERE pid = '" + pid + "'";
-          idb.update(beskrivning);
-          return true;
+         idb.update(beskrivning);
+          return true;  
       }
       
       catch (InfException e) {
@@ -192,21 +206,28 @@ public class ProjektHanterare {
           return false;
       }
       
-  }   
- 
+     
+      }
   }
- 
+  
+      
  public boolean andraStartdatum(String pid, String nyttStartdatum)
   {
       
-       if (!Validering.tomFalt(nyttStartdatum, "startdatum") ||
-            !Validering.giltigtDatum(nyttStartdatum)) {
+       if (!Validering.tomFalt(nyttStartdatum, "startdatum")) return false; 
+
+               
+       if (!Validering.giltigtDatum(nyttStartdatum)) return false; 
+
           
-           System.out.println("pid eller startdatum får inte vara tom.");
-           return false;
-        }
-      try{
-          String startdatum = "UPDATE projekt SET startdatum = '" + nyttStartdatum + "' WHERE pid = '" + pid + "'";
+         
+         
+        
+
+      try {
+          
+          String startdatum = "UPDATE projekt SET startdatum = '" + nyttStartdatum + "' WHERE pid = " + pid;
+          System.out.println(startdatum);
           idb.update(startdatum);
           return true;
       }
@@ -221,15 +242,19 @@ public class ProjektHanterare {
  public boolean andraSlutdatum(String pid, String nyttSlutdatum)
   {
       
-          if (!Validering.tomFalt(nyttSlutdatum, "slutdatum") ||
-            !Validering.giltigtDatum(nyttSlutdatum)){
+          if (!Validering.tomFalt(nyttSlutdatum, "slutdatum")) {
+              return false;
+          }
+                  
+          if (!Validering.giltigtDatum(nyttSlutdatum)){
           
-           System.out.println("pid eller slutdatum får inte vara tom.");
+           
            return false;
         }
       
       try{
-          String slutdatum = "UPDATE projekt SET slutdatum = '" + nyttSlutdatum + "' WHERE pid = '" + pid + "'";
+          String slutdatum = "UPDATE projekt " + " SET slutdatum = '" + nyttSlutdatum + "' WHERE pid = " + pid;
+          System.out.println(slutdatum);
           idb.update(slutdatum);
           return true;
       }
@@ -247,14 +272,18 @@ public class ProjektHanterare {
 
  public boolean andraKostnad(String pid, String nyKostnad){
         {
-          if(!Validering.giltigDouble(nyKostnad) || !Validering.tomFalt(nyKostnad, "kostnad")) {
+          if(!Validering.giltigDouble(nyKostnad)) {
+              
+              return false; }
+              
+         if (!Validering.tomFalt(nyKostnad, "kostnad"))  {   
           
-           System.out.println("pid eller kostnad får inte vara tom.");
+          
            return false;
         }
       
       try{
-          String kostnad = "UPDATE projekt SET kostnad = '" + nyKostnad + "' WHERE pid = '" + pid + "'";
+          String kostnad = "UPDATE projekt " + "SET kostnad = '" + nyKostnad + "' WHERE pid = " + pid;
           idb.update(kostnad);
           return true;
       }
@@ -278,7 +307,7 @@ public class ProjektHanterare {
         }
       
       try{
-          String status = "UPDATE projekt SET status = '" + nyStatus + "' WHERE pid = '" + pid + "'";
+          String status = "UPDATE projekt SET status = '" + nyStatus + "' WHERE pid = " + pid;
           idb.update(status);
           return true;
       }
@@ -303,7 +332,7 @@ public class ProjektHanterare {
         }
       
       try{
-          String prioritet = "UPDATE projekt SET prioritet = '" + nyPrioritet + "' WHERE pid = '" + pid + "'";
+          String prioritet = "UPDATE projekt " + "SET prioritet = '" + nyPrioritet + "' WHERE pid = " + pid;
           idb.update(prioritet);
           return true;
       }
@@ -326,7 +355,7 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
     return false;
 }
  try {
-        String projektchef = "UPDATE projekt SET projektchef = " + "'" + nyProjektchef + "'";
+        String projektchef =  "UPDATE projekt " + "SET projektchef = '" + nyProjektchef + "' WHERE pid = " + pid;
         idb.update(projektchef);
         return true;
         
@@ -355,6 +384,10 @@ public boolean andraLand(String pid, int lid) {
         return false;
     }
 }
+
+    public ArrayList<HashMap<String, String>> fetchAllProjekt() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
 /*
