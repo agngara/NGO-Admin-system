@@ -8,6 +8,7 @@ import orgEntities.*;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.Anställda;
+import gui.projektfiler.OneProjectView;
         
 
 /**
@@ -19,6 +20,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     Anstalld anstalld;
     AnstalldHanterare ah;
     String aid;
+    OneProjectView oneProjectView;
     
      
     
@@ -30,6 +32,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
         initComponents();
         this.setTextBoxes();
         aid = anstalld.getAid();
+        // metoden nedan är tilllagt nu
+        ah = new AnstalldHanterare(aid);
+        this.oneProjectView = oneProjectView;
 //        ah = new AnstalldHanterare(aid);
         
     }
@@ -65,7 +70,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
         }
         String avdelningNamn = anstalld.getAvdelning();
-        comboAvdelning.setSelectedItem(avdelning);
+        comboAvdelning.setSelectedItem(avdelningNamn);
         
 }
      
@@ -330,7 +335,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
                             .addComponent(lblFörklarDatum))
                         .addGap(18, 18, 18)
                         .addComponent(lblTelefon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblEpost)

@@ -84,15 +84,14 @@ public class AdminHanterare {
         } 
        
         if (
-             Validering.tomFalt(fornamn, "förnamn") ||
-             Validering.tomFalt(efternamn, "efternamn") ||
-             Validering.tomFalt(adress, "adress") ||
-             Validering.giltigEpost(epost) ||
-             Validering.giltigtTelefonnummer(telefon) ||
-             Validering.giltigtDatum(anstallningsdatum) ||
-             Validering.tomFalt(avdelning, "avdelning")) {
+             !Validering.tomFalt(fornamn, "förnamn") ||
+             !Validering.tomFalt(efternamn, "efternamn") ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigEpost(epost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.giltigtDatum(anstallningsdatum) ||
+             !Validering.tomFalt(avdelning, "avdelning")) {
         
-          //if (fornamn == null || efternamn == null || adress == null || epost == null || telefon == null || anstallningsdatum == null || fornamn.isEmpty() || efternamn.isEmpty() || adress.isEmpty() || epost.isEmpty() ||  telefon.isEmpty() || anstallningsdatum.isEmpty()) {
           
            System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
