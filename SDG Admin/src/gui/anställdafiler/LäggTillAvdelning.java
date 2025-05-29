@@ -28,12 +28,13 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
     
     
     public LäggTillAvdelning() {
-        avdelning = new Avdelning();
+        
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
         
         avdh = new AvdelningHanterare(avdid); 
+        avdelning = new Avdelning(avdh);
         
          
     }
@@ -43,7 +44,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
          // Fill stad
         comboStad.removeAllItems();
         StadHanterare stadHanterare = new StadHanterare();
-        ArrayList<HashMap<String,String>> Stad = stadHanterare.getAllStad();
+        ArrayList<HashMap<String,String>> Stad = stadHanterare.fetchAllStad();
         String namn = ""; 
 
         for (HashMap<String,String> hashmap : Stad) {
@@ -52,8 +53,8 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
             comboStad.addItem(namn);
         }
 
-        String StadNamn = avdelning.getStad();
-        comboStad.setSelectedItem(StadNamn);        
+        String stadNamn = avdelning.getStad;
+        comboStad.setSelectedItem(stadNamn);        
 }
          
     private void sparaAvdelning() {
@@ -65,6 +66,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         String telefon = txtTelefon.getText();
         String epost = txtEpost.getText();
         String stad = (String) comboStad.getSelectedItem();
+     
         
         String stadId = "1";
         

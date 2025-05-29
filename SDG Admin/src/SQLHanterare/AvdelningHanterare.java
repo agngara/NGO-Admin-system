@@ -92,7 +92,7 @@ public class AvdelningHanterare {
         nyttAvdid = Integer.parseInt(maxAvdid) + 1;   
         }   
             
-        String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning)" + "VALUES ('" + nyttAvdid + "', '" + namn + "', '" + beskrivning + "')";
+        String nyAvdelning = "INSERT INTO avdelning (avdid, namn, beskrivning, adress, epost, telefon, stad, chef)" + "VALUES ('" + nyttAvdid + "', '" + namn + "', '" + beskrivning + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + stad + "', '" + chef + "')";
         idb.insert(nyAvdelning);
         return true; }
         
@@ -265,7 +265,7 @@ public class AvdelningHanterare {
     
     
    }
-}
+
 
     public boolean taBortAvdelning (String avdid) {
 
@@ -297,6 +297,9 @@ public class AvdelningHanterare {
     }
 
 }
+}
+
+
     
     
             
