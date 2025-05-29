@@ -20,6 +20,8 @@ public class Avdelning {
     private String adress;
     private String ePost;
     private String telefon;
+    private String stad;
+    private String chef;
     
     
     
@@ -33,6 +35,9 @@ public class Avdelning {
         adress = avdelning.get("adress");
         ePost = avdelning.get("ePost");
         telefon = avdelning.get("telefon");
+        stad = avdelning.get("stad");
+        chef = avdelning.get("chef");
+        
     }
     
     
@@ -65,6 +70,17 @@ public class Avdelning {
     public String getTelefon()
     {
         return telefon;
+    }
+    
+    
+    public String getStad() {
+        return stad;
+    }
+    
+    
+    public String getChef() {
+        
+        return chef;
     }
     
 }

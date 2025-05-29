@@ -4,9 +4,11 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import orgEntities.Stad;
+import oru.inf.InfException;
 /**
  *
  * @author theow
@@ -18,10 +20,18 @@ public class StadHanterare {
    private String query;
    private String sid;
    
+   
+   public StadHanterare() {
+       
+       idb = DatabaseInterface.databaseConnection();
+       
+   }
+   
+   
    public StadHanterare(String sid) {
        
        this.sid = sid;
-       query = "SELECT * FROM anstalld WHERE sid = " + "'" + sid + "'";
+       query = "SELECT * FROM stad WHERE sid = " + "'" + sid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -35,12 +45,48 @@ public class StadHanterare {
        
    }
    
-      public HashMap getStad() {
+
+     public HashMap getStad() {
        
        return stad;
    }
    
-    
-    
+    public ArrayList fetchAllStad() 
+      {
+          ArrayList<HashMap<String,String>> stader = new ArrayList<>();
+          
+          String query = "SELECT * FROM stad";
+          
+          try {
+          stader = idb.fetchRows(query);
+          }
+          catch (InfException e) {
+              
+          }
+          
+          return stader;
+      }
+//     public ArrayList<HashMap<String, String>> getAllStad()
+//  {
+//  
+//      ArrayList<HashMap<String, String>> rader = new ArrayList<HashMap<String, String>>();
+//      try {
+//          
+//          String sql = "SELECT * FROM stad"; 
+//          
+//            rader = idb.fetchRows(sql);
+//            return rader;
+//            
+//      } catch (InfException e) {
+//          e.printStackTrace();
+//          System.out.println(e);
+//      }
+//        
+//     return rader;
+//    
+//    
+//   }
     
 }
+
+

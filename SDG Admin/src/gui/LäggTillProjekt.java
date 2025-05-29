@@ -120,7 +120,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
        
         boolean ok = ph.laggTillProjekt(projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status, projektchef, landId);
         if (ok) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Projket sparat!");
+            javax.swing.JOptionPane.showMessageDialog(this, "Projekt sparat!");
             this.setVisible(false);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara projekt.");

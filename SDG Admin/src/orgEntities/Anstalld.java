@@ -53,7 +53,7 @@ import logicComponents.User.UserType;
         adress = anstalldInfo.get("adress");
         telefon = anstalldInfo.get("telefon");
         losenord = anstalldInfo.get("losenord");
-        ePost = anstalldInfo.get("losenord");
+        ePost = anstalldInfo.get("epost");
         anstallningsdatum = anstalldInfo.get("anstallningsdatum");
         aid = anstalldInfo.get("aid");
         

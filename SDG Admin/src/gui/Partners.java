@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import SQLHanterare.*;
+import orgEntities.*;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
-import gui.Anställda;
-import gui.Partners;
-import gui.Meny;
+import gui.*;
+import gui.anställdafiler.LäggTillPartner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -20,7 +21,11 @@ import logicComponents.User.User;
  * @author stina
  */
 public class Partners extends javax.swing.JFrame {
+    
+    private Partner partner; 
     private InfDB idb;
+    private String pid;
+    
     /**
      * Creates new form Partners
      */
@@ -35,6 +40,8 @@ public class Partners extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
     }
+    
+   
     
     private void fyllTabell(){
         try {
@@ -64,6 +71,19 @@ public class Partners extends javax.swing.JFrame {
     }   catch (InfException e) {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av partnerdata: " + e.getMessage());
         }  
+    }
+    
+    public void removePartner(String pid) {
+        
+        if (new PartnerHanterare().taBortPartner(pid)) {
+            JOptionPane.showMessageDialog(rootPane, "Partner borttagen.");
+            fyllTabell();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort partner.");
+
+        }
     }
 
     /**
@@ -135,7 +155,6 @@ public class Partners extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,7 +162,8 @@ public class Partners extends javax.swing.JFrame {
                             .addComponent(bnTaBortPartner)
                             .addGap(18, 18, 18)
                             .addComponent(bnLaggTillPartner))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,12 +190,32 @@ public class Partners extends javax.swing.JFrame {
     }//GEN-LAST:event_parTillbakaTillMenyActionPerformed
 
     private void bnLaggTillPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillPartnerActionPerformed
-        // new xxx ().setVisible(true);
-        //        this.setVisible(false);
+         new LäggTillPartner().setVisible(true);
+//         this.setVisible(false);
     }//GEN-LAST:event_bnLaggTillPartnerActionPerformed
 
     private void bnTaBortPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortPartnerActionPerformed
-        // TODO add your handling code here:
+ 
+        int selectedRow = tblPartners.getSelectedRow();
+        if (selectedRow == -1) {
+            
+            System.out.println("Ingen vald rad");
+              return;
+        }
+          int column = 0; 
+          
+          String pid = (String) tblPartners.getValueAt(selectedRow, column);
+
+     
+            
+       if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort partnern?") == JOptionPane.YES_OPTION ) {
+            
+                removePartner(pid);
+            }
+                      
+        
+            
+         
     }//GEN-LAST:event_bnTaBortPartnerActionPerformed
 
     /**

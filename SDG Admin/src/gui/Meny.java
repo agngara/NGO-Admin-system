@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import gui.anställdafiler.EditMinaUppgifter;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import logicComponents.User.*;
@@ -20,14 +21,14 @@ public class Meny extends javax.swing.JFrame {
     String CurrentUserAid = "";
     String CurrentUserRole = "";
     Anstalld currentAnstalld;
-
+    Meny meny;
     /**
      * Creates new form Meny, and initialises its components.
      */
     public Meny() {
        
         currentAnstalld = CurrentUser.getUsr().getAnstalld();
-        namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+        MenyUpdateName();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -35,6 +36,7 @@ public class Meny extends javax.swing.JFrame {
         String aid = currentAnstalld.getAid();
         UserType userType = currentAnstalld.getRole(aid);
         lblRole.setText(userType.name());
+        meny = this;
         
         
         
@@ -60,6 +62,10 @@ public class Meny extends javax.swing.JFrame {
         
         
     }
+    
+    public void MenyUpdateName() {
+     namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +85,7 @@ public class Meny extends javax.swing.JFrame {
         visaAnställda = new javax.swing.JButton();
         visaAvdelning = new javax.swing.JButton();
         visaPartners = new javax.swing.JButton();
+        lblProfile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,6 +165,13 @@ public class Meny extends javax.swing.JFrame {
             }
         });
 
+        lblProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        lblProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblProfileMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,7 +185,10 @@ public class Meny extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LoggaUt, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblProfile)
+                                .addGap(15, 15, 15)
+                                .addComponent(LoggaUt)))
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -186,15 +203,19 @@ public class Meny extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblProfile)
+                        .addGap(3, 3, 3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInloggadAnvandare, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblRole)
-                .addGap(18, 18, 18)
-                .addComponent(LoggaUt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(visaHallbarhetsmal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(visaProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,7 +248,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_LoggaUtActionPerformed
 
     private void visaAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaAvdelningActionPerformed
-        new Avdelning().setVisible(true);
+        new Avdelningar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_visaAvdelningActionPerformed
 
@@ -240,6 +261,11 @@ public class Meny extends javax.swing.JFrame {
         new Partners().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_visaPartnersActionPerformed
+
+    private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
+
+        new EditMinaUppgifter(currentAnstalld, this).setVisible(true);
+    }//GEN-LAST:event_lblProfileMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -280,6 +306,7 @@ public class Meny extends javax.swing.JFrame {
     private javax.swing.JButton LoggaUt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblInloggadAnvandare;
+    private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblRole;
     private javax.swing.JButton visaAnställda;
     private javax.swing.JButton visaAvdelning;

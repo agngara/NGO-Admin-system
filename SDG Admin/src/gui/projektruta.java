@@ -4,9 +4,10 @@ package gui;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import orgEntities.Anstalld;
+import SQLHanterare.*;
+import orgEntities.*;
 import db.DatabaseInterface;
-import gui.Meny;
+import gui.*;
 import gui.projektfiler.OneProjectView;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import SQLHanterare.PartnerHanterare;
  * @author amandahelinlarsson
  */
 public class projektruta extends javax.swing.JFrame {
+    private Projekt projekt;
     private InfDB idb;
     private projektruta projektr;
    
@@ -109,7 +111,7 @@ private void fyllTabell(){
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size());
-        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status" };
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status",""};
 
     DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
@@ -150,7 +152,7 @@ if (projektlista == null || projektlista.isEmpty()) {
 JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
 return;
 }
-String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"};
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", ""};
 DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
 for (HashMap<String, String> projekt : projektlista) {
@@ -162,7 +164,7 @@ for (HashMap<String, String> projekt : projektlista) {
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
     String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
         
 }
 tblProjekt.setModel(model);
@@ -188,7 +190,7 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
 }
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
-        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status" };
+        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "" };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
@@ -200,7 +202,7 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
             String kostnad = projekt.get("kostnad");
             String status = projekt.get("status");
             
-            model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+            model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
 }
 tblProjekt.setModel(model);
 } catch (InfException e) {
@@ -283,7 +285,18 @@ public void tableMouseEvent(projektruta projektr) {
         
     }
 
+    public void removeProjekt(String pid) {
+        
+        if (new ProjektHanterare().taBortProjekt(pid)) {
+            JOptionPane.showMessageDialog(rootPane, "Projekt borttaget.");
+            fyllTabell();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort projekt.");
 
+        }
+    }
 
 
     
@@ -389,12 +402,12 @@ public void tableMouseEvent(projektruta projektr) {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(proTillbakaTillMeny)
-                                .addGap(453, 453, 453)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bnTaBortProjekt)
-                                .addGap(30, 30, 30)
+                                .addGap(18, 18, 18)
                                 .addComponent(bnLaggTillProjekt))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(101, Short.MAX_VALUE))))
@@ -439,7 +452,24 @@ public void tableMouseEvent(projektruta projektr) {
     }//GEN-LAST:event_proTillbakaTillMenyActionPerformed
 
     private void bnTaBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortProjektActionPerformed
-        // TODO add your handling code here:
+        
+       int selectedRow = tblProjekt.getSelectedRow();
+        int column = 1; 
+        String projektID = "";
+        projektID = (String) tblProjekt.getValueAt(selectedRow, 0);
+
+        if (selectedRow != -1) { 
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort detta projekt?") == JOptionPane.YES_OPTION ) {
+            
+                removeProjekt(projektID);
+            }
+            
+            
+        } else {
+            
+            System.out.println("Ingen rad är vald.");
+        }
     }//GEN-LAST:event_bnTaBortProjektActionPerformed
 
     private void bnLaggTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillProjektActionPerformed

@@ -8,6 +8,7 @@ import orgEntities.*;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.Anställda;
+import gui.projektfiler.OneProjectView;
         
 
 /**
@@ -19,6 +20,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     Anstalld anstalld;
     AnstalldHanterare ah;
     String aid;
+    OneProjectView oneProjectView;
     
      
     
@@ -30,6 +32,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
         initComponents();
         this.setTextBoxes();
         aid = anstalld.getAid();
+        // metoden nedan är tilllagt nu
+        ah = new AnstalldHanterare(aid);
+        this.oneProjectView = oneProjectView;
 //        ah = new AnstalldHanterare(aid);
         
     }
@@ -65,7 +70,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
         }
         String avdelningNamn = anstalld.getAvdelning();
-        comboAvdelning.setSelectedItem(avdelning);
+        comboAvdelning.setSelectedItem(avdelningNamn);
         
 }
      
@@ -83,29 +88,34 @@ public class EditAnställda1 extends javax.swing.JFrame {
             return false;
         }
 
-        String Losenord = txtLosenord.getText();
-        if (!ah.andraLosenord(aid, Losenord)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
-            return false;
-        }
+       
 
         String Fornamn = txtFornamn.getText();
         if (!ah.andraFornamn(aid, Fornamn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera förnamn.");
             return false;
         }
-
+        
+        String Losenord = txtLosenord.getText();
+        if (!ah.andraLosenord(aid, Losenord)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
+            return false;
+        }
+       
+        
         String Anstallningsdatum = txtAnsDatum.getText();
         if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
             return false;
         }
-
-        String Avdelning = (String) comboAvdelning.getSelectedItem();
-        if (!ah.andraAvdelning(aid, Avdelning)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
-            return false;
-        }
+        
+        
+//denna ska bort och är den som fuckat ändra anställda
+//        String Avdelning = (String) comboAvdelning.getSelectedItem();
+//        if (!ah.andraAvdelning(aid, Avdelning)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
+//            return false;
+        
 
  
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
@@ -330,7 +340,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
                             .addComponent(lblFörklarDatum))
                         .addGap(18, 18, 18)
                         .addComponent(lblTelefon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblEpost)
