@@ -236,7 +236,7 @@ private void fyllTabell(){
 
     private void bnLaggTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillProjektActionPerformed
          new LäggTillProjekt().setVisible(true);
-                this.setVisible(false);
+//                this.setVisible(false);
     }//GEN-LAST:event_bnLaggTillProjektActionPerformed
 
     /**

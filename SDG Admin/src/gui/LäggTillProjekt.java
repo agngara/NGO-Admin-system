@@ -57,21 +57,21 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         String status = projekt.getStatus();
         comboStatus.setSelectedItem(status);
         
-        // Fill Projektchef
-        comboProjektchef.removeAllItems();
-        ProjektHanterare projektHanterare = new ProjektHanterare();
-        ArrayList<HashMap<String,String>> projektchef = projektHanterare.fetchAllProjekt();
-        String chef = ""; 
-
-        for (HashMap<String,String> hashmap : projektchef) {
-
-            chef = hashmap.get("projektchef");
-            comboProjektchef.addItem(chef);
-        }
-
-        String projektchefchef = projekt.getProjektchef();
-        comboLand.setSelectedItem(projektchefchef);  
-        
+//        // Fill Projektchef
+//        comboProjektchef.removeAllItems();
+//        ProjektHanterare projektHanterare = new ProjektHanterare();
+//        ArrayList<HashMap<String,String>> projektchef = projektHanterare.fetchAllProjekt();
+//        String chef = ""; 
+//
+//        for (HashMap<String,String> hashmap : projektchef) {
+//
+//            chef = hashmap.get("projektchef");
+//            comboProjektchef.addItem(chef);
+//        }
+//
+//        String projektchefchef = projekt.getProjektchef();
+//        comboLand.setSelectedItem(projektchefchef);  
+//        
         // Fill Land
         comboLand.removeAllItems();
         LandHanterare landHanterare = new LandHanterare();
@@ -98,24 +98,22 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         String slutdatum = txtSlutDatum.getText();
         String beskrivning = txtBeskrivning.getText();
         String kostnad = txtKostnad.getText();
-        
         String prioritet = (String) comboStatus.getSelectedItem();
         String status = (String) comboStatus.getSelectedItem();
-        String projektchef = (String) comboProjektchef.getSelectedItem();
-        String land = (String) comboLand.getSelectedItem();
+        String landId = (String) comboLand.getSelectedItem();
+        String projektchef = txtProjektchef.getText();
         
-//        String prioritet() = "";
+//        String prioritet = "";
 //        String status = "";
-//        String projektchef = "";
-        String landId = "1";
+//        String landId = "1";
+        
+//        try {
+//            String sqlFraga = "select projektchef from projekt where namn = '" + projektchef + "'";
+//            projektchef = idb.fetchSingle(sqlFraga);
+//        } catch (InfException ex) {}
         
         try {
-            String sqlFraga = "select projektchef from projekt where namn = '" + projektchef + "'";
-            projektchef = idb.fetchSingle(sqlFraga);
-        } catch (InfException ex) {}
-        
-        try {
-            String sqlFraga = "select lid from land where namn = '" + land + "'";
+            String sqlFraga = "select lid from land where namn = '" + landId + "'";
             landId = idb.fetchSingle(sqlFraga);
         } catch (InfException ex) {}
         
@@ -151,7 +149,6 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         txtSlutDatum = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnSparaAnstalld = new javax.swing.JButton();
-        comboProjektchef = new javax.swing.JComboBox<>();
         lblFörklarDatum = new javax.swing.JLabel();
         txtBeskrivning = new javax.swing.JTextField();
         lblEpost = new javax.swing.JLabel();
@@ -164,6 +161,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         comboStatus = new javax.swing.JComboBox<>();
         comboPrioritet = new javax.swing.JComboBox<>();
         lblFörklarDatum1 = new javax.swing.JLabel();
+        txtProjektchef = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -204,12 +202,6 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         btnSparaAnstalld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSparaAnstalldActionPerformed(evt);
-            }
-        });
-
-        comboProjektchef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboProjektchefActionPerformed(evt);
             }
         });
 
@@ -280,18 +272,14 @@ public class LäggTillProjekt extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(448, 448, 448)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboProjektchef, 0, 261, Short.MAX_VALUE)
-                                            .addComponent(comboLand, 0, 261, Short.MAX_VALUE)
-                                            .addComponent(comboStatus, 0, 261, Short.MAX_VALUE))
-                                        .addGap(20, 20, 20))))))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboLand, 0, 261, Short.MAX_VALUE)
+                                    .addComponent(comboStatus, 0, 261, Short.MAX_VALUE)
+                                    .addComponent(lblLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtProjektchef))
+                                .addGap(20, 20, 20))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProjektNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +305,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
                                 .addComponent(btnTillbakaTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(229, 229, 229)
                                 .addComponent(lblTitle)))
-                        .addContainerGap())))
+                        .addContainerGap(343, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(538, 538, 538)
@@ -349,20 +337,20 @@ public class LäggTillProjekt extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAnsDatum)
-                    .addComponent(jLabel2))
+                    .addComponent(lblAvdelning))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSlutDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFörklarDatum)
-                    .addComponent(comboProjektchef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefon)
-                    .addComponent(lblAvdelning))
+                    .addComponent(jLabel2))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtKostnad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProjektchef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(lblEpost)
                 .addGap(18, 18, 18)
@@ -409,10 +397,6 @@ public class LäggTillProjekt extends javax.swing.JFrame {
         projektruta anst = new projektruta();
         anst.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillProjektActionPerformed
-
-    private void comboProjektchefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProjektchefActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboProjektchefActionPerformed
 
     private void comboLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLandActionPerformed
         // TODO add your handling code here:
@@ -473,7 +457,6 @@ public class LäggTillProjekt extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnTillbakaTillProjekt;
     private javax.swing.JComboBox<String> comboLand;
     private javax.swing.JComboBox<String> comboPrioritet;
-    private javax.swing.JComboBox<String> comboProjektchef;
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -490,6 +473,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
     private javax.swing.JTextField txtBeskrivning;
     private javax.swing.JTextField txtKostnad;
     private javax.swing.JTextField txtProjektNamn;
+    private javax.swing.JTextField txtProjektchef;
     private javax.swing.JTextField txtSlutDatum;
     private javax.swing.JTextField txtStartDatum;
     // End of variables declaration//GEN-END:variables
