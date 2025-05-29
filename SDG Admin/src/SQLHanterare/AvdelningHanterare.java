@@ -49,6 +49,10 @@ public class AvdelningHanterare {
        
        return avdelning;
    }
+   
+    public String Avdid(){
+       return avdid;
+    }
 
     public ArrayList<HashMap<String, String>> fetchAllAvdelning() {
         ArrayList<HashMap<String, String>> rows = new ArrayList<>();
@@ -67,7 +71,7 @@ public class AvdelningHanterare {
    
     
     
-    public boolean laggTillAvdelning(String namn, String beskrivning)
+    public boolean laggTillAvdelning(String namn, String beskrivning, String adress, String epost, String telefon, String stad, String chef)
     {
         
           //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
@@ -262,7 +266,37 @@ public class AvdelningHanterare {
     
    }
 }
-         
+
+    public boolean taBortAvdelning (String avdid) {
+
+        if (!Validering.tomFalt(avdid, "avdelningID")) {
+        System.out.println("Avdid är tom");
+        return false;
+    }
+        try { 
+    
+       // ta bort från alla tabeller där avdid finns som nyckel. 
+       
+       String taBortAnstalld = "DELETE FROM anstalld WHERE avdid = '" + avdid + "'";
+       idb.delete(taBortAnstalld);
+       String taBortAvd_hallbarhet = "DELETE FROM avd_hallbarhet WHERE avdid = '" + avdid + "'";
+       idb.delete(taBortAvd_hallbarhet);
+       String taBort = "DELETE FROM avdelning WHERE avdid = '" + avdid + "'";
+       idb.delete(taBort);
+
+
+        return true;    
+    }
+
+        catch (InfException e) {
+    
+        e.printStackTrace();
+    
+        return false;
+    
+    }
+
+}
     
     
             
