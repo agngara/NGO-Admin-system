@@ -290,6 +290,7 @@ public class LaggTillLand extends javax.swing.JFrame {
 
     private void btnSparaPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaPartnerActionPerformed
           sparaLand();
+          
     }//GEN-LAST:event_btnSparaPartnerActionPerformed
 
     private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
