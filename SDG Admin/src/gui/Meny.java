@@ -281,7 +281,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_lblProfileMouseClicked
 
     private void btnVisaLanderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisaLanderActionPerformed
-        new Land().setVisible(true);
+        new Lander().setVisible(true);
     }//GEN-LAST:event_btnVisaLanderActionPerformed
 
 //    /**

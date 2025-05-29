@@ -38,16 +38,16 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="btnTillbakaTillPartner" min="-2" pref="52" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
+                              <Component id="btnTillbakaTillLand" min="-2" pref="52" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
                               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="btnSparaPartner" min="-2" pref="93" max="-2" attributes="0"/>
+                              <Component id="btnSparaLand" min="-2" pref="93" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lblFornamn" max="32767" attributes="0"/>
+                                          <Component id="lblFornamn" pref="52" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="441" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -55,15 +55,12 @@
                                               <Component id="lblAnsDatum" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblTelefon" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtNamn" pref="300" max="32767" attributes="0"/>
+                                                  <Component id="comboPolStru" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="452" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtNamn" pref="300" max="32767" attributes="0"/>
-                                              <Component id="comboPolStru" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -84,7 +81,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnTillbakaTillPartner" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnTillbakaTillLand" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -114,7 +111,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="comboPolStru" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSparaPartner" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="btnSparaLand" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="69" max="32767" attributes="0"/>
           </Group>
@@ -157,10 +154,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="L&#xe4;gg till Land"/>
+        <Property name="text" type="java.lang.String" value="Redigera Land"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSparaPartner">
+    <Component class="javax.swing.JButton" name="btnSparaLand">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="d8" green="60" red="7" type="rgb"/>
@@ -171,7 +168,7 @@
         <Property name="text" type="java.lang.String" value="Spara"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSparaPartnerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSparaLandActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboTidszon">
@@ -189,7 +186,7 @@
         <Property name="text" type="java.lang.String" value="Tidszon"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnTillbakaTillPartner">
+    <Component class="javax.swing.JToggleButton" name="btnTillbakaTillLand">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="d8" green="60" red="7" type="rgb"/>
@@ -199,7 +196,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaTillPartnerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTillbakaTillLandActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboPolStru">

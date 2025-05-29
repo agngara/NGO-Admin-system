@@ -3,16 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-import gui.anställdafiler.*;
 import java.util.ArrayList;
 import orgEntities.*;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.*;
-import oru.inf.InfDB;
-import db.DatabaseInterface;
-import oru.inf.InfException;
-import orgEntities.Partner;
+import gui.projektfiler.OneProjectView;
 
         
 
@@ -20,25 +16,41 @@ import orgEntities.Partner;
  *
  * @author theow
  */
-public class LaggTillLand extends javax.swing.JFrame {
+public class EditLand extends javax.swing.JFrame {
    
+    Lander lander;
     LandHanterare lh;
+    Land land;
+    String lid;
+          
     
-    
-    public LaggTillLand() {
+
+    public EditLand(Land land) {
+        this.land = land;
+        lid = land.getLid();
+
         initComponents();
-        fillComboBoxes();
-        
-        lh = new LandHanterare();
-        
-     
+        this.setTextBoxes();
+  
+        // metoden nedan är tilllagt nu
+        lh = new LandHanterare(lid);
         
     }
 
-    public void fillComboBoxes() {
-         
-        // Fill Språk
+
+    public void setTextBoxes() {
+
+        txtNamn.setText(land.getNamn());
+        this.fillComboBoxes();
+
+}
+    /**
+     * I sin nuvarande form hämtar inte metoden information från projektet som ska redigeras, utan läggar bara till i comboboxarna de alternativ som finns i databasen.
+     */
+    public void fillComboBoxes() { 
+    // Fill Språk
         
+        comboSprak.removeAllItems();        
         comboSprak.addItem("Sprak 1");
         comboSprak.addItem("Sprak 2");
         comboSprak.addItem("Sprak 3");
@@ -46,75 +58,80 @@ public class LaggTillLand extends javax.swing.JFrame {
         comboSprak.addItem("Sprak 5");
         comboSprak.addItem("Sprak 6");
         
+
         // Valuta
+        comboValuta.removeAllItems();   
         comboValuta.addItem("10.1234");
         comboValuta.addItem("20.5678");
         comboValuta.addItem("30.9876");
         comboValuta.addItem("40.5432");
         comboValuta.addItem("50.8765");
         comboValuta.addItem("60.4321");
+
+
         
         // FIll Tidszon 
+        comboTidszon.removeAllItems(); 
         comboTidszon.addItem("Tidszon 1");
         comboTidszon.addItem("Tidszon 2");
         comboTidszon.addItem("Tidszon 3");
         comboTidszon.addItem("Tidszon 4");
         comboTidszon.addItem("Tidszon 5");
         comboTidszon.addItem("Tidszon 6");
+
+
         
         // Fill politisk struktur
+        comboPolStru.removeAllItems(); 
         comboPolStru.addItem("Politisk struktur 1");
         comboPolStru.addItem("Politisk struktur 2");
         comboPolStru.addItem("Politisk struktur 3");
         comboPolStru.addItem("Politisk struktur 4");
         comboPolStru.addItem("Politisk struktur 5");
         comboPolStru.addItem("Politisk struktur 6");
+
         
         // Fill ekonomi
+        comboEkonomi.removeAllItems(); 
         comboEkonomi.addItem("Ekonomi 1");
         comboEkonomi.addItem("Ekonomi 2");
         comboEkonomi.addItem("Ekonomi 3");
         comboEkonomi.addItem("Ekonomi 4");
         comboEkonomi.addItem("Ekonomi 5");
         comboEkonomi.addItem("Ekonomi 6");
+
+
+}
+
+
+    public boolean setLandInfo() {
+
+        String namn = txtNamn.getText();
+        String sprak = (String) comboSprak.getSelectedItem();
+        String valuta = (String) comboValuta.getSelectedItem();
+        String tidszon = (String) comboTidszon.getSelectedItem();
+        String polstru = (String) comboPolStru.getSelectedItem();
+        String ekonomi = (String) comboPolStru.getSelectedItem();
+        
+        
+        if (!lh.andraNamn(namn)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera namn.");
+            return false;
+        }
+        
+        
+        
         
         
 
-        // Denna bit härstammar från ändra-entitet-funktioner (tror jag), och inte lägg till så dessa kommenteras ut.
-//        String tidszon = land.getStad();
-//        comboTidszon.setSelectedItem(StadNamn);        
-}
-         
-    private void sparaLand() {
-        // Ingen aning vad två rader nedan gör 
-//           String namn = txtNamn.getText();
-//           String sprak = txtsprak
+        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
         
-                   
-          
-           String namn = txtNamn.getText();
-           String sprak = (String) comboSprak.getSelectedItem();
-           String valuta = (String) comboValuta.getSelectedItem();
-           String tidszon = (String) comboTidszon.getSelectedItem();
-           String polstru = (String) comboPolStru.getSelectedItem();
-           String ekonomi = (String) comboEkonomi.getSelectedItem();
-              
-        
-        
-    
-        
-       
-        boolean ok = lh.laggTillLand(namn, sprak, valuta, tidszon, polstru, ekonomi);
-        if (ok) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Land sparat!");
-            this.setVisible(false);
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara land.");
-        }
-    
-    }    
-        
-      
+        return true;
+
+    }
+
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,10 +149,10 @@ public class LaggTillLand extends javax.swing.JFrame {
         lblEfternamn = new javax.swing.JLabel();
         txtNamn = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        btnSparaPartner = new javax.swing.JButton();
+        btnSparaLand = new javax.swing.JButton();
         comboTidszon = new javax.swing.JComboBox<>();
         lblTelefon = new javax.swing.JLabel();
-        btnTillbakaTillPartner = new javax.swing.JToggleButton();
+        btnTillbakaTillLand = new javax.swing.JToggleButton();
         comboPolStru = new javax.swing.JComboBox<>();
         comboSprak = new javax.swing.JComboBox<>();
         comboValuta = new javax.swing.JComboBox<>();
@@ -160,24 +177,24 @@ public class LaggTillLand extends javax.swing.JFrame {
         });
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitle.setText("Lägg till Land");
+        lblTitle.setText("Redigera Land");
 
-        btnSparaPartner.setBackground(new java.awt.Color(7, 96, 216));
-        btnSparaPartner.setForeground(new java.awt.Color(255, 255, 255));
-        btnSparaPartner.setText("Spara");
-        btnSparaPartner.addActionListener(new java.awt.event.ActionListener() {
+        btnSparaLand.setBackground(new java.awt.Color(7, 96, 216));
+        btnSparaLand.setForeground(new java.awt.Color(255, 255, 255));
+        btnSparaLand.setText("Spara");
+        btnSparaLand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSparaPartnerActionPerformed(evt);
+                btnSparaLandActionPerformed(evt);
             }
         });
 
         lblTelefon.setText("Tidszon");
 
-        btnTillbakaTillPartner.setBackground(new java.awt.Color(7, 96, 216));
-        btnTillbakaTillPartner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
-        btnTillbakaTillPartner.addActionListener(new java.awt.event.ActionListener() {
+        btnTillbakaTillLand.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillLand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
+        btnTillbakaTillLand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTillbakaTillPartnerActionPerformed(evt);
+                btnTillbakaTillLandActionPerformed(evt);
             }
         });
 
@@ -200,27 +217,25 @@ public class LaggTillLand extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnTillbakaTillPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(278, 278, 278)
+                                .addComponent(btnTillbakaTillLand, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(266, 266, 266)
                                 .addComponent(lblTitle))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnSparaPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSparaLand, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblFornamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblFornamn, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                                             .addGap(441, 441, 441))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(lblAnsDatum)
                                                 .addComponent(lblEfternamn)
-                                                .addComponent(lblTelefon))
-                                            .addGap(452, 452, 452))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                                .addComponent(comboPolStru, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGap(187, 187, 187)))
+                                                .addComponent(lblTelefon)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                                    .addComponent(comboPolStru, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addGap(193, 193, 193)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblLosenord)
                                         .addComponent(comboEkonomi, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -231,7 +246,7 @@ public class LaggTillLand extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTillbakaTillPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTillbakaTillLand, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitle))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +273,7 @@ public class LaggTillLand extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboPolStru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSparaPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSparaLand, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
@@ -269,16 +284,16 @@ public class LaggTillLand extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamnActionPerformed
 
-    private void btnSparaPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaPartnerActionPerformed
-          sparaLand();
+    private void btnSparaLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaLandActionPerformed
+           if (setLandInfo()) {}
           
-    }//GEN-LAST:event_btnSparaPartnerActionPerformed
+    }//GEN-LAST:event_btnSparaLandActionPerformed
 
-    private void btnTillbakaTillPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillPartnerActionPerformed
+    private void btnTillbakaTillLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillLandActionPerformed
         this.setVisible(false);
-        Partners partners = new Partners();
-        partners.setVisible(true);
-    }//GEN-LAST:event_btnTillbakaTillPartnerActionPerformed
+        Lander land = new Lander();
+        land.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillLandActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,14 +312,30 @@ public class LaggTillLand extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LaggTillLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LaggTillLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LaggTillLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LaggTillLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditLand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -331,8 +362,8 @@ public class LaggTillLand extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSparaPartner;
-    private javax.swing.JToggleButton btnTillbakaTillPartner;
+    private javax.swing.JButton btnSparaLand;
+    private javax.swing.JToggleButton btnTillbakaTillLand;
     private javax.swing.JComboBox<String> comboEkonomi;
     private javax.swing.JComboBox<String> comboPolStru;
     private javax.swing.JComboBox<String> comboSprak;
@@ -348,3 +379,4 @@ public class LaggTillLand extends javax.swing.JFrame {
     private javax.swing.JTextField txtNamn;
     // End of variables declaration//GEN-END:variables
 }
+
