@@ -595,9 +595,9 @@ public boolean andraAdress(String aid, String nyAdress)
      * @return  
  */
 
-    public boolean taBortAnstalld (Anstalld a) {
+    public boolean taBortAnstalld (String aid) {
 
-    String aid = a.getAid();
+    
     
     if (!Validering.tomFalt(aid, "anställningsID")) {
         System.out.println("Aid är tom");
@@ -615,9 +615,9 @@ public boolean andraAdress(String aid, String nyAdress)
        idb.delete(taBortAnsPro);
        String taBort = "DELETE FROM anstalld WHERE aid = '" + aid + "'";
        idb.delete(taBort);
-       
+      
     
-    System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
+    
     return true;    
 }
 
