@@ -320,7 +320,6 @@ public class OneProjectView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblDisplayKostnadSoFar = new javax.swing.JLabel();
         lblDisplayKostnad2 = new javax.swing.JLabel();
-        lblKostnadCompare = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPartners = new javax.swing.JTable();
@@ -402,8 +401,6 @@ public class OneProjectView extends javax.swing.JFrame {
         lblDisplayKostnad2.setForeground(new java.awt.Color(7, 96, 216));
         lblDisplayKostnad2.setText("30000");
 
-        lblKostnadCompare.setText("Kostnaden är 30% högre än medelvärdet ");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -418,10 +415,8 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addComponent(lblDisplayKostnadSoFar))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDisplayKostnad2)
-                            .addComponent(lblKostnadCompare))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addComponent(lblDisplayKostnad2)))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,9 +427,7 @@ public class OneProjectView extends javax.swing.JFrame {
                 .addComponent(lblDisplayKostnadSoFar)
                 .addGap(51, 51, 51)
                 .addComponent(lblDisplayKostnad2)
-                .addGap(60, 60, 60)
-                .addComponent(lblKostnadCompare)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(452, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -825,7 +818,6 @@ public class OneProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel lblEditProject1;
     private javax.swing.JLabel lblEkonomi;
     private javax.swing.JLabel lblInsikter;
-    private javax.swing.JLabel lblKostnadCompare;
     private javax.swing.JLabel lblPartners;
     private javax.swing.JLabel lblProjChef;
     private javax.swing.JLabel lblRemoveHandlaggare;

@@ -253,7 +253,34 @@ public class LandHanterare {
        
        return lid;
    }
+
+    public boolean taBortLand(String lid) {
+         
+        if (!Validering.tomFalt(lid, "landID")) {
+        System.out.println("Lid är tom");
+        return false;
+    }
+        try { 
+       // ta bort från alla tabeller där aid finns som nyckel.
+       
+       String taBortProjekt = "DELETE FROM projekt WHERE lid = '" + lid + "'";
+       idb.delete(taBortProjekt);
+       String taBortStad = "DELETE FROM stad WHERE lid = '" + lid + "'";
+       idb.delete(taBortStad);
+       String taBort = "DELETE FROM land WHERE lid = '" + lid + "'";
+       idb.delete(taBort);
+    
+       return true;    
+      }
+       catch (InfException e) {
+    
+       e.printStackTrace();
+    
+    return false;
+    
+    }
+    }
+
 }
-   
    
 
