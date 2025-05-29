@@ -88,29 +88,34 @@ public class EditAnställda1 extends javax.swing.JFrame {
             return false;
         }
 
-        String Losenord = txtLosenord.getText();
-        if (!ah.andraLosenord(aid, Losenord)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
-            return false;
-        }
+       
 
         String Fornamn = txtFornamn.getText();
         if (!ah.andraFornamn(aid, Fornamn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera förnamn.");
             return false;
         }
-
+        
+        String Losenord = txtLosenord.getText();
+        if (!ah.andraLosenord(aid, Losenord)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
+            return false;
+        }
+       
+        
         String Anstallningsdatum = txtAnsDatum.getText();
         if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
             return false;
         }
-
-        String Avdelning = (String) comboAvdelning.getSelectedItem();
-        if (!ah.andraAvdelning(aid, Avdelning)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
-            return false;
-        }
+        
+        
+//denna ska bort och är den som fuckat ändra anställda
+//        String Avdelning = (String) comboAvdelning.getSelectedItem();
+//        if (!ah.andraAvdelning(aid, Avdelning)) {
+//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
+//            return false;
+        
 
  
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
