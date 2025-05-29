@@ -22,14 +22,16 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
     AnstalldHanterare ah;
     String aid;
     OneProjectView oneProjectView;
+    Meny meny;
     
      
     
     /**
      * Creates new form EditProjectFields
      */
-    public EditMinaUppgifter(Anstalld anstalld) {
+    public EditMinaUppgifter(Anstalld anstalld, Meny meny) {
         this.anstalld = anstalld;
+        this.meny = meny;
         initComponents();
         this.setTextBoxes();
         aid = anstalld.getAid();
@@ -303,6 +305,10 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         if (setAnstalldInfo()) {
             
             this.setVisible(false);
+            new Meny().setVisible(true);
+            meny.setVisible(false);
+            
+            
         }
         
         
@@ -318,6 +324,7 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEpostActionPerformed
 
     private void btnTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillMenyActionPerformed
+        
         this.setVisible(false);
     }//GEN-LAST:event_btnTillbakaTillMenyActionPerformed
 
