@@ -17,6 +17,9 @@ import oru.inf.InfException;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
 import java.awt.event.ActionEvent;
+import orgEntities.Projekt;
+import sdg.admin.projekt;
+import SQLHanterare.PartnerHanterare;
 /**
  *
  * @author amandahelinlarsson
