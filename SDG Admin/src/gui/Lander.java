@@ -10,12 +10,14 @@ import db.DatabaseInterface;
 import gui.Anställda;
 import gui.Lander;
 import gui.Meny;
+import gui.projektfiler.EditProjectFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
+import orgEntities.Land;
 /**
  *
  * @author stina
@@ -35,6 +37,7 @@ public class Lander extends javax.swing.JFrame {
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
+        tableMouseEvent();
     }
     
     private void fyllTabell(){
@@ -42,7 +45,7 @@ public class Lander extends javax.swing.JFrame {
             String query = "SELECT * FROM land";
             ArrayList<HashMap< String, String >> landLista = idb.fetchRows(query);
 
-            String [] columnNames = {"lid","namn","sprak","valuta","tidzon","politisk_struktur", "ekonomi"};
+            String [] columnNames = {"lid","namn","sprak","valuta","tidzon","politisk_struktur", "ekonomi", ""};
             DefaultTableModel model = new DefaultTableModel (columnNames, 0);
             
             if (landLista == null || landLista.isEmpty()) {
@@ -59,7 +62,7 @@ public class Lander extends javax.swing.JFrame {
                 String ekonomi = land.get("ekonomi");
                 
                 
-            model.addRow(new Object[] {lid, namn, sprak, valuta, tidszon, politiskStruktur, ekonomi});
+            model.addRow(new Object[] {lid, namn, sprak, valuta, tidszon, politiskStruktur, ekonomi, "Redigera"});
         }
     }
         tblLander.setModel(model);
@@ -79,6 +82,33 @@ public class Lander extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort Land.");
 
         }
+    }
+    
+    
+    public void tableMouseEvent() {
+        
+        tblLander.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = tblLander.rowAtPoint(evt.getPoint());
+        int col = tblLander.columnAtPoint(evt.getPoint());
+        if (row >= 0 && col == 7) {
+                
+            Object varde = tblLander.getValueAt(row, 0);
+            String lid = varde.toString();
+            LandHanterare landHanterare = new LandHanterare(lid);
+            Land land = new Land(landHanterare);
+            new EditLand(land).setVisible(true);
+            
+ 
+            
+            
+
+            }
+        }
+    }
+    );
+        
     }
     
     

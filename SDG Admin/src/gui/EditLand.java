@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
-import java.util.ArrayList;
 import orgEntities.*;
-import java.util.HashMap;
 import SQLHanterare.*;
 import gui.*;
-import gui.projektfiler.OneProjectView;
 
         
 
@@ -114,24 +111,37 @@ public class EditLand extends javax.swing.JFrame {
         String ekonomi = (String) comboPolStru.getSelectedItem();
         
         
-        if (!lh.andraNamn(namn)) {
+        if (!lh.andraNamn(lid, namn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera namn.");
             return false;
         }
-        
-        
-        
-        
-        
+        if (!lh.andraSprak(lid, sprak)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera språk.");
+            return false;
+        }
+        if (!lh.andraValuta(lid, valuta)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera valuta.");
+            return false;
+        }
+        if (!lh.andraTidszon(lid, tidszon)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera tidszon.");
+            return false;
+        }
+        if (!lh.andraPolitiskStruktur(lid, polstru)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera politisk struktur.");
+            return false;
+        }
+        if (!lh.andraEkonomi(lid, ekonomi)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera ekonomi.");
+            return false;
+        }
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
+        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats.");
         
         return true;
 
     }
 
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -285,7 +295,10 @@ public class EditLand extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNamnActionPerformed
 
     private void btnSparaLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaLandActionPerformed
-           if (setLandInfo()) {}
+           if (setLandInfo()) {
+           this.setVisible(false);
+               
+           }
           
     }//GEN-LAST:event_btnSparaLandActionPerformed
 

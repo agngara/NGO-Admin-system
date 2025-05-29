@@ -8,6 +8,8 @@ import orgEntities.Projekt;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.projektfiler.OneProjectView;
+import logicComponents.User.CurrentUser;
+import logicComponents.User.UserType;
 
 /**
  *
@@ -28,21 +30,37 @@ public class EditProjectFields extends javax.swing.JFrame {
     public EditProjectFields(Projekt projekt, OneProjectView oneProjectView) {
         this.projekt = projekt;
         initComponents();
+        hideBigBossComponents();
         this.setTextBoxes();
         pid = projekt.getPid();
         ph = new ProjektHanterare(pid);
         this.oneProjectView = oneProjectView;
         
     }
+    /**
+     * Returns true if items should be hid.
+     * @return 
+     */
+    public boolean hideBigBossComponents() {
+    
+    if (CurrentUser.getUsr().getUserType() != UserType.admin1 && CurrentUser.getUsr().getUserType() != UserType.admin2) {
+        
+        lblProjektChef.setVisible(false);
+        txtProjChef.setVisible(false);
+        return true;
+    }
+    
+    return false;
+    
+}
     
     public void setTextBoxes() {
         
         txtProjID1.setText(projekt.getPid());
         txtBeskrivning.setText(projekt.getBeskrivning());
         txtKostnad.setText(projekt.getKostnad());
-        //txtPrioritet.setText(projekt.getPrioritet());
-        //txtProjektChef.setText(projekt.getProjektchef());
-        txtProjektNamn.setText(projekt.getProjektnamn());
+        txtProjChef.setText(projekt.getProjektchef());
+        txtProjektNamn1.setText(projekt.getProjektnamn());
         txtSlutDatum.setText(projekt.getSlutdatum());
         txtStartDatum.setText(projekt.getStartdatum());
         //txtStatus.setText(projekt.getStatus());
@@ -115,7 +133,7 @@ public class EditProjectFields extends javax.swing.JFrame {
             return false;
         }
 
-        String projektnamn = txtProjektNamn.getText();
+        String projektnamn = txtProjektNamn1.getText();
         if (!ph.andraProjektnamn(pid, projektnamn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projektnamn.");
             return false;
@@ -147,7 +165,14 @@ public class EditProjectFields extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera land.");
             return false;
         }
-
+        
+        if (!hideBigBossComponents()) {
+        String projektchef = txtProjChef.getText();
+        if (!ph.andraProjektchef(pid, projektchef)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projektchef.");
+            return false;
+        }
+        }
 
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
         
@@ -178,7 +203,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         lblStatus = new javax.swing.JLabel();
         lblPrioritet = new javax.swing.JLabel();
         lblNamn = new javax.swing.JLabel();
-        txtProjektNamn = new javax.swing.JTextField();
+        txtProjChef = new javax.swing.JTextField();
         txtProjID1 = new javax.swing.JTextField();
         txtSlutDatum = new javax.swing.JTextField();
         txtKostnad = new javax.swing.JTextField();
@@ -191,6 +216,8 @@ public class EditProjectFields extends javax.swing.JFrame {
         ComboPrio = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblProjektChef = new javax.swing.JLabel();
+        txtProjektNamn1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -212,9 +239,9 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         lblNamn.setText("Land*");
 
-        txtProjektNamn.addActionListener(new java.awt.event.ActionListener() {
+        txtProjChef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProjektNamnActionPerformed(evt);
+                txtProjChefActionPerformed(evt);
             }
         });
 
@@ -270,6 +297,14 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         jLabel2.setText("ÅÅÅÅ-MM-DD");
 
+        lblProjektChef.setText("[ADMIN] Ändra projektchef  (AID)");
+
+        txtProjektNamn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProjektNamn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -306,17 +341,23 @@ public class EditProjectFields extends javax.swing.JFrame {
                                 .addGap(95, 95, 95)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboStatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProjektNamn, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                    .addComponent(ComboPrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboLand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtProjChef, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblProjektChef)
                                             .addComponent(lblProjektNamn)
                                             .addComponent(lblPrioritet)
                                             .addComponent(lblNamn)
                                             .addComponent(lblStatus))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(ComboPrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ComboLand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(31, 31, 31))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(534, 534, 534)
+                    .addComponent(txtProjektNamn1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                    .addGap(21, 21, 21)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,9 +369,7 @@ public class EditProjectFields extends javax.swing.JFrame {
                     .addComponent(lblProjektID)
                     .addComponent(lblProjektNamn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProjektNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProjID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtProjID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblStartDatum)
@@ -359,21 +398,30 @@ public class EditProjectFields extends javax.swing.JFrame {
                     .addComponent(txtKostnad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRedigera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblBeskrivning)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBeskrivning)
+                    .addComponent(lblProjektChef))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtProjChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(114, 114, 114)
+                    .addComponent(txtProjektNamn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(444, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtProjektNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjektNamnActionPerformed
+    private void txtProjChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjChefActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProjektNamnActionPerformed
+    }//GEN-LAST:event_txtProjChefActionPerformed
 
     private void txtProjID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjID1ActionPerformed
         // TODO add your handling code here:
@@ -407,6 +455,10 @@ public class EditProjectFields extends javax.swing.JFrame {
         
    
     }//GEN-LAST:event_btnRedigeraActionPerformed
+
+    private void txtProjektNamn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProjektNamn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProjektNamn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,6 +506,7 @@ public class EditProjectFields extends javax.swing.JFrame {
     private javax.swing.JLabel lblKostnad;
     private javax.swing.JLabel lblNamn;
     private javax.swing.JLabel lblPrioritet;
+    private javax.swing.JLabel lblProjektChef;
     private javax.swing.JLabel lblProjektID;
     private javax.swing.JLabel lblProjektNamn;
     private javax.swing.JLabel lblSlutDatum;
@@ -462,8 +515,9 @@ public class EditProjectFields extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtBeskrivning;
     private javax.swing.JTextField txtKostnad;
+    private javax.swing.JTextField txtProjChef;
     private javax.swing.JTextField txtProjID1;
-    private javax.swing.JTextField txtProjektNamn;
+    private javax.swing.JTextField txtProjektNamn1;
     private javax.swing.JTextField txtSlutDatum;
     private javax.swing.JTextField txtStartDatum;
     // End of variables declaration//GEN-END:variables
