@@ -242,8 +242,38 @@ public class AvdelningHanterare {
     }
     
    }
+    }
+         
+        public boolean andraChef(String avdid, String nyChef) {
+            
+            
+         {
+          if (!Validering.tomFalt(nyChef, "chef")) {
+          
+           System.out.println("avdid eller telefon får inte vara tom.");
+           return false;
+        }
+    {
+        try{
+            String chefen = "UPDATE avdelning SET telefon = '" + nyChef + "WHERE avdid" + avdid + "'";
+            idb.update(chefen);
+            return true;
+            
+           } catch (InfException e) {
+               
+           
+                    e.printStackTrace();
+                    return false;
+           }
+        
+    }
+          
          
     }
+         
+         
+         
+        }
     
     public ArrayList<HashMap<String, String>> getAllAvdelning()
   {

@@ -53,7 +53,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
             comboStad.addItem(namn);
         }
 
-        String stadNamn = avdelning.getStad;
+        String stadNamn = avdelning.getStad();
         comboStad.setSelectedItem(stadNamn);        
 }
          
@@ -308,8 +308,8 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
 
     private void btnTillbakaTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillAvdelningActionPerformed
         this.setVisible(false);
-        Avdelning avdelning = new Avdelning();
-        avdelning.setVisible(true);
+        Avdelningar avdelningar = new Avdelningar();
+        avdelningar.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillAvdelningActionPerformed
 
     /**

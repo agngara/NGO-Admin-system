@@ -22,28 +22,27 @@ public class EditAvdelning extends javax.swing.JFrame {
     Avdelning avdelning;
     AvdelningHanterare avdh;
     String avdid;
-    OneProjectView oneProjectView;
+    
     
 
     public EditAvdelning(Avdelning avdelning) {
         this.avdelning = avdelning;
         initComponents();
         this.setTextBoxes();
-        avdid = avdelning.getAid();
+        avdid = avdelning.getAvdid();
         // metoden nedan är tilllagt nu
-        avdh = new AvdelningHanterare()
-        this.oneProjectView = oneProjectView;
+        avdh = new AvdelningHanterare();
 
     }
 
     public void setTextBoxes() {
         
-        txtAdress.setText(avdelning.getAdress());
-        txtBeskrivning.setText(avdelning.getEfternamn());
-        txtNamn.setText(avdelning.getFornamn());
-        txtChef.setText(avdelning.getLosenord());
         txtTelefon.setText(avdelning.getTelefon());
-        txtEpost.setText(avdelning.getEpost());
+        txtBeskrivning.setText(avdelning.getBeskrivning());
+        txtNamn.setText(avdelning.getNamn());
+        txtChef.setText(avdelning.getChef());
+        txtepost.setText(avdelning.getEpost());
+        txt1Adress.setText(avdelning.getAdress());
         this.fillComboBoxes();
 
     }
@@ -52,8 +51,9 @@ public class EditAvdelning extends javax.swing.JFrame {
         
         //FIll Stad
          comboStad.removeAllItems();
+        AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
         StadHanterare stadHanterare = new StadHanterare();
-        ArrayList<HashMap<String,String>> Stad = stadHanterare.getAllStad();
+        ArrayList<HashMap<String,String>> Stad = stadHanterare.fetchAllStad();
         String namn = ""; 
 
         for (HashMap<String,String> hashmap : Stad) {
@@ -61,37 +61,51 @@ public class EditAvdelning extends javax.swing.JFrame {
             namn = hashmap.get("namn");
             comboStad.addItem(namn);
         }
-
+        // Sets correct stad in preview/select.
         String StadNamn = avdelning.getStad();
         comboStad.setSelectedItem(StadNamn);
 }
      
     public boolean setAvdelningInfo() {
 
-        String Adress = txtAdress.getText();
-        if (!avdh.andraAdress(avdid, Adress)) {
+        String telefon = txtTelefon.getText();
+        if (!avdh.andraTelefon(avdid, telefon)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
             return false;
         }
 
-        String Beskrivning = txtBeskrivning.getText();
-        if (!avdh.andraEfternamn(avdid, Beskrivning)) {
+        String beskrivning = txtBeskrivning.getText();
+        if (!avdh.andraBeskrivning(avdid, beskrivning)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera beskrivning.");
             return false;
         }
 
        
-         String Namn = txtNamn.getText();
-        if (!avdh.andraFornamn(avdid, Namn)) {
+         String namn = txtNamn.getText();
+        if (!avdh.andraNamn(avdid, namn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera Namn.");
             return false;
         }
         
         String chef = txtChef.getText();
-        if (!avdh.andraLosenord(avdid, chef)) {
+        if (!avdh.andraChef(avdid, chef)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
             return false;
         }
+        
+        String epost = txtChef.getText();
+        if (!avdh.andraEpost(avdid, epost)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            return false;
+        }
+        
+        
+        String adress = txtChef.getText();
+        if (!avdh.andraAdress(avdid, adress)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            return false;
+        }
+        
        
         
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
@@ -121,13 +135,13 @@ public class EditAvdelning extends javax.swing.JFrame {
         txtChef = new javax.swing.JTextField();
         txtNamn = new javax.swing.JTextField();
         txtBeskrivning = new javax.swing.JTextField();
-        txtAdress = new javax.swing.JTextField();
+        txtTelefon = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnSparaAvdelning = new javax.swing.JButton();
         comboStad = new javax.swing.JComboBox<>();
-        txtEpost = new javax.swing.JTextField();
+        txt1Adress = new javax.swing.JTextField();
         lblEpost = new javax.swing.JLabel();
-        txtTelefon = new javax.swing.JTextField();
+        txtepost = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
         btnTillbakaTillAvdelning = new javax.swing.JToggleButton();
 
@@ -161,9 +175,9 @@ public class EditAvdelning extends javax.swing.JFrame {
             }
         });
 
-        txtAdress.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAdressActionPerformed(evt);
+                txtTelefonActionPerformed(evt);
             }
         });
 
@@ -181,17 +195,17 @@ public class EditAvdelning extends javax.swing.JFrame {
 
         comboStad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtEpost.addActionListener(new java.awt.event.ActionListener() {
+        txt1Adress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEpostActionPerformed(evt);
+                txt1AdressActionPerformed(evt);
             }
         });
 
         lblEpost.setText("E-post");
 
-        txtTelefon.addActionListener(new java.awt.event.ActionListener() {
+        txtepost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonActionPerformed(evt);
+                txtepostActionPerformed(evt);
             }
         });
 
@@ -217,14 +231,14 @@ public class EditAvdelning extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtBeskrivning, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                                 .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txt1Adress, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(lblAnsDatum)
                             .addComponent(lblFornamn)
                             .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTelefon)
                             .addComponent(lblEpost)
-                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(193, 193, 193)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -268,7 +282,7 @@ public class EditAvdelning extends javax.swing.JFrame {
                     .addComponent(lblAvdelning))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt1Adress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -276,11 +290,11 @@ public class EditAvdelning extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblEpost)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtepost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTelefon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -303,27 +317,27 @@ public class EditAvdelning extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBeskrivningActionPerformed
 
-    private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
+    private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAdressActionPerformed
+    }//GEN-LAST:event_txtTelefonActionPerformed
 
     private void btnSparaAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaAvdelningActionPerformed
         
         if (setAvdelningInfo()) {}
     }//GEN-LAST:event_btnSparaAvdelningActionPerformed
 
-    private void txtEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEpostActionPerformed
+    private void txt1AdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1AdressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEpostActionPerformed
+    }//GEN-LAST:event_txt1AdressActionPerformed
 
-    private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
+    private void txtepostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtepostActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonActionPerformed
+    }//GEN-LAST:event_txtepostActionPerformed
 
     private void btnTillbakaTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillAvdelningActionPerformed
         this.setVisible(false);
-        Avdelning avdelning = new Avdelning();
-        avdelning.setVisible(true);
+        Avdelningar avdelningar = new Avdelningar();
+        avdelningar.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillAvdelningActionPerformed
 
     /**
@@ -376,11 +390,11 @@ public class EditAvdelning extends javax.swing.JFrame {
     private javax.swing.JLabel lblLosenord;
     private javax.swing.JLabel lblTelefon;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtAdress;
+    private javax.swing.JTextField txt1Adress;
     private javax.swing.JTextField txtBeskrivning;
     private javax.swing.JTextField txtChef;
-    private javax.swing.JTextField txtEpost;
     private javax.swing.JTextField txtNamn;
     private javax.swing.JTextField txtTelefon;
+    private javax.swing.JTextField txtepost;
     // End of variables declaration//GEN-END:variables
 }

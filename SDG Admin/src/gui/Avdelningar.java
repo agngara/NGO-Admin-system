@@ -4,6 +4,7 @@
  */
 package gui;
 import SQLHanterare.AnstalldHanterare;
+import SQLHanterare.AvdelningHanterare;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
@@ -189,21 +190,21 @@ public class Avdelningar extends javax.swing.JFrame {
     private void bnTaBortAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAvdelningActionPerformed
 
         int selectedRow = tblAvdelning.getSelectedRow();
-        int column = 1;
-        String avdelningsID = "";
-        avdelningsID = (String) tblAvdelning.getValueAt(selectedRow, 0);
+          //int column = 1; 
+          if (selectedRow == -1) {
+              System.out.println("Ingen vald rad");
+              return;
+          }
+          
+          int columnIndex = 0;
+          String avdid = (String) tblAvdelning.getValueAt(selectedRow, columnIndex);
 
-        if (selectedRow != -1) {
-
-            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort avdelningen?") == JOptionPane.YES_OPTION ) {
-
+       
+            
+          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
+            
                 removeAvdelning(avdid);
             }
-
-        } else {
-
-            System.out.println("Ingen rad är vald.");
-        }
     }//GEN-LAST:event_bnTaBortAvdelningActionPerformed
 
     private void bnLaggTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillAvdelningActionPerformed
