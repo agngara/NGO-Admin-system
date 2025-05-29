@@ -26,6 +26,7 @@ public class AnstalldHanterare {
    private InfDB idb;
    private HashMap<String, String> anstalld;
    private String query;
+   private String aid;
    private String email;
    
    /**
@@ -36,6 +37,23 @@ public class AnstalldHanterare {
        idb = DatabaseInterface.databaseConnection();
        
    }
+   
+//   public AnstalldHanterare(String aid) {
+//       
+//       this.aid = aid;
+//       query = "SELECT * FROM anstalld WHERE aid = " + "'" + aid + "'";
+//       idb = DatabaseInterface.databaseConnection();
+//       
+//       try {
+//           
+//           anstalld = idb.fetchRow(query);
+//           
+//       } catch (InfException exception) {
+//           
+//       }
+//        
+//       
+//   }
    
    public AnstalldHanterare(String aid, String filler) {
        
@@ -336,19 +354,18 @@ public class AnstalldHanterare {
 
 // koderna under avsedda för att ändra mina uppgifter.
    
- public boolean andraAid(String aid, String nyAid)
+ public boolean andraAid(String nyAid, String gammalAid)
 {
     {
-        if (!Validering.tomFalt(nyAid, "aid")) {
-//(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
-            System.out.println("aid får inte vara tom");
-            return false;
-        }
+        if (!Validering.tomFalt(nyAid, "aid")) return false;
+        if (!Validering.tomFalt(gammalAid, "gammalAid")) return false;
+           
+        
     }
                
     try {
-        String nyttAid = "UPDATE anstalld SET aid = '" + nyAid + "' WHERE aid = '" + aid + "'";
-        idb.update(nyttAid);
+       String fraga = "UPDATE anstalld SET aid = " + nyAid + " WHERE pid = " + gammalAid;
+        idb.update(fraga);
         return true;
 } 
     catch (InfException e) {
@@ -359,7 +376,7 @@ public class AnstalldHanterare {
 }  
    
  
-  public boolean andraAvdelning(String avdid, String nyAvdelning)
+  public boolean andraAvdelning(String aid, String nyAvdelning)
 {
     {
         if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
@@ -369,7 +386,7 @@ public class AnstalldHanterare {
     }
            
     try {
-        String nyttAvdelning = "UPDATE anstalld SET avdelning = '" + nyAvdelning + "' WHERE avdid = '" + avdid + "'";
+        String nyttAvdelning = "UPDATE anstalld " + "SET avdelning = " + nyAvdelning + " WHERE aid = " + aid;
         idb.update(nyttAvdelning);
         return true;
 } 
@@ -383,15 +400,14 @@ public class AnstalldHanterare {
 
  public boolean andraAnstallningsdatum(String aid, String nyAnsdatum)
 {
-    {
-        if (!Validering.tomFalt(nyAnsdatum, "anställningsdatum") && Validering.giltigtDatum(nyAnsdatum)) {
-            System.out.println("Anställningsdatum får inte vara tom");
-            return false;
-        }
-    }
+    
+    if (!Validering.tomFalt(nyAnsdatum, "anställningsdatum")) return false; 
+
+               
+       if (!Validering.giltigtDatum(nyAnsdatum)) return false;
            
     try {
-        String nyttAnsdatum = "UPDATE anstalld SET anställningsdatum = '" + nyAnsdatum + "' WHERE aid = '" + aid + "'";
+        String nyttAnsdatum = "UPDATE anstalld SET anstallningsdatum = '" + nyAnsdatum + "' WHERE aid = " + aid;
         idb.update(nyttAnsdatum);
         return true;
 } 
@@ -405,18 +421,16 @@ public class AnstalldHanterare {
 public boolean andraEpost(String aid, String nyEpost)
 {
     {
-        if (!Validering.tomFalt(nyEpost, "epost") ||
-        !Validering.giltigEpost(nyEpost)) {
-    //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
-            System.out.println("aid eller epost får inte vara tom");
-            return false;
+        if (!Validering.tomFalt(nyEpost, "epost")) return false;
+        if (!Validering.giltigEpost(nyEpost)) return false;
+    
         }
-    }
+    
            
     
     
     try {
-        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = '" + aid + "'";
+        String ePost = "UPDATE anstalld SET epost = '" + nyEpost + "' WHERE aid = " + aid;
         idb.update(ePost);
         return true;
 } 
@@ -430,17 +444,17 @@ public boolean andraEpost(String aid, String nyEpost)
 public boolean andraTelefon(String aid, String nyTelefon)
 {
     {
-        if (!Validering.tomFalt(nyTelefon, "telefon") ||
-        !Validering.giltigEpost(nyTelefon)) {
-            System.out.println("aid eller telefon får inte vara tom");
-            return false;
-        }
-    }
+        if (!Validering.tomFalt(nyTelefon, "telefon")) return false;
+        if (!Validering.giltigtTelefonnummer(nyTelefon)) return false;
+      
+       
+     }
+    
            
     
     
     try {
-        String telefon = "UPDATE anstalld SET telefon = '" + nyTelefon + "' WHERE aid = '" + aid + "'";
+        String telefon = "UPDATE anstalld SET telefon = " + nyTelefon + " WHERE aid = " + aid;
         idb.update(telefon);
         return true;
 } 
@@ -457,7 +471,7 @@ public boolean andraTelefon(String aid, String nyTelefon)
      {
           if (!Validering.tomFalt(nyttLosenord, "lösenord")) {
        
-            System.out.println("aid eller losenird får inte vara tom");
+            
             return false;
         }
     }
@@ -465,7 +479,7 @@ public boolean andraTelefon(String aid, String nyTelefon)
     
     
     try {
-          String losenord = "UPDATE anstalld SET losenord = '" + nyttLosenord + "' WHERE aid = '" + aid + "'";
+          String losenord = "UPDATE anstalld SET losenord = '" + nyttLosenord + "' WHERE aid = " + aid;
           idb.update(losenord);
           return true;
 }
@@ -486,7 +500,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
    {
         if (!Validering.tomFalt(nyttFornamn, "förnamn")) {
         
-            System.out.println("aid eller förnamn får inte vara tom");
+            
             return false;
         }
     }
@@ -494,7 +508,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
     
     try {
 
-           String fornamn = "UPDATE anstalld SET fornamn = '" + nyttFornamn + "' WHERE aid = '" + aid + "'";
+           String fornamn = "UPDATE anstalld SET fornamn = '" + nyttFornamn + "' WHERE aid = " + aid;
            idb.update(fornamn);
            return true;
 }
@@ -516,7 +530,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
      {
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
        
-            System.out.println("aid eller efternamn får inte vara tom");
+            
             return false;
        
     
@@ -525,7 +539,7 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
     
     try {
 
-           String efternamn = "UPDATE anstalld SET efternamn = '" + nyttEfternamn + "' WHERE aid = '" + aid + "'";
+           String efternamn = "UPDATE anstalld SET efternamn = '" + nyttEfternamn + "' WHERE aid = " + aid;
            idb.update(efternamn);
            return true;
 }
@@ -547,16 +561,16 @@ public boolean andraAdress(String aid, String nyAdress)
 {
     {
         
-        if(!Validering.tomFalt(nyAdress, "adress")) {
+        if(!Validering.tomFalt(nyAdress, "adress")) return false;
             
-            System.out.println("aid eller adress får inte vara tom");
-            return false;
-        }
+            
+            
+        
     }
     
     try {
 
-           String adress = "UPDATE anstalld SET adress = ' " + nyAdress + " ' WHERE aid = ' " + aid + "'";
+           String adress = "UPDATE anstalld SET adress = '" + nyAdress + "' WHERE aid = " + aid;
            idb.update(adress);
            return true;
 }
@@ -594,14 +608,15 @@ public boolean andraAdress(String aid, String nyAdress)
        // ta bort från alla tabeller där aid finns som nyckel. 
        
        String taBortAdmin = "DELETE FROM admin WHERE aid = '" + aid + "'";
+       idb.delete(taBortAdmin);
        String taBortHand = "DELETE FROM handlaggare WHERE aid = '" + aid + "'";
+       idb.delete(taBortHand);
        String taBortAnsPro = "DELETE FROM ans_proj WHERE aid = '" + aid + "'";
+       idb.delete(taBortAnsPro);
        String taBort = "DELETE FROM anstalld WHERE aid = '" + aid + "'";
+       idb.delete(taBort);
        
-    idb.delete(taBortAdmin);
-    idb.delete(taBortHand);
-    idb.delete(taBortAnsPro);
-    idb.delete(taBort);
+    
     System.out.println("Anställd borttagen: "  + a.getFornamn() + " " + a.getEfternamn());
     return true;    
 }
