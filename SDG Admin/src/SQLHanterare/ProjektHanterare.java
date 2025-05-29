@@ -395,39 +395,52 @@ public boolean andraLand(String pid, int lid) {
     public ArrayList<HashMap<String, String>> fetchAllProjekt() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-}
+
 
 /*
 The methods below aim to remove information from the projekt-table. 
 */
 
-//
-//  public boolean taBortProjekt(Projekt p)
-//{
-//try {
-//    
-//    String pid = p.getPid();
-//
-//    if (!Validering.tomFalt(pid, pid)){
-//    
-//    System.out.println("Pid är tom");
-//    return false; 
-//    }
-//    
-//    String taBort = "DELETE FROM projekt WHERE pid = '" + p.getPid() + "'";
-//    idb.delete(taBort);
-//    System.out.println("Projekt borttaget: " + p.getProjektnamn());
-//    return true;
-//}
-//
-//        catch (InfException e) {
-//
-//        e.printStackTrace();
-//        return false;
-//}
-//
-//}
-//  
+
+  public boolean taBortProjekt(Projekt p)
+{
+
+    
+    String pid = p.getPid();
+
+    if (!Validering.tomFalt(pid, "pid"))  {
+        return false;
+    } 
+    
+
+    try {
+    
+        
+        String taBortKoppling = "DELETE FROM projekt_partner WHERE pid = '" + pid + "'";
+        idb.delete(taBortKoppling);
+        
+        String taBortProjekt = "DELETE FROM projekt WHERE pid = '" + pid + "'";
+        idb.delete(taBortProjekt);
+        
+        return true;
+            }
+
+        catch (InfException e) {
+
+        e.printStackTrace();
+        return false;
+}
+
+}
+  
+  
+  
+  
+  
+}
+
+
+  
     
  // metoden nedan är avsedd för att ta bort handläggare från ett projekt
   
