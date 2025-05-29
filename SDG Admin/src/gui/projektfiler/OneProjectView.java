@@ -281,7 +281,7 @@ public class OneProjectView extends javax.swing.JFrame {
             HashMap<String, String> anstalldrow = anstalldHanterare.getProjChefByProject(projekt.getPid());
             Anstalld anstalld = new Anstalld(anstalldrow);
             
-            if (CurrentUser.getUsr().getAnstalld() != anstalld || CurrentUser.getUsr().getUserType()!= UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
+            if (CurrentUser.getUsr().getUserType() != UserType.projektchef ||CurrentUser.getUsr().getUserType()!= UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
                 
                 lblEditProject1.setVisible(false);
                 lblAddPartner1.setVisible(false);
