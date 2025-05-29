@@ -402,11 +402,9 @@ The methods below aim to remove information from the projekt-table.
 */
 
 
-  public boolean taBortProjekt(Projekt p)
+  public boolean taBortProjekt(String pid)
 {
 
-    
-    String pid = p.getPid();
 
     if (!Validering.tomFalt(pid, "pid"))  {
         return false;
