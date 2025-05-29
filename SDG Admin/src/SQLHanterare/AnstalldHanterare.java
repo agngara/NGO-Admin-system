@@ -386,7 +386,7 @@ public class AnstalldHanterare {
     }
            
     try {
-        String nyttAvdelning = "UPDATE anstalld " + "SET avdelning = " + nyAvdelning + " WHERE aid = " + aid;
+        String nyttAvdelning = "UPDATE anstalld " + "SET avdelning = '" + nyAvdelning + " WHERE aid = " + aid;
         idb.update(nyttAvdelning);
         return true;
 } 
