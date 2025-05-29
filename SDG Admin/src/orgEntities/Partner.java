@@ -4,6 +4,7 @@
  */
 package orgEntities;
 
+import SQLHanterare.AnstalldHanterare;
 import SQLHanterare.PartnerHanterare;
 import java.util.HashMap;
 
@@ -22,6 +23,13 @@ public class Partner {
     private String adress;
     private String branch;
     private String stad;
+    
+    private PartnerHanterare partnerHanterare;
+    private String partner;
+    
+    public Partner() {}
+    
+    
     
     
     public Partner(PartnerHanterare partnerHanterare)

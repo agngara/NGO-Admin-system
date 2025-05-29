@@ -34,7 +34,7 @@ public class PartnerHanterare {
    public PartnerHanterare(String pid) {
        
        this.pid = pid;
-       query = "SELECT * FROM anstalld WHERE pid = " + "'" + pid + "'";
+       query = "SELECT * FROM partner WHERE pid = " + "'" + pid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -191,29 +191,35 @@ public class PartnerHanterare {
    
    //ta bort partner OBS vet ej om denna fungerar
    
-//   public boolean taBortPartner(String id) {
-//       
-//       try {
-//           
-//       String taBortPP = "DELETE FROM projekt_partner WHERE partner_pid = '" + id + "'";
-//       idb.delete(taBortPP);
-//       
-//       String taBortP = "DELETE FROM partner WHERE pid = '" + id + "'";
-//       idb.delete(taBortP);
-//       
-//       return true;
-//           
-//       } catch (InfException e) {
-//           
-//           e.printStackTrace();
-//           return false;
-//       }
+   public boolean taBortPartner(String pid) {
+       
+       
+           if (!Validering.tomFalt(pid, "PartnerPid")) {
+        
+        return false;
+       
+      }
+       try {
+           
+       String taBortPP = "DELETE FROM projekt_partner WHERE partner_pid = '" + pid + "'";
+       idb.delete(taBortPP);
+       
+       String taBortP = "DELETE FROM partner WHERE pid = '" + pid + "'";
+       idb.delete(taBortP);
+       
+       return true;
+           
+       } catch (InfException e) {
+           
+           e.printStackTrace();
+           return false;
+       }
       
        
        
        
    
-  
+   }
 
 
    // en bättre versom av lägg till partner + med nyttPid som skapas genom SELECT som tar max pid och sedan lägger till + 1. 
