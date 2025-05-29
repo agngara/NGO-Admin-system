@@ -4,9 +4,10 @@ package gui;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import orgEntities.Anstalld;
+import SQLHanterare.*;
+import orgEntities.*;
 import db.DatabaseInterface;
-import gui.Meny;
+import gui.*;
 import gui.projektfiler.OneProjectView;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -16,12 +17,16 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
+import orgEntities.Projekt;
+import sdg.admin.projekt;
+import SQLHanterare.PartnerHanterare;
 
 /**
  *
  * @author amandahelinlarsson
  */
 public class projektruta extends javax.swing.JFrame {
+    private Projekt projekt;
     private InfDB idb;
     private projektruta projektr;
     
@@ -119,7 +124,18 @@ private void fyllTabell(){
         
     }
 
+    public void removeProjekt(String projektId) {
+        
+        if (new ProjektHanterare().removeProjektFromProject(projekt.getPid(), projektId)) {
+            JOptionPane.showMessageDialog(rootPane, "Projekt borttaget.");
+            fyllTabell();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort projekt.");
 
+        }
+    }
 
 
     
@@ -231,7 +247,24 @@ private void fyllTabell(){
     }//GEN-LAST:event_proTillbakaTillMenyActionPerformed
 
     private void bnTaBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortProjektActionPerformed
-        // TODO add your handling code here:
+        
+       int selectedRow = tblProjekt.getSelectedRow();
+        int column = 1; 
+        String projektID = "";
+        projektID = (String) tblProjekt.getValueAt(selectedRow, 0);
+
+        if (selectedRow != -1) { 
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort detta projekt?") == JOptionPane.YES_OPTION ) {
+            
+                removeProjekt(projektID);
+            }
+            
+            
+        } else {
+            
+            System.out.println("Ingen rad är vald.");
+        }
     }//GEN-LAST:event_bnTaBortProjektActionPerformed
 
     private void bnLaggTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillProjektActionPerformed
