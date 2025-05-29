@@ -16,7 +16,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
-
+import java.awt.event.ActionEvent;
 /**
  *
  * @author amandahelinlarsson
@@ -24,7 +24,7 @@ import logicComponents.User.UserType;
 public class projektruta extends javax.swing.JFrame {
     private InfDB idb;
     private projektruta projektr;
-    private javax.swing.JComboBox<String> jCombobox1;
+   
     
                 
     
@@ -36,6 +36,11 @@ private Anstalld currentAnstalld;
     setExtendedState(MAXIMIZED_BOTH);
     setLocationRelativeTo(null);
     projektr = this;
+    jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            chkAvdelningActionPerformed(evt);
+        }
+    });
     
 try {
     idb = DatabaseInterface.databaseConnection();
@@ -47,10 +52,7 @@ public void actionPerformed(java.awt.event.ActionEvent evt) {
 searchDateByActionPerformed(evt);
 }
 });
-
-   
-
-    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+jComboBox1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
 jComboBox1ActionPerformed(evt);
 }
@@ -157,7 +159,7 @@ for (HashMap<String, String> projekt : projektlista) {
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
     String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "visa"});
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
         
 }
 tblProjekt.setModel(model);
@@ -170,6 +172,7 @@ return;
 
 private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
     try {
+
         String selectedStatus = (String) jComboBox1.getSelectedItem();
         String query;
         if (selectedStatus.equals("Alla")){
@@ -179,12 +182,10 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p " +
             "WHERE p.Status = '" + selectedStatus +"'";
-
-            
-        }
+}
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
-        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "visa" };
+        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status" };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
@@ -204,25 +205,43 @@ e.printStackTrace();
 JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage());
 }}
 
-        
-        
 private void chkAvdelningActionPerformed(java.awt.ActionEvent evt) {
     try {
-        boolean endastMinAvdelning = chkAvdelning.isSelected();
+        boolean endastMinAvdelning = jCheckBox1.isSelected();
         String query = "";
         if (endastMinAvdelning) {
-            String avdelningId = CurrentUser.getUsr().getAnstalld().getAvdelning();
+            String avdId = CurrentUser.getUsr().getAnstalld().getAvdelning();
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p " +
-                    }
+"JOIN ans_proj ap ON p.pid = ap.pid " +
+"JOIN anstalld a ON ap.pid = a.aid " +
+"WHERE a.avdelning = '" + avdId +"'";
 
-       
+}
+ 
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
         if (projektlista == null || projektlista.isEmpty()){
             JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
             return;
         }
+String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"};
+DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+for (HashMap<String, String> projekt: projektlista){
+    String pid = projekt.get("pid");
+    String namn = projekt.get("projektnamn");
+    String beskrivning = projekt.get("beskrivning");
+    String start = projekt.get("startdatum");
+    String slut = projekt.get("slutdatum");
+    String prioritet = projekt.get("prioritet");
+    String kostnad = projekt.get("kostnad");
+    String status = projekt.get("status");
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+}
+tblProjekt.setModel(model);
+} catch(InfException e) {
+e.printStackTrace();
+JOptionPane.showMessageDialog(this, "fel vid hämtning av projekt: " + e.getMessage());
 
         
     }
