@@ -49,6 +49,11 @@ public class ProjektHanterare {
        
        return projekt;
    }
+      
+      public String getPid() {
+          return pid;
+      }
+              
    
  /**
  * Denna kod är avsedd för att få ut statistik över kostnader för alla projekt,

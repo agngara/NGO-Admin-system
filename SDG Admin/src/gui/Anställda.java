@@ -4,6 +4,7 @@
  */
 package gui;
 import SQLHanterare.AnstalldHanterare;
+import SQLHanterare.ProjektHanterare;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
@@ -106,6 +107,19 @@ public class Anställda extends javax.swing.JFrame {
     }
     );    
  }
+ 
+ public void removeAnställd(String anställningsId) {
+        
+        if (new AnstalldHanterare().removeAnstalldFromAnstalld(anställda.getAid(), anställningsId)) {
+            JOptionPane.showMessageDialog(rootPane, "Anställd borttagen.");
+            fyllTabell();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort anställd.");
+
+        }
+    }
     
     
     /**
@@ -217,7 +231,24 @@ public class Anställda extends javax.swing.JFrame {
     }//GEN-LAST:event_bnLaggTillAnstalldActionPerformed
 
     private void bnTaBortAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAnstalldActionPerformed
-        // TODO add your handling code here:
+        
+        int selectedRow = tblAnställda.getSelectedRow();
+          int column = 1; 
+          String anställningsID = "";
+          anställningsID = (String) tblAnställda.getValueAt(selectedRow, 0);
+
+        if (selectedRow != -1) { 
+            
+            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
+            
+                removeAnstalld(aid);
+            }
+            
+            
+        } else {
+            
+            System.out.println("Ingen rad är vald.");
+        }
     }//GEN-LAST:event_bnTaBortAnstalldActionPerformed
 
     /**
