@@ -41,8 +41,15 @@ try {
     idb = DatabaseInterface.databaseConnection();
     fyllTabell();
 } catch (Exception e){
-   
+ }
+jButton1.addActionListener(new java.awt.event.ActionListener() {
+public void actionPerformed(java.awt.event.ActionEvent evt) {
+searchDateByActionPerformed(evt);
 }
+});
+
+
+   
 if (CurrentUser.getUsr() !=null) {
     UserType userType = CurrentUser.getUsr().getUserType();
     String userTypeString = userType.toString();
@@ -67,16 +74,29 @@ private void fyllTabell(){
         String aid = currentAnstalld.getAid();
         UserType userType = currentAnstalld.getRole(aid);
 
-        if (userType == UserType.handlaggare){
-             query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status" +
-                        "FROM projekt WHERE handlaggare_id = '" + aid + "'";
-        } else if (userType == UserType.admin1 || userType == UserType.admin2){
-        query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
-            } 
+           if (userType == UserType.handlaggare){
+         query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
+                    "FROM projekt p " +
+                 "JOIN ans_proj ap ON p.pid = ap.pid " + 
+                 "WHERE ap.aid =  " +"'" + aid + "'";
+        } 
+   else if (userType == UserType.admin1 || userType == UserType.admin2){
+    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+        } 
+   else if (userType == UserType.projektchef){
+       query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");";
+       System.out.println(query);
+
+
+   }
+ 
+
+  
+
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size());
-        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status",""};
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status" };
 
     DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
@@ -97,17 +117,61 @@ private void fyllTabell(){
     } catch (InfException e) {
     JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
     }
-
 }
 
-    public void tableMouseEvent(projektruta projektr) {
+private void searchDateByActionPerformed(java.awt.event.ActionEvent evt) {
+    try {
+        String searchDate = jTextField1.getText();
+        if (searchDate.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ange sökdatum.");
+            return;
+        }
+   
+    
+        String query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
+                " FROM projekt p " + 
+       "WHERE p.startdatum = '" + searchDate + "' OR p.slutdatum = '" + searchDate +"'";
+System.out.println("SQL-fråga: " + query);
+ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
+if (projektlista == null || projektlista.isEmpty()) {
+JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
+return;
+}
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"};
+DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+for (HashMap<String, String> projekt : projektlista) {
+    String pid = projekt.get("pid");
+    String namn = projekt.get("projektnamn");
+    String beskrivning = projekt.get ("beskrivning");
+    String start = projekt.get("startdatum");
+    String slut = projekt.get("slutdatum");
+    String prioritet = projekt.get("prioritet");
+    String kostnad = projekt.get("kostnad");
+    String status = projekt.get("status");
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+        
+}
+tblProjekt.setModel(model);
+    } catch (InfException e){
+        e.printStackTrace();
+JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage());
+return;
+    }
+    }
+
+
+
+
+
+public void tableMouseEvent(projektruta projektr) {
         
         tblProjekt.addMouseListener(new java.awt.event.MouseAdapter() {
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
         int row = tblProjekt.rowAtPoint(evt.getPoint());
         int col = tblProjekt.columnAtPoint(evt.getPoint());
-        if (row >= 0 && col == 8) {
+        if (row >= 0 && col == 7) {
                 
             Object varde = tblProjekt.getValueAt(row, 0);
             String pid = varde.toString();
@@ -154,6 +218,11 @@ private void fyllTabell(){
         tblProjekt = new javax.swing.JTable();
         bnTaBortProjekt = new javax.swing.JButton();
         bnLaggTillProjekt = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -206,36 +275,75 @@ private void fyllTabell(){
             }
         });
 
+        jButton1.setText("Sök");
+
+        jLabel2.setText("Sök projekt");
+
+        jCheckBox1.setText("Visa bara projekt på min avdelning");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(proTillbakaTillMeny)
+                        .addComponent(jLabel1)
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bnTaBortProjekt)
-                        .addGap(30, 30, 30)
-                        .addComponent(bnLaggTillProjekt))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addComponent(jCheckBox1)
+                        .addGap(63, 63, 63)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(proTillbakaTillMeny)
+                                .addGap(453, 453, 453)
+                                .addComponent(bnTaBortProjekt)
+                                .addGap(30, 30, 30)
+                                .addComponent(bnLaggTillProjekt))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(101, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(proTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnTaBortProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bnLaggTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1))))
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(proTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bnTaBortProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bnLaggTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
@@ -310,8 +418,13 @@ private void fyllTabell(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnLaggTillProjekt;
     private javax.swing.JButton bnTaBortProjekt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton proTillbakaTillMeny;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables
