@@ -108,12 +108,12 @@ public class LandHanterare {
     
     
     
-    public boolean andraLid (String nyLid) {
+    public boolean andraLid (String nyLid, String gammalLid) {
         if (!Validering.tomFalt(nyLid, "land-id")) {
             return false;
         }
        try {
-           String landNy = "UPDATE land SET lid = '" + nyLid + "' WHERE lid = '" + lid + "'"; 
+           String landNy = "UPDATE land SET lid = " + nyLid + " WHERE lid = " + gammalLid; 
            idb.update(landNy);
            return true;
        }
@@ -125,12 +125,12 @@ public class LandHanterare {
     }
     
     
-    public boolean andraNamn (String nyttNamn) {
+    public boolean andraNamn (String lid, String nyttNamn) {
         if (!Validering.tomFalt(nyttNamn, "namn")) {
             return false;
         }
        try {
-           String namn = "UPDATE land SET namn = '" + nyttNamn + "' WHERE lid = '" + lid + "'"; 
+           String namn = "UPDATE land SET namn = '" + nyttNamn + "' WHERE lid = " + lid;  
            idb.update(namn);
            return true;
        }
@@ -141,14 +141,14 @@ public class LandHanterare {
        }
     }
     
-    public boolean andraSprak(String nyttSprak) {
+    public boolean andraSprak(String lid, String nyttSprak) {
         if (Validering.tomFalt(nyttSprak, "Språk")) {
             
             return false;
         }
         
         try {
-            String sprak = "UPDATE land SET sprak = '" + nyttSprak + "WHERE lid = '" + "'";
+            String sprak = "UPDATE land SET sprak = '" + nyttSprak + "' WHERE lid = " + lid; 
             idb.update(sprak);
             return true;
         }
@@ -160,34 +160,34 @@ public class LandHanterare {
     }
     
     
-//    public boolean andraValuta(String lid, String nyValuta) {
-//     
-////  if(!Validering.tomFalt(lid, "lid") || !Validering.giltigDouble(nyValuta)) {
-//            return false;
-//        }
-//        
-//        try {
-//            String valuta = "UPDATE land SET valuta = " + nyValuta + "WHERE lid = '" + lid + "'";
-//            idb.update(valuta);
-//            return true;
-//            
-//        }
-//        
-//        catch (InfException e) {
-//            e.printStackTrace();
-//            return false; 
-//        }
-//    }
+    public boolean andraValuta(String lid, String nyValuta) {
+     
+  if(!Validering.tomFalt(lid, "lid") || !Validering.giltigDouble(nyValuta)) {
+            return false;
+        }
+        
+        try {
+            String valuta = "UPDATE land SET valuta = '" + nyValuta + "' WHERE lid = " + lid;
+            idb.update(valuta);
+            return true;
+            
+        }
+        
+        catch (InfException e) {
+            e.printStackTrace();
+            return false; 
+        }
+    }
     
     
     
-    public boolean andraTidszon(String nyTidszon) {
+    public boolean andraTidszon(String lid, String nyTidszon) {
         if(!Validering.tomFalt(nyTidszon, "Tidszon")) {
             return false;
         }
         
         try {
-            String tidszon = "UPDATE land SET tidszon = '" + nyTidszon + "'WHERE lid = '" + lid + "'";
+            String tidszon = "UPDATE land SET tidszon = '" + nyTidszon + "' WHERE lid = " + lid;
             idb.update(tidszon);
             return true;
             
@@ -199,14 +199,14 @@ public class LandHanterare {
         }
     }
     
-    public boolean andraPolitiskStruktur(String nyPolitiskStruktur) {
+    public boolean andraPolitiskStruktur(String lid, String nyPolitiskStruktur) {
         
         if(!Validering.tomFalt(nyPolitiskStruktur, "Politisksturktur")) {
             return false;
         }
         
         try {
-            String politiskStruktur = "UPDATE land SET politisk_struktur = '" + nyPolitiskStruktur + "'WHERE lid = '" + lid + "'";
+            String politiskStruktur = "UPDATE land SET tidszon = '" + nyPolitiskStruktur + "' WHERE lid = " + lid;
             idb.update(politiskStruktur);
             return true;
             
@@ -219,14 +219,14 @@ public class LandHanterare {
     }
     
     
-   public boolean andraEkonomi(String nyEkonomi) {
+   public boolean andraEkonomi(String lid, String nyEkonomi) {
         
         if(!Validering.tomFalt(nyEkonomi, "Ekonomi")) {
             return false;
         }
         
         try {
-            String ekonomi = "UPDATE land SET ekonomi = '" + nyEkonomi + "'WHERE lid = '" + lid + "'";
+            String ekonomi = "UPDATE land SET ekonomi = '" + nyEkonomi + "' WHERE lid = " + lid;
             idb.update(ekonomi);
             return true;
             
