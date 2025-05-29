@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import SQLHanterare.AnstalldHanterare;
+import SQLHanterare.AvdelningHanterare;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
-import gui.Avdelning;
+import gui.Avdelningar;
 import gui.Meny;
+import gui.anställdafiler.LäggTillAvdelning;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -19,13 +22,13 @@ import logicComponents.User.User;
  *
  * @author stina
  */
-public class Avdelning extends javax.swing.JFrame {
+public class Avdelningar extends javax.swing.JFrame {
     private InfDB idb;
     
     /**
      * Creates new form Avdelning
      */
-    public Avdelning() {
+    public Avdelningar() {
         initComponents();
          setExtendedState(MAXIMIZED_BOTH);
     setLocationRelativeTo(null);
@@ -36,6 +39,7 @@ public class Avdelning extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
     }
+    
     
     private void fyllTabell(){
         try {
@@ -65,6 +69,20 @@ public class Avdelning extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
         }  
     }
+    
+    public void removeAvdelning(String avdid) {
+        
+        if (new AvdelningHanterare().taBortAvdelning(avdid)) {
+            JOptionPane.showMessageDialog(rootPane, "Avdelning borttagen.");
+            fyllTabell();
+            
+        } 
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort avdelning.");
+
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +97,8 @@ public class Avdelning extends javax.swing.JFrame {
         avdTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAvdelning = new javax.swing.JTable();
+        bnTaBortAvdelning = new javax.swing.JButton();
+        bnLaggTillAvdelning = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,14 +128,37 @@ public class Avdelning extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAvdelning);
 
+        bnTaBortAvdelning.setBackground(new java.awt.Color(204, 0, 0));
+        bnTaBortAvdelning.setForeground(new java.awt.Color(255, 255, 255));
+        bnTaBortAvdelning.setText("Ta bort Avdelning");
+        bnTaBortAvdelning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnTaBortAvdelningActionPerformed(evt);
+            }
+        });
+
+        bnLaggTillAvdelning.setBackground(new java.awt.Color(0, 204, 0));
+        bnLaggTillAvdelning.setForeground(new java.awt.Color(255, 255, 255));
+        bnLaggTillAvdelning.setText("Lägg till avdelning");
+        bnLaggTillAvdelning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnLaggTillAvdelningActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bnTaBortAvdelning)
+                        .addGap(18, 18, 18)
+                        .addComponent(bnLaggTillAvdelning))
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(76, Short.MAX_VALUE))
@@ -126,9 +169,13 @@ public class Avdelning extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bnLaggTillAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bnTaBortAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -139,6 +186,31 @@ public class Avdelning extends javax.swing.JFrame {
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_avdTillbakaTillMenyActionPerformed
+
+    private void bnTaBortAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAvdelningActionPerformed
+
+        int selectedRow = tblAvdelning.getSelectedRow();
+          //int column = 1; 
+          if (selectedRow == -1) {
+              System.out.println("Ingen vald rad");
+              return;
+          }
+          
+          int columnIndex = 0;
+          String avdid = (String) tblAvdelning.getValueAt(selectedRow, columnIndex);
+
+       
+            
+          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
+            
+                removeAvdelning(avdid);
+            }
+    }//GEN-LAST:event_bnTaBortAvdelningActionPerformed
+
+    private void bnLaggTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillAvdelningActionPerformed
+        new LäggTillAvdelning().setVisible(true);
+        //        this.setVisible(false);
+    }//GEN-LAST:event_bnLaggTillAvdelningActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,13 +229,13 @@ public class Avdelning extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
     try {
@@ -174,13 +246,13 @@ public class Avdelning extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Avdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Avdelningar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -192,6 +264,8 @@ public class Avdelning extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avdTillbakaTillMeny;
+    private javax.swing.JButton bnLaggTillAvdelning;
+    private javax.swing.JButton bnTaBortAvdelning;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAvdelning;
