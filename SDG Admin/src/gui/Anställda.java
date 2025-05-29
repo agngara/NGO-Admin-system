@@ -100,7 +100,7 @@ public class Anställda extends javax.swing.JFrame {
             Anstalld anstalld = new Anstalld(anstalldHanterare);
             EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
             editAnställda1.setVisible(true);
-            anställda.setVisible(false);
+//            anställda.setVisible(false);
             
             
 
