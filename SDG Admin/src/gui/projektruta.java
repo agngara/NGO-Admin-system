@@ -205,17 +205,21 @@ e.printStackTrace();
 JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage());
 }}
 
-private void chkAvdelningActionPerformed(java.awt.ActionEvent evt) {
+private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
     try {
         boolean endastMinAvdelning = jCheckBox1.isSelected();
         String query = "";
-        if (endastMinAvdelning) {
-            String avdId = CurrentUser.getUsr().getAnstalld().getAvdelning();
+         if (endastMinAvdelning) {
+            String avdid = CurrentUser.getUsr().getAnstalld().getAvdelning();
+            System.out.println("Avdelnings_ID: " + avdid);
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p " +
+                    "JOIN avdelning avd ON  a.avdid = avd.avdid" +
 "JOIN ans_proj ap ON p.pid = ap.pid " +
-"JOIN anstalld a ON ap.pid = a.aid " +
-"WHERE a.avdelning = '" + avdId +"'";
+"JOIN anstalld a ON ap.aid = a.aid " +
+"WHERE a.avd = '" + avdid.replace("'", "'") + "'";
+}else {
+           query = "SELECT * FROM projekt";
 
 }
  
