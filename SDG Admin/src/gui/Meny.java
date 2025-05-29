@@ -21,14 +21,14 @@ public class Meny extends javax.swing.JFrame {
     String CurrentUserAid = "";
     String CurrentUserRole = "";
     Anstalld currentAnstalld;
-
+    Meny meny;
     /**
      * Creates new form Meny, and initialises its components.
      */
     public Meny() {
        
         currentAnstalld = CurrentUser.getUsr().getAnstalld();
-        namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+        MenyUpdateName();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -36,6 +36,7 @@ public class Meny extends javax.swing.JFrame {
         String aid = currentAnstalld.getAid();
         UserType userType = currentAnstalld.getRole(aid);
         lblRole.setText(userType.name());
+        meny = this;
         
         
         
@@ -60,6 +61,10 @@ public class Meny extends javax.swing.JFrame {
         
         
         
+    }
+    
+    public void MenyUpdateName() {
+     namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
     }
 
     /**
@@ -259,7 +264,7 @@ public class Meny extends javax.swing.JFrame {
 
     private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
 
-        new EditMinaUppgifter(currentAnstalld).setVisible(true);
+        new EditMinaUppgifter(currentAnstalld, this).setVisible(true);
     }//GEN-LAST:event_lblProfileMouseClicked
 
 //    /**
