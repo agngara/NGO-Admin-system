@@ -64,7 +64,7 @@
               <Component id="lblRole" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="LoggaUt" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace pref="98" max="32767" attributes="0"/>
+              <EmptySpace pref="57" max="32767" attributes="0"/>
               <Component id="visaHallbarhetsmal" min="-2" pref="48" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="visaProjekt" min="-2" pref="48" max="-2" attributes="0"/>
