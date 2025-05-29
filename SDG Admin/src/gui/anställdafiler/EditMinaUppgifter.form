@@ -36,7 +36,7 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblTelefon" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtAdress" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                              <Component id="txtTelefon" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtEfternamn" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
@@ -64,9 +64,9 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="txtLosenord" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblAdress" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTelefon" alignment="0" pref="300" max="32767" attributes="0"/>
+                                  <Component id="txtEpost" alignment="0" pref="300" max="32767" attributes="0"/>
                                   <Component id="lblEpost" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtEpost" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtAdress" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -103,7 +103,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblTelefon" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAdress" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTelefon" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="172" max="32767" attributes="0"/>
                       <Component id="btnRedigera" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace pref="65" max="32767" attributes="0"/>
@@ -111,11 +111,11 @@
                   <Group type="102" attributes="0">
                       <Component id="lblEpost" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtTelefon" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtEpost" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="lblAdress" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtEpost" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAdress" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -154,9 +154,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFornamnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAdress">
+    <Component class="javax.swing.JTextField" name="txtTelefon">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAdressActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEfternamn">
@@ -186,9 +186,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRedigeraActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtEpost">
+    <Component class="javax.swing.JTextField" name="txtAdress">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEpostActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAdressActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEpost">
@@ -196,9 +196,9 @@
         <Property name="text" type="java.lang.String" value="E-post"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTelefon">
+    <Component class="javax.swing.JTextField" name="txtEpost">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEpostActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelefon">

@@ -444,17 +444,20 @@ public boolean andraEpost(String aid, String nyEpost)
 public boolean andraTelefon(String aid, String nyTelefon)
 {
     {
-        if (!Validering.tomFalt(nyTelefon, "telefon")) return false;
-        if (!Validering.giltigtTelefonnummer(nyTelefon)) return false;
-      
-       
-     }
+        if (!Validering.tomFalt(nyTelefon, "telefon")) {
+            return false;
+        }
+        if (!Validering.giltigtTelefonnummer(nyTelefon)) {
+            return false;
+        }
+     
+    }
     
            
     
     
     try {
-        String telefon = "UPDATE anstalld SET telefon = " + nyTelefon + " WHERE aid = " + aid;
+        String telefon = "UPDATE anstalld SET telefon = '" + nyTelefon + "' WHERE aid = " + aid;
         idb.update(telefon);
         return true;
 } 

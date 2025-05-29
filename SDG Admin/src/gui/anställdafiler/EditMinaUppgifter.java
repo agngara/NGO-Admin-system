@@ -45,12 +45,10 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         
         txtAdress.setText(anstalld.getAdress());
         txtEfternamn.setText(anstalld.getEfternamn());
-        txtFornamn.setText(anstalld.getFornamn());
         txtLosenord.setText(anstalld.getLosenord());
+        txtFornamn.setText(anstalld.getFornamn());
         txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
-        txtEfternamn.setText(anstalld.getAnstallningsdatum());
-
     }
         
      
@@ -83,18 +81,19 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         String telefon = txtTelefon.getText();
         if (!ah.andraTelefon(aid, telefon)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
+            return false;
         }
         
         String email = txtEpost.getText();
-        if (!ah.andraTelefon(aid, email)) {
+        if (!ah.andraEpost(aid, email)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera epost.");
+            return false;
         }
 
 
 
  
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
-        
         return true;
 
     }
@@ -119,13 +118,13 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         lblEfternamn = new javax.swing.JLabel();
         txtLosenord = new javax.swing.JTextField();
         txtFornamn = new javax.swing.JTextField();
-        txtAdress = new javax.swing.JTextField();
+        txtTelefon = new javax.swing.JTextField();
         txtEfternamn = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnRedigera = new javax.swing.JButton();
-        txtEpost = new javax.swing.JTextField();
+        txtAdress = new javax.swing.JTextField();
         lblEpost = new javax.swing.JLabel();
-        txtTelefon = new javax.swing.JTextField();
+        txtEpost = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
         btnTillbakaTillMeny = new javax.swing.JToggleButton();
 
@@ -151,9 +150,9 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
             }
         });
 
-        txtAdress.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAdressActionPerformed(evt);
+                txtTelefonActionPerformed(evt);
             }
         });
 
@@ -175,17 +174,17 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
             }
         });
 
-        txtEpost.addActionListener(new java.awt.event.ActionListener() {
+        txtAdress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEpostActionPerformed(evt);
+                txtAdressActionPerformed(evt);
             }
         });
 
         lblEpost.setText("E-post");
 
-        txtTelefon.addActionListener(new java.awt.event.ActionListener() {
+        txtEpost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonActionPerformed(evt);
+                txtEpostActionPerformed(evt);
             }
         });
 
@@ -215,7 +214,7 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblTelefon)
-                                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblEfternamn)
@@ -236,9 +235,9 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtLosenord, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                    .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                                     .addComponent(lblEpost, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
@@ -265,18 +264,18 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblTelefon)
                         .addGap(18, 18, 18)
-                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(65, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblEpost)
                         .addGap(18, 18, 18)
-                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addComponent(lblAdress)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -291,9 +290,9 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFornamnActionPerformed
 
-    private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
+    private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAdressActionPerformed
+    }//GEN-LAST:event_txtTelefonActionPerformed
 
     private void txtEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfternamnActionPerformed
         // TODO add your handling code here:
@@ -303,19 +302,20 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         
         if (setAnstalldInfo()) {
             
+            this.setVisible(false);
         }
         
         
    
     }//GEN-LAST:event_btnRedigeraActionPerformed
 
+    private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdressActionPerformed
+
     private void txtEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEpostActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEpostActionPerformed
-
-    private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonActionPerformed
 
     private void btnTillbakaTillMenyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillMenyActionPerformed
         this.setVisible(false);
