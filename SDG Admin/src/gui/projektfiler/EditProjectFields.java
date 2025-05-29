@@ -38,7 +38,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         
     }
     /**
-     * Returns true if 
+     * Returns true if items should be hid.
      * @return 
      */
     public boolean hideBigBossComponents() {
@@ -59,9 +59,8 @@ public class EditProjectFields extends javax.swing.JFrame {
         txtProjID1.setText(projekt.getPid());
         txtBeskrivning.setText(projekt.getBeskrivning());
         txtKostnad.setText(projekt.getKostnad());
-        //txtPrioritet.setText(projekt.getPrioritet());
-        //txtProjektChef.setText(projekt.getProjektchef());
-        txtProjChef.setText(projekt.getProjektnamn());
+        txtProjChef.setText(projekt.getProjektchef());
+        txtProjektNamn1.setText(projekt.getProjektnamn());
         txtSlutDatum.setText(projekt.getSlutdatum());
         txtStartDatum.setText(projekt.getStartdatum());
         //txtStatus.setText(projekt.getStatus());
@@ -134,7 +133,7 @@ public class EditProjectFields extends javax.swing.JFrame {
             return false;
         }
 
-        String projektnamn = txtProjChef.getText();
+        String projektnamn = txtProjektNamn1.getText();
         if (!ph.andraProjektnamn(pid, projektnamn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projektnamn.");
             return false;
@@ -167,10 +166,12 @@ public class EditProjectFields extends javax.swing.JFrame {
             return false;
         }
         
+        if (!hideBigBossComponents()) {
         String projektchef = txtProjChef.getText();
         if (!ph.andraProjektchef(pid, projektchef)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera projektchef.");
             return false;
+        }
         }
 
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");

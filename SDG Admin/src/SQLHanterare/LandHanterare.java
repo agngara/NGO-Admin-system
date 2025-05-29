@@ -142,7 +142,7 @@ public class LandHanterare {
     }
     
     public boolean andraSprak(String lid, String nyttSprak) {
-        if (Validering.tomFalt(nyttSprak, "Språk")) {
+        if (!Validering.tomFalt(nyttSprak, "Språk")) {
             
             return false;
         }

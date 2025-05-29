@@ -63,6 +63,7 @@ public class LaggTillLand extends javax.swing.JFrame {
         comboTidszon.addItem("Tidszon 6");
         
         // Fill politisk struktur
+        comboPolStru.removeAllItems();
         comboPolStru.addItem("Politisk struktur 1");
         comboPolStru.addItem("Politisk struktur 2");
         comboPolStru.addItem("Politisk struktur 3");
