@@ -26,6 +26,8 @@ import orgEntities.Anstalld;
  * @author stina
  */
 public class Anställda extends javax.swing.JFrame {
+    //test
+    private Anstalld anstalld; 
     private InfDB idb;
     private String aid;
     private Anställda anställda;
@@ -108,9 +110,9 @@ public class Anställda extends javax.swing.JFrame {
     );    
  }
  
- public void removeAnställd(String anställningsId) {
+ public void removeAnställd(String aid) {
         
-        if (new AnstalldHanterare().removeAnstalldFromAnstalld(anställda.getAid(), anställningsId)) {
+        if (new AnstalldHanterare().taBortAnstalld(aid)) {
             JOptionPane.showMessageDialog(rootPane, "Anställd borttagen.");
             fyllTabell();
             
@@ -241,7 +243,7 @@ public class Anställda extends javax.swing.JFrame {
             
             if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
             
-                removeAnstalld(aid);
+                removeAnställd(aid);
             }
             
             

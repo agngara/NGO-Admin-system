@@ -240,9 +240,9 @@ public void tableMouseEvent(projektruta projektr) {
         
     }
 
-    public void removeProjekt(String projektId) {
+    public void removeProjekt(String pid) {
         
-        if (new ProjektHanterare().removeProjektFromProject(projekt.getPid(), projektId)) {
+        if (new ProjektHanterare().taBortProjekt(pid)) {
             JOptionPane.showMessageDialog(rootPane, "Projekt borttaget.");
             fyllTabell();
             
