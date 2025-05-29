@@ -46,18 +46,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblEkonomi" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="298" max="-2" attributes="0"/>
-                                      <Component id="lblPartners" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="1684" max="-2" attributes="0"/>
-                              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="367" max="-2" attributes="0"/>
+                              <Component id="lblPartners" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="1684" max="-2" attributes="0"/>
+                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblEkonomi" min="-2" max="-2" attributes="0"/>
                           <Component id="lblInsikter" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -85,15 +86,15 @@
                   </Group>
               </Group>
               <Component id="projektInfo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblInsikter" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblInsikter" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblEkonomi" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPartners" alignment="3" min="-2" max="-2" attributes="0"/>

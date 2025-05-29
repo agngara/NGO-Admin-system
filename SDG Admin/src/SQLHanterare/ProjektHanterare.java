@@ -49,6 +49,11 @@ public class ProjektHanterare {
        
        return projekt;
    }
+      
+      public String getPid() {
+          return pid;
+      }
+              
    
  /**
  * Denna kod är avsedd för att få ut statistik över kostnader för alla projekt,
@@ -101,7 +106,9 @@ public class ProjektHanterare {
              nyttPid = Integer.parseInt(maxPid) + 1;
              
             }
-            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land )" + "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '"  + status + "', '"  + prioritet + "', '" + projektchef + "', '" + land + ")";
+            String laggTill = "INSERT INTO projekt (pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, status, prioritet, projektchef, land) " +
+             "VALUES ('" + nyttPid + "', '" + projektnamn + "', '" + beskrivning + "', '" + startdatum + "', '" + slutdatum + "', '" + kostnad + "', '" +
+             status + "', '" + prioritet + "', '" + projektchef + "', '" + land + "')";
             idb.insert(laggTill);
             return true;
         }

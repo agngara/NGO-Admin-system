@@ -105,82 +105,118 @@ public class AnstalldHanterare {
        
    } 
    
+   public UserType fetchRole(String inAid) {
+    UserType userType = UserType.handlaggare;
+    String aid = inAid;
+
+    // 1. Kolla om användaren är admin
+    String checkAdminQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = '" + aid + "'";
+    String adminFetch = null;
+    try {
+        adminFetch = idb.fetchSingle(checkAdminQuery);
+    } catch (InfException ex) {
+        // Logga men fortsätt
+    }
+    if (adminFetch != null) {
+        if (adminFetch.equals("1")) {
+            return UserType.admin1;
+        } else if (adminFetch.equals("2")) {
+            return UserType.admin2;
+        }
+    }
+
+    // 2. Kolla om användaren är projektchef
+    String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = '" + aid + "'";
+    String projchefFetch = null;
+    try {
+        projchefFetch = idb.fetchSingle(projchefQuery);
+    } catch (InfException ex) {
+        // Logga men fortsätt
+    }
+    if (projchefFetch != null && projchefFetch.equals(aid)) {
+        return UserType.projektchef;
+    }
+
+    // 3. Om inget av ovan, är användaren handläggare
+    return userType;
+}
+   
    /**
     * This method gets the role of an anstalld, which then can be assigned to the user.
     * @param inAid the aid of the anstalld
     * @return returns usertype enum depending on which role was infered.
     */
-   public UserType fetchRole(String inAid) {
-      
-       UserType userType = UserType.handlaggare;
-       String roll = "";
-       String aid = inAid;
-       String adminFetch = "";
-       String checkAdminQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
-       String projchefFetch = "";
-
-       
-       
-       
-    // Checks for admin role.  
-       try {
-       adminFetch = idb.fetchSingle(checkAdminQuery);
-       } 
-       catch (InfException ex) {
-           
-       }
-       if (adminFetch == null) {
-           
-           // If not admin, the code tries projectchef
-           String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
-           try {
-            projchefFetch = idb.fetchSingle(projchefQuery);
-            
-           } 
-           catch (InfException exception) {
-               
-               if (projchefFetch == null)
-               {
-                   userType = UserType.handlaggare;
-               }
-               else {
-                   
-                   userType = UserType.projektchef;
-               }
-               
-           }
-          /* if (projchefFetch.equals(aid)) {
-   
-               userType = UserType.projektchef;
-               } 
-           
-           // If not admin nor projektchef, the userType must be handläggare.
-            /*else {
-               
-               userType = UserType.handlaggare;
-               
-           }*/
-           
-       }
-   
-       
-       // Checks for admin type 1.
-       else if (adminFetch.equals("1")) {
-           
-           userType = UserType.admin1;
-           
-       }
-       // Checks for admin type 2. 
-       else if (adminFetch.equals("2")) {
-           
-           userType = UserType.admin2;
-       }
-       
-        return userType;
-   
-   
-    }
-   
+//   public UserType fetchRole(String inAid) {
+//      
+//       UserType userType = UserType.handlaggare;
+//       String roll = "";
+//       String aid = inAid;
+//       String adminFetch = "";
+//       String checkAdminQuery = "SELECT behorighetsniva FROM admin WHERE admin.aid = (SELECT aid FROM anstalld WHERE aid= " + "'" + aid + "'" + ")";
+//       String projchefFetch = "";
+//
+//       
+//       
+//       
+//    // Checks for admin role.  
+//       try {
+//       adminFetch = idb.fetchSingle(checkAdminQuery);
+//       } 
+//       catch (InfException ex) {
+//           
+//       }
+//       if (adminFetch == null) {
+//           
+//           // If not admin, the code tries projectchef
+//           String projchefQuery = "SELECT projektchef FROM projekt WHERE projektchef = " + "'" + aid + "'";
+//           try {
+//            projchefFetch = idb.fetchSingle(projchefQuery);
+//            
+//           } 
+//           catch (InfException exception) {
+//               
+//               if (projchefFetch == null)
+//               {
+//                   userType = UserType.handlaggare;
+//               }
+//               else {
+//                   
+//                   userType = UserType.projektchef;
+//               }
+//               
+//           }
+//          /* if (projchefFetch.equals(aid)) {
+//   
+//               userType = UserType.projektchef;
+//               } 
+//           
+//           // If not admin nor projektchef, the userType must be handläggare.
+//            /*else {
+//               
+//               userType = UserType.handlaggare;
+//               
+//           }*/
+//           
+//       }
+//   
+//       
+//       // Checks for admin type 1.
+//       else if (adminFetch.equals("1")) {
+//           
+//           userType = UserType.admin1;
+//           
+//       }
+//       // Checks for admin type 2. 
+//       else if (adminFetch.equals("2")) {
+//           
+//           userType = UserType.admin2;
+//       }
+//       
+//        return userType;
+//   
+//   
+//    }
+//   
    
    // ny version av getRoll
    
