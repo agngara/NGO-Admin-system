@@ -27,7 +27,7 @@ public class Meny extends javax.swing.JFrame {
     public Meny() {
        
         currentAnstalld = CurrentUser.getUsr().getAnstalld();
-        namn = currentAnstalld.getFornamn() + currentAnstalld.getEfternamn();
+        namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
