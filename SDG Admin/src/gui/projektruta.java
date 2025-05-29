@@ -109,7 +109,7 @@ private void fyllTabell(){
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size());
-        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status" };
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status",""};
 
     DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
@@ -150,7 +150,7 @@ if (projektlista == null || projektlista.isEmpty()) {
 JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
 return;
 }
-String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"};
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", ""};
 DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
 for (HashMap<String, String> projekt : projektlista) {
@@ -162,7 +162,7 @@ for (HashMap<String, String> projekt : projektlista) {
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
     String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
         
 }
 tblProjekt.setModel(model);
@@ -188,7 +188,7 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
         }
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
-        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status" };
+        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "" };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
@@ -200,7 +200,7 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
             String kostnad = projekt.get("kostnad");
             String status = projekt.get("status");
             
-            model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+            model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
 }
 tblProjekt.setModel(model);
 } catch (InfException e) {

@@ -41,15 +41,25 @@ public class Validering {
     return true;
  }
 
- public static boolean giltigtTelefonnummer(String telefon) {
-     if (telefon == null || !telefon.matches("^\\d{7,15}$")) {
-     JOptionPane.showMessageDialog(null, "Ogilitig telefonnummer. ");
-     return false;
- }
-     
-     
-     return true; 
- }
+// public static boolean giltigtTelefonnummer(String telefon) {
+//     if (telefon == null || !telefon.matches("^\\d{7,15}$")) {
+//     JOptionPane.showMessageDialog(null, "Ogilitig telefonnummer. ");
+//     return false;
+// }
+//     
+//     
+//     return true; 
+// }
+ 
+public static boolean giltigtTelefonnummer(String telefon) {
+    if (telefon == null) return false;
+    String cleaned = telefon.replaceAll("[\\s\\-]", "");
+    if (!cleaned.matches("^\\d{7,15}$")) {
+        JOptionPane.showMessageDialog(null, "Ogiltigt telefonnummer.");
+        return false;
+    }
+    return true;
+}
       
   public static boolean giltigtDatum(String datum) {
       if (datum == null || !datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
