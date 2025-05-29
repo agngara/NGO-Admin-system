@@ -44,7 +44,7 @@ public class LäggTillPartner extends javax.swing.JFrame {
          // Fill stad
         comboStad.removeAllItems();
         StadHanterare stadHanterare = new StadHanterare();
-        ArrayList<HashMap<String,String>> Stad = stadHanterare.getAllStad();
+        ArrayList<HashMap<String,String>> Stad = stadHanterare.fetchAllLand();
         String namn = ""; 
 
         for (HashMap<String,String> hashmap : Stad) {
