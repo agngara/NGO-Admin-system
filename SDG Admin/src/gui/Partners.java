@@ -197,21 +197,25 @@ public class Partners extends javax.swing.JFrame {
     private void bnTaBortPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortPartnerActionPerformed
  
         int selectedRow = tblPartners.getSelectedRow();
-          int column = 1; 
-          String PartnerPID = "";
-          PartnerPID = (String) tblPartners.getValueAt(selectedRow, 0);
-
-        if (selectedRow != -1) { 
+        if (selectedRow == -1) {
             
-            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort partnern?") == JOptionPane.YES_OPTION ) {
+            System.out.println("Ingen vald rad");
+              return;
+        }
+          int column = 0; 
+          
+          String pid = (String) tblPartners.getValueAt(selectedRow, column);
+
+     
+            
+       if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort partnern?") == JOptionPane.YES_OPTION ) {
             
                 removePartner(pid);
             }
                       
-        } else {
+        
             
-            System.out.println("Ingen rad är vald.");
-        }  
+         
     }//GEN-LAST:event_bnTaBortPartnerActionPerformed
 
     /**
