@@ -157,7 +157,7 @@ for (HashMap<String, String> projekt : projektlista) {
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
     String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "visa"});
         
 }
 tblProjekt.setModel(model);
@@ -180,10 +180,11 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
                     "FROM projekt p " +
             "WHERE p.Status = '" + selectedStatus +"'";
 
+            
         }
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
-        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status" };
+        String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "visa" };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
@@ -201,10 +202,31 @@ tblProjekt.setModel(model);
 } catch (InfException e) {
 e.printStackTrace();
 JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage());
-}
+}}
 
-        }
         
+        
+private void chkAvdelningActionPerformed(java.awt.ActionEvent evt) {
+    try {
+        boolean endastMinAvdelning = chkAvdelning.isSelected();
+        String query = "";
+        if (endastMinAvdelning) {
+            String avdelningId = CurrentUser.getUsr().getAnstalld().getAvdelning();
+            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
+                    "FROM projekt p " +
+                    }
+
+       
+        System.out.println("SQL-fråga: " + query);
+        ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
+        if (projektlista == null || projektlista.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
+            return;
+        }
+
+        
+    }
+}
 
 
 
