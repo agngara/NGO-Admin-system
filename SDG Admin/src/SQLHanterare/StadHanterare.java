@@ -51,7 +51,7 @@ public class StadHanterare {
        return stad;
    }
    
-    public ArrayList fetchAllLand() 
+    public ArrayList fetchAllStad() 
       {
           ArrayList<HashMap<String,String>> stader = new ArrayList<>();
           

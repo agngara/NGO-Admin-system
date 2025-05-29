@@ -248,7 +248,7 @@ public class Meny extends javax.swing.JFrame {
     }//GEN-LAST:event_LoggaUtActionPerformed
 
     private void visaAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visaAvdelningActionPerformed
-        new Avdelning().setVisible(true);
+        new Avdelningar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_visaAvdelningActionPerformed
 
