@@ -235,22 +235,25 @@ public class Anställda extends javax.swing.JFrame {
     private void bnTaBortAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAnstalldActionPerformed
         
         int selectedRow = tblAnställda.getSelectedRow();
-          int column = 1; 
-          String anställningsID = "";
-          anställningsID = (String) tblAnställda.getValueAt(selectedRow, 0);
+          //int column = 1; 
+          if (selectedRow == -1) {
+              System.out.println("Ingen vald rad");
+              return;
+          }
+          
+          int columnIndex = 0;
+          String aid = (String) tblAnställda.getValueAt(selectedRow, columnIndex);
 
-        if (selectedRow != -1) { 
+       
             
-            if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
+          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
             
                 removeAnställd(aid);
             }
             
             
-        } else {
-            
-            System.out.println("Ingen rad är vald.");
-        }
+        
+        
     }//GEN-LAST:event_bnTaBortAnstalldActionPerformed
 
     /**
@@ -317,4 +320,6 @@ public class Anställda extends javax.swing.JFrame {
     {
        return aid;
     }
+
+
 }
