@@ -51,27 +51,41 @@ public class StadHanterare {
        return stad;
    }
    
-    
-     public ArrayList<HashMap<String, String>> getAllStad()
-  {
-  
-      ArrayList<HashMap<String, String>> rader = new ArrayList<HashMap<String, String>>();
-      try {
+    public ArrayList fetchAllLand() 
+      {
+          ArrayList<HashMap<String,String>> stader = new ArrayList<>();
           
-          String sql = "SELECT * FROM stad"; 
+          String query = "SELECT * FROM stad";
           
-            rader = idb.fetchRows(sql);
-            return rader;
-            
-      } catch (InfException e) {
-          e.printStackTrace();
-          System.out.println(e);
+          try {
+          stader = idb.fetchRows(query);
+          }
+          catch (InfException e) {
+              
+          }
+          
+          return stader;
       }
-        
-     return rader;
-    
-    
-   }
+//     public ArrayList<HashMap<String, String>> getAllStad()
+//  {
+//  
+//      ArrayList<HashMap<String, String>> rader = new ArrayList<HashMap<String, String>>();
+//      try {
+//          
+//          String sql = "SELECT * FROM stad"; 
+//          
+//            rader = idb.fetchRows(sql);
+//            return rader;
+//            
+//      } catch (InfException e) {
+//          e.printStackTrace();
+//          System.out.println(e);
+//      }
+//        
+//     return rader;
+//    
+//    
+//   }
     
 }
 
