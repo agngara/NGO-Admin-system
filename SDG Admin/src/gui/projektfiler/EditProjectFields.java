@@ -8,6 +8,7 @@ import orgEntities.Projekt;
 import java.util.HashMap;
 import SQLHanterare.*;
 import gui.projektfiler.OneProjectView;
+import gui.projektruta;
 
 /**
  *
@@ -191,6 +192,7 @@ public class EditProjectFields extends javax.swing.JFrame {
         ComboPrio = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnTillbakaTillProjekt = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -270,6 +272,14 @@ public class EditProjectFields extends javax.swing.JFrame {
 
         jLabel2.setText("ÅÅÅÅ-MM-DD");
 
+        btnTillbakaTillProjekt.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillProjekt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
+        btnTillbakaTillProjekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTillbakaTillProjektActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,9 +290,6 @@ public class EditProjectFields extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblStartDatum)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitle)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtStartDatum, javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,14 +323,21 @@ public class EditProjectFields extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(ComboPrio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(ComboLand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(31, 31, 31))))
+                        .addGap(31, 31, 31))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbakaTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(252, 252, 252)
+                        .addComponent(lblTitle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblTitle)
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTitle)
+                    .addComponent(btnTillbakaTillProjekt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProjektID)
                     .addComponent(lblProjektNamn))
@@ -408,6 +422,12 @@ public class EditProjectFields extends javax.swing.JFrame {
    
     }//GEN-LAST:event_btnRedigeraActionPerformed
 
+    private void btnTillbakaTillProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillProjektActionPerformed
+        this.setVisible(false);
+        projektruta anst = new projektruta();
+        anst.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillProjektActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +467,7 @@ public class EditProjectFields extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ComboLand;
     private javax.swing.JComboBox<String> ComboPrio;
     private javax.swing.JButton btnRedigera;
+    private javax.swing.JToggleButton btnTillbakaTillProjekt;
     private javax.swing.JComboBox<String> comboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
