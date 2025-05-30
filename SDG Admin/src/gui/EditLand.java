@@ -108,7 +108,7 @@ public class EditLand extends javax.swing.JFrame {
         String valuta = (String) comboValuta.getSelectedItem();
         String tidszon = (String) comboTidszon.getSelectedItem();
         String polstru = (String) comboPolStru.getSelectedItem();
-        String ekonomi = (String) comboPolStru.getSelectedItem();
+        String ekonomi = (String) comboEkonomi.getSelectedItem();
         
         
         if (!lh.andraNamn(lid, namn)) {
