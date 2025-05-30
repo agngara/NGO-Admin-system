@@ -71,12 +71,12 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         String stadId = "1";
         
         try {
-            String sqlFraga = "select sid from avdelning where namn = '" + stad + "'";
+            String sqlFraga = "select sid from stad where namn = '" + stad + "'";
             stadId = idb.fetchSingle(sqlFraga);
         } catch (InfException ex) {}
         
        
-        boolean ok = avdh.laggTillAvdelning(namn, beskrivning, adress, epost, telefon, stad, chef);
+        boolean ok = avdh.laggTillAvdelning(namn, beskrivning, adress, epost, telefon, chef, stadId);
         if (ok) {
             javax.swing.JOptionPane.showMessageDialog(this, "Avdelning sparad!");
             this.setVisible(false);
