@@ -360,13 +360,10 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblKostnadCompare" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="89" max="32767" attributes="0"/>
+                          <EmptySpace pref="129" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -379,9 +376,7 @@
                           <Component id="lblDisplayKostnadSoFar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="lblDisplayKostnad2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="lblKostnadCompare" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="376" max="32767" attributes="0"/>
+                          <EmptySpace pref="452" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -406,11 +401,6 @@
                       <Color blue="d8" green="60" red="7" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="30000"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="lblKostnadCompare">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Kostnaden &#xe4;r 30% h&#xf6;gre &#xe4;n medelv&#xe4;rdet "/>
                   </Properties>
                 </Component>
               </SubComponents>
