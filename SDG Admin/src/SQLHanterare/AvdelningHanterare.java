@@ -28,10 +28,13 @@ public class AvdelningHanterare {
        
    }
    
+   
+   
+   
    public AvdelningHanterare(String avdid) {
        
        this.avdid = avdid;
-       query = "SELECT * FROM anstalld WHERE avdid = " + "'" + avdid + "'";
+       query = "SELECT * FROM avdelning WHERE avdid = " + "'" + avdid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -74,12 +77,7 @@ public class AvdelningHanterare {
     public boolean laggTillAvdelning(String namn, String beskrivning, String adress, String epost, String telefon, String stad, String chef)
     {
         
-          //if (avdid.isEmpty() || namn == null || beskrivning == null || avdid.isEmpty() || namn.isEmpty() || beskrivning.isEmpty()) {
-          if(!Validering.tomFalt(namn, "namn") || !Validering.tomFalt(beskrivning, "beskrivning")) {
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Avdelning kan inte läggas till");
-           return false;
-           
-       }
+         
         
         
         try {
@@ -125,7 +123,7 @@ public class AvdelningHanterare {
         
         
         try {
-            String namn = "UPDATE avdelning SET namn = '" + nyttNamn + "'WHERE avdid'" + avdid + "'";
+            String namn =  "UPDATE avdelning SET namn = '" + nyttNamn + "WHERE avdid = " + avdid;
             idb.update(namn);
             return true;
           }  
@@ -149,7 +147,7 @@ public class AvdelningHanterare {
            return false;
         }
         try {
-            String beskrivning = "UPDATE avdelning SET beskrivning = '" + nyBeskrivning + "'WHERE avdid'" + avdid + "'"; 
+            String beskrivning = "UPDATE avdelning SET beskrivning = '" + nyBeskrivning + "WHERE avdid = " + avdid;
             idb.update(beskrivning);
             return true;
             
@@ -175,7 +173,7 @@ public class AvdelningHanterare {
         
         
         try{
-            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "'WHERE avdid'" + avdid + "'";
+            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "WHERE avdid = " + avdid;
             idb.update(adress);
             return true;
             
@@ -200,7 +198,7 @@ public class AvdelningHanterare {
         }
   
         try{
-          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "'WHERE avdid'" + avdid + "'";
+          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "WHERE avdid = " + avdid;
             idb.update(epost);
             return true;  
         }
@@ -221,14 +219,14 @@ public class AvdelningHanterare {
             
             
          {
-          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer) && !Validering.tomFalt(nyttTelefonnummer, "telefon")) {
+          if (!Validering.giltigtTelefonnummer(nyttTelefonnummer)) {
           
            System.out.println("avdid eller telefon får inte vara tom.");
            return false;
         }
     {
         try{
-            String telefonnummer = "UPDATE avdelning SET telefon = '" + nyttTelefonnummer + "WHERE avdid" + avdid + "'";
+            String telefonnummer = "UPDATE avdelning SET telefon = '" + nyttTelefonnummer + "' WHERE avdid = " + avdid;
             idb.update(telefonnummer);
             return true;
             
@@ -255,7 +253,7 @@ public class AvdelningHanterare {
         }
     {
         try{
-            String chefen = "UPDATE avdelning SET telefon = '" + nyChef + "WHERE avdid" + avdid + "'";
+            String chefen = "UPDATE avdelning SET chef = '" + nyChef + "' WHERE avdid = " + avdid;
             idb.update(chefen);
             return true;
             
