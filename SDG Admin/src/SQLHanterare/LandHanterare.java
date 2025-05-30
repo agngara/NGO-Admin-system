@@ -263,9 +263,9 @@ public class LandHanterare {
         try { 
        // ta bort från alla tabeller där aid finns som nyckel.
        
-       String taBortProjekt = "DELETE FROM projekt WHERE lid = '" + lid + "'";
+       String taBortProjekt = "DELETE FROM projekt WHERE land = '" + lid + "'";
        idb.delete(taBortProjekt);
-       String taBortStad = "DELETE FROM stad WHERE lid = '" + lid + "'";
+       String taBortStad = "DELETE FROM stad WHERE land = '" + lid + "'";
        idb.delete(taBortStad);
        String taBort = "DELETE FROM land WHERE lid = '" + lid + "'";
        idb.delete(taBort);
