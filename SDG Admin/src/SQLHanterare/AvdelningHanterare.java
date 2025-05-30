@@ -123,7 +123,7 @@ public class AvdelningHanterare {
         
         
         try {
-            String namn =  "UPDATE avdelning SET namn = '" + nyttNamn + "WHERE avdid = " + avdid;
+            String namn =  "UPDATE avdelning SET namn = '" + nyttNamn + "' WHERE avdid = " + avdid;
             idb.update(namn);
             return true;
           }  
@@ -147,7 +147,7 @@ public class AvdelningHanterare {
            return false;
         }
         try {
-            String beskrivning = "UPDATE avdelning SET beskrivning = '" + nyBeskrivning + "WHERE avdid = " + avdid;
+            String beskrivning = "UPDATE avdelning SET beskrivning = '" + nyBeskrivning + "' WHERE avdid = " + avdid;
             idb.update(beskrivning);
             return true;
             
@@ -173,7 +173,7 @@ public class AvdelningHanterare {
         
         
         try{
-            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "WHERE avdid = " + avdid;
+            String adress = "UPDATE avdelning SET adress = '" + nyAdress + "' WHERE avdid = " + avdid;
             idb.update(adress);
             return true;
             
@@ -198,7 +198,7 @@ public class AvdelningHanterare {
         }
   
         try{
-          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "WHERE avdid = " + avdid;
+          String epost = "UPDATE avdelning SET epost = '" + nyEpost + "' WHERE avdid = " + avdid;
             idb.update(epost);
             return true;  
         }

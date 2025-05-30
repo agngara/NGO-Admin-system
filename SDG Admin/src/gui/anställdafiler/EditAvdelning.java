@@ -93,16 +93,16 @@ public class EditAvdelning extends javax.swing.JFrame {
             return false;
         }
         
-        String epost = txtChef.getText();
+        String epost = txtepost.getText();
         if (!avdh.andraEpost(avdid, epost)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera epost.");
             return false;
         }
         
         
-        String adress = txtChef.getText();
+        String adress = txt1Adress.getText();
         if (!avdh.andraAdress(avdid, adress)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress");
             return false;
         }
         
