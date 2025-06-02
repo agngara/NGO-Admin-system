@@ -12,7 +12,7 @@ import logicComponents.User.CurrentUser;
 import logicComponents.User.UserType;
 
 /**
- *
+ * Denna klass tinnhandahåller GUI och funktioner för att redigera projektinformation.
  * @author theow
  */
 public class EditProjectFields extends javax.swing.JFrame {
@@ -25,7 +25,9 @@ public class EditProjectFields extends javax.swing.JFrame {
      
     
     /**
-     * Creates new form EditProjectFields
+     * Skapar en javaklass med GUI komponenter för att redigera projektinfo.
+     * @param projekt tar in ett projektobjekt för att extrahera information från.
+     * @param oneProjectView tar in ett objekt av projektsidan för att kunna referera till just den instansen.
      */
     public EditProjectFields(Projekt projekt, OneProjectView oneProjectView) {
         this.projekt = projekt;
@@ -53,7 +55,9 @@ public class EditProjectFields extends javax.swing.JFrame {
     return false;
     
 }
-    
+    /**
+     * Fyller de grafiska textfälten med information från projektet som ska redigeras.
+     */
     public void setTextBoxes() {
         
         txtProjID1.setText(projekt.getPid());
@@ -68,7 +72,9 @@ public class EditProjectFields extends javax.swing.JFrame {
 
     }
         
-
+    /**
+     * Fyller listfälten med projektets information.
+     */
     public void fillComboBoxes() {
 
         //FIll land
@@ -107,7 +113,10 @@ public class EditProjectFields extends javax.swing.JFrame {
         comboStatus.setSelectedItem(status);
 }
      
-
+    /**
+     * Läser av textfälten för att sedan skicka dem till databasen meds coms-metoder i projekthanterarklassen.
+     * @return true om projektet har sparats, annars false.
+     */
     public boolean setProjectInfo() {
         String pid = txtProjID1.getText();
         if (!ph.andraPid(pid, pid)) {

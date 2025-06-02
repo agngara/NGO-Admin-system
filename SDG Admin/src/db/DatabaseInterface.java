@@ -19,7 +19,10 @@ public class DatabaseInterface {
     
     
 }
-    
+    /**
+     * För att använda denna metod, tilldela en variabel av datatypen InfDB denna metod, och kalla på InfDb-metoder från denna. Se dokumentation för InfDB-resursern.
+     * @return Ett objekt av typen InfDB.
+     */
     public static InfDB databaseConnection() {
         // TODO code application logic here
         try {
