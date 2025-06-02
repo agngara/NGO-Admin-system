@@ -28,11 +28,12 @@ public class Partners extends javax.swing.JFrame {
     
     /**
      * Creates new form Partners
+     * konstruktor
      */
     public Partners() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+        setLocationRelativeTo(null); // centrerar fönstret
         try {
         idb = DatabaseInterface.databaseConnection();
         fyllTabell();
@@ -42,7 +43,7 @@ public class Partners extends javax.swing.JFrame {
     }
     
    
-    
+    // fyller tabellen från databasen. 
     private void fyllTabell(){
         try {
             String query = "SELECT pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad FROM partner";
@@ -73,6 +74,9 @@ public class Partners extends javax.swing.JFrame {
         }  
     }
     
+    
+    
+    // ta bort partner
     public void removePartner(String pid) {
         
         if (new PartnerHanterare().taBortPartner(pid)) {
@@ -196,6 +200,7 @@ public class Partners extends javax.swing.JFrame {
 
     private void bnTaBortPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortPartnerActionPerformed
  
+        // kontrollerar om en rad i tabellen är vald, om ja anropas removePartner(pid) för att ta bort partnern. 
         int selectedRow = tblPartners.getSelectedRow();
         if (selectedRow == -1) {
             
