@@ -34,15 +34,16 @@ public class Avdelningar extends javax.swing.JFrame {
     
     /**
      * Creates new form Avdelning
+     * Konstruktor
      */
     public Avdelningar() {
         avdelningar = this;
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+        setLocationRelativeTo(null); // centrerar fönstret
      try {
         idb = DatabaseInterface.databaseConnection();
-        fyllTabell();
+        fyllTabell();// fyller tabellen från databasen
      } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
@@ -51,7 +52,7 @@ public class Avdelningar extends javax.swing.JFrame {
     
 
     
-    
+   // fyller tabellen 
     private void fyllTabell(){
         
 
@@ -84,6 +85,8 @@ public class Avdelningar extends javax.swing.JFrame {
     
     }
     
+    
+ // klicklyssnare för att kunna redigera avdelning.   
     public void tableMouseEvent() {
         
         tblAvdelning.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,6 +110,7 @@ public class Avdelningar extends javax.swing.JFrame {
     );    
  }
     
+  // ta bort en avdelning
     public void removeAvdelning(String avdid) {
         
         if (new AvdelningHanterare().taBortAvdelning(avdid)) {
@@ -225,7 +229,7 @@ public class Avdelningar extends javax.swing.JFrame {
     }//GEN-LAST:event_avdTillbakaTillMenyActionPerformed
 
     private void bnTaBortAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAvdelningActionPerformed
-
+ // kontrollerar om en rad är vald, om ja så anropas avdelningen.
         int selectedRow = tblAvdelning.getSelectedRow();
           //int column = 1; 
           if (selectedRow == -1) {

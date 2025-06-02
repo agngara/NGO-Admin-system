@@ -32,16 +32,16 @@ public class Anställda extends javax.swing.JFrame {
     private String aid;
     private Anställda anställda;
     /**
-     * Creates new form Anställda
+     * Konstruktor för klasssen anställda
      */
     public Anställda() {
-        initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+        initComponents(); 
+        setExtendedState(MAXIMIZED_BOTH); // Maximerar förnstret
+        setLocationRelativeTo(null); // centrerar fönstret
         anställda = this;
         try {
         idb = DatabaseInterface.databaseConnection();
-        fyllTabell();
+        fyllTabell(); // fyller tabellen från databasen
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
         }
@@ -54,6 +54,7 @@ public class Anställda extends javax.swing.JFrame {
         }
     }
 
+   // hämtar anställda från databasen och fyller tabellen
     private void fyllTabell(){
         try {
             String query = "SELECT aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning FROM anstalld";
@@ -84,7 +85,8 @@ public class Anställda extends javax.swing.JFrame {
         }  
     }
         
-    
+ 
+  // Lägger till en klick-lyssnare på tabelln, för redigering av en anställd
  public void tableMouseEvent(Anställda anställda) {
         
         tblAnställda.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +111,7 @@ public class Anställda extends javax.swing.JFrame {
     }
     );    
  }
- 
+ // Ta bort anställd
  public void removeAnställd(String aid) {
         
         if (new AnstalldHanterare().taBortAnstalld(aid)) {
@@ -233,7 +235,8 @@ public class Anställda extends javax.swing.JFrame {
     }//GEN-LAST:event_bnLaggTillAnstalldActionPerformed
 
     private void bnTaBortAnstalldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAnstalldActionPerformed
-        
+       
+   // kontrollerar om en rad i tabellen är vald, om ja anropas removeAnställd(aid) dör att ta bort den anställda.      
         int selectedRow = tblAnställda.getSelectedRow();
           //int column = 1; 
           if (selectedRow == -1) {

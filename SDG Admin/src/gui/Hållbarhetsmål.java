@@ -25,11 +25,12 @@ import logicComponents.User.User;
 public class Hållbarhetsmål extends javax.swing.JFrame {
      private InfDB idb;
      
-    
+  
+ // konstruktor
 public Hållbarhetsmål(){
     initComponents(); 
-    setExtendedState(MAXIMIZED_BOTH);
-    setLocationRelativeTo(null);
+    setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+    setLocationRelativeTo(null); // centrerar fönstret
     try {
     idb = DatabaseInterface.databaseConnection();
     fyllTabell();
@@ -39,6 +40,7 @@ public Hållbarhetsmål(){
 }
     /**
      * Creates new form Hållbarhetsmål
+     * Fyller tabellen, från databasen
      */
     private void fyllTabell(){
         try {
