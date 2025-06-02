@@ -25,16 +25,16 @@ public class LaggTillLand extends javax.swing.JFrame {
     LandHanterare lh;
     
     
+  // konstruktor  
     public LaggTillLand() {
         initComponents();
         fillComboBoxes();
         
         lh = new LandHanterare();
-        
-     
-        
+            
     }
 
+  // ger boxarna värden från databasen
     public void fillComboBoxes() {
          
         // Fill Språk
@@ -79,20 +79,15 @@ public class LaggTillLand extends javax.swing.JFrame {
         comboEkonomi.addItem("Ekonomi 5");
         comboEkonomi.addItem("Ekonomi 6");
         
-        
-
-        // Denna bit härstammar från ändra-entitet-funktioner (tror jag), och inte lägg till så dessa kommenteras ut.
-//        String tidszon = land.getStad();
-//        comboTidszon.setSelectedItem(StadNamn);        
+            
 }
-         
+   
+  // Uppdaterar den nya datan i databasen
     private void sparaLand() {
         // Ingen aning vad två rader nedan gör 
 //           String namn = txtNamn.getText();
 //           String sprak = txtsprak
-        
-                   
-          
+         
            String namn = txtNamn.getText();
            String sprak = (String) comboSprak.getSelectedItem();
            String valuta = (String) comboValuta.getSelectedItem();
@@ -101,10 +96,6 @@ public class LaggTillLand extends javax.swing.JFrame {
            String ekonomi = (String) comboEkonomi.getSelectedItem();
               
         
-        
-    
-        
-       
         boolean ok = lh.laggTillLand(namn, sprak, valuta, tidszon, polstru, ekonomi);
         if (ok) {
             javax.swing.JOptionPane.showMessageDialog(this, "Land sparat!");

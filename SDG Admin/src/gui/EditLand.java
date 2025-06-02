@@ -21,20 +21,19 @@ public class EditLand extends javax.swing.JFrame {
     String lid;
           
     
-
+// konstruktor
     public EditLand(Land land) {
         this.land = land;
         lid = land.getLid();
 
         initComponents();
         this.setTextBoxes();
-  
-        // metoden nedan är tilllagt nu
+ 
         lh = new LandHanterare(lid);
         
     }
 
-
+ // hämtar data från databasen för att ge textrutorna 
     public void setTextBoxes() {
 
         txtNamn.setText(land.getNamn());
@@ -44,9 +43,11 @@ public class EditLand extends javax.swing.JFrame {
     /**
      * I sin nuvarande form hämtar inte metoden information från projektet som ska redigeras, utan läggar bara till i comboboxarna de alternativ som finns i databasen.
      */
+    
+    //ger comboboxen värden
     public void fillComboBoxes() { 
-    // Fill Språk
-        
+    
+        // Fill Språk
         comboSprak.removeAllItems();        
         comboSprak.addItem("Sprak 1");
         comboSprak.addItem("Sprak 2");
@@ -100,7 +101,7 @@ public class EditLand extends javax.swing.JFrame {
 
 }
 
-
+ //Ger textrutorna data från databasen och uppdaterar datan vid ändring.
     public boolean setLandInfo() {
 
         String namn = txtNamn.getText();

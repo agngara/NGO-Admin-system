@@ -47,7 +47,7 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lblFornamn" max="32767" attributes="0"/>
+                                          <Component id="lblFornamn" pref="52" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="441" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -55,15 +55,12 @@
                                               <Component id="lblAnsDatum" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblEfternamn" min="-2" max="-2" attributes="0"/>
                                               <Component id="lblTelefon" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtNamn" pref="300" max="32767" attributes="0"/>
+                                                  <Component id="comboPolStru" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="452" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtNamn" pref="300" max="32767" attributes="0"/>
-                                              <Component id="comboPolStru" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
