@@ -26,20 +26,22 @@ public class Lander extends javax.swing.JFrame {
     private InfDB idb;
     /**
      * Creates new form Partners
+     * konstruktor
      */
     public Lander() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+        setLocationRelativeTo(null); // centrerar fönstret
         try {
         idb = DatabaseInterface.databaseConnection();
-        fyllTabell();
+        fyllTabell(); // fyller tabellen
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
         tableMouseEvent();
     }
     
+    // fyller tabellen från databasen
     private void fyllTabell(){
         try {
             String query = "SELECT * FROM land";
@@ -71,6 +73,7 @@ public class Lander extends javax.swing.JFrame {
         }  
     }
 
+    // ta bort land
     public void removeLand(String lid) {
         
         if (new LandHanterare().taBortLand(lid)) {
@@ -84,7 +87,7 @@ public class Lander extends javax.swing.JFrame {
         }
     }
     
-    
+    // // Lägger till en klick-lyssnare på tabelln, för redigering av land
     public void tableMouseEvent() {
         
         tblLander.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,10 +204,11 @@ public class Lander extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTaBortLand, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLaggTillLand, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLaggTillLand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTaBortLand, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
         );
 
@@ -217,6 +221,8 @@ public class Lander extends javax.swing.JFrame {
     }//GEN-LAST:event_parTillbakaTillMenyActionPerformed
 
     private void btnTaBortLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLandActionPerformed
+    
+  // kontrollerar om en rad i tabellen är vald, om ja anropas removeLand(lid) för att ta bort ett land.
         int selectedRow = tblLander.getSelectedRow();
           
           if (selectedRow == -1) {
