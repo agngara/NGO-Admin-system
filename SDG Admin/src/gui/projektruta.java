@@ -38,7 +38,7 @@ private Anstalld currentAnstalld;
     
  public projektruta(){
     initComponents(); 
-    setExtendedState(MAXIMIZED_BOTH);
+    setExtendedState(MAXIMIZED_BOTH); // design
     setLocationRelativeTo(null);
     projektr = this;
     jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -49,12 +49,12 @@ private Anstalld currentAnstalld;
     
 try {
     idb = DatabaseInterface.databaseConnection();
-    fyllTabell();
+    fyllTabell(); // fyller tabellen utifrån databasen
 } catch (Exception e){
  }
 jButton1.addActionListener(new java.awt.event.ActionListener() {
 public void actionPerformed(java.awt.event.ActionEvent evt) {
-searchDateByActionPerformed(evt);
+searchDateByActionPerformed(evt); 
 }
 });
 jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,9 +66,11 @@ jComboBox1ActionPerformed(evt);
 
    
 if (CurrentUser.getUsr() !=null) {
-    UserType userType = CurrentUser.getUsr().getUserType();
+    UserType userType = CurrentUser.getUsr().getUserType(); // Visar vilken typ av användare som är inloggad
     String userTypeString = userType.toString();
 } else {
+    System.out.println ("Ingen användare är inloggad.");
+    return;
 
 }
     try {
@@ -84,23 +86,23 @@ if (CurrentUser.getUsr() !=null) {
 private void fyllTabell(){
         
     try {
-        String query = "";
-        currentAnstalld = CurrentUser.getUsr().getAnstalld();
-        String aid = currentAnstalld.getAid();
+        String query = ""; // Fylls i beroende på vilken användare som är inloggad
+        currentAnstalld = CurrentUser.getUsr().getAnstalld(); // Hämtar den nuvarande inloggade användaren
+        String aid = currentAnstalld.getAid(); // Hämtar den inloggade användarens användarID
         UserType userType = currentAnstalld.getRole(aid);
 
            if (userType == UserType.handlaggare){
          query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
                     "FROM projekt p " +
-                 "JOIN ans_proj ap ON p.pid = ap.pid " + 
+                 "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
                  "WHERE ap.aid =  " +"'" + aid + "'";
         } 
    else if (userType == UserType.admin1 || userType == UserType.admin2){
-    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt";
+    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt"; // Admin 1 och 2 får se alla projekt
         } 
    else if (userType == UserType.projektchef){
-       query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");";
-       System.out.println(query);
+       query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");"; // Visar projekt där projektchefens aid matchar i tabellen
+       System.out.println(query); 
 
 
    }
@@ -110,8 +112,8 @@ private void fyllTabell(){
 
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
-        System.out.println("Antal projekt hämtade:" + projektlista.size());
-        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status",""};
+        System.out.println("Antal projekt hämtade:" + projektlista.size()); // Skriver ut antal projekt som hittades när när SQL-frågan körs
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status","Visa"}; // Skapar en tabell med kolumnnamn matchande de i databasen
 
     DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
@@ -125,37 +127,37 @@ private void fyllTabell(){
         String prioritet = projekt.get("prioritet");
         String kostnad = projekt.get ("kostnad"); 
         String status = projekt.get ("status");
-        model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status, "Visa"});
+        model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status, "Visa"}); // Hämtar alla kolumner som behövs i tabellen
     }
 
     tblProjekt.setModel(model);
     } catch (InfException e) {
-    JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
+    JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage()); // visar om något blev fel
     }
 }
 
-private void searchDateByActionPerformed(java.awt.event.ActionEvent evt) {
+private void searchDateByActionPerformed(java.awt.event.ActionEvent evt) { // metoden körs när kanppen trycks på
     try {
         String searchDate = jTextField1.getText();
         if (searchDate.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ange sökdatum.");
+            JOptionPane.showMessageDialog(this, "Ange sökdatum."); // Om inget datum skrivs in kommer ett meddelande upp 
             return;
         }
    
     
         String query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                 " FROM projekt p " + 
-       "WHERE p.startdatum = '" + searchDate + "' OR p.slutdatum = '" + searchDate +"'";
+       "WHERE p.startdatum = '" + searchDate + "' OR p.slutdatum = '" + searchDate +"'"; // söker på projekt utifrån det datum som anges i sökrutan
 System.out.println("SQL-fråga: " + query);
-ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
+ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka datum som matchar, returnerar en lista med projekt som matchar i datum
 if (projektlista == null || projektlista.isEmpty()) {
-JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
+JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades med matchande datum kommer ett meddelande upp med den informationen
 return;
 }
-String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", ""};
+String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "Visa"}; // kolumnnamn som ska användas i tabellen
 DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-for (HashMap<String, String> projekt : projektlista) {
+for (HashMap<String, String> projekt : projektlista) { // loopar igenom alla projekt
     String pid = projekt.get("pid");
     String namn = projekt.get("projektnamn");
     String beskrivning = projekt.get ("beskrivning");
@@ -163,14 +165,14 @@ for (HashMap<String, String> projekt : projektlista) {
     String slut = projekt.get("slutdatum");
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
-    String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
+    String status = projekt.get("status"); // hämtar ut fälten från projekt
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});  // lägger till en rad för varje del
         
 }
 tblProjekt.setModel(model);
     } catch (InfException e){
         e.printStackTrace();
-JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage());
+JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage()); // meddelande som visas om det vart fel
 return;
     }
     }
@@ -178,20 +180,20 @@ return;
 private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
     try {
 
-        String selectedStatus = (String) jComboBox1.getSelectedItem();
+        String selectedStatus = (String) jComboBox1.getSelectedItem(); // hämtar det valda värdet som användaren klickat i
         String query;
-        if (selectedStatus.equals("Alla")){
+        if (selectedStatus.equals("Alla")){ // om alla projekt är valda visas alla projekt
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
-                    "FROM projekt p";
+                    "FROM projekt p"; // här hämtas då alla projekt oberoende av status
 } else { 
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p " +
-            "WHERE p.Status = '" + selectedStatus +"'";
+            "WHERE p.Status = '" + selectedStatus +"'"; // hämtar projekt utifrån vad användaren klikcat i
 }
         System.out.println("SQL-fråga: " + query);
-        ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
+        ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // hämtar projekten från databasen utifrån vald status
         String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "" };
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0); //skapan en tabell
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
             String namn = projekt.get("projektnamn");
@@ -200,43 +202,43 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
             String slut = projekt.get("slutdatum");
             String prioritet = projekt.get("prioritet");
             String kostnad = projekt.get("kostnad");
-            String status = projekt.get("status");
+            String status = projekt.get("status"); // går igenom alla projekt och lägger till i tabellen
             
             model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
 }
 tblProjekt.setModel(model);
 } catch (InfException e) {
 e.printStackTrace();
-JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage());
+JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage()); // visar felmeddelande om något blev fel
 }}
 
 private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
     try {
-        boolean endastMinAvdelning = jCheckBox1.isSelected();
+        boolean endastMinAvdelning = jCheckBox1.isSelected(); // kollar om rutan är ibockad 
         String query = "";
          if (endastMinAvdelning) {
-            String avdid = CurrentUser.getUsr().getAnstalld().getAvdelning();
+            String avdid = CurrentUser.getUsr().getAnstalld().getAvdelning(); // om rutan är ibockad hämtas aid från den som är inloggad
             System.out.println("Avdelnings_ID: " + avdid);
-            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
+            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " + // hämtar projekt från avdelning som är kopplad till den inloggade användaren
                     "FROM projekt p " +
-                    "JOIN avdelning avd ON  a.avdid = avd.avdid" +
+                    "JOIN avdelning avd ON  a.avdid = avd.avdid " +
 "JOIN ans_proj ap ON p.pid = ap.pid " +
 "JOIN anstalld a ON ap.aid = a.aid " +
 "WHERE a.avd = '" + avdid.replace("'", "'") + "'";
 }else {
-           query = "SELECT * FROM projekt";
+           query = "SELECT * FROM projekt"; // om rutan inte är i kryssad så hämtas alla projekt
 
 }
  
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
         if (projektlista == null || projektlista.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Inga projekt hittades.");
+            JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades visas ett meddelande
             return;
         }
-String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"};
+String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"}; // kolumnnamn som ska användas i tabellen
 DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-for (HashMap<String, String> projekt: projektlista){
+for (HashMap<String, String> projekt: projektlista){ // loopar igenom projekten i listan och hämtar ut resultat från alla fält
     String pid = projekt.get("pid");
     String namn = projekt.get("projektnamn");
     String beskrivning = projekt.get("beskrivning");
@@ -250,7 +252,7 @@ for (HashMap<String, String> projekt: projektlista){
 tblProjekt.setModel(model);
 } catch(InfException e) {
 e.printStackTrace();
-JOptionPane.showMessageDialog(this, "fel vid hämtning av projekt: " + e.getMessage());
+JOptionPane.showMessageDialog(this, "fel vid hämtning av projekt: " + e.getMessage()); // visar meddelande om något blev fel
 
         
     }
@@ -263,17 +265,17 @@ JOptionPane.showMessageDialog(this, "fel vid hämtning av projekt: " + e.getMess
 
 public void tableMouseEvent(projektruta projektr) {
         
-        tblProjekt.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProjekt.addMouseListener(new java.awt.event.MouseAdapter() { // lägger till en muslyssnare på 
     @Override
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
+    public void mouseClicked(java.awt.event.MouseEvent evt) { // tar reda på vilken kolumn och rad som är i klickad
         int row = tblProjekt.rowAtPoint(evt.getPoint());
         int col = tblProjekt.columnAtPoint(evt.getPoint());
         if (row >= 0 && col == 8) {
                 
-            Object varde = tblProjekt.getValueAt(row, 0);
+            Object varde = tblProjekt.getValueAt(row, 0); // hämtar värdet i den i klickade kolumnen
             String pid = varde.toString();
             OneProjectView oneProjectView = new OneProjectView(pid);
-            oneProjectView.setVisible(true);
+            oneProjectView.setVisible(true); // visar ett nytt visningsfönster
             projektr.setVisible(false);
             
             
@@ -286,14 +288,14 @@ public void tableMouseEvent(projektruta projektr) {
     }
 
     public void removeProjekt(String pid) {
-        
-        if (new ProjektHanterare().taBortProjekt(pid)) {
-            JOptionPane.showMessageDialog(rootPane, "Projekt borttaget.");
+        // anropar metoden tabortprojekt
+        if (new ProjektHanterare().taBortProjekt(pid)) { // försöka ta bort projekt med ett angivet projektid (pid)
+            JOptionPane.showMessageDialog(rootPane, "Projekt borttaget."); // om projektet togs bort visas detta meddelande
             fyllTabell();
             
         } 
         else {
-            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort projekt.");
+            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort projekt."); // visas om borttagningen misslyckades
 
         }
     }
@@ -454,21 +456,21 @@ public void tableMouseEvent(projektruta projektr) {
     private void bnTaBortProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortProjektActionPerformed
         
        int selectedRow = tblProjekt.getSelectedRow();
-        int column = 1; 
-        String projektID = "";
+        int column = 1;  // hämtar den valda radens index i tabellen
+        String projektID = ""; // används för att lagra projektets id
         projektID = (String) tblProjekt.getValueAt(selectedRow, 0);
 
         if (selectedRow != -1) { 
             
             if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort detta projekt?") == JOptionPane.YES_OPTION ) {
-            
+            // meddelande om man är säker på att man vill ta bort projekt med svarsalternativ
                 removeProjekt(projektID);
             }
             
             
         } else {
             
-            System.out.println("Ingen rad är vald.");
+            System.out.println("Ingen rad är vald."); // om ingen rad är vald visas detta meddelande
         }
     }//GEN-LAST:event_bnTaBortProjektActionPerformed
 
