@@ -24,7 +24,7 @@ public class EditAvdelning extends javax.swing.JFrame {
     String avdid;
     
     
-
+// konstruktor
     public EditAvdelning(Avdelning avdelning) {
         this.avdelning = avdelning;
         initComponents();
@@ -35,6 +35,8 @@ public class EditAvdelning extends javax.swing.JFrame {
 
     }
 
+    
+ // sätter textrutor med data från databasen.
     public void setTextBoxes() {
         
         txtTelefon.setText(avdelning.getTelefon());
@@ -46,7 +48,9 @@ public class EditAvdelning extends javax.swing.JFrame {
         this.fillComboBoxes();
 
     }
-        
+ 
+    
+  // hämtar data till comboboxern från databasen
     public void fillComboBoxes() {
         
         //FIll Stad
@@ -66,6 +70,7 @@ public class EditAvdelning extends javax.swing.JFrame {
         comboStad.setSelectedItem(StadNamn);
 }
      
+  // uppdaterar informationen i databasen  
     public boolean setAvdelningInfo() {
 
         String telefon = txtTelefon.getText();

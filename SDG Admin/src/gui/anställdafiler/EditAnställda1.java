@@ -25,7 +25,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
      
     
     /**
-     * Creates new form EditProjectFields
+     * Konstruktor
      */
     public EditAnställda1(Anstalld anstalld) {
         this.anstalld = anstalld;
@@ -40,6 +40,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     }
 
     
+  // infogar den anställdas information från databasen till textrutor
     public void setTextBoxes() {
         
         txtAdress.setText(anstalld.getAdress());
@@ -53,7 +54,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
 
     }
         
-
+// ger comboboxen värden
     public void fillComboBoxes() {
         
         //FIll Avdelning
@@ -74,6 +75,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         
 }
      
+  // uppdaterar den nya informtionen i databasen
     public boolean setAnstalldInfo() {
 
         String Adress = txtAdress.getText();
@@ -108,15 +110,6 @@ public class EditAnställda1 extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
             return false;
         }
-        
-        
-//denna ska bort och är den som fuckat ändra anställda
-//        String Avdelning = (String) comboAvdelning.getSelectedItem();
-//        if (!ah.andraAvdelning(aid, Avdelning)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
-//            return false;
-        
-
  
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
         

@@ -29,36 +29,20 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     
       
     /**
-     * Creates new form EditProjectFields
+     * konstruktor
      */
     public LäggTillAnställd1() {
         anstalld = new Anstalld();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
-        
-        //aid = anstalld.getAid();
         ah = new AnstalldHanterare(aid);
         adh = new AdminHanterare(aid);
         
     }
-    
-    //Kan tas bort
-//    public void setTextBoxes() {
-//        
-//        txtansID1.setText(anstalld.getAid());
-//        txtAdress.setText(anstalld.getAdress());
-//        txtEfternamn.setText(anstalld.getEfternamn());
-//        txtFornamn.setText(anstalld.getFornamn());
-//        txtLosenord.setText(anstalld.getLosenord());
-//        txtTelefon.setText(anstalld.getTelefon());
-//        txtEpost.setText(anstalld.getEpost());
-//        txtAnsDatum.setText(anstalld.getAnstallningsdatum());
-////        this.fillComboBoxes();
-
-    //}
         
 
+    // ger comboboxen värden från databasen.
     public void fillComboBoxes() {
         
         //FIll Avdelning
@@ -66,91 +50,21 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
         ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.getAllAvdelning();
         String namn = "";
-//        comboAvdelning.addItem(""); 
-
+ 
         for (HashMap<String,String> hashmap : avdelning) {
-
 
             namn = hashmap.get("namn");
             comboAvdelning.addItem(namn);
 
         }
-//        comboAvdelning.setSelectedIndex(0);
         String avdelningNamn = anstalld.getAvdelning();
         comboAvdelning.setSelectedItem(avdelningNamn);
         
 }
-     // tar bort (this.aid, aid) 
-    
-//    public boolean setAnstalldInfo() {
-//        String aid = txtansID1.getText();
-//        if (!ah.andraAid(this.aid, aid)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställnings-ID.");
-//            return false;
-//        }
-//
-//        String Adress = txtAdress.getText();
-//        if (!ah.andraAdress(aid, Adress)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
-//            return false;
-//        }
-//
-//        String Efternamn = txtEfternamn.getText();
-//        if (!ah.andraEfternamn(aid, Efternamn)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera efternamn.");
-//            return false;
-//        }
-//
-//        String Losenord = txtLosenord.getText();
-//        if (!ah.andraLosenord(aid, Losenord)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera lösenord.");
-//            return false;
-//        }
-//
-//        String Fornamn = txtFornamn.getText();
-//        if (!ah.andraFornamn(aid, Fornamn)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera förnamn.");
-//            return false;
-//        }
-//
-//        String epost = txtEpost.getText();
-//        if (!ah.andraEpost(aid, epost)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera e-post.");
-//            return false;
-//        }
-//
-//        String telefon = txtTelefon.getText();
-//        if (!ah.andraTelefon(aid, telefon)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
-//            return false;
-//        }
-//        
-//        String Anstallningsdatum = txtAnsDatum.getText();
-//        if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
-//            return false;
-//        }
-//
-//        String Avdelning = (String) comboAvdelning.getSelectedItem();
-//        if (!ah.andraAvdelning(aid, Avdelning)) {
-//            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera avdelning.");
-//            return false;
-//        }
-//
-// 
-//        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
-//        
-//        return true;
-//
-//    }
-        
+     
+    //  sparar den nya datan till databasen   
     private void sparaAnstalld() {
        
-        //aid potentiellt auto increment
-        
-        //idb.insert(epost);
-        //idb.insert("insert into anstalld (aid, adress, efternamn")
-        // idb.insert();
         
         String adress = txtAdress.getText();
         String efternamn = txtEfternamn.getText();

@@ -27,7 +27,7 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
      
     
     /**
-     * Creates new form EditProjectFields
+     * konstruktor
      */
     public EditMinaUppgifter(Anstalld anstalld, Meny meny) {
         this.anstalld = anstalld;
@@ -35,14 +35,12 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         initComponents();
         this.setTextBoxes();
         aid = anstalld.getAid();
-        // metoden nedan är tilllagt nu
         ah = new AnstalldHanterare(aid);
-        this.oneProjectView = oneProjectView;
-//        ah = new AnstalldHanterare(aid);
+        this.oneProjectView = oneProjectView;       
         
     }
 
-    
+    // hämtar data från databasen till textrutorna
     public void setTextBoxes() {
         
         txtAdress.setText(anstalld.getAdress());
@@ -53,7 +51,8 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         txtEpost.setText(anstalld.getEpost());
     }
         
-     
+    
+  // uppdaterar uppgifterna i databasen  
     public boolean setAnstalldInfo() {
 
         String Adress = txtAdress.getText();
@@ -92,9 +91,6 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
             return false;
         }
 
-
-
- 
         javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
         return true;
 

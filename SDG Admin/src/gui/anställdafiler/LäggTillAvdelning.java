@@ -26,7 +26,8 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
     String avdid;
     private InfDB idb;
     
-    
+   
+ // konstruktor
     public LäggTillAvdelning() {
         
         idb = DatabaseInterface.databaseConnection();
@@ -35,10 +36,11 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         
         avdh = new AvdelningHanterare(avdid); 
         avdelning = new Avdelning(avdh);
-        
-         
+             
     }
 
+    
+  // comboboxen kopplas till databasen 
     public void fillComboBoxes() {
          
          // Fill stad
@@ -56,7 +58,8 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         String stadNamn = avdelning.getStad();
         comboStad.setSelectedItem(stadNamn);        
 }
-         
+    
+  // den nya datan sparas till databasen
     private void sparaAvdelning() {
         
         String adress = txtAdress.getText();
