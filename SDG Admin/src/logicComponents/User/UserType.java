@@ -5,7 +5,7 @@
 package logicComponents.User;
 
 /**
- *
+ * Denna fil innehåller en lista med alla användartyper.
  * @author theow
  */
 public enum UserType {

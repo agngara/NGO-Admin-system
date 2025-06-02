@@ -186,12 +186,14 @@ public class inloggning extends javax.swing.JFrame {
         else {
             
             try{
+                // Kollar ifall inloggningsuppgifter matchar databasen.
                 String sqlFraga = "SELECT losenord FROM anstalld WHERE epost = " + "'" + ePost + "'";
                 System.out.println(sqlFraga);
                 String dbLosen = idb.fetchSingle(sqlFraga);
                 if(losen.equals(dbLosen)){
                     
-                    /* User assignment process: -> Creates object of anstalldhanterare which facilitates coms with DB 
+                    /* User assignment process: 
+                    -> Creates object of anstalldhanterare which facilitates coms with DB 
                     -> creates anstalld object with anstalldhanterare object in parameter, which then populates fields of anstalld with db info 
                     -> creates user instance with anstalld object as field 
                     -> this user is set to current, and can then be referenced later in program. */

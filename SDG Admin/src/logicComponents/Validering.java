@@ -16,7 +16,7 @@ import oru.inf.InfException;
 /**
  *
  * @author theow
- * Denna fil innehåller metoder som kallas på vid behov av datavalidering
+ * Denna fil innehåller metoder som kallas på vid behov av datavalidering. Förhoppningsvis säger matodnamnen sig själva.
  */
 public class Validering {
     
@@ -72,9 +72,6 @@ public static boolean giltigtTelefonnummer(String telefon) {
   }
      
   
-  
-    
-    
     public static boolean giltigDouble(String text) {
         try {
             Double.parseDouble(text);
