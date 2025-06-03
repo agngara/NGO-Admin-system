@@ -123,7 +123,7 @@ public class LäggTillProjekt extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Projekt sparat!");
             this.setVisible(false);
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara projekt.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara projekt, ange rätt Anställnings ID.");
         }
     }
         

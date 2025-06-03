@@ -383,7 +383,7 @@ public boolean andraLand(String pid, int lid) {
         String land = "UPDATE projekt SET land = " + lid + " WHERE pid = " + pid;
         System.out.println(land);
         idb.update(land);
-        return true;
+        return false;
     } 
     
     catch (InfException e) {
@@ -407,7 +407,7 @@ The methods below aim to remove information from the projekt-table.
 
 
     if (!Validering.tomFalt(pid, "pid"))  {
-        return false;
+        return true;
     } 
     
 
