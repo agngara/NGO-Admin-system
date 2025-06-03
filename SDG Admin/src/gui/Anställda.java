@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
+import logicComponents.User.UserType;
 import orgEntities.Anstalld;
 
 /**
@@ -56,8 +57,10 @@ public class Anställda extends javax.swing.JFrame {
 
    // hämtar anställda från databasen och fyller tabellen
     private void fyllTabell(){
+        if (CurrentUser.getUsr().getUserType() != UserType.admin1 && CurrentUser.getUsr().getUserType() != UserType.admin2) {
         try {
-            String query = "SELECT aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning FROM anstalld";
+            String minAvdelning = CurrentUser.getUsr().getAnstalld().getAvdelning();
+            String query = "SELECT aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning FROM anstalld WHERE avdelning = '" + minAvdelning + "'";
             ArrayList<HashMap< String, String >> anstalldLista = idb.fetchRows(query);
 
             String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning", "Redigera"};
@@ -65,7 +68,10 @@ public class Anställda extends javax.swing.JFrame {
             
             if (anstalldLista == null || anstalldLista.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Inga anställda hittades i databasen!");
-            } else {
+            }
+                
+            
+            else {
                 for (HashMap<String, String> anstalld : anstalldLista){
                 String anstalldAid = anstalld.get("aid");
                 String fornamn = anstalld.get("fornamn");
@@ -80,9 +86,42 @@ public class Anställda extends javax.swing.JFrame {
         }
     }
         tblAnställda.setModel(model);
-    }   catch (InfException e) {
+        }
+       catch (InfException e) {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av data: " + e.getMessage());
         }  
+    }
+        else {
+                            
+                ArrayList<HashMap< String, String >> anstalldListaAll = new ArrayList<>();
+                String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anstallningsdatum", "losenord", "avdelning", "Redigera"};
+                DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+                String query = "SELECT * FROM anstalld";
+                try {
+                anstalldListaAll = idb.fetchRows(query);
+                } catch (InfException e) {
+                    
+                    e.printStackTrace();
+                    System.out.println(e);
+                }
+                for (HashMap<String, String> anstalld1 : anstalldListaAll){
+                String anstalldAid = anstalld1.get("aid");
+                String fornamn = anstalld1.get("fornamn");
+                String efternamn = anstalld1.get ("efternamn");
+                String adress = anstalld1.get ("adress");
+                String epost = anstalld1.get("epost");
+                String telefon = anstalld1.get("telefon");
+                String anstallningsdatum = anstalld1.get("anstallningsdatum");
+                String losenord = anstalld1.get("losenord");
+                String avdelning = anstalld1.get("avdelning");
+                model.addRow(new Object[] {anstalldAid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Redigera"});
+                
+                
+                
+                }
+                    tblAnställda.setModel(model);
+
+        }
     }
         
  
