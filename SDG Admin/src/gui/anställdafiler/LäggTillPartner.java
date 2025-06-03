@@ -26,19 +26,18 @@ public class LäggTillPartner extends javax.swing.JFrame {
     String pid;
     private InfDB idb;
     
-    
+  
+  // konstruktor
     public LäggTillPartner() {
         partner = new Partner();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
-        
         pah = new PartnerHanterare(pid); 
-        
-     
-        
+            
     }
 
+  // kopplar comboboxen med databasen
     public void fillComboBoxes() {
          
          // Fill stad
@@ -56,7 +55,8 @@ public class LäggTillPartner extends javax.swing.JFrame {
         String StadNamn = partner.getStad();
         comboStad.setSelectedItem(StadNamn);        
 }
-         
+  
+// sparar den nya datan till databasen    
     private void sparaPartner() {
         
         String adress = txtAdress.getText();

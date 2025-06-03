@@ -27,6 +27,7 @@ public class Avdelning {
     
     public Avdelning (AvdelningHanterare avdelningHanterare)
     {
+        
         HashMap<String, String> avdelning = avdelningHanterare.getAvdelning();
         
         avdid = avdelning.get("avdid");

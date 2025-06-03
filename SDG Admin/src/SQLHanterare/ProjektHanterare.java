@@ -4,9 +4,11 @@
  */
 package SQLHanterare;
 import db.DatabaseInterface;
+import gui.anställdafiler.EditMinaUppgifter;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import orgEntities.Hallbarhetsmål;
 import orgEntities.Projekt;
@@ -362,7 +364,8 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
     return false;
 }
  try {
-        String projektchef =  "UPDATE projekt " + "SET projektchef = '" + nyProjektchef + "' WHERE pid = " + pid;
+        String projektchef =  "UPDATE projekt " + "SET projektchef = '" + nyProjektchef + "' WHERE projekt.pid = " + pid;
+        System.out.println(projektchef);
         idb.update(projektchef);
         return true;
         
@@ -370,6 +373,8 @@ public boolean andraProjektchef(String pid, String nyProjektchef) {
     
     catch (InfException e) {
         e.printStackTrace();
+        System.out.println(e);
+        javax.swing.JOptionPane.showMessageDialog(null, "Error: " + e + "\n\n Detta kan bero att den anställda med AID: " + nyProjektchef + " inte är en handläggare.", "Error", JOptionPane.ERROR_MESSAGE);
         return false;
         
     }

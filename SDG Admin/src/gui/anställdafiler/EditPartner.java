@@ -19,28 +19,40 @@ import orgEntities.Partner;
  *
  * @author theow
  */
-public class LäggTillAvdelning extends javax.swing.JFrame {
+public class EditPartner extends javax.swing.JFrame {
    
-    Avdelning avdelning;
-    AvdelningHanterare avdh;
-    String avdid;
+    Partner partner;
+    PartnerHanterare pah;
+    String pid;
     private InfDB idb;
     
-   
- // konstruktor
-    public LäggTillAvdelning() {
-        
+  
+  // konstruktor
+    public EditPartner(Partner partner) {
+        this.partner = partner;
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
-        
-        avdh = new AvdelningHanterare(avdid); 
-        avdelning = new Avdelning(avdh);
-             
+        this.setTextBoxes();
+//        this.setTexBoxes();
+        pid = partner.getPid();
+        pah = new PartnerHanterare(pid); 
+            
     }
 
+     public void setTextBoxes() {
+        
+        txtTelefon.setText(partner.getTelefon());
+        txtNamn.setText(partner.getNamn());
+        txtAdress.setText(partner.getAdress());
+        txtKontaktepost.setText(partner.getKontaktepost());
+        txtKontaktperson.setText(partner.getKostaktperson());
+        txtBranch.setText(partner.getBranch());
+        this.fillComboBoxes();
+
+    }
     
-  // comboboxen kopplas till databasen 
+  // kopplar comboboxen med databasen
     public void fillComboBoxes() {
          
          // Fill stad
@@ -55,40 +67,58 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
             comboStad.addItem(namn);
         }
 
-        String stadNamn = avdelning.getStad();
-        comboStad.setSelectedItem(stadNamn);        
+        String StadNamn = partner.getStad();
+        comboStad.setSelectedItem(StadNamn);        
 }
-    
-  // den nya datan sparas till databasen
-    private void sparaAvdelning() {
+  
+    // uppdaterar informationen i databasen  
+    public boolean setPartnerInfo() {
+
+        String telefon = txtTelefon.getText();
+        if (!pah.andraTelefon(pid, telefon)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
+            return false;
+        }
+
+        String branch = txtBranch.getText();
+        if (!pah.andraBranch(pid, branch)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera Branch.");
+            return false;
+        }
+
+       
+         String namn = txtNamn.getText();
+        if (!pah.andraNamn(pid, namn)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera Namn.");
+            return false;
+        }
+        
+        String kontaktPerson = txtKontaktperson.getText();
+        if (!pah.andraKontaktperson(pid, kontaktPerson)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera Kontaktperson.");
+            return false;
+        }
+        
+        String kontaktepost = txtKontaktepost.getText();
+        if (!pah.andraKontaktEpost(pid, kontaktepost)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera Kontaktepost.");
+            return false;
+        }
+        
         
         String adress = txtAdress.getText();
-        String beskrivning = txtBeskrivning.getText();
-        String namn = txtNamn.getText();
-        String chef = txtChef.getText();
-        String telefon = txtTelefon.getText();
-        String epost = txtEpost.getText();
-        String stad = (String) comboStad.getSelectedItem();
-     
-        
-        String stadId = "1";
-        
-        try {
-            String sqlFraga = "select sid from stad where namn = '" + stad + "'";
-            stadId = idb.fetchSingle(sqlFraga);
-        } catch (InfException ex) {}
+        if (!pah.andraAdress(pid, adress)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress");
+            return false;
+        }
         
        
-        boolean ok = avdh.laggTillAvdelning(namn, beskrivning, adress, epost, telefon, chef, stadId);
-        if (ok) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Avdelning sparad!");
-            this.setVisible(false);
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara Avdelning.");
-        }
-    
-    }    
         
+        javax.swing.JOptionPane.showMessageDialog(this, "Uppgifterna har sparats");
+        
+        return true;
+
+    }
       
 
     /**
@@ -106,35 +136,35 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         lblFornamn = new javax.swing.JLabel();
         lblEfternamn = new javax.swing.JLabel();
         lblAvdelning = new javax.swing.JLabel();
-        txtChef = new javax.swing.JTextField();
+        txtBranch = new javax.swing.JTextField();
         txtNamn = new javax.swing.JTextField();
-        txtBeskrivning = new javax.swing.JTextField();
+        txtKontaktperson = new javax.swing.JTextField();
         txtAdress = new javax.swing.JTextField();
-        txtEpost = new javax.swing.JTextField();
+        txtKontaktepost = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        btnSparaAvdelning = new javax.swing.JButton();
+        btnSparaPartner = new javax.swing.JButton();
         comboStad = new javax.swing.JComboBox<>();
         txtTelefon = new javax.swing.JTextField();
         lblTelefon = new javax.swing.JLabel();
-        btnTillbakaTillAvdelning = new javax.swing.JToggleButton();
+        btnTillbakaTillPartner = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblLosenord.setText("Chef");
+        lblLosenord.setText("Branch");
 
-        lblAnsDatum.setText("Epost");
+        lblAnsDatum.setText("Kontaktepost");
 
         lblAdress.setText("Adress");
 
         lblFornamn.setText("Namn");
 
-        lblEfternamn.setText("Beskriving");
+        lblEfternamn.setText("Kontaktperson");
 
         lblAvdelning.setText("Stad");
 
-        txtChef.addActionListener(new java.awt.event.ActionListener() {
+        txtBranch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtChefActionPerformed(evt);
+                txtBranchActionPerformed(evt);
             }
         });
 
@@ -144,9 +174,9 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
             }
         });
 
-        txtBeskrivning.addActionListener(new java.awt.event.ActionListener() {
+        txtKontaktperson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBeskrivningActionPerformed(evt);
+                txtKontaktpersonActionPerformed(evt);
             }
         });
 
@@ -156,21 +186,21 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
             }
         });
 
-        txtEpost.addActionListener(new java.awt.event.ActionListener() {
+        txtKontaktepost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEpostActionPerformed(evt);
+                txtKontaktepostActionPerformed(evt);
             }
         });
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitle.setText("Lägg till Avdelning");
+        lblTitle.setText("Redigera Partner");
 
-        btnSparaAvdelning.setBackground(new java.awt.Color(7, 96, 216));
-        btnSparaAvdelning.setForeground(new java.awt.Color(255, 255, 255));
-        btnSparaAvdelning.setText("Spara");
-        btnSparaAvdelning.addActionListener(new java.awt.event.ActionListener() {
+        btnSparaPartner.setBackground(new java.awt.Color(7, 96, 216));
+        btnSparaPartner.setForeground(new java.awt.Color(255, 255, 255));
+        btnSparaPartner.setText("Spara");
+        btnSparaPartner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSparaAvdelningActionPerformed(evt);
+                btnSparaPartnerActionPerformed(evt);
             }
         });
 
@@ -182,11 +212,11 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
 
         lblTelefon.setText("Telefon");
 
-        btnTillbakaTillAvdelning.setBackground(new java.awt.Color(7, 96, 216));
-        btnTillbakaTillAvdelning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
-        btnTillbakaTillAvdelning.addActionListener(new java.awt.event.ActionListener() {
+        btnTillbakaTillPartner.setBackground(new java.awt.Color(7, 96, 216));
+        btnTillbakaTillPartner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
+        btnTillbakaTillPartner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTillbakaTillAvdelningActionPerformed(evt);
+                btnTillbakaTillPartnerActionPerformed(evt);
             }
         });
 
@@ -198,10 +228,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEfternamn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbakaTillAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTillbakaTillPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(229, 229, 229)
                         .addComponent(lblTitle)
                         .addContainerGap())
@@ -212,38 +239,45 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
                                 .addGap(441, 441, 441))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAnsDatum)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                        .addComponent(lblTelefon, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtEpost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                        .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-                                    .addComponent(txtBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblAnsDatum)
+                                                .addGap(229, 229, 229)))
+                                        .addComponent(txtKontaktperson, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblEfternamn)
+                                    .addComponent(lblTelefon)
+                                    .addComponent(txtKontaktepost, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(193, 193, 193)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnSparaAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtChef, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                        .addComponent(btnSparaPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtBranch, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                                     .addComponent(comboStad, 0, 265, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblLosenord)
-                                        .addGap(0, 241, Short.MAX_VALUE)))
+                                        .addGap(0, 230, Short.MAX_VALUE)))
                                 .addGap(31, 31, 31))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAdress))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTillbakaTillAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTillbakaTillPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTitle))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,69 +285,69 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
                     .addComponent(lblFornamn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtChef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAvdelning)
-                    .addComponent(lblAdress))
+                    .addComponent(lblEfternamn)
+                    .addComponent(lblAvdelning))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKontaktperson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboStad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblAnsDatum)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtKontaktepost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTelefon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblEfternamn)
+                .addComponent(lblAdress)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtBeskrivning, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSparaAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSparaPartner, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtChefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChefActionPerformed
+    private void txtBranchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBranchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtChefActionPerformed
+    }//GEN-LAST:event_txtBranchActionPerformed
 
     private void txtNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamnActionPerformed
 
-    private void txtBeskrivningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBeskrivningActionPerformed
+    private void txtKontaktpersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKontaktpersonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBeskrivningActionPerformed
+    }//GEN-LAST:event_txtKontaktpersonActionPerformed
 
     private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdressActionPerformed
 
-    private void txtEpostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEpostActionPerformed
+    private void txtKontaktepostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKontaktepostActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEpostActionPerformed
+    }//GEN-LAST:event_txtKontaktepostActionPerformed
 
-    private void btnSparaAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaAvdelningActionPerformed
-          sparaAvdelning();     
-    }//GEN-LAST:event_btnSparaAvdelningActionPerformed
+    private void btnSparaPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSparaPartnerActionPerformed
+          if (setPartnerInfo()) {}    
+    }//GEN-LAST:event_btnSparaPartnerActionPerformed
 
     private void txtTelefonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonActionPerformed
 
-    private void btnTillbakaTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillAvdelningActionPerformed
+    private void btnTillbakaTillPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillPartnerActionPerformed
         this.setVisible(false);
-        Avdelningar avdelningar = new Avdelningar();
-        avdelningar.setVisible(true);
-    }//GEN-LAST:event_btnTillbakaTillAvdelningActionPerformed
+        Partners partners = new Partners();
+        partners.setVisible(true);
+    }//GEN-LAST:event_btnTillbakaTillPartnerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,13 +366,13 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LäggTillAvdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPartner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LäggTillAvdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPartner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LäggTillAvdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPartner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LäggTillAvdelning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditPartner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -366,8 +400,8 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSparaAvdelning;
-    private javax.swing.JToggleButton btnTillbakaTillAvdelning;
+    private javax.swing.JButton btnSparaPartner;
+    private javax.swing.JToggleButton btnTillbakaTillPartner;
     private javax.swing.JComboBox<String> comboStad;
     private javax.swing.JLabel lblAdress;
     private javax.swing.JLabel lblAnsDatum;
@@ -378,9 +412,9 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefon;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtAdress;
-    private javax.swing.JTextField txtBeskrivning;
-    private javax.swing.JTextField txtChef;
-    private javax.swing.JTextField txtEpost;
+    private javax.swing.JTextField txtBranch;
+    private javax.swing.JTextField txtKontaktepost;
+    private javax.swing.JTextField txtKontaktperson;
     private javax.swing.JTextField txtNamn;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables

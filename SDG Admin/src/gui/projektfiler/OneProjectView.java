@@ -49,11 +49,6 @@ public class OneProjectView extends javax.swing.JFrame {
         initComponents();
         
         
-//         if (CurrentUser.getUsr().getUserType() != UserType.projektchef || CurrentUser.getUsr().getUserType() != UserType.admin1 || CurrentUser.getUsr().getUserType() != UserType.admin2) {
-//            
-//             btnEditTeam.setVisible(false);
-//            
-//        }
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         String[] projInfo;
@@ -113,7 +108,10 @@ public class OneProjectView extends javax.swing.JFrame {
     
  
  }
-    
+  /**
+   * När denna metod kallas uppdateras fältet med projektobjektet med ny information från databasen. 
+   * Därefter rensas tabellen.
+   */  
     public void updateTable() {
     
     ProjektHanterare projektHanterare = new ProjektHanterare(projekt.getPid());
@@ -123,6 +121,9 @@ public class OneProjectView extends javax.swing.JFrame {
     
     }
     
+    /**
+     * När denna metod kallas rensas paetnertabellen, och kan därför fyllas med ny information.
+     */
     public void updatePartnerTable() {
     
         
@@ -131,7 +132,9 @@ public class OneProjectView extends javax.swing.JFrame {
         
     }
 
-    
+     /**
+     * När denna metod kallas rensas teamtabellen, och kan därför fyllas med ny information.
+     */
     public void updateTeamTable() {
      
     DefaultTableModel nyModel = (DefaultTableModel) tblTeam.getModel();
@@ -140,7 +143,10 @@ public class OneProjectView extends javax.swing.JFrame {
     }
     
     
-    
+    /**
+     * Denna metod fyller partnertabellen med information från databasen, genom getPartnerByProject()-funktionen, som returnerar de partners som är associerade
+     * med vederbörande projekt.
+     */
     public void fillPartnerTable() {
         this.updatePartnerTable();
         ArrayList<HashMap<String, String>> rader = new PartnerHanterare().getPartnerByProject(projekt.getPid());
@@ -169,6 +175,12 @@ public class OneProjectView extends javax.swing.JFrame {
         
     }
     
+    
+     /**
+     * Denna metod fyller team med information från databasen, genom getHandlaggareByProject()-funktionen, som returnerar de partners som är associerade
+     * med vederbörande projekt.
+     * Dessutom laddar den in projektets chef.
+     */
     public void fillTeamTable() {
         
         this.updateTeamTable();
@@ -201,6 +213,11 @@ public class OneProjectView extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Hanterar funktion för att lägga till partner i projekt, genom att kalla på en metod i partnerHanterare. Koden körs vid klickning av lägg till knapp, 
+     * enligt eventkoden för knappen (av typ label).
+     * @return true om partner lades till, false om inte.
+     */
     public boolean addPartnerGUI() {
         
         String id = JOptionPane.showInputDialog("Lägg till projektpartner");
@@ -220,7 +237,10 @@ public class OneProjectView extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Tar bort partner genom sqlmetod i partnerhanterare.
+     * @param partnerID tar in den partnerID som ska tas bort från databasen.
+     */
     public void removePartner(String partnerID) {
         
    
@@ -234,7 +254,10 @@ public class OneProjectView extends javax.swing.JFrame {
 
         }
     }
-    // TODO: fixa validering, någon call ger oönskad return (boolean)
+    /**
+     * Lägger till handläggare i databasen utifrån det aid som skrivs in av användaren.
+     * @return true om handläggare lades till, annars false.
+     */
     public boolean addTeamMemberGUI() {
     
         String id = JOptionPane.showInputDialog("Lägg till handläggare med rätt anställd id");
@@ -256,7 +279,10 @@ public class OneProjectView extends javax.swing.JFrame {
 
         
     } 
-    
+        /**
+         * Tar bort handläggare från dtaabasen.
+         * @param aid aid för den handläggare som ska tas bort. Denna skickas av lblRemoveHandlaggareMouseClicked().
+         */
         public void removeTeamMember(String aid) {
         
    
@@ -270,12 +296,14 @@ public class OneProjectView extends javax.swing.JFrame {
 
         }
     }
-   
+        // Sätter kostnad i kostnadspaneleen
         public void setKostnad() {
         
         lblDisplayKostnad2.setText(projekt.getKostnad() + "kr");
     }
-        
+        /**
+         * Denna metod gömmer edit-kontroller om användaren inte är projektchef eller admin1, admin2.
+         */
         public void HideBigBossControlls() {
             
             AnstalldHanterare anstalldHanterare = new AnstalldHanterare();
@@ -293,9 +321,6 @@ public class OneProjectView extends javax.swing.JFrame {
             
         }
         
-    
-    
-
     
 
     /**
@@ -321,7 +346,6 @@ public class OneProjectView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblDisplayKostnadSoFar = new javax.swing.JLabel();
         lblDisplayKostnad2 = new javax.swing.JLabel();
-        lblKostnadCompare = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPartners = new javax.swing.JTable();
@@ -403,8 +427,6 @@ public class OneProjectView extends javax.swing.JFrame {
         lblDisplayKostnad2.setForeground(new java.awt.Color(7, 96, 216));
         lblDisplayKostnad2.setText("30000");
 
-        lblKostnadCompare.setText("Kostnaden är 30% högre än medelvärdet ");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -419,10 +441,8 @@ public class OneProjectView extends javax.swing.JFrame {
                         .addComponent(lblDisplayKostnadSoFar))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDisplayKostnad2)
-                            .addComponent(lblKostnadCompare))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addComponent(lblDisplayKostnad2)))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,9 +453,7 @@ public class OneProjectView extends javax.swing.JFrame {
                 .addComponent(lblDisplayKostnadSoFar)
                 .addGap(51, 51, 51)
                 .addComponent(lblDisplayKostnad2)
-                .addGap(60, 60, 60)
-                .addComponent(lblKostnadCompare)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(452, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -689,13 +707,19 @@ public class OneProjectView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Tar användaren tillbaka till projektruta (tabellen med alla projekt)(
+     * @param evt 
+     */
     private void btnTillbakaTillProjektRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaTillProjektRutaActionPerformed
         this.setVisible(false);
         projektruta proj = new projektruta();
         proj.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillProjektRutaActionPerformed
-
+    /**
+     * Lyssnar efter att användaren klickar på editprojektknappen
+     * @param evt 
+     */
     private void lblEditProject1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditProject1MouseClicked
         
         new EditProjectFields(projekt, this.oneProjectView).setVisible(true); {
@@ -704,7 +728,10 @@ public class OneProjectView extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_lblEditProject1MouseClicked
-
+    /**
+     * Lyssnar efter att användaren klickar på knappen för att lägga till partner
+     * @param evt 
+     */
     private void lblAddPartner1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddPartner1MouseClicked
         
         addPartnerGUI();
@@ -712,7 +739,10 @@ public class OneProjectView extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_lblAddPartner1MouseClicked
-
+    /**
+     * Lyssnar efter klick på ta baort partnerkanppen.
+     * @param evt 
+     */
     private void lblRemovePartnerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemovePartnerMouseClicked
         
         int selectedRow = tblPartners.getSelectedRow();
@@ -733,14 +763,20 @@ public class OneProjectView extends javax.swing.JFrame {
             System.out.println("Ingen rad är vald.");
         }
     }//GEN-LAST:event_lblRemovePartnerMouseClicked
-
+    /**
+     * Lyssnar efter klick på lägg till användareknappen
+     * @param evt 
+     */
     private void lblAddHandlaggareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddHandlaggareMouseClicked
         
         this.addTeamMemberGUI();
         
         
     }//GEN-LAST:event_lblAddHandlaggareMouseClicked
-
+    /**
+     * Lyssnar efter klick på ta bort handläggareknappen, och kör kod för vald rad i tabellen genom en skannare (getSelectedRow).
+     * @param evt 
+     */
     private void lblRemoveHandlaggareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveHandlaggareMouseClicked
         int selectedRow = tblTeam.getSelectedRow();
         int column = 1; 
@@ -826,7 +862,6 @@ public class OneProjectView extends javax.swing.JFrame {
     private javax.swing.JLabel lblEditProject1;
     private javax.swing.JLabel lblEkonomi;
     private javax.swing.JLabel lblInsikter;
-    private javax.swing.JLabel lblKostnadCompare;
     private javax.swing.JLabel lblPartners;
     private javax.swing.JLabel lblProjChef;
     private javax.swing.JLabel lblRemoveHandlaggare;

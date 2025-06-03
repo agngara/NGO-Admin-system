@@ -24,7 +24,7 @@ public class EditAvdelning extends javax.swing.JFrame {
     String avdid;
     
     
-
+// konstruktor
     public EditAvdelning(Avdelning avdelning) {
         this.avdelning = avdelning;
         initComponents();
@@ -35,6 +35,8 @@ public class EditAvdelning extends javax.swing.JFrame {
 
     }
 
+    
+ // sätter textrutor med data från databasen.
     public void setTextBoxes() {
         
         txtTelefon.setText(avdelning.getTelefon());
@@ -46,7 +48,9 @@ public class EditAvdelning extends javax.swing.JFrame {
         this.fillComboBoxes();
 
     }
-        
+ 
+    
+  // hämtar data till comboboxern från databasen
     public void fillComboBoxes() {
         
         //FIll Stad
@@ -66,11 +70,12 @@ public class EditAvdelning extends javax.swing.JFrame {
         comboStad.setSelectedItem(StadNamn);
 }
      
+  // uppdaterar informationen i databasen  
     public boolean setAvdelningInfo() {
 
         String telefon = txtTelefon.getText();
         if (!avdh.andraTelefon(avdid, telefon)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
             return false;
         }
 
@@ -93,16 +98,16 @@ public class EditAvdelning extends javax.swing.JFrame {
             return false;
         }
         
-        String epost = txtChef.getText();
+        String epost = txtepost.getText();
         if (!avdh.andraEpost(avdid, epost)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera epost.");
             return false;
         }
         
         
-        String adress = txtChef.getText();
+        String adress = txt1Adress.getText();
         if (!avdh.andraAdress(avdid, adress)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera chef.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress");
             return false;
         }
         

@@ -10,6 +10,8 @@ import oru.inf.InfException;
 import db.DatabaseInterface;
 import gui.Avdelningar;
 import gui.Meny;
+import gui.anställdafiler.EditAnställda1;
+import gui.anställdafiler.EditAvdelning;
 import gui.anställdafiler.LäggTillAvdelning;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logicComponents.User.CurrentUser;
 import logicComponents.User.User;
+import logicComponents.User.UserType;
+import orgEntities.Anstalld;
+import orgEntities.Avdelning;
 
 /**
  *
@@ -24,29 +29,38 @@ import logicComponents.User.User;
  */
 public class Avdelningar extends javax.swing.JFrame {
     private InfDB idb;
+    Avdelningar avdelningar;
+    
     
     /**
      * Creates new form Avdelning
+     * Konstruktor
      */
     public Avdelningar() {
+        avdelningar = this;
         initComponents();
-         setExtendedState(MAXIMIZED_BOTH);
-    setLocationRelativeTo(null);
-    try {
-    idb = DatabaseInterface.databaseConnection();
-    fyllTabell();
-    } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
+        setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+        setLocationRelativeTo(null); // centrerar fönstret
+     try {
+        idb = DatabaseInterface.databaseConnection();
+        fyllTabell();// fyller tabellen från databasen
+     } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
     }
+        tableMouseEvent();
     }
     
+
     
+   // fyller tabellen 
     private void fyllTabell(){
+        
+
         try {
             String query = "SELECT avdid, namn, beskrivning, adress, epost, telefon, stad, chef FROM avdelning";
             ArrayList<HashMap< String, String >> avdelningLista = idb.fetchRows(query);
 
-            String [] columnNames = {"avdid", "namn", "beskrivning", "adress", "epost", "telefon", "stad", "chef"};
+            String [] columnNames = {"avdid", "namn", "beskrivning", "adress", "epost", "telefon", "stad", "chef", "Redigera"};
             DefaultTableModel model = new DefaultTableModel (columnNames, 0);
             
             if (avdelningLista == null || avdelningLista.isEmpty()) {
@@ -61,15 +75,42 @@ public class Avdelningar extends javax.swing.JFrame {
                 String telefon = avdelning.get("telefon");
                 String stad = avdelning.get("stad");
                 String chef = avdelning.get("chef");
-            model.addRow(new Object[] {avdid, namn, beskrivning,adress, epost, telefon, stad, chef});
+            model.addRow(new Object[] {avdid, namn, beskrivning, adress, epost, telefon, stad, chef, "Redigera"});
         }
     }
     tblAvdelning.setModel(model);
     } catch (InfException e) {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage());
-        }  
+        } 
+    
     }
     
+    
+ // klicklyssnare för att kunna redigera avdelning.   
+    public void tableMouseEvent() {
+        
+        tblAvdelning.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = tblAvdelning.rowAtPoint(evt.getPoint());
+        int col = tblAvdelning.columnAtPoint(evt.getPoint());
+        if (row >= 0 && col == 8) {
+                
+            Object varde = tblAvdelning.getValueAt(row, 0);
+            String avdid = varde.toString();
+            AvdelningHanterare avdelningHanterare = new AvdelningHanterare(avdid);
+            Avdelning avdelning = new Avdelning(avdelningHanterare);
+            EditAvdelning editAvdelning = new EditAvdelning(avdelning);
+            editAvdelning.setVisible(true);
+//            avdelningar.setVisible(false);
+
+            }
+        }
+    }
+    );    
+ }
+    
+  // ta bort en avdelning
     public void removeAvdelning(String avdid) {
         
         if (new AvdelningHanterare().taBortAvdelning(avdid)) {
@@ -188,7 +229,7 @@ public class Avdelningar extends javax.swing.JFrame {
     }//GEN-LAST:event_avdTillbakaTillMenyActionPerformed
 
     private void bnTaBortAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAvdelningActionPerformed
-
+ // kontrollerar om en rad är vald, om ja så anropas avdelningen.
         int selectedRow = tblAvdelning.getSelectedRow();
           //int column = 1; 
           if (selectedRow == -1) {
@@ -201,7 +242,7 @@ public class Avdelningar extends javax.swing.JFrame {
 
        
             
-          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den anställda?") == JOptionPane.YES_OPTION ) {
+          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort avdelningen?") == JOptionPane.YES_OPTION ) {
             
                 removeAvdelning(avdid);
             }
@@ -257,7 +298,7 @@ public class Avdelningar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Hållbarhetsmål().setVisible(true);
+                new Avdelningar().setVisible(true);
             }
         });
     }

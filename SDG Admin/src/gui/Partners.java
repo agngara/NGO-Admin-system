@@ -9,6 +9,8 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import db.DatabaseInterface;
 import gui.*;
+import gui.anställdafiler.EditAnställda1;
+import gui.anställdafiler.EditPartner;
 import gui.anställdafiler.LäggTillPartner;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,32 +25,49 @@ import logicComponents.User.User;
 public class Partners extends javax.swing.JFrame {
     
     private Partner partner; 
+    private Partners partners;
     private InfDB idb;
     private String pid;
+    private PartnerHanterare pah;
     
     /**
      * Creates new form Partners
+     * konstruktor
      */
     public Partners() {
+        partners = this;
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH); // maximerar fönstret
+        setLocationRelativeTo(null); // centrerar fönstret
+//        partner = this;
         try {
         idb = DatabaseInterface.databaseConnection();
         fyllTabell();
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
+        }
+         try {
+            this.tableMouseEvent(partners);
+        } 
+        catch (Exception e) {
+        
+            System.out.println(e);
+        }
     }
-    }
+    
+    
+        
+       
+        
     
    
-    
+    // fyller tabellen från databasen. 
     private void fyllTabell(){
         try {
             String query = "SELECT pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad FROM partner";
             ArrayList<HashMap< String, String >> partnerLista = idb.fetchRows(query);
 
-            String [] columnNames = {"pid", "namn", "kontaktperson", "kontaktepost", "telefon", "adress", "branch", "stad"};
+            String [] columnNames = {"pid", "namn", "kontaktperson", "kontaktepost", "telefon", "adress", "branch", "stad", "Redigera"};
             DefaultTableModel model = new DefaultTableModel (columnNames, 0);
             
             if (partnerLista == null || partnerLista.isEmpty()) {
@@ -64,7 +83,7 @@ public class Partners extends javax.swing.JFrame {
                 String branch = partner.get("branch");
                 String stad = partner.get("stad");
                 
-            model.addRow(new Object[] {pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad});
+            model.addRow(new Object[] {pid, namn, kontaktperson, kontaktepost, telefon, adress, branch, stad, "Redigera"});
         }
     }
         tblPartners.setModel(model);
@@ -73,6 +92,31 @@ public class Partners extends javax.swing.JFrame {
         }  
     }
     
+    // Lägger till en klick-lyssnare på tabelln, för redigering av en partner
+ public void tableMouseEvent(Partners partners) {
+        
+    tblPartners.addMouseListener(new java.awt.event.MouseAdapter() {
+      @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int row = tblPartners.rowAtPoint(evt.getPoint());
+            int col = tblPartners.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 8) {
+                
+                Object varde = tblPartners.getValueAt(row, 0);
+                String pid = varde.toString();
+                PartnerHanterare partnerHanterare = new PartnerHanterare(pid);
+                Partner partner = new Partner(partnerHanterare);
+                EditPartner editPartner = new EditPartner(partner);
+                editPartner.setVisible(true);
+//                partners.setVisible(true);
+            
+            }
+        }
+    }
+    );    
+ }
+    
+    // ta bort partner
     public void removePartner(String pid) {
         
         if (new PartnerHanterare().taBortPartner(pid)) {
@@ -196,6 +240,7 @@ public class Partners extends javax.swing.JFrame {
 
     private void bnTaBortPartnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortPartnerActionPerformed
  
+        // kontrollerar om en rad i tabellen är vald, om ja anropas removePartner(pid) för att ta bort partnern. 
         int selectedRow = tblPartners.getSelectedRow();
         if (selectedRow == -1) {
             
@@ -263,7 +308,7 @@ public class Partners extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Anställda().setVisible(true);
+                new Partners().setVisible(true);
             }
         });
     }
