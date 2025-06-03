@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import orgEntities.Projekt;
 import sdg.admin.projekt;
 import SQLHanterare.PartnerHanterare;
+import java.util.Date;
 /**
  *
  * @author amandahelinlarsson
@@ -138,16 +139,15 @@ private void fyllTabell(){
 
 private void searchDateByActionPerformed(java.awt.event.ActionEvent evt) { // metoden körs när kanppen trycks på
     try {
-        String searchDate = jTextField1.getText();
-        if (searchDate.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ange sökdatum."); // Om inget datum skrivs in kommer ett meddelande upp 
-            return;
-        }
-   
-    
-        String query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
-                " FROM projekt p " + 
-       "WHERE p.startdatum = '" + searchDate + "' OR p.slutdatum = '" + searchDate +"'"; // söker på projekt utifrån det datum som anges i sökrutan
+        String startDate = jTextFieldStart.getText();
+        String endDate = jTextFieldend.getText();
+        
+        if (startDate.isEmpty() || endDate.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ange start och slutdatum."); // Om inget datum skrivs in kommer ett meddelande upp 
+            return; }
+
+     String query = "SELECT *  FROM projekt WHERE startdatum >= '" + startDate +"' AND slutdatum <= '" + endDate + "'";
+       // söker på projekt utifrån det datum som anges i sökrutan
 System.out.println("SQL-fråga: " + query);
 ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka datum som matchar, returnerar en lista med projekt som matchar i datum
 if (projektlista == null || projektlista.isEmpty()) {
@@ -217,26 +217,38 @@ private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
         boolean endastMinAvdelning = jCheckBox1.isSelected(); // kollar om rutan är ibockad 
         String query = "";
          if (endastMinAvdelning) {
+             if (CurrentUser.getUsr() == null) {
+    System.out.println("Ingen användare är inloggad.");
+    return;
+}
+
+
             String avdid = CurrentUser.getUsr().getAnstalld().getAvdelning(); // om rutan är ibockad hämtas aid från den som är inloggad
             System.out.println("Avdelnings_ID: " + avdid);
-            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " + // hämtar projekt från avdelning som är kopplad till den inloggade användaren
-                    "FROM projekt p " +
-                    "JOIN avdelning avd ON  a.avdid = avd.avdid " +
-"JOIN ans_proj ap ON p.pid = ap.pid " +
-"JOIN anstalld a ON ap.aid = a.aid " +
-"WHERE a.avd = '" + avdid.replace("'", "'") + "'";
-}else {
-           query = "SELECT * FROM projekt"; // om rutan inte är i kryssad så hämtas alla projekt
+//            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " + // hämtar projekt från avdelning som är kopplad till den inloggade användaren
+//                    "FROM projekt p " +
+//                  "JOIN ans_proj ap ON p.pid = ap.pid " +
+//                    "JOIN anstalld a ON ap.aid = a.aid " +
+//                    "WHERE a.avdelning = '" + avdid + "'";
+                query = "SELECT DISTINCT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, " +
+               "p.prioritet, p.kostnad, p.status " +
+               "FROM projekt p " +
+               "JOIN ans_proj ap ON p.pid = ap.pid " +
+               "JOIN anstalld a ON ap.aid = a.aid " +
+               "WHERE a.avdelning = '" + avdid + "'";
 
+            if (CurrentUser.getUsr() == null) {
+    System.out.println("Ingen användare är inloggad.");
 }
- 
+
+         }
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
         if (projektlista == null || projektlista.isEmpty()){
             JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades visas ett meddelande
             return;
         }
-String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status"}; // kolumnnamn som ska användas i tabellen
+String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", ""}; // kolumnnamn som ska användas i tabellen
 DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 for (HashMap<String, String> projekt: projektlista){ // loopar igenom projekten i listan och hämtar ut resultat från alla fält
     String pid = projekt.get("pid");
@@ -247,7 +259,7 @@ for (HashMap<String, String> projekt: projektlista){ // loopar igenom projekten 
     String prioritet = projekt.get("prioritet");
     String kostnad = projekt.get("kostnad");
     String status = projekt.get("status");
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status});
+    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "visa"});
 }
 tblProjekt.setModel(model);
 } catch(InfException e) {
@@ -319,9 +331,10 @@ public void tableMouseEvent(projektruta projektr) {
         bnLaggTillProjekt = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldStart = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jTextFieldend = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -375,12 +388,23 @@ public void tableMouseEvent(projektruta projektr) {
         });
 
         jButton1.setText("Sök");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Sök projekt");
+        jLabel2.setText("Sök projekt start - slutdatum");
 
         jCheckBox1.setText("Visa bara projekt på min avdelning");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alla", "Planerat", "Pågående", "Avslutat" }));
+
+        jTextFieldend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -392,13 +416,15 @@ public void tableMouseEvent(projektruta projektr) {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldStart, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldend)))
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                         .addComponent(jCheckBox1)
                         .addGap(63, 63, 63)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,8 +459,9 @@ public void tableMouseEvent(projektruta projektr) {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1))))
+                                    .addComponent(jTextFieldStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1)
+                                    .addComponent(jTextFieldend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(20, 20, 20)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -478,6 +505,14 @@ public void tableMouseEvent(projektruta projektr) {
          new LäggTillProjekt().setVisible(true);
 //                this.setVisible(false);
     }//GEN-LAST:event_bnLaggTillProjektActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldendActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,7 +558,8 @@ public void tableMouseEvent(projektruta projektr) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldStart;
+    private javax.swing.JTextField jTextFieldend;
     private javax.swing.JButton proTillbakaTillMeny;
     private javax.swing.JTable tblProjekt;
     // End of variables declaration//GEN-END:variables

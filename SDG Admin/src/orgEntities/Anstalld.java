@@ -56,6 +56,7 @@ import logicComponents.User.UserType;
         ePost = anstalldInfo.get("epost");
         anstallningsdatum = anstalldInfo.get("anstallningsdatum");
         aid = anstalldInfo.get("aid");
+        avdelning = anstalldInfo.get("avdelning");
         
         this.anstalldHanterare = anstalldHanterare;
        
