@@ -44,12 +44,12 @@ public class EditAnställda1 extends javax.swing.JFrame {
     public void setTextBoxes() {
         
         txtAdress.setText(anstalld.getAdress());
-        txtEfternamn.setText(anstalld.getEfternamn());
+        txtAnstalllning.setText(anstalld.getEfternamn());
         txtFornamn.setText(anstalld.getFornamn());
         txtLosenord.setText(anstalld.getLosenord());
         txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
-        txtAnsDatum.setText(anstalld.getAnstallningsdatum());
+        txtEfternamn.setText(anstalld.getAnstallningsdatum());
         this.fillComboBoxes();
 
     }
@@ -84,7 +84,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
             return false;
         }
 
-        String Efternamn = txtEfternamn.getText();
+        String Efternamn = txtAnstalllning.getText();
         if (!ah.andraEfternamn(aid, Efternamn)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera efternamn.");
             return false;
@@ -105,7 +105,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         }
        
         
-        String Anstallningsdatum = txtAnsDatum.getText();
+        String Anstallningsdatum = txtEfternamn.getText();
         if (!ah.andraAnstallningsdatum(aid, Anstallningsdatum)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera anställningsdatum.");
             return false;
@@ -139,9 +139,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
         lblAvdelning = new javax.swing.JLabel();
         txtLosenord = new javax.swing.JTextField();
         txtFornamn = new javax.swing.JTextField();
-        txtEfternamn = new javax.swing.JTextField();
+        txtAnstalllning = new javax.swing.JTextField();
         txtAdress = new javax.swing.JTextField();
-        txtAnsDatum = new javax.swing.JTextField();
+        txtEfternamn = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnRedigera = new javax.swing.JButton();
         comboAvdelning = new javax.swing.JComboBox<>();
@@ -179,9 +179,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
             }
         });
 
-        txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
+        txtAnstalllning.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEfternamnActionPerformed(evt);
+                txtAnstalllningActionPerformed(evt);
             }
         });
 
@@ -191,9 +191,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
             }
         });
 
-        txtAnsDatum.addActionListener(new java.awt.event.ActionListener() {
+        txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnsDatumActionPerformed(evt);
+                txtEfternamnActionPerformed(evt);
             }
         });
 
@@ -251,8 +251,8 @@ public class EditAnställda1 extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtAnsDatum, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtEfternamn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                        .addComponent(txtEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtAnstalllning, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                                         .addComponent(lblEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblAdress, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtAdress, javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +312,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lblEfternamn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(bAndraLösen)))
@@ -329,7 +329,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
                         .addComponent(lblAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnstalllning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFörklarDatum))
                         .addGap(18, 18, 18)
                         .addComponent(lblTelefon)
@@ -357,17 +357,17 @@ public class EditAnställda1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFornamnActionPerformed
 
-    private void txtEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfternamnActionPerformed
+    private void txtAnstalllningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnstalllningActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEfternamnActionPerformed
+    }//GEN-LAST:event_txtAnstalllningActionPerformed
 
     private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAdressActionPerformed
 
-    private void txtAnsDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnsDatumActionPerformed
+    private void txtEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfternamnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnsDatumActionPerformed
+    }//GEN-LAST:event_txtEfternamnActionPerformed
 
     private void btnRedigeraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedigeraActionPerformed
         
@@ -445,7 +445,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefon;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtAdress;
-    private javax.swing.JTextField txtAnsDatum;
+    private javax.swing.JTextField txtAnstalllning;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtEpost;
     private javax.swing.JTextField txtFornamn;
