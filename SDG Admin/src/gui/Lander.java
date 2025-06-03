@@ -73,19 +73,6 @@ public class Lander extends javax.swing.JFrame {
         }  
     }
 
-    // ta bort land
-    public void removeLand(String lid) {
-        
-        if (new LandHanterare().taBortLand(lid)) {
-            JOptionPane.showMessageDialog(rootPane, "Land borttaget.");
-            fyllTabell();
-            
-        } 
-        else {
-            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort Land.");
-
-        }
-    }
     
     // // Lägger till en klick-lyssnare på tabelln, för redigering av land
     public void tableMouseEvent() {
@@ -130,7 +117,6 @@ public class Lander extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLander = new javax.swing.JTable();
         btnLaggTillLand = new javax.swing.JButton();
-        btnTaBortLand = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,15 +155,6 @@ public class Lander extends javax.swing.JFrame {
             }
         });
 
-        btnTaBortLand.setBackground(new java.awt.Color(204, 0, 0));
-        btnTaBortLand.setForeground(new java.awt.Color(255, 255, 255));
-        btnTaBortLand.setText("Ta bort land");
-        btnTaBortLand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTaBortLandActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,8 +166,6 @@ public class Lander extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTaBortLand, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
                             .addComponent(btnLaggTillLand, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,9 +181,7 @@ public class Lander extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLaggTillLand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTaBortLand, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(parTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
@@ -219,27 +192,6 @@ public class Lander extends javax.swing.JFrame {
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_parTillbakaTillMenyActionPerformed
-
-    private void btnTaBortLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLandActionPerformed
-    
-  // kontrollerar om en rad i tabellen är vald, om ja anropas removeLand(lid) för att ta bort ett land.
-        int selectedRow = tblLander.getSelectedRow();
-          
-          if (selectedRow == -1) {
-              System.out.println("Ingen vald rad");
-              return;
-          }
-          
-          int columnIndex = 0;
-          String lid = (String) tblLander.getValueAt(selectedRow, columnIndex);
-
-       
-            
-          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort den landet?") == JOptionPane.YES_OPTION ) {
-            
-                removeLand(lid);
-            }
-    }//GEN-LAST:event_btnTaBortLandActionPerformed
 
     private void btnLaggTillLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaggTillLandActionPerformed
         new LaggTillLand().setVisible(true);
@@ -299,7 +251,6 @@ public class Lander extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLaggTillLand;
-    private javax.swing.JButton btnTaBortLand;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton parTillbakaTillMeny;

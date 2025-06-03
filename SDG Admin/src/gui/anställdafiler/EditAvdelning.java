@@ -75,7 +75,7 @@ public class EditAvdelning extends javax.swing.JFrame {
 
         String telefon = txtTelefon.getText();
         if (!avdh.andraTelefon(avdid, telefon)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera adress.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte uppdatera telefon.");
             return false;
         }
 

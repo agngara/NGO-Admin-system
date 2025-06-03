@@ -78,7 +78,7 @@ public class Partner {
         return adress;
     }
     
-    public String getBenach()
+    public String getBranch()
     {
         return branch;
     }
