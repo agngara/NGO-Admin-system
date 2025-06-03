@@ -84,32 +84,56 @@ private Anstalld currentAnstalld;
  }
     
 private void fyllTabell(){
-        
-    try {
+        String query2 = "";
+        ArrayList<HashMap< String, String >> handlaggareProjektLista = new ArrayList<>();
         String query = ""; // Fylls i beroende på vilken användare som är inloggad
         currentAnstalld = CurrentUser.getUsr().getAnstalld(); // Hämtar den nuvarande inloggade användaren
         String aid = currentAnstalld.getAid(); // Hämtar den inloggade användarens användarID
         UserType userType = currentAnstalld.getRole(aid);
+        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status","Visa"}; // Skapar en tabell med kolumnnamn matchande de i databasen
+        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
+    try {
+        
            if (userType == UserType.handlaggare){
            query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
                     "FROM projekt p " +
-                    "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
-                    "WHERE ap.aid =  " +"'" + aid + "'";
-            } 
-            else if (userType == UserType.admin1 || userType == UserType.admin2){
-                query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt"; // Admin 1 och 2 får se alla projekt
-            }    
-            else if (userType == UserType.projektchef){
-                query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");"; // Visar projekt där projektchefens aid matchar i tabellen
-                System.out.println(query); 
-            }
+                 "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
+                 "WHERE ap.aid =  " +"'" + aid + "'";
+        } 
+   else if (userType == UserType.admin1 || userType == UserType.admin2){
+    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt"; // Admin 1 och 2 får se alla projekt
+        } 
+   else if (userType == UserType.projektchef){
+       query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");"; // Visar projekt där projektchefens aid matchar i tabellen
+       System.out.println(query); 
+       
+       // För att även hämta de projekt projchefen är tillagd i som handläggare.
+       query2 = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
+                    "FROM projekt p " +
+                 "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
+                 "WHERE ap.aid =  " +"'" + aid + "'";
+               System.out.println(query2);
+               handlaggareProjektLista = idb.fetchRows(query2);
+               
+         for (HashMap<String, String> projekt : handlaggareProjektLista){
 
+        String pid = projekt.get("pid");
+        String namn = projekt.get("projektnamn");
+        String beskrivning = projekt.get ("beskrivning");
+        String start = projekt.get ("startdatum");
+        String slut = projekt.get ("slutdatum");
+        String prioritet = projekt.get("prioritet");
+        String kostnad = projekt.get ("kostnad"); 
+        String status = projekt.get ("status");
+        model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status, "Visa"}); // Hämtar alla kolumner som behövs i tabellen
+    }
+
+   }
+ 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size()); // Skriver ut antal projekt som hittades när när SQL-frågan körs
-        String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status","Visa"}; // Skapar en tabell med kolumnnamn matchande de i databasen
 
-        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
     for (HashMap<String, String> projekt : projektlista){
 
@@ -123,7 +147,7 @@ private void fyllTabell(){
         String status = projekt.get ("status");
         model.addRow(new Object[] {pid, namn, beskrivning, start, slut, kostnad, prioritet, status, "Visa"}); // Hämtar alla kolumner som behövs i tabellen
     }
-
+   
     tblProjekt.setModel(model);
     } catch (InfException e) {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage()); // visar om något blev fel
