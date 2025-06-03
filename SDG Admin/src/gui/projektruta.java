@@ -230,12 +230,20 @@ private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
 //                  "JOIN ans_proj ap ON p.pid = ap.pid " +
 //                    "JOIN anstalld a ON ap.aid = a.aid " +
 //                    "WHERE a.avdelning = '" + avdid + "'";
-                query = "SELECT DISTINCT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, " +
-               "p.prioritet, p.kostnad, p.status " +
-               "FROM projekt p " +
-               "JOIN ans_proj ap ON p.pid = ap.pid " +
-               "JOIN anstalld a ON ap.aid = a.aid " +
-               "WHERE a.avdelning = '" + avdid + "'";
+//                query = "SELECT DISTINCT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, " +
+//               "p.prioritet, p.kostnad, p.status " +
+//               "FROM projekt p " +
+//               "JOIN ans_proj ap ON p.pid = ap.pid " +
+//               "JOIN anstalld a ON ap.aid = a.aid " +
+//               "WHERE a.avdelning = '" + avdid + "'";
+
+                    
+                    
+                    String sql = "SELECT DISTINCT p.* FROM projekt p JOIN ans_proj ap ON p.pid = ap.pid JOIN anstalld a ON ap.aid = a.aid WHERE a.avdelning = " + avdid + ";";
+
+
+                    System.out.println(sql);
+
 
             if (CurrentUser.getUsr() == null) {
     System.out.println("Ingen användare är inloggad.");
