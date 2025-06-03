@@ -109,10 +109,6 @@ private void fyllTabell(){
 
 
    }
- 
-
-  
-
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size()); // Skriver ut antal projekt som hittades när när SQL-frågan körs
@@ -195,7 +191,7 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // hämtar projekten från databasen utifrån vald status
         String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "" };
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0); //skapan en tabell
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0); //skapar en tabell
         for (HashMap<String, String> projekt : projektlista ){
             String pid = projekt.get("pid");
             String namn = projekt.get("projektnamn");
@@ -256,8 +252,8 @@ private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
             tblProjekt.setModel(model);
 
         } else {
-            // Checkbox är avkryssad – anropa redan existerande metod för att visa hela tabellen
-            fyllTabell(); // <-- byt ut mot din metod som visar hela tabellen
+            // rutan är avkryssad visa då metoden som va innan rutan kryssades i
+            fyllTabell(); 
         }
 
     } catch (InfException e) {
@@ -265,61 +261,6 @@ private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
         JOptionPane.showMessageDialog(this, "Fel vid hämtning av projekt: " + e.getMessage());
     }
 }
-
-
-//private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
-//    try {
-//        boolean endastMinAvdelning = jCheckBox1.isSelected(); // kollar om rutan är ibockad 
-//        String query = "";
-//         if (endastMinAvdelning) {
-//             if (CurrentUser.getUsr() == null) {
-//    System.out.println("Ingen användare är inloggad.");
-//    return;
-//}
-//
-//
-//            String avdid = CurrentUser.getUsr().getAnstalld().getAvdelning(); // om rutan är ibockad hämtas aid från den som är inloggad
-//            System.out.println("Avdelnings_ID: " + avdid);
-//                query = "SELECT DISTINCT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, " +
-//               "p.prioritet, p.kostnad, p.status " +
-//               "FROM projekt p " +
-//               "JOIN ans_proj ap ON p.pid = ap.pid " +
-//               "JOIN anstalld a ON ap.aid = a.aid " +
-//               "WHERE a.avdelning = '" + avdid + "'";
-//
-//            if (CurrentUser.getUsr() == null) {
-//    System.out.println("Ingen användare är inloggad.");
-//}
-//
-//         }
-//        System.out.println("SQL-fråga: " + query);
-//        ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query);
-//        if (projektlista == null || projektlista.isEmpty()){
-//            JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades visas ett meddelande
-//            return;
-//        }
-//String [] columnNames  = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", ""}; // kolumnnamn som ska användas i tabellen
-//DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-//for (HashMap<String, String> projekt: projektlista){ // loopar igenom projekten i listan och hämtar ut resultat från alla fält
-//    String pid = projekt.get("pid");
-//    String namn = projekt.get("projektnamn");
-//    String beskrivning = projekt.get("beskrivning");
-//    String start = projekt.get("startdatum");
-//    String slut = projekt.get("slutdatum");
-//    String prioritet = projekt.get("prioritet");
-//    String kostnad = projekt.get("kostnad");
-//    String status = projekt.get("status");
-//    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "visa"});
-//}
-//tblProjekt.setModel(model);
-//} catch(InfException e) {
-//e.printStackTrace();
-//JOptionPane.showMessageDialog(this, "fel vid hämtning av projekt: " + e.getMessage()); // visar meddelande om något blev fel
-//
-//        
-//    }
-//}
-
 
 
 
