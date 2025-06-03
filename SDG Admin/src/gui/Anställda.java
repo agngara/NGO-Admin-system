@@ -89,22 +89,20 @@ public class Anställda extends javax.swing.JFrame {
   // Lägger till en klick-lyssnare på tabelln, för redigering av en anställd
  public void tableMouseEvent(Anställda anställda) {
         
-        tblAnställda.addMouseListener(new java.awt.event.MouseAdapter() {
-    @Override
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
-        int row = tblAnställda.rowAtPoint(evt.getPoint());
-        int col = tblAnställda.columnAtPoint(evt.getPoint());
-        if (row >= 0 && col == 9) {
+    tblAnställda.addMouseListener(new java.awt.event.MouseAdapter() {
+      @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int row = tblAnställda.rowAtPoint(evt.getPoint());
+            int col = tblAnställda.columnAtPoint(evt.getPoint());
+            if (row >= 0 && col == 9) {
                 
-            Object varde = tblAnställda.getValueAt(row, 0);
-            String aid = varde.toString();
-            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
-            Anstalld anstalld = new Anstalld(anstalldHanterare);
-            EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
-            editAnställda1.setVisible(true);
-            anställda.setVisible(false);
-            
-            
+                Object varde = tblAnställda.getValueAt(row, 0);
+                String aid = varde.toString();
+                AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
+                Anstalld anstalld = new Anstalld(anstalldHanterare);
+                EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
+                editAnställda1.setVisible(true);
+//                anställda.setVisible(true);
 
             }
         }

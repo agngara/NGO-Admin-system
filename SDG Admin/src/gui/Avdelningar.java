@@ -102,7 +102,7 @@ public class Avdelningar extends javax.swing.JFrame {
             Avdelning avdelning = new Avdelning(avdelningHanterare);
             EditAvdelning editAvdelning = new EditAvdelning(avdelning);
             editAvdelning.setVisible(true);
-            avdelningar.setVisible(false);
+//            avdelningar.setVisible(false);
 
             }
         }
@@ -298,7 +298,7 @@ public class Avdelningar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Hållbarhetsmål().setVisible(true);
+                new Avdelningar().setVisible(true);
             }
         });
     }
