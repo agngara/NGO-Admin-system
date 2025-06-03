@@ -65,7 +65,7 @@ public class PartnerHanterare {
         
         
         try{
-            String namn = "UPDATE partner SET namn = '" + nyttNamn + "WHERE pid = '" + "'";
+            String namn = "UPDATE partner SET namn = '" + nyttNamn + "' WHERE pid = '" + "'"; 
             idb.update(namn);
             return true;
         }
@@ -82,7 +82,7 @@ public class PartnerHanterare {
     
     public boolean andraKontaktperson(String pid, String nyKontaktperson)
     {
-         if (Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
+         if (!Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
 
           
            System.out.println("pid eller kontaktperson får inte vara tommna.");
@@ -90,7 +90,8 @@ public class PartnerHanterare {
        }
         
         try{
-            String kontaktperson = "UPDATE partner SET kontaktperson = '" + nyKontaktperson + "WHERE pid = '" + "'";
+            String kontaktperson = "UPDATE partner SET kontaktperson = '" + nyKontaktperson + "' WHERE pid = '" + "'";
+            System.out.println(kontaktperson);
             idb.update(kontaktperson);
             return true;
         }
@@ -112,7 +113,7 @@ public class PartnerHanterare {
            return false;
        }
         try{
-            String kontaktEpost = "UPDATE partner SET kontaktepost = '" + nyKontaktEpost + "WHERE pid = '" + "'";
+            String kontaktEpost = "UPDATE partner SET kontaktepost = '" + nyKontaktEpost + "' WHERE pid = '" + "'";
             idb.update(kontaktEpost);
             return true;
         }
@@ -134,7 +135,8 @@ public class PartnerHanterare {
            return false;
         }
         try{
-            String telefon = "UPDATE partner SET telefon = '" + nyTelefon + "WHERE pid = '" + "'";
+            String telefon = "UPDATE partner SET telefon = '" + nyTelefon + "'" + " WHERE pid = " + "'" + pid + "';";
+            System.out.println(telefon);
             idb.update(telefon);
             return true;
         }
@@ -155,7 +157,7 @@ public class PartnerHanterare {
            return false;
         }
         try{
-            String adress = "UPDATE partner SET adress = '" + nyAdress + "WHERE pid = '" + "'";
+            String adress = "UPDATE partner SET adress = '" + nyAdress + "' WHERE pid = '" + pid + "'";
             idb.update(adress);
             return true;
         }
@@ -175,7 +177,7 @@ public class PartnerHanterare {
            return false;
         }
         try{
-            String branch = "UPDATE partner SET branch = '" + nyBranch + "WHERE pid = '" + "'";
+            String branch = "UPDATE partner SET branch = '" + nyBranch + "' WHERE pid = '" + pid + "'";
             idb.update(branch);
             return true;
         }

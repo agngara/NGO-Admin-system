@@ -5,6 +5,7 @@
 package logicComponents.User;
 import SQLHanterare.AnstalldHanterare;
 import db.DatabaseInterface;
+import gui.Avdelningar;
 import java.util.UUID;
 import orgEntities.Anstalld;
 import oru.inf.InfDB;
@@ -54,6 +55,11 @@ public class User {
         
         return userType;
     }
+
+//    public Avdelningar getAvdelning() {
+//        
+//        return Avdelningar;
+//    }
     
     
     
