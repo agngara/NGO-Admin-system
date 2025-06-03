@@ -174,8 +174,8 @@ public class inloggning extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
       
-        ePost = epostField.getText();
-        losen = pwField.getText();
+        ePost = epostField.getText().trim();
+        losen = pwField.getText().trim();
         
            
         if (ePost.isEmpty() || losen.isEmpty()) {                
