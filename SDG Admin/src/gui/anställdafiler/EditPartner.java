@@ -33,6 +33,7 @@ public class EditPartner extends javax.swing.JFrame {
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
+        this.setTextBoxes();
 //        this.setTexBoxes();
         pid = partner.getPid();
         pah = new PartnerHanterare(pid); 
@@ -192,7 +193,7 @@ public class EditPartner extends javax.swing.JFrame {
         });
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblTitle.setText("Lägg till Partner");
+        lblTitle.setText("Redigera Partner");
 
         btnSparaPartner.setBackground(new java.awt.Color(7, 96, 216));
         btnSparaPartner.setForeground(new java.awt.Color(255, 255, 255));

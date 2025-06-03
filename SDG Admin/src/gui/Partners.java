@@ -108,7 +108,7 @@ public class Partners extends javax.swing.JFrame {
                 Partner partner = new Partner(partnerHanterare);
                 EditPartner editPartner = new EditPartner(partner);
                 editPartner.setVisible(true);
-                partners.setVisible(false);
+//                partners.setVisible(true);
             
             }
         }
