@@ -28,7 +28,7 @@ public class Meny extends javax.swing.JFrame {
     public Meny() {
        
         currentAnstalld = CurrentUser.getUsr().getAnstalld();
-        MenyUpdateName();
+        setName();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -38,33 +38,37 @@ public class Meny extends javax.swing.JFrame {
         lblRole.setText(userType.name());
         meny = this;
         
-        
-        
-        // TODO code printing of role name;
-        
-        
-        /* this.idb = idb;
-        this.inloggadAnvandare = inloggadAnvandare;
-        initComponents();
-        try {
-        String sqlFraga = "SELECT * FROM anstalld WHERE epost = " + "'" + inloggadAnvandare + "'";
-        HashMap<String, String> row = idb.fetchRow(sqlFraga);
-        fornamn = row.get("fornamn");
-        efternamn = row.get("efternamn");        
-        lblInloggadAnvandare.setText("Hej " + fornamn + " " + efternamn + "!");
-        
-    
-        
-        } catch (Exception ex) {
-                   } */
-            
-        
-        
-        
+          
     }
     
+    /**
+     * Visar den inloggades namn.
+     */
+    public void setName() {
+        
+        namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+
+    }
+    
+    /**
+     * Uppdaterar fältet currentAnstalld
+     */
+    public void resetCurrentAnstalld() {
+        
+        currentAnstalld = CurrentUser.getUsr().getAnstalld();
+
+    }
+    
+    
+    /**
+     * Uppdaterar det visade namnet på den anställda. 
+     */
     public void MenyUpdateName() {
-     namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+        
+        
+        resetCurrentAnstalld();
+        namn = currentAnstalld.getFornamn() + " " + currentAnstalld.getEfternamn();
+        lblInloggadAnvandare.setText(namn);
     }
 
     /**

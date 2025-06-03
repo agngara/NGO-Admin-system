@@ -10,6 +10,7 @@ import SQLHanterare.*;
 import gui.Anställda;
 import gui.Meny;
 import gui.projektfiler.OneProjectView;
+import logicComponents.User.CurrentUser;
         
 
 /**
@@ -304,11 +305,9 @@ public class EditMinaUppgifter extends javax.swing.JFrame {
         
         if (setAnstalldInfo()) {
             
+            CurrentUser.loadUser(anstalld.getAid());
+            meny.MenyUpdateName();
             this.setVisible(false);
-            new Meny().setVisible(true);
-            meny.setVisible(false);
-            
-            
         }
         
         
