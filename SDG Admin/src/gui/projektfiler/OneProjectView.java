@@ -260,15 +260,16 @@ public class OneProjectView extends javax.swing.JFrame {
      */
     public boolean addTeamMemberGUI() {
     
-        String id = JOptionPane.showInputDialog("Lägg till handläggare");
+        String id = JOptionPane.showInputDialog("Lägg till handläggare med rätt anställd id");
         HandlaggareHanterare handlaggareHanterare = new HandlaggareHanterare();
         
         //if (Validering.giltigDouble(id) && !Validering.tomFalt("Handläggar-ID", id) && !Validering.finnsHandlaggare(id) && !Validering.finnsHandlaggareIprojekt(id, projekt.getPid())) {
           
         handlaggareHanterare.addHandlaggareToProject(projekt.getPid(), id);
         fillTeamTable();
-        JOptionPane.showMessageDialog(rootPane,"Partner tillagd.","Lägg till projektpartner", 2);
-        return true;
+        JOptionPane.showMessageDialog(rootPane,"Handläggare tillagd.","Lägg till projekthandläggare", 2);
+        return true; 
+    
         //}
         //else {
         //JOptionPane.showMessageDialog(rootPane,"Ange ett giltigt partner-ID.","Lägg till projektpartner", 1);
