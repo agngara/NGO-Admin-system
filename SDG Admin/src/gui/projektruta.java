@@ -50,37 +50,34 @@ private Anstalld currentAnstalld;
         }
     });
     
-try {
-    idb = DatabaseInterface.databaseConnection();
-    fyllTabell(); // fyller tabellen utifrån databasen
-} catch (Exception e){
- }
-jButton1.addActionListener(new java.awt.event.ActionListener() {
-public void actionPerformed(java.awt.event.ActionEvent evt) {
-searchDateByActionPerformed(evt); 
-}
-});
-jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+    try {
+        idb = DatabaseInterface.databaseConnection();
+        fyllTabell(); // fyller tabellen utifrån databasen
+    } catch (Exception e){}
+    
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-jComboBox1ActionPerformed(evt);
-}
+        searchDateByActionPerformed(evt); 
+      }
+    });
+    
+    jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jComboBox1ActionPerformed(evt);
+      }
     });
 
-
-   
-if (CurrentUser.getUsr() !=null) {
-    UserType userType = CurrentUser.getUsr().getUserType(); // Visar vilken typ av användare som är inloggad
-    String userTypeString = userType.toString();
-} else {
-    System.out.println ("Ingen användare är inloggad.");
-    return;
-
-}
+    if (CurrentUser.getUsr() !=null) {
+        UserType userType = CurrentUser.getUsr().getUserType(); // Visar vilken typ av användare som är inloggad
+        String userTypeString = userType.toString();
+    } else {
+        System.out.println ("Ingen användare är inloggad.");
+        return;
+    }
     try {
-    this.tableMouseEvent(projektr);
+        this.tableMouseEvent(projektr);
     } 
-    catch (Exception e) {
-        
+    catch (Exception e) {  
         System.out.println(e);
     }
 
@@ -95,26 +92,24 @@ private void fyllTabell(){
         UserType userType = currentAnstalld.getRole(aid);
 
            if (userType == UserType.handlaggare){
-         query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
+           query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.kostnad, p.prioritet, p.status " +
                     "FROM projekt p " +
-                 "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
-                 "WHERE ap.aid =  " +"'" + aid + "'";
-        } 
-   else if (userType == UserType.admin1 || userType == UserType.admin2){
-    query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt"; // Admin 1 och 2 får se alla projekt
-        } 
-   else if (userType == UserType.projektchef){
-       query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");"; // Visar projekt där projektchefens aid matchar i tabellen
-       System.out.println(query); 
-
-
-   }
+                    "JOIN ans_proj ap ON p.pid = ap.pid " +  // Koppla projekt tabellen till anställda tabellen, handläggaren får endast se de projekt hen ör kopplad till via tabellen ans_proj
+                    "WHERE ap.aid =  " +"'" + aid + "'";
+            } 
+            else if (userType == UserType.admin1 || userType == UserType.admin2){
+                query = "SELECT pid, projektnamn, beskrivning, startdatum, slutdatum, kostnad, prioritet, status FROM projekt"; // Admin 1 och 2 får se alla projekt
+            }    
+            else if (userType == UserType.projektchef){
+                query = "SELECT * FROM projekt WHERE projektchef IN (SELECT aid FROM anstalld WHERE aid = " + aid + ");"; // Visar projekt där projektchefens aid matchar i tabellen
+                System.out.println(query); 
+            }
 
         ArrayList<HashMap< String, String >> projektlista = idb.fetchRows(query);
         System.out.println("Antal projekt hämtade:" + projektlista.size()); // Skriver ut antal projekt som hittades när när SQL-frågan körs
         String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "kostnad", "prioritet", "status","Visa"}; // Skapar en tabell med kolumnnamn matchande de i databasen
 
-    DefaultTableModel model = new DefaultTableModel (columnNames, 0);
+        DefaultTableModel model = new DefaultTableModel (columnNames, 0);
 
     for (HashMap<String, String> projekt : projektlista){
 
@@ -131,7 +126,7 @@ private void fyllTabell(){
 
     tblProjekt.setModel(model);
     } catch (InfException e) {
-    JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage()); // visar om något blev fel
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning av projektdata: " + e.getMessage()); // visar om något blev fel
     }
 }
 
@@ -142,36 +137,39 @@ private void searchDateByActionPerformed(java.awt.event.ActionEvent evt) { // me
         
         if (startDate.isEmpty() || endDate.isEmpty()){
             JOptionPane.showMessageDialog(this, "Ange start och slutdatum."); // Om inget datum skrivs in kommer ett meddelande upp 
-            return; }
+            return; 
+        }
 
-     String query = "SELECT *  FROM projekt WHERE startdatum >= '" + startDate +"' AND slutdatum <= '" + endDate + "'";
-       // söker på projekt utifrån det datum som anges i sökrutan
-System.out.println("SQL-fråga: " + query);
-ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka datum som matchar, returnerar en lista med projekt som matchar i datum
-if (projektlista == null || projektlista.isEmpty()) {
-JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades med matchande datum kommer ett meddelande upp med den informationen
-return;
-}
-String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "Visa"}; // kolumnnamn som ska användas i tabellen
-DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-for (HashMap<String, String> projekt : projektlista) { // loopar igenom alla projekt
-    String pid = projekt.get("pid");
-    String namn = projekt.get("projektnamn");
-    String beskrivning = projekt.get ("beskrivning");
-    String start = projekt.get("startdatum");
-    String slut = projekt.get("slutdatum");
-    String prioritet = projekt.get("prioritet");
-    String kostnad = projekt.get("kostnad");
-    String status = projekt.get("status"); // hämtar ut fälten från projekt
-    model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});  // lägger till en rad för varje del
+            String query = "SELECT *  FROM projekt WHERE startdatum >= '" + startDate +"' AND slutdatum <= '" + endDate + "'";
+                // söker på projekt utifrån det datum som anges i sökrutan
+            System.out.println("SQL-fråga: " + query);
+            ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka datum som matchar, returnerar en lista med projekt som matchar i datum
+        if (projektlista == null || projektlista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inga projekt hittades."); // om inga projekt hittades med matchande datum kommer ett meddelande upp med den informationen
+        return;
+        }
         
-}
-tblProjekt.setModel(model);
+    String [] columnNames = {"pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "Visa"}; // kolumnnamn som ska användas i tabellen
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+    for (HashMap<String, String> projekt : projektlista) { // loopar igenom alla projekt
+        String pid = projekt.get("pid");
+        String namn = projekt.get("projektnamn");
+        String beskrivning = projekt.get ("beskrivning");
+        String start = projekt.get("startdatum");
+        String slut = projekt.get("slutdatum");
+        String prioritet = projekt.get("prioritet");
+        String kostnad = projekt.get("kostnad");
+        String status = projekt.get("status"); // hämtar ut fälten från projekt
+        model.addRow(new Object[]{pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});  // lägger till en rad för varje del
+        
+    }
+    
+    tblProjekt.setModel(model);
     } catch (InfException e){
         e.printStackTrace();
-JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage()); // meddelande som visas om det vart fel
-return;
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage()); // meddelande som visas om det vart fel
+    return;
     }
     }
 
@@ -183,11 +181,11 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
         if (selectedStatus.equals("Alla")){ // om alla projekt är valda visas alla projekt
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p"; // här hämtas då alla projekt oberoende av status
-} else { 
+    } else { 
             query = "SELECT p.pid, p.projektnamn, p.beskrivning, p.startdatum, p.slutdatum, p.prioritet, p.kostnad, p.status " +
                     "FROM projekt p " +
             "WHERE p.Status = '" + selectedStatus +"'"; // hämtar projekt utifrån vad användaren klikcat i
-}
+    }
         System.out.println("SQL-fråga: " + query);
         ArrayList<HashMap<String, String>> projektlista = idb.fetchRows(query); // hämtar projekten från databasen utifrån vald status
         String [] columnNames = { "pid", "projektnamn", "beskrivning", "startdatum", "slutdatum", "prioritet", "kostnad", "status", "" };
@@ -203,12 +201,14 @@ private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
             String status = projekt.get("status"); // går igenom alla projekt och lägger till i tabellen
             
             model.addRow(new Object[] {pid, namn, beskrivning, start, slut, prioritet, kostnad, status, "Visa"});
+        }
+            
+            tblProjekt.setModel(model);
+        } catch (InfException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage()); // visar felmeddelande om något blev fel
+        }
 }
-tblProjekt.setModel(model);
-} catch (InfException e) {
-e.printStackTrace();
-JOptionPane.showMessageDialog(this, "fel vid hämtning av projektdata: " + e.getMessage()); // visar felmeddelande om något blev fel
-}}
 
 private void chkAvdelningActionPerformed(java.awt.event.ActionEvent evt) {
     try {
