@@ -31,10 +31,13 @@ public class HandlaggareHanterare {
        idb = DatabaseInterface.databaseConnection();
    }
    
-   public HandlaggareHanterare(String email) {
+   public HandlaggareHanterare(String aid) {
        
        this.aid = aid;
-       query = "SELECT * FROM anstalld WHERE aid = " + "'" + aid + "'";
+       //******************************************************************************************************************************************************************************************************************
+       //-- **OBS!!** -- Av misstag har denna klass hämtat in data från anstalld istället för handlaggare. Nu är den ändrad till SELECT * FROM handlaggare, om några av metodern ai nte fungerar här, kan det vara därför. --!!!!!!!--
+       //******************************************************************************************************************************************************************************************************************
+       query = "SELECT * FROM handlaggare WHERE aid = " + "'" + aid + "'";
        idb = DatabaseInterface.databaseConnection();
        
        try {
@@ -352,5 +355,49 @@ public ArrayList getHandlaggareByProject(String pid) {
           return false;
           
       }
+      
+      public boolean andraAnsvarighetsomrade(String aid, String ansvarighetsomrade) {
+          
+          if (!Validering.tomFalt(ansvarighetsomrade, "ansvarighetsområde")) {
+              return false;
+          }
+
+          try {
+              String query = "UPDATE handlaggare SET ansvarighetsomrade = '" + ansvarighetsomrade + "' WHERE aid = " + aid;
+              idb.update(query);
+              return true;
+          }
+          
+          catch (InfException e) {
+              
+              System.out.println(e);
+              e.printStackTrace();
+              return false;
+          }
+      }
+      
+      
+      public boolean andraMentor(String aid, String mentor) {
+          
+          if (!Validering.tomFalt(mentor, "Mentor")) {
+              return false;
+          }
+          
+          try {
+              String query = "UPDATE handlaggare SET mentor = '" + mentor + "' WHERE aid = " + aid;
+              idb.update(query);
+              return true;
+          }
+          catch (InfException e) {
+              System.out.println(e);
+              e.printStackTrace();
+              return false;
+          }
+          
+      }
+      
+      
+      
+      
 
 }
