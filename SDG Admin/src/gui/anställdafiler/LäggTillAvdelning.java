@@ -29,13 +29,13 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
    
  // konstruktor
     public LäggTillAvdelning() {
-        
+        avdelning = new Avdelning();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
         fillComboBoxes();
         
         avdh = new AvdelningHanterare(avdid); 
-        avdelning = new Avdelning(avdh);
+        //avdelning = new Avdelning(avdh);
              
     }
 
@@ -44,12 +44,12 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
     public void fillComboBoxes() {
          
          // Fill stad
-        comboStad.removeAllItems();
+       // comboStad.removeAllItems();
         StadHanterare stadHanterare = new StadHanterare();
-        ArrayList<HashMap<String,String>> Stad = stadHanterare.fetchAllStad();
+        ArrayList<HashMap<String,String>> stad = stadHanterare.fetchAllStad();
         String namn = ""; 
 
-        for (HashMap<String,String> hashmap : Stad) {
+        for (HashMap<String,String> hashmap : stad) {
 
             namn = hashmap.get("namn");
             comboStad.addItem(namn);
@@ -68,7 +68,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         String chef = txtChef.getText();
         String telefon = txtTelefon.getText();
         String epost = txtEpost.getText();
-        String stad = (String) comboStad.getSelectedItem();
+        String stad = (String) comboStad.getSelectedItem().toString();
      
         
         String stadId = "1";
@@ -79,7 +79,7 @@ public class LäggTillAvdelning extends javax.swing.JFrame {
         } catch (InfException ex) {}
         
        
-        boolean ok = avdh.laggTillAvdelning(namn, beskrivning, adress, epost, telefon, chef, stadId);
+        boolean ok = avdh.laggTillAvdelning(namn, beskrivning, adress, epost, telefon, stadId, chef);
         if (ok) {
             javax.swing.JOptionPane.showMessageDialog(this, "Avdelning sparad!");
             this.setVisible(false);

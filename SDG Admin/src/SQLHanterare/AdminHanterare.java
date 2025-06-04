@@ -62,18 +62,10 @@ public class AdminHanterare {
     /**
  * Metoden nedan lägger till en anställd 
  * 
-     * @param losenord
-     * @param fornamn
-     * @param efternamn 6465
-     * @param adress
-     * @param epost
-     * @param telefon
-     * @param anstallningsdatum
-     * @return 
-     *  Denna kod är avsedd för att lägga till en ny anställd
-     * Den skapar ävet ett slumpmässigt lösenord genom UUID
+     *
+     *  Denna kod är avsedd för att lägga till en ny anställ
      * och ett slumpmässigt aid
-     * Om lösenord inte inmatas så skapas ett genererat losen ord, via metoden genereraLosenord
+     * Om lösenord inte inmatas så skapas ett genererat lösenord, via metoden genereraLosenord
  */
     
 //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
@@ -134,7 +126,7 @@ public class AdminHanterare {
    
     }
     
- // Metoden lägger till ett projekt 
+ 
     
    
     
