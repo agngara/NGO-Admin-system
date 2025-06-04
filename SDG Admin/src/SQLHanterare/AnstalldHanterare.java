@@ -322,7 +322,6 @@ public class AnstalldHanterare {
              !Validering.giltigtDatum(anstallningsdatum)) {
         
           
-           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
            
        }
@@ -382,7 +381,6 @@ public class AnstalldHanterare {
 {
     {
         if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
-            JOptionPane.showMessageDialog(null,"Avdelning får inte vara tom");
             return false;
         }
     }
@@ -605,7 +603,6 @@ public boolean andraAdress(String aid, String nyAdress)
     
     
     if (!Validering.tomFalt(aid, "anställningsID")) {
-           JOptionPane.showMessageDialog(null,"Aid är tom");
         return false;
     }
    try { 

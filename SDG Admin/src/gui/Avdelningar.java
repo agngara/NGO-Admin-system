@@ -110,19 +110,19 @@ public class Avdelningar extends javax.swing.JFrame {
     );    
  }
     
-  // ta bort en avdelning
-    public void removeAvdelning(String avdid) {
-        
-        if (new AvdelningHanterare().taBortAvdelning(avdid)) {
-            JOptionPane.showMessageDialog(rootPane, "Avdelning borttagen.");
-            fyllTabell();
-            
-        } 
-        else {
-            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort avdelning.");
-
-        }
-    }
+  // graveyard
+//    public void removeAvdelning(String avdid) {
+//        
+//        if (new AvdelningHanterare().taBortAvdelning(avdid)) {
+//            JOptionPane.showMessageDialog(rootPane, "Avdelning borttagen.");
+//            fyllTabell();
+//            
+//        } 
+//        else {
+//            JOptionPane.showMessageDialog(rootPane, "Kunde inte ta bort avdelning.");
+//
+//        }
+//    }
     
 
     /**
@@ -138,7 +138,6 @@ public class Avdelningar extends javax.swing.JFrame {
         avdTillbakaTillMeny = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAvdelning = new javax.swing.JTable();
-        bnTaBortAvdelning = new javax.swing.JButton();
         bnLaggTillAvdelning = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -169,15 +168,6 @@ public class Avdelningar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAvdelning);
 
-        bnTaBortAvdelning.setBackground(new java.awt.Color(204, 0, 0));
-        bnTaBortAvdelning.setForeground(new java.awt.Color(255, 255, 255));
-        bnTaBortAvdelning.setText("Ta bort Avdelning");
-        bnTaBortAvdelning.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnTaBortAvdelningActionPerformed(evt);
-            }
-        });
-
         bnLaggTillAvdelning.setBackground(new java.awt.Color(0, 204, 0));
         bnLaggTillAvdelning.setForeground(new java.awt.Color(255, 255, 255));
         bnLaggTillAvdelning.setText("Lägg till avdelning");
@@ -197,8 +187,6 @@ public class Avdelningar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bnTaBortAvdelning)
-                        .addGap(18, 18, 18)
                         .addComponent(bnLaggTillAvdelning))
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,9 +201,7 @@ public class Avdelningar extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bnLaggTillAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bnTaBortAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bnLaggTillAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(avdTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
@@ -227,26 +213,6 @@ public class Avdelningar extends javax.swing.JFrame {
         this.setVisible(false);
         new Meny().setVisible(true);
     }//GEN-LAST:event_avdTillbakaTillMenyActionPerformed
-
-    private void bnTaBortAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnTaBortAvdelningActionPerformed
- // kontrollerar om en rad är vald, om ja så anropas avdelningen.
-        int selectedRow = tblAvdelning.getSelectedRow();
-          //int column = 1; 
-          if (selectedRow == -1) {
-              JOptionPane.showMessageDialog(null,"Ingen vald rad");
-              return;
-          }
-          
-          int columnIndex = 0;
-          String avdid = (String) tblAvdelning.getValueAt(selectedRow, columnIndex);
-
-       
-            
-          if (JOptionPane.showConfirmDialog(rootPane, "Är du säker på att du vill ta bort avdelningen?") == JOptionPane.YES_OPTION ) {
-            
-                removeAvdelning(avdid);
-            }
-    }//GEN-LAST:event_bnTaBortAvdelningActionPerformed
 
     private void bnLaggTillAvdelningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnLaggTillAvdelningActionPerformed
         new LäggTillAvdelning().setVisible(true);
@@ -306,7 +272,6 @@ public class Avdelningar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avdTillbakaTillMeny;
     private javax.swing.JButton bnLaggTillAvdelning;
-    private javax.swing.JButton bnTaBortAvdelning;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAvdelning;
