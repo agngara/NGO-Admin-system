@@ -25,7 +25,7 @@ public class Handlaggare
         HashMap<String, String>handlaggare  = handlaggareHanterare.getHandlaggare();
         
         aid = handlaggare.get("aid");
-        ansvarighetsomraden = handlaggare.get("ansvarighetsomraden");
+        ansvarighetsomraden = handlaggare.get("ansvarighetsomrade");
         mentor = handlaggare.get("mentor");
         
         
@@ -34,5 +34,10 @@ public class Handlaggare
     public String getAnsvarighetsområden()
     {
         return ansvarighetsomraden;
+    }
+    
+    public String getMentor() {
+        
+        return mentor;
     }
 }

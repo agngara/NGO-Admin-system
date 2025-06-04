@@ -63,7 +63,7 @@ public class AnstalldHanterare {
    
    public AnstalldHanterare(String aid, String filler) {
        
-       this.email = email;
+       this.aid = aid;
        query = "SELECT * FROM anstalld WHERE aid = " + "'" + aid + "'";
        idb = DatabaseInterface.databaseConnection();
        

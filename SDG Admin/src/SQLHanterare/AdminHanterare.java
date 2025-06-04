@@ -151,15 +151,35 @@ public class AdminHanterare {
             return false;
         }
         return true;
-        
+    }
     
-        
- // Metoden lägger till ett projekt 
+        public boolean andraBehorighetsniva(String aid, String behorighetsniva) {
+            
+            if (!Validering.tomFalt(behorighetsniva, "behörighetsnivå")) {
+                return false;
+                
+            }
+            
+            try {
+                
+                String andraBehorighet = "UPDATE admin SET behorighetsniva = '" + behorighetsniva + "' WHERE aid = " + aid;
+                idb.update(andraBehorighet);
+                return true;
+            }
+            catch (InfException e) {
+                
+                System.out.println(e);
+                e.printStackTrace();
+                return false;
+            }
+            
+            
+        }
     
-   
+
     
     
-}
+
 }
     
 
