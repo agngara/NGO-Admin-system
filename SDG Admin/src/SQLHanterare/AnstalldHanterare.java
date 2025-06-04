@@ -288,7 +288,7 @@ public class AnstalldHanterare {
        
    }
    
-   // Metod för att generera lösenord
+   // Metod för att generera lösenord och sedan använda i metoden laggTilAnstalld
    
    public String genereraLosenord() {
        return UUID.randomUUID().toString();
