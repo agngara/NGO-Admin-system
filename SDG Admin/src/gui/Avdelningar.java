@@ -233,7 +233,7 @@ public class Avdelningar extends javax.swing.JFrame {
         int selectedRow = tblAvdelning.getSelectedRow();
           //int column = 1; 
           if (selectedRow == -1) {
-              System.out.println("Ingen vald rad");
+              JOptionPane.showMessageDialog(null,"Ingen vald rad");
               return;
           }
           
