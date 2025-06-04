@@ -23,7 +23,7 @@ import oru.inf.InfDB;
  * anställda i systemet.
  * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
  * lägga till asntällda, ändra uppgifter om anställd samt ta bort anställd. 
- * Dessa metoder används sedan i klassen anställd, editAnställda och läggTillAnställda. 
+ * Dessa metoder används sedan i klassen anställda, editAnställd1 och läggTillAnställd1. 
  * 
  */
 
