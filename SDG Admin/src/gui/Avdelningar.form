@@ -29,6 +29,8 @@
                   <Group type="102" attributes="0">
                       <Component id="avdTillbakaTillMeny" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="bnTaBortAvdelning" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bnLaggTillAvdelning" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -47,7 +49,10 @@
               <Component id="jScrollPane1" min="-2" pref="419" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="bnLaggTillAvdelning" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bnLaggTillAvdelning" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="bnTaBortAvdelning" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="avdTillbakaTillMeny" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="49" max="32767" attributes="0"/>
@@ -102,6 +107,20 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="bnTaBortAvdelning">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="cc" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Ta bort Avdelning"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bnTaBortAvdelningActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="bnLaggTillAvdelning">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

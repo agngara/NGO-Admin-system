@@ -225,7 +225,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara anställd.");
         }
         
-    
+        
         
     }
       
@@ -277,27 +277,27 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
 
         lblLosenord.setText("Lösenord");
         getContentPane().add(lblLosenord);
-        lblLosenord.setBounds(524, 82, 54, 17);
+        lblLosenord.setBounds(524, 82, 49, 16);
 
         lblAnsDatum.setText("Anställningsdatum");
         getContentPane().add(lblAnsDatum);
-        lblAnsDatum.setBounds(31, 208, 100, 17);
+        lblAnsDatum.setBounds(31, 208, 100, 16);
 
         lblAdress.setText("Adress");
         getContentPane().add(lblAdress);
-        lblAdress.setBounds(31, 398, 93, 17);
+        lblAdress.setBounds(31, 398, 93, 16);
 
         lblFornamn.setText("Förnamn");
         getContentPane().add(lblFornamn);
-        lblFornamn.setBounds(31, 82, 52, 17);
+        lblFornamn.setBounds(31, 82, 52, 16);
 
         lblEfternamn.setText("Efternamn");
         getContentPane().add(lblEfternamn);
-        lblEfternamn.setBounds(31, 148, 55, 17);
+        lblEfternamn.setBounds(31, 148, 55, 16);
 
         lblAvdelning.setText("Avdelning");
         getContentPane().add(lblAvdelning);
-        lblAvdelning.setBounds(524, 205, 54, 17);
+        lblAvdelning.setBounds(524, 205, 54, 16);
 
         txtLosenord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,7 +305,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtLosenord);
-        txtLosenord.setBounds(524, 104, 286, 23);
+        txtLosenord.setBounds(524, 104, 286, 26);
 
         txtFornamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,7 +313,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtFornamn);
-        txtFornamn.setBounds(31, 104, 300, 23);
+        txtFornamn.setBounds(31, 104, 300, 26);
 
         txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,7 +321,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtEfternamn);
-        txtEfternamn.setBounds(31, 170, 300, 23);
+        txtEfternamn.setBounds(31, 170, 300, 26);
 
         txtAnsDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -329,12 +329,12 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtAnsDatum);
-        txtAnsDatum.setBounds(31, 236, 300, 23);
+        txtAnsDatum.setBounds(31, 236, 300, 26);
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTitle.setText("Lägg till Anställd");
         getContentPane().add(lblTitle);
-        lblTitle.setBounds(312, 29, 176, 30);
+        lblTitle.setBounds(312, 29, 176, 32);
 
         btnSparaAnstalld.setBackground(new java.awt.Color(7, 96, 216));
         btnSparaAnstalld.setForeground(new java.awt.Color(255, 255, 255));
@@ -348,11 +348,11 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         btnSparaAnstalld.setBounds(720, 510, 93, 37);
 
         getContentPane().add(comboMentor);
-        comboMentor.setBounds(524, 360, 286, 23);
+        comboMentor.setBounds(524, 360, 286, 26);
 
         lblFörklarDatum.setText("ÅÅÅÅ-MM-DD");
         getContentPane().add(lblFörklarDatum);
-        lblFörklarDatum.setBounds(349, 241, 82, 17);
+        lblFörklarDatum.setBounds(349, 241, 80, 16);
 
         txtEpost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,11 +360,11 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtEpost);
-        txtEpost.setBounds(31, 360, 300, 23);
+        txtEpost.setBounds(31, 360, 300, 26);
 
         lblEpost.setText("E-post");
         getContentPane().add(lblEpost);
-        lblEpost.setBounds(31, 338, 102, 17);
+        lblEpost.setBounds(31, 338, 102, 16);
 
         txtTelefon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,20 +372,15 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtTelefon);
-        txtTelefon.setBounds(31, 302, 300, 23);
+        txtTelefon.setBounds(31, 302, 300, 26);
 
         lblTelefon.setText("Telefon");
         getContentPane().add(lblTelefon);
-        lblTelefon.setBounds(31, 274, 40, 17);
+        lblTelefon.setBounds(31, 274, 40, 16);
 
         bnGenereraLosen.setText("Generera Lösenord");
-        bnGenereraLosen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnGenereraLosenActionPerformed(evt);
-            }
-        });
         getContentPane().add(bnGenereraLosen);
-        bnGenereraLosen.setBounds(524, 160, 141, 23);
+        bnGenereraLosen.setBounds(524, 160, 133, 27);
 
         btnTillbakaTillAnställd1.setBackground(new java.awt.Color(7, 96, 216));
         btnTillbakaTillAnställd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
@@ -403,7 +398,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtAdress1);
-        txtAdress1.setBounds(31, 426, 300, 23);
+        txtAdress1.setBounds(31, 426, 300, 26);
 
         txtAnsvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,18 +406,18 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtAnsvar);
-        txtAnsvar.setBounds(524, 420, 286, 23);
+        txtAnsvar.setBounds(524, 420, 286, 26);
 
         lblAnsvar.setText("Ansvarighetsområde");
         getContentPane().add(lblAnsvar);
-        lblAnsvar.setBounds(524, 398, 150, 17);
+        lblAnsvar.setBounds(524, 398, 150, 16);
 
         getContentPane().add(comboAvdelning1);
-        comboAvdelning1.setBounds(524, 227, 286, 23);
+        comboAvdelning1.setBounds(524, 227, 286, 26);
 
         lblAvdelning1.setText("Roll");
         getContentPane().add(lblAvdelning1);
-        lblAvdelning1.setBounds(524, 271, 22, 17);
+        lblAvdelning1.setBounds(524, 271, 20, 16);
 
         comboRoll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,18 +425,18 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(comboRoll);
-        comboRoll.setBounds(524, 299, 286, 23);
+        comboRoll.setBounds(524, 299, 286, 26);
 
         lblMentor.setText("Mentor");
         getContentPane().add(lblMentor);
-        lblMentor.setBounds(524, 343, 90, 17);
+        lblMentor.setBounds(524, 343, 90, 16);
 
         getContentPane().add(comboBehorighet);
-        comboBehorighet.setBounds(520, 360, 286, 23);
+        comboBehorighet.setBounds(520, 360, 286, 26);
 
         lblBehorighet.setText("Brehörighetsnivå");
         getContentPane().add(lblBehorighet);
-        lblBehorighet.setBounds(520, 340, 90, 17);
+        lblBehorighet.setBounds(520, 340, 90, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -507,11 +502,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_comboRollActionPerformed
-//ny
-    private void bnGenereraLosenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnGenereraLosenActionPerformed
-        String nyttLosenord = adh.genereraLosenord();
-        txtLosenord.setText(nyttLosenord);
-    }//GEN-LAST:event_bnGenereraLosenActionPerformed
 
     /**
      * @param args the command line arguments

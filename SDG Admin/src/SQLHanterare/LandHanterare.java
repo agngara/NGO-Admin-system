@@ -263,6 +263,7 @@ public class LandHanterare {
     public boolean taBortLand(String lid) {
          
         if (!Validering.tomFalt(lid, "landID")) {
+        JOptionPane.showMessageDialog(null,"Lid är tom");
         return false;
     }
         try { 

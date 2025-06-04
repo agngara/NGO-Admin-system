@@ -206,7 +206,6 @@ public class Anställda extends javax.swing.JFrame {
             
  
          }
- 
  // Ta bort anställd
  public void removeAnställd(String aid) {
         
