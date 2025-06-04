@@ -11,8 +11,13 @@ import java.util.ArrayList;
 import logicComponents.Validering;
 import oru.inf.InfException;
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * land i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till land, ändra uppgifter om land samt ta bort land. 
+ * Dessa metoder används sedan i klassen lander, editLand och läggTillLand. 
+ * 
+ * 
  */
 public class LandHanterare {
     

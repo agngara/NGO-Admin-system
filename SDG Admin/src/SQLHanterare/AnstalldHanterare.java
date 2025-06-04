@@ -18,9 +18,14 @@ import logicComponents.Validering;
 import oru.inf.InfDB;
 
 /**
- * This class handles database communication with the anstalld table.
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * anställda i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till asntällda, ändra uppgifter om anställd samt ta bort anställd. 
+ * Dessa metoder används sedan i klassen anställd, editAnställda och läggTillAnställda. 
+ * 
  */
+
 public class AnstalldHanterare {
     
    private InfDB idb;

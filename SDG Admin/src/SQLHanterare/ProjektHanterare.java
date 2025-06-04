@@ -15,8 +15,13 @@ import orgEntities.Projekt;
 import oru.inf.InfException;
 
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * projekt i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till projekt, ändra uppgifter om projekt samt ta bort projekt. 
+ * Dessa metoder används sedan i klassen projektruta och läggTillProjekt. 
+ * 
+ * 
  */
 public class ProjektHanterare {
     

@@ -14,8 +14,13 @@ import oru.inf.InfException;
 
 
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * partners i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till partner, ändra uppgifter om partner samt ta bort pertner. 
+ * Dessa metoder används sedan i klassen partners, editPartner och läggTillPartner. 
+ * 
+ * 
  */
 public class PartnerHanterare {
     

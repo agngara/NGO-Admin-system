@@ -11,9 +11,13 @@ import logicComponents.Validering;
 import orgEntities.Admin;
 import orgEntities.Anstalld;
 import oru.inf.InfException;
+
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * administratörer i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till anställda (vilket egentligen bör ligga i anställdhanetraren)
+ * 
  */
 public class AdminHanterare {
         
