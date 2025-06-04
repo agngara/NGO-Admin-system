@@ -74,7 +74,7 @@ import logicComponents.User.UserType;
         adress = anstalld.get("adress");
         telefon = anstalld.get("telefon");
         losenord = anstalld.get("losenord");
-        ePost = anstalld.get("ePost");
+        ePost = anstalld.get("epost");
         anstallningsdatum = anstalld.get("anstallningsdatum");
         aid = anstalld.get("aid");
         
