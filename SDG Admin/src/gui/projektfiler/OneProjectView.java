@@ -400,7 +400,7 @@ public class OneProjectView extends javax.swing.JFrame {
         lblInsikter.setText("Insikter");
 
         lbllProjName1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lbllProjName1.setText("Projektnamn");
+        lbllProjName1.setText("Projekt:");
 
         btnTillbakaTillProjektRuta.setBackground(new java.awt.Color(7, 96, 216));
         btnTillbakaTillProjektRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
