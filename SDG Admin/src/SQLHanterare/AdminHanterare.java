@@ -18,7 +18,7 @@ import oru.inf.InfException;
  * administratörer i systemet.
  * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
  * lägga till anställda (vilket egentligen bör ligga i anställdhanetraren)
- * Metoden laggTillAnstalld bör egentligen ligga under anstalldHanteraren.
+ * 
  */
 public class AdminHanterare {
         
@@ -94,12 +94,13 @@ public class AdminHanterare {
              !Validering.tomFalt(avdelning, "avdelning")) {
         
          
+           JOptionPane.showMessageDialog(null, "Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till" );
            return false;
            
        }
         
         try {
-            // här skapas ett aid och för att göra aid "unikt" hämtar den det max aid och sedan lägger till +1
+            // här skapas ett aid och för att göra aid "unikt" hämtar den det högsta aid och sedan lägger till +1
             String korrektAid = "SELECT MAX(aid) FROM anstalld";
             String maxAid = idb.fetchSingle(korrektAid);
             

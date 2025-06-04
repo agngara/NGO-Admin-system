@@ -65,6 +65,7 @@ public class PartnerHanterare {
        if (!Validering.tomFalt(nyttNamn, "namn")) {
 
           
+           JOptionPane.showMessageDialog(null,"pid eller namn får inte vara tommna.");
            return false;
        }
         
@@ -90,6 +91,7 @@ public class PartnerHanterare {
          if (!Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
 
           
+           JOptionPane.showMessageDialog(null,"pid eller kontaktperson får inte vara tommna.");
            return false;
        }
         
@@ -113,6 +115,7 @@ public class PartnerHanterare {
          if (!Validering.tomFalt(nyKontaktEpost, "kontaktepost")) {
 
           
+           JOptionPane.showMessageDialog(null,"pid eller kontaktepost får inte vara tommna.");
            return false;
        }
         try{
@@ -134,6 +137,7 @@ public class PartnerHanterare {
         
         if (!Validering.tomFalt(nyTelefon, "telefon") && Validering.giltigtTelefonnummer(nyTelefon)) {
           
+           JOptionPane.showMessageDialog(null,"pid eller telefon får inte vara tommna.");
            return false;
         }
         try{
@@ -155,6 +159,7 @@ public class PartnerHanterare {
     {
           if (!Validering.tomFalt(nyAdress, "adress")) {
           
+           JOptionPane.showMessageDialog(null,"pid eller adress får inte vara tommna.");
            return false;
         }
         try{
@@ -174,6 +179,7 @@ public class PartnerHanterare {
        {
           if (!Validering.tomFalt(nyBranch, "branch")) {
           
+           JOptionPane.showMessageDialog(null,"pid eller branch får inte vara tommna.");
            return false;
         }
         try{
