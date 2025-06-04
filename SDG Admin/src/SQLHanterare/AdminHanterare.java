@@ -46,8 +46,12 @@ public class AdminHanterare {
 
    // SKA DENNA VA MED? VAD HÄNDER OM DENNA TAS BORT?
     public AdminHanterare() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        idb = DatabaseInterface.databaseConnection();
+        
     }
+    
+    
    
     public HashMap getAdmin() {
         
@@ -125,12 +129,46 @@ public class AdminHanterare {
         
    
     }
+    /**
+     * Lägger till en admin i admintabellen.
+     * @param aid fyller kolumnen aid i tabellen.
+     * @param behorighetsniva fyller kolumnen behörighetsnivå i tabellen.
+     * @return true om sql fråga körs, annars false.
+     */
+    public boolean laggTillAdmin(String behorighetsniva) {
+        
+        if (!Validering.tomFalt(behorighetsniva, "Behörighetsnivå")) {
+        
+            JOptionPane.showMessageDialog(null, "Behörighetsnivå får inte vara tomt.");
+            return false;
+    }
+
+        try {
+         String korrektAid = "SELECT MAX(aid) FROM admin";
+         String maxAid = idb.fetchSingle(korrektAid);
+         int nyttAid = 1;
+         if (maxAid != null) {
+         nyttAid = Integer.parseInt(maxAid) + 1;
+         String addAdmin = "INSERT INTO admin (aid, behorighetsnivå) VALUES (" + nyttAid + ", " + behorighetsniva + ");"; 
+         idb.insert(addAdmin);
+         }
+        
+        } catch (InfException e) {
+            
+            System.out.println(e);
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+        
     
- 
+        
+ // Metoden lägger till ett projekt 
     
    
     
     
+}
 }
     
 
