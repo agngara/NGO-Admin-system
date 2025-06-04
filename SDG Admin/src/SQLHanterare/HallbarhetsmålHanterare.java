@@ -11,8 +11,12 @@ import logicComponents.Validering;
 import orgEntities.Hallbarhetsmål;
 import oru.inf.InfException;
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * hållbarhetsmål i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till hållabrhetsmål, ändra uppgifter om hållbarhetsmål samt ta bort hållbarhetsmål (OBS dessa metoder används ej). 
+ * 
+ * 
  */
 public class HallbarhetsmålHanterare {
     

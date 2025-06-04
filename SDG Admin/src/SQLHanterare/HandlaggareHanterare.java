@@ -12,8 +12,12 @@ import logicComponents.Validering;
 import orgEntities.Handlaggare;
 import oru.inf.InfException;
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * handläggare i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till handläggare, ändra uppgifter om handläggare samt ta bort handläggare. 
+ * Dessa metoder används sedan i klassen . 
+ * 
  */
 public class HandlaggareHanterare {
     

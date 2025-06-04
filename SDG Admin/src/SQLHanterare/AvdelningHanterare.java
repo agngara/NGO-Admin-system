@@ -13,9 +13,14 @@ import oru.inf.InfException;
 
 
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * avdelning i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till avdelning och ändra uppgifter om avdelning. 
+ * Dessa metoder används sedan i klasserna avdelningar, editAvdelning och läggTillAvdelningar. 
+ * 
  */
+
 public class AvdelningHanterare {
     
    private InfDB idb;
