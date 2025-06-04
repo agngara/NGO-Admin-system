@@ -84,9 +84,29 @@ public class AvdelningHanterare {
     {
         
          
+        if (
+             !Validering.tomFalt(namn, "namn") ||
+             !Validering.tomFalt(beskrivning, "beskrivning") ||
+             !Validering.tomFalt(adress, "adress") ||
+             !Validering.giltigEpost(epost) ||
+             !Validering.giltigtTelefonnummer(telefon) ||
+             !Validering.tomFalt(stad, "stad") ||
+             !Validering.tomFalt(chef, "chef")) {
         
+         
+           JOptionPane.showMessageDialog(null, "Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till" );
+           return false;
+           
+       }
         
         try {
+            
+        String korrektChef = "SELECT aid FROM handlaggare WHERE aid = '" + chef + "'";
+        if (idb.fetchSingle(korrektChef) == null) {
+            
+            System.out.println("Fel");
+            return false;
+        }
         
         String korrektAvdid = "SELECT MAX(avdid) FROM avdelning";
         String maxAvdid = idb.fetchSingle(korrektAvdid);

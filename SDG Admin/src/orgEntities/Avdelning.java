@@ -22,7 +22,11 @@ public class Avdelning {
     private String telefon;
     private String stad;
     private String chef;
+    
     private AvdelningHanterare avdelningHanterare; 
+    
+    public Avdelning(){}
+    
     
     
     public Avdelning (AvdelningHanterare avdelningHanterare)
@@ -30,7 +34,7 @@ public class Avdelning {
         
         HashMap<String, String> avdelning = avdelningHanterare.getAvdelning();
         
-        avdid = avdelning.get("avdid");
+        this.avdid = avdelning.get("avdid");
         namn = avdelning.get("namn");
         beskrivning = avdelning.get("beskrivning");
         adress = avdelning.get("adress");

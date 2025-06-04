@@ -66,6 +66,7 @@ public class StadHanterare {
           
           return stader;
       }
+    
 //     public ArrayList<HashMap<String, String>> getAllStad()
 //  {
 //  
