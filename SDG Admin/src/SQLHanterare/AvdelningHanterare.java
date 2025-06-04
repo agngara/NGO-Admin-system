@@ -94,7 +94,6 @@ public class AvdelningHanterare {
              !Validering.tomFalt(chef, "chef")) {
         
          
-           JOptionPane.showMessageDialog(null, "Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till" );
            return false;
            
        }
@@ -143,7 +142,6 @@ public class AvdelningHanterare {
         {
           if (!Validering.tomFalt(nyttNamn, "namn")) {
           
-           JOptionPane.showMessageDialog(null,"avdid eller namn får inte vara tommna.");
            return false;
         }
         
@@ -169,7 +167,6 @@ public class AvdelningHanterare {
          {
             if(!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
           
-           JOptionPane.showMessageDialog(null,"avdid eller beskrivning får inte vara tommna.");
            return false;
         }
         try {
@@ -193,7 +190,6 @@ public class AvdelningHanterare {
         {
           if (!Validering.tomFalt(nyAdress, "adress")) {
           
-           JOptionPane.showMessageDialog(null,"avdid eller adress får inte vara tom.");
            return false;
         }
         
@@ -219,7 +215,6 @@ public class AvdelningHanterare {
          {
              
           if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
-           JOptionPane.showMessageDialog(null,"avdid eller epost får inte vara tom.");
            return false;
         }
   
@@ -247,7 +242,6 @@ public class AvdelningHanterare {
          {
           if (!Validering.giltigtTelefonnummer(nyttTelefonnummer)) {
           
-            JOptionPane.showMessageDialog(null,"avdid eller telefon får inte vara tom.");
            return false;
         }
     {
@@ -274,7 +268,6 @@ public class AvdelningHanterare {
          {
           if (!Validering.tomFalt(nyChef, "chef")) {
           
-           JOptionPane.showMessageDialog(null,"avdid eller telefon får inte vara tom.");
            return false;
         }
     {
@@ -324,7 +317,6 @@ public class AvdelningHanterare {
     public boolean taBortAvdelning (String avdid) {
 
         if (!Validering.tomFalt(avdid, "avdelningID")) {
-        JOptionPane.showMessageDialog(null,"Avdid är tom");
         return false;
     }
         try { 

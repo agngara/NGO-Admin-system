@@ -60,7 +60,6 @@ public class HallbarhetsmålHanterare {
             Validering.tomFalt(prioritet, "prioritet")) {
          // if (namn == null || malnummer == null || beskrivning == null || prioritet == null || namn.isEmpty() || malnummer.isEmpty() || beskrivning.isEmpty() || prioritet.isEmpty()) {
           
-           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Hållbarhetsmål kan inte läggas till");
            return false;
            
        }
@@ -93,7 +92,6 @@ public class HallbarhetsmålHanterare {
              
              
              
-             JOptionPane.showMessageDialog(null,"hid eller namn får inte vara tomt");
              return false;
          }
         
@@ -154,7 +152,6 @@ public class HallbarhetsmålHanterare {
              
              
              
-             JOptionPane.showMessageDialog(null,"hid eller beskrivning får inte vara tomt");
              return false;
          }
         
@@ -183,7 +180,6 @@ public class HallbarhetsmålHanterare {
              
              
              
-             JOptionPane.showMessageDialog(null,"hid eller prioritet får inte vara tomt");
              return false;
          }
             
@@ -238,7 +234,6 @@ public class HallbarhetsmålHanterare {
     
     
     if (!Validering.tomFalt(hid, "hid")) {
-        JOptionPane.showMessageDialog(null,"Hid är tom");
         return false;
     }
     

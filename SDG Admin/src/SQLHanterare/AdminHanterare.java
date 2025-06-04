@@ -94,7 +94,6 @@ public class AdminHanterare {
              !Validering.tomFalt(avdelning, "avdelning")) {
         
          
-           JOptionPane.showMessageDialog(null, "Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till" );
            return false;
            
        }
