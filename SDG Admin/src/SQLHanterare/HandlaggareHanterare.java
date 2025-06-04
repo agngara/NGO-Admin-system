@@ -236,7 +236,7 @@ public boolean andraAdress(String aid, String nyAdress)
 
 
 //lägg till handläggare
-public boolean laggTillHandlaggare(String ansvarighetsomrade, String mentor) {
+public boolean laggTillHandlaggare(int aid, String ansvarighetsomrade, String mentor) {
     
    if (!Validering.tomFalt(ansvarighetsomrade, "Ansvarighetsområde")) {
        return false;
@@ -244,21 +244,16 @@ public boolean laggTillHandlaggare(String ansvarighetsomrade, String mentor) {
     
     
     try {
-    String korrektAid = "SELECT MAX(aid) FROM anstalld";
-    String maxAid = idb.fetchSingle(korrektAid);
-    int nyttAid = 1;
+
     
-    if (maxAid != null) {
-     nyttAid = Integer.parseInt(maxAid) + 1;   
-    }
-    
-    String laggTill = "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) VALUES ('" + nyttAid + "', '" + ansvarighetsomrade + "', '" + mentor + "')";
+    String laggTill = "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) VALUES ('" + aid + "', '" + ansvarighetsomrade + "', '" + mentor + "')";
     idb.insert(laggTill);
     return true;    
     }
     
     catch (InfException e) {
         e.getStackTrace();
+        System.err.println(e);
         return false;
     }
 }

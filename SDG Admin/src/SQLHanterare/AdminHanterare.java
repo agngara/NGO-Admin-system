@@ -82,7 +82,7 @@ public class AdminHanterare {
     
 //Denna är korrigerad, så om denna metod finns på annan plats, använd denna!!
     
-    public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum, String avdelning)
+    public boolean laggTillAnstalld(int aid, String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum, String avdelning)
     
    {
         
@@ -111,16 +111,9 @@ public class AdminHanterare {
             // här skapas ett aid och för att göra aid "unikt" hämtar den det högsta aid och sedan lägger till +1
             String korrektAid = "SELECT MAX(aid) FROM anstalld";
             String maxAid = idb.fetchSingle(korrektAid);
-         
-            int nyttAid = 1;
-            if (maxAid != null) {
-             nyttAid = Integer.parseInt(maxAid) + 1; }
-             
-         
-         
-         
+            
             String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning) " + 
-            "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdelning + ")";
+            "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "', " + avdelning + ")";
             idb.insert(laggTill);
 
 
@@ -130,6 +123,7 @@ public class AdminHanterare {
         
         catch (InfException e)
         {
+            System.err.println(e);
             e.printStackTrace();
             return false;
         }
@@ -143,7 +137,7 @@ public class AdminHanterare {
      * @param behorighetsniva fyller kolumnen behörighetsnivå i tabellen.
      * @return true om sql fråga körs, annars false.
      */
-    public boolean laggTillAdmin(String behorighetsniva) {
+    public boolean laggTillAdmin(int aid, String behorighetsniva) {
         
         if (!Validering.tomFalt(behorighetsniva, "Behörighetsnivå")) {
         
@@ -152,12 +146,10 @@ public class AdminHanterare {
     }
 
         try {
-         String korrektAid = "SELECT MAX(aid) FROM admin";
-         String maxAid = idb.fetchSingle(korrektAid);
-         int nyttAid = 1;
-         if (maxAid != null) {
-         nyttAid = Integer.parseInt(maxAid) + 1;
-         String addAdmin = "INSERT INTO admin (aid, behorighetsnivå) VALUES (" + nyttAid + ", " + behorighetsniva + ");"; 
+ 
+         {
+//         nyttAid = Integer.parseInt(maxAid) + 1;
+         String addAdmin = "INSERT INTO admin (aid, behorighetsniva) VALUES (" + aid + ", " + behorighetsniva + ");";
          idb.insert(addAdmin);
          }
         

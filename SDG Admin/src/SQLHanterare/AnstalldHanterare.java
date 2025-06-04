@@ -303,7 +303,7 @@ public class AnstalldHanterare {
  */
    
    
-   public boolean laggTillAnstalld(String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
+   public boolean laggTillAnstalld(int aid, String losenord, String fornamn, String efternamn, String adress, String epost, String telefon, String anstallningsdatum)
     
    {
       if (losenord == null || losenord.isEmpty()) {
@@ -332,14 +332,10 @@ public class AnstalldHanterare {
          String korrektAid = "SELECT MAX(aid) FROM anstalld";
          String maxAid = idb.fetchSingle(korrektAid);
          
-         int nyttAid = 1;
-         if (maxAid != null) {
-             nyttAid = Integer.parseInt(maxAid) + 1;
-         }
          
          
          String laggTill = "INSERT INTO anstalld (aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord) " + 
-         "VALUES ('" + nyttAid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
+         "VALUES ('" + aid + "', '" + fornamn + "', '" + efternamn + "', '" + adress + "', '" + epost + "', '" + telefon + "', '" + anstallningsdatum + "', '" + losenord + "')";
          idb.insert(laggTill);
 
 

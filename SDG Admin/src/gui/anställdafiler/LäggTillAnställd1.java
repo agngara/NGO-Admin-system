@@ -25,6 +25,8 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     AnstalldHanterare ah;
     AdminHanterare adh;
     String aid;
+    String aidNy;
+    String aidMentor = "";
     private InfDB idb;
 
     
@@ -33,6 +35,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
      * konstruktor
      */
     public LäggTillAnställd1() {
+        aidNy = "";
         anstalld = new Anstalld();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
@@ -132,8 +135,8 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         
         lblBehorighet.setVisible(true);
         comboBehorighet.setVisible(true);
-        comboBehorighet.addItem("Behörighetsnivå 1");
-        comboBehorighet.addItem("Behörighetsnivå 2");
+        comboBehorighet.addItem("1");
+        comboBehorighet.addItem("2");
         
         
         
@@ -151,6 +154,20 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         String epost = txtEpost.getText();
         String anstallningsdatum = txtAnsDatum.getText();
         String avdelning = (String) comboAvdelning1.getSelectedItem();
+        int inAid = 0;
+        
+         try {
+         String korrektAid = "SELECT MAX(aid) FROM anstalld";
+         String maxAid = idb.fetchSingle(korrektAid);
+         
+        
+         if (maxAid != null) {
+             inAid = Integer.parseInt(maxAid) + 1;
+         }
+         
+         } catch (InfException e) {
+             System.out.println(e);
+         }
         
         String avdelningsId = "1";
         
@@ -159,34 +176,38 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             avdelningsId = idb.fetchSingle(sqlFraga);
         } catch (InfException ex) {}
         
-       
-        boolean ok = adh.laggTillAnstalld(losenord, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelningsId);
+       // Lägg till anstalld
+        boolean ok = adh.laggTillAnstalld(inAid, losenord, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelningsId);
 
         
         // Variabler för scope
         boolean okAdmin = true;
-        // Lägger till hnadläggare
+        
+        // Lägger till handläggare
         if (comboRoll.getSelectedItem().equals("Handläggare")) {
+            
+        // Hämtar mentorns aid
         String mentor = (String) comboMentor.getSelectedItem();
-
         int start = mentor.indexOf('(');
         int end = mentor.indexOf(')');
-        String aidMentor = mentor.substring(start + 1, end);
+        aidMentor = mentor.substring(start + 1, end);
+
+        
  
         
            
            String ansvarsområde = txtAnsvar.getText();
-           boolean okHandlaggare = new HandlaggareHanterare().laggTillHandlaggare(ansvarsområde, aidMentor);
+           boolean okHandlaggare = new HandlaggareHanterare().laggTillHandlaggare(inAid, ansvarsområde, aidMentor);
            
            if (!okHandlaggare) {
                JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera handläggaren. Var god undersök att inget fält har lämnas tomt.");
                ok = false;
            }
         }
-               
+               // lägg tilladmin
             else if (comboRoll.getSelectedItem().equals("Administratör")) {
                     String behorighetsniva = (String) comboBehorighet.getSelectedItem();
-                    okAdmin = new AdminHanterare().laggTillAdmin(behorighetsniva);
+                    okAdmin = new AdminHanterare().laggTillAdmin(inAid, behorighetsniva);
                            
                     
                     if (!okAdmin) {
@@ -389,7 +410,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
 
         lblAnsvar.setText("Ansvarighetsområde");
         getContentPane().add(lblAnsvar);
-        lblAnsvar.setBounds(524, 398, 90, 16);
+        lblAnsvar.setBounds(524, 398, 150, 16);
 
         getContentPane().add(comboAvdelning1);
         comboAvdelning1.setBounds(524, 227, 286, 26);

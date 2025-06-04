@@ -152,6 +152,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
         lblTelefon = new javax.swing.JLabel();
         bAndraLösen = new javax.swing.JButton();
         btnTillbakaTillAnställda = new javax.swing.JToggleButton();
+        comboAvdelning1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -239,6 +240,8 @@ public class EditAnställda1 extends javax.swing.JFrame {
             }
         });
 
+        comboAvdelning1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,8 +280,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblLosenord)
                                             .addComponent(lblAvdelning))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE))))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTillbakaTillAnställda, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,8 +291,16 @@ public class EditAnställda1 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEpost)
-                            .addComponent(lblTelefon))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblTelefon)
+                                .addGap(464, 464, 464)
+                                .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(534, 534, 534)
+                    .addComponent(comboAvdelning1, 0, 265, Short.MAX_VALUE)
+                    .addGap(21, 21, 21)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,8 +330,6 @@ public class EditAnställda1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAvdelning)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRedigera, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -332,7 +340,9 @@ public class EditAnställda1 extends javax.swing.JFrame {
                             .addComponent(txtAnstalllning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFörklarDatum))
                         .addGap(18, 18, 18)
-                        .addComponent(lblTelefon)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTelefon)
+                            .addComponent(comboAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -343,7 +353,12 @@ public class EditAnställda1 extends javax.swing.JFrame {
                         .addComponent(lblAdress)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(234, 234, 234)
+                    .addComponent(comboAvdelning1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(289, Short.MAX_VALUE)))
         );
 
         pack();
@@ -434,6 +449,7 @@ public class EditAnställda1 extends javax.swing.JFrame {
     private javax.swing.JButton btnRedigera;
     private javax.swing.JToggleButton btnTillbakaTillAnställda;
     private javax.swing.JComboBox<String> comboAvdelning;
+    private javax.swing.JComboBox<String> comboAvdelning1;
     private javax.swing.JLabel lblAdress;
     private javax.swing.JLabel lblAnsDatum;
     private javax.swing.JLabel lblAvdelning;
