@@ -46,6 +46,12 @@ public class Anställda extends javax.swing.JFrame {
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
         }
+        
+        bnSokHanlaggare.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        bnSokHanlaggareActionPerformed(evt); 
+      }
+    });
          try {
             this.tableMouseEvent(anställda);
         } 
@@ -166,7 +172,34 @@ public class Anställda extends javax.swing.JFrame {
 
         }
     }
+           
     
+// Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
+// * handläggare på avdelningen, genom namn eller epost. 
+ 
+ public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
+   {
+       try{
+           String sokning = "SELECT * FROM anstalld " +
+                   "WHERE avdid = '" + avdid + "' " +
+                   // exsists kollar om selecten inanför parantesterna retunerar minst en rad. 
+                   "AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid)" +
+                   "AND (fornamn LIKE '%" + sok + "%' " +
+                   "OR efternamn LIKE '%" + sok + "%' " +
+                   "OR epost LIKE '%" + sok + "%')";
+           return idb.fetchRows(sokning);
+  
+       }
+       
+      catch (InfException e) {
+          e.printStackTrace();
+          return new ArrayList<>();
+       
+      }
+     
+   }  
+
+ 
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,9 +216,9 @@ public class Anställda extends javax.swing.JFrame {
         tblAnställda = new javax.swing.JTable();
         bnLaggTillAnstalld = new javax.swing.JButton();
         bnTaBortAnstalld = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        bnSokHanlaggare = new javax.swing.JButton();
+        txtSokHandlaggare = new javax.swing.JTextField();
+        lblSokHandlaggare = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -233,9 +266,20 @@ public class Anställda extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Sök");
+        bnSokHanlaggare.setText("Sök");
+        bnSokHanlaggare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnSokHanlaggareActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Sök handläggare");
+        txtSokHandlaggare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSokHandlaggareActionPerformed(evt);
+            }
+        });
+
+        lblSokHandlaggare.setText("Sök handläggare");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,24 +299,24 @@ public class Anställda extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(341, 341, 341)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lblSokHandlaggare)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(bnSokHanlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(jLabel2)
+                .addComponent(lblSokHandlaggare)
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bnSokHanlaggare)
+                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -321,6 +365,14 @@ public class Anställda extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bnTaBortAnstalldActionPerformed
+
+    private void txtSokHandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSokHandlaggareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSokHandlaggareActionPerformed
+
+    private void bnSokHanlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSokHanlaggareActionPerformed
+      
+    }//GEN-LAST:event_bnSokHanlaggareActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,13 +428,13 @@ public class Anställda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ansTillbakaTillMeny;
     private javax.swing.JButton bnLaggTillAnstalld;
+    private javax.swing.JButton bnSokHanlaggare;
     private javax.swing.JButton bnTaBortAnstalld;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblSokHandlaggare;
     private javax.swing.JTable tblAnställda;
+    private javax.swing.JTextField txtSokHandlaggare;
     // End of variables declaration//GEN-END:variables
 
     public String getAid() 
