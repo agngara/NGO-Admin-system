@@ -116,8 +116,6 @@ public class Anställda extends javax.swing.JFrame {
                 String avdelning = anstalld1.get("avdelning");
                 model.addRow(new Object[] {anstalldAid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "Redigera"});
                 
-                
-                
                 }
                     tblAnställda.setModel(model);
 
@@ -134,20 +132,27 @@ public class Anställda extends javax.swing.JFrame {
             int row = tblAnställda.rowAtPoint(evt.getPoint());
             int col = tblAnställda.columnAtPoint(evt.getPoint());
             if (row >= 0 && col == 9) {
-                
-                Object varde = tblAnställda.getValueAt(row, 0);
-                String aid = varde.toString();
-                AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
-                Anstalld anstalld = new Anstalld(anstalldHanterare);
-                EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
-                editAnställda1.setVisible(true);
-//                anställda.setVisible(true);
+                UserType typ = CurrentUser.getUsr().getUserType();
+                if (typ == UserType.admin1 || typ == UserType.admin2) {
+                    Object varde = tblAnställda.getValueAt(row, 0);
+                    String aid = varde.toString();
+                    AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
+                    Anstalld anstalld = new Anstalld(anstalldHanterare);
+                    EditAnställda1 editAnställda1 = new EditAnställda1(anstalld);
+                    editAnställda1.setVisible(true);
+    //              anställda.setVisible(true);
+                } else { 
+                JOptionPane.showMessageDialog(anställda, "Endast admin kan redigera anställda");
 
             }
         }
     }
+    }
     );    
- }
+ 
+            
+ 
+         }
  // Ta bort anställd
  public void removeAnställd(String aid) {
         
