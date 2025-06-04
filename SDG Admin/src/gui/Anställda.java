@@ -49,8 +49,9 @@ public class Anställda extends javax.swing.JFrame {
         
         bnSokHanlaggare.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-        bnSokHanlaggareActionPerformed(evt); 
+        bnSokHandlaggareActionPerformed(evt); 
       }
+        
     });
          try {
             this.tableMouseEvent(anställda);
@@ -126,6 +127,52 @@ public class Anställda extends javax.swing.JFrame {
                     tblAnställda.setModel(model);
 
         }
+    }
+    
+    private void bnSokHandlaggareActionPerformed(java.awt.event.ActionEvent evt) { // metoden körs när kanppen trycks på
+    try {
+        String sokHandlaggare = txtSokHandlaggare.getText();
+       
+        
+        if (sokHandlaggare.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ange namn eller epost."); // Om inget eller fel namn eller epost skrivs in kommer ett meddelande upp 
+            return; 
+        }
+
+            String query = "SELECT * FROM anstalld WHERE fornamn = '" + sokHandlaggare + "' OR efternamn = '" + sokHandlaggare + "' OR epost = '" + sokHandlaggare + "'";
+                // söker på anställda utifrån det namn eller epost som anges i sökrutan
+            System.out.println("SQL-fråga: " + query);
+            ArrayList<HashMap<String, String>> anstalldlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka namn och epost som matchar, returnerar en lista med handläggare som matchar 
+        if (anstalldlista == null || anstalldlista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sök endast på förnamn, efternamn eller epost."); // om inga handläggare hittades med matchande namn eller epost kommer ett meddelande upp med den informationen
+        return;
+        }
+        
+    String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anställningsdatum", "losenord", "avdelning", "redigera"}; // kolumnnamn som ska användas i tabellen
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+    for (HashMap<String, String> anstalld : anstalldlista) { // loopar igenom alla anställda
+        String aid = anstalld.get("aid");
+        String fornamn = anstalld.get("fornamn");
+        String efternamn = anstalld.get ("efternamn");
+        String adress = anstalld.get("adress");
+        String epost = anstalld.get("epost");
+        String telefon = anstalld.get("telefon");
+        String anstallningsdatum = anstalld.get("anstallningsdatum");
+        String losenord = anstalld.get("losenord"); 
+        String avdelning = anstalld.get("avdelning");
+// hämtar ut fälten från anstaalld
+        model.addRow(new Object[]{aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "redigera"}); 
+        System.out.println("SQL-fråga: " + query);// lägger till en rad för varje del
+        
+    }
+    
+    tblAnställda.setModel(model);
+    } catch (InfException e){
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage()); // meddelande som visas om det vart fel
+    return;
+    }
     }
         
  
