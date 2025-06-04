@@ -6,12 +6,17 @@ package SQLHanterare;
 import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import orgEntities.Hallbarhetsmål;
 import oru.inf.InfException;
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * hållbarhetsmål i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till hållabrhetsmål, ändra uppgifter om hållbarhetsmål samt ta bort hållbarhetsmål (OBS dessa metoder används ej). 
+ * 
+ * 
  */
 public class HallbarhetsmålHanterare {
     
@@ -55,7 +60,7 @@ public class HallbarhetsmålHanterare {
             Validering.tomFalt(prioritet, "prioritet")) {
          // if (namn == null || malnummer == null || beskrivning == null || prioritet == null || namn.isEmpty() || malnummer.isEmpty() || beskrivning.isEmpty() || prioritet.isEmpty()) {
           
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Hållbarhetsmål kan inte läggas till");
+           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Hållbarhetsmål kan inte läggas till");
            return false;
            
        }
@@ -88,7 +93,7 @@ public class HallbarhetsmålHanterare {
              
              
              
-             System.out.println("hid eller namn får inte vara tomt");
+             JOptionPane.showMessageDialog(null,"hid eller namn får inte vara tomt");
              return false;
          }
         
@@ -149,7 +154,7 @@ public class HallbarhetsmålHanterare {
              
              
              
-             System.out.println("hid eller beskrivning får inte vara tomt");
+             JOptionPane.showMessageDialog(null,"hid eller beskrivning får inte vara tomt");
              return false;
          }
         
@@ -178,7 +183,7 @@ public class HallbarhetsmålHanterare {
              
              
              
-             System.out.println("hid eller prioritet får inte vara tomt");
+             JOptionPane.showMessageDialog(null,"hid eller prioritet får inte vara tomt");
              return false;
          }
             
@@ -233,7 +238,7 @@ public class HallbarhetsmålHanterare {
     
     
     if (!Validering.tomFalt(hid, "hid")) {
-        System.out.println("Hid är tom");
+        JOptionPane.showMessageDialog(null,"Hid är tom");
         return false;
     }
     
@@ -241,7 +246,7 @@ public class HallbarhetsmålHanterare {
     String taBort = "DELETE FROM hallbarhetsmal WHERE hid = '" + h.getHid() + "'";
     idb.delete(taBort);
     
-    System.out.println("Hållbarhetsmål borttagen: " + h.getNamn());
+    JOptionPane.showMessageDialog(null,"Hållbarhetsmål borttagen: " + h.getNamn());
     return true;
     
 }

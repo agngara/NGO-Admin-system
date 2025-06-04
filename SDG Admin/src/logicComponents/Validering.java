@@ -23,33 +23,81 @@ public class Validering {
     private static InfDB idb = DatabaseInterface.databaseConnection();
     
  public static boolean tomFalt(String text, String faltnamn) {
-     if (text == null || text.trim().isEmpty()) {
-         JOptionPane.showMessageDialog(null, faltnamn + " får inte vara tom. ");
+     
+    
+     
+     if (text == null)  {
+         
+         JOptionPane.showMessageDialog(null, faltnamn + " är null. ");
          return false;
      }
+     
+   
+     
+     if (text.isEmpty()) {
+     
+    JOptionPane.showMessageDialog(null, faltnamn + " är tom. ");
+         return false;
+     
+    }
+
      
      return true;
  }
  
+ 
+ 
+ 
  public static boolean giltigEpost(String epost) {
-     //er gamla regex !epost.matches("^\\w.-]+@[\\w.-]+\\.\\w+$")
-     if (epost == null)  {
-         JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
+     
+     if (epost == null) {
+         JOptionPane.showMessageDialog(null, "Epost är null. ");
          return false;
      }
      
-    return true;
+     epost = epost.trim();
+     
+     if (epost.isEmpty()) {
+          JOptionPane.showMessageDialog(null, " Epost är tom. ");
+         return false;
+     }
+     
+     if (!epost.matches("^[\\w\\.]+@([\\w\\-]+\\.)+[\\w\\-]{2,4}$")) {
+          // ^[\\w\\.]+ = startar med bokstäver, siffror, eller punkt. 
+         // @ = måste innehålla @-tecken
+        // [\\w\\-]+\\ = t.ex gmail, eller example. 
+       // [\\w\\-]{2,4}$ = t.ex. com
+         JOptionPane.showMessageDialog(null, "Ogilitigt format på epost. ");
+        return false;
+     }
+     
+     
+     return true;
+     
  }
+ 
 
-// public static boolean giltigtTelefonnummer(String telefon) {
-//     if (telefon == null || !telefon.matches("^\\d{7,15}$")) {
-//     JOptionPane.showMessageDialog(null, "Ogilitig telefonnummer. ");
-//     return false;
-// }
+         
+         
+         
+ 
+ 
+ 
+// {
+//    
+//     if (epost == null || !epost.matches("^[\\w\\.]+@([\\w\\-]+\\.)+[\\w\\-]{2,4}$")) {
+//     // ^[\\w\\.]+ = startar med bokstäver, siffror, eller punkt. 
+//     // @ = måste innehålla @-tecken
+//     // [\\w\\-]+\\ = t.ex gmail, eller example. 
+//     // [\\w\\-]{2,4}$ = t.ex. com
+//         JOptionPane.showMessageDialog(null, "Ogilitig ePost-adress. ");
+//         return false;
+//     }
 //     
-//     
-//     return true; 
+//    return true;
 // }
+
+
  
 public static boolean giltigtTelefonnummer(String telefon) {
     if (telefon == null) return false;
@@ -62,9 +110,14 @@ public static boolean giltigtTelefonnummer(String telefon) {
 }
       
   public static boolean giltigtDatum(String datum) {
-      if (datum == null || !datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-         JOptionPane.showMessageDialog(null, "Datum måste vara u formatet ÅÅÅÅ-MM-DD.");
+      if (datum == null) {
+         JOptionPane.showMessageDialog(null, "är null");
          return false;
+      }
+      
+      if (!datum.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+         JOptionPane.showMessageDialog(null, "är i felformat. Vänligen skriv i format: ÅÅÅÅ-MM-DD");
+         return false; 
       }
       
      return true; 

@@ -7,12 +7,17 @@ import db.DatabaseInterface;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import orgEntities.Handlaggare;
 import oru.inf.InfException;
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * handläggare i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till handläggare, ändra uppgifter om handläggare samt ta bort handläggare. 
+ * Dessa metoder används sedan i klassen . 
+ * 
  */
 public class HandlaggareHanterare {
     
@@ -92,7 +97,7 @@ public boolean andraEpost(String aid, String nyEpost)
         if (!Validering.tomFalt(nyEpost, "epost") &&
         Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
-            System.out.println("aid eller epost får inte vara tom");
+            JOptionPane.showMessageDialog(null,"aid eller epost får inte vara tom");
             return false;
         }
     }
@@ -117,7 +122,7 @@ public boolean andraEpost(String aid, String nyEpost)
      {
           if (!Validering.tomFalt(nyttLosenord, "losenord")) {
         //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
-            System.out.println("aid eller losenird får inte vara tom");
+            JOptionPane.showMessageDialog(null,"aid eller losenird får inte vara tom");
             return false;
         }
     }
@@ -144,7 +149,7 @@ public boolean andraFornamn(String aid, String nyttFornamn)
    {
         if (!Validering.tomFalt(nyttFornamn, "fornamn")) {
         //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
-            System.out.println("aid eller förnamn får inte vara tom");
+            JOptionPane.showMessageDialog(null,"aid eller förnamn får inte vara tom");
             return false;
         }
     }
@@ -174,7 +179,8 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
      {
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
             
-            System.out.println("aid eller efternamn får inte vara tom");
+           
+            JOptionPane.showMessageDialog(null,"aid eller efternamn får inte vara tom");
             return false;
        
     
@@ -205,7 +211,7 @@ public boolean andraAdress(String aid, String nyAdress)
         
         if(!Validering.tomFalt(nyAdress, "adress")) {
 
-            System.out.println("aid eller adress får inte vara tom");
+            JOptionPane.showMessageDialog(null,"aid eller adress får inte vara tom");
             return false;
         }
     }
@@ -322,7 +328,7 @@ public ArrayList getHandlaggareByProject(String pid) {
     
     ArrayList<HashMap<String, String>> rader = new ArrayList();
     String query = "SELECT * FROM handlaggare WHERE aid IN (SELECT aid FROM anstalld WHERE aid IN (SELECT aid FROM ans_proj WHERE pid = " + pid + "));";
-    System.out.println("Från getHandlaggareByPorject: " + query);
+    System.out.println("Från getHandlaggareByProject: " + query);
 
     try {
         rader = idb.fetchRows(query);

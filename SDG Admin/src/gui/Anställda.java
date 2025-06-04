@@ -46,6 +46,13 @@ public class Anställda extends javax.swing.JFrame {
         } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Kunde inte ansluta till databasen");
         }
+        
+        bnSokHanlaggare.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        bnSokHandlaggareActionPerformed(evt); 
+      }
+        
+    });
          try {
             this.tableMouseEvent(anställda);
         } 
@@ -121,6 +128,52 @@ public class Anställda extends javax.swing.JFrame {
 
         }
     }
+    
+    private void bnSokHandlaggareActionPerformed(java.awt.event.ActionEvent evt) { // metoden körs när kanppen trycks på
+    try {
+        String sokHandlaggare = txtSokHandlaggare.getText();
+       
+        
+        if (sokHandlaggare.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Ange namn eller epost."); // Om inget eller fel namn eller epost skrivs in kommer ett meddelande upp 
+            return; 
+        }
+
+            String query = "SELECT * FROM anstalld WHERE fornamn = '" + sokHandlaggare + "' OR efternamn = '" + sokHandlaggare + "' OR epost = '" + sokHandlaggare + "'";
+                // söker på anställda utifrån det namn eller epost som anges i sökrutan
+            System.out.println("SQL-fråga: " + query);
+            ArrayList<HashMap<String, String>> anstalldlista = idb.fetchRows(query); // kör frågan mot databasen för att se vilka namn och epost som matchar, returnerar en lista med handläggare som matchar 
+        if (anstalldlista == null || anstalldlista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sök endast på förnamn, efternamn eller epost."); // om inga handläggare hittades med matchande namn eller epost kommer ett meddelande upp med den informationen
+        return;
+        }
+        
+    String [] columnNames = {"aid", "fornamn", "efternamn", "adress", "epost", "telefon", "anställningsdatum", "losenord", "avdelning", "redigera"}; // kolumnnamn som ska användas i tabellen
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+    for (HashMap<String, String> anstalld : anstalldlista) { // loopar igenom alla anställda
+        String aid = anstalld.get("aid");
+        String fornamn = anstalld.get("fornamn");
+        String efternamn = anstalld.get ("efternamn");
+        String adress = anstalld.get("adress");
+        String epost = anstalld.get("epost");
+        String telefon = anstalld.get("telefon");
+        String anstallningsdatum = anstalld.get("anstallningsdatum");
+        String losenord = anstalld.get("losenord"); 
+        String avdelning = anstalld.get("avdelning");
+// hämtar ut fälten från anstaalld
+        model.addRow(new Object[]{aid, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, losenord, avdelning, "redigera"}); 
+        System.out.println("SQL-fråga: " + query);// lägger till en rad för varje del
+        
+    }
+    
+    tblAnställda.setModel(model);
+    } catch (InfException e){
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Fel vid hämtning: " + e.getMessage()); // meddelande som visas om det vart fel
+    return;
+    }
+    }
         
  
   // Lägger till en klick-lyssnare på tabelln, för redigering av en anställd
@@ -133,7 +186,7 @@ public class Anställda extends javax.swing.JFrame {
             int col = tblAnställda.columnAtPoint(evt.getPoint());
             if (row >= 0 && col == 9) {
                 UserType typ = CurrentUser.getUsr().getUserType();
-                if (typ == UserType.admin1 || typ == UserType.admin2);
+                if (typ == UserType.admin1 || typ == UserType.admin2) {
                     Object varde = tblAnställda.getValueAt(row, 0);
                     String aid = varde.toString();
                     AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
@@ -147,10 +200,12 @@ public class Anställda extends javax.swing.JFrame {
             }
         }
     }
+    }
     );    
- }
  
+            
  
+         }
  // Ta bort anställd
  public void removeAnställd(String aid) {
         
@@ -164,7 +219,34 @@ public class Anställda extends javax.swing.JFrame {
 
         }
     }
+           
     
+// Denna kod är avsedd för att handläggaren ska kunna söka efter en specifik
+// * handläggare på avdelningen, genom namn eller epost. 
+ 
+ public ArrayList<HashMap<String, String>> sokHandlaggare(String avdid, String sok)
+   {
+       try{
+           String sokning = "SELECT * FROM anstalld " +
+                   "WHERE avdid = '" + avdid + "' " +
+                   // exsists kollar om selecten inanför parantesterna retunerar minst en rad. 
+                   "AND EXISTS(SELECT 1 FROM handlaggare WHERE handlaggare.aid = anstalld.aid)" +
+                   "AND (fornamn LIKE '%" + sok + "%' " +
+                   "OR efternamn LIKE '%" + sok + "%' " +
+                   "OR epost LIKE '%" + sok + "%')";
+           return idb.fetchRows(sokning);
+  
+       }
+       
+      catch (InfException e) {
+          e.printStackTrace();
+          return new ArrayList<>();
+       
+      }
+     
+   }  
+
+ 
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,6 +263,9 @@ public class Anställda extends javax.swing.JFrame {
         tblAnställda = new javax.swing.JTable();
         bnLaggTillAnstalld = new javax.swing.JButton();
         bnTaBortAnstalld = new javax.swing.JButton();
+        bnSokHanlaggare = new javax.swing.JButton();
+        txtSokHandlaggare = new javax.swing.JTextField();
+        lblSokHandlaggare = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,6 +313,21 @@ public class Anställda extends javax.swing.JFrame {
             }
         });
 
+        bnSokHanlaggare.setText("Sök");
+        bnSokHanlaggare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnSokHanlaggareActionPerformed(evt);
+            }
+        });
+
+        txtSokHandlaggare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSokHandlaggareActionPerformed(evt);
+            }
+        });
+
+        lblSokHandlaggare.setText("Sök handläggare");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -235,24 +335,38 @@ public class Anställda extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bnTaBortAnstalld)
                         .addGap(43, 43, 43)
                         .addComponent(bnLaggTillAnstalld))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(341, 341, 341)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSokHandlaggare)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bnSokHanlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(53, 53, 53)
+                .addComponent(lblSokHandlaggare)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bnSokHanlaggare)
+                        .addComponent(txtSokHandlaggare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnLaggTillAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ansTillbakaTillMeny, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,6 +412,14 @@ public class Anställda extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bnTaBortAnstalldActionPerformed
+
+    private void txtSokHandlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSokHandlaggareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSokHandlaggareActionPerformed
+
+    private void bnSokHanlaggareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSokHanlaggareActionPerformed
+      
+    }//GEN-LAST:event_bnSokHanlaggareActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,10 +475,13 @@ public class Anställda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ansTillbakaTillMeny;
     private javax.swing.JButton bnLaggTillAnstalld;
+    private javax.swing.JButton bnSokHanlaggare;
     private javax.swing.JButton bnTaBortAnstalld;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblSokHandlaggare;
     private javax.swing.JTable tblAnställda;
+    private javax.swing.JTextField txtSokHandlaggare;
     // End of variables declaration//GEN-END:variables
 
     public String getAid() 

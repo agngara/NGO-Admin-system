@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import orgEntities.Partner;
 import oru.inf.InfException;
@@ -14,8 +15,13 @@ import oru.inf.InfException;
 
 
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * partners i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till partner, ändra uppgifter om partner samt ta bort pertner. 
+ * Dessa metoder används sedan i klassen partners, editPartner och läggTillPartner. 
+ * 
+ * 
  */
 public class PartnerHanterare {
     
@@ -59,7 +65,7 @@ public class PartnerHanterare {
        if (!Validering.tomFalt(nyttNamn, "namn")) {
 
           
-           System.out.println("pid eller namn får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller namn får inte vara tommna.");
            return false;
        }
         
@@ -85,7 +91,7 @@ public class PartnerHanterare {
          if (!Validering.tomFalt(nyKontaktperson, "kontaktperson")) {
 
           
-           System.out.println("pid eller kontaktperson får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller kontaktperson får inte vara tommna.");
            return false;
        }
         
@@ -109,7 +115,7 @@ public class PartnerHanterare {
          if (!Validering.tomFalt(nyKontaktEpost, "kontaktepost")) {
 
           
-           System.out.println("pid eller kontaktepost får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller kontaktepost får inte vara tommna.");
            return false;
        }
         try{
@@ -131,7 +137,7 @@ public class PartnerHanterare {
         
         if (!Validering.tomFalt(nyTelefon, "telefon") && Validering.giltigtTelefonnummer(nyTelefon)) {
           
-           System.out.println("pid eller telefon får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller telefon får inte vara tommna.");
            return false;
         }
         try{
@@ -153,7 +159,7 @@ public class PartnerHanterare {
     {
           if (!Validering.tomFalt(nyAdress, "adress")) {
           
-           System.out.println("pid eller adress får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller adress får inte vara tommna.");
            return false;
         }
         try{
@@ -173,7 +179,7 @@ public class PartnerHanterare {
        {
           if (!Validering.tomFalt(nyBranch, "branch")) {
           
-           System.out.println("pid eller branch får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"pid eller branch får inte vara tommna.");
            return false;
         }
         try{
@@ -237,7 +243,7 @@ public class PartnerHanterare {
              !Validering.tomFalt(branch, "branch"))    {
              
               
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
+           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Partner kan inte läggas till");
            return false;
        }
        
@@ -260,7 +266,7 @@ public class PartnerHanterare {
        }
            
          catch (InfException e ){
-          System.out.println("Något gick fel" + e.getMessage());
+           JOptionPane.showMessageDialog(null,"Något gick fel" + e.getMessage());
            e.printStackTrace();
            return false;
    }

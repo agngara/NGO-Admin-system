@@ -7,14 +7,20 @@ import db.DatabaseInterface;
 import java.util.ArrayList;
 import oru.inf.InfDB;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import oru.inf.InfException;
 
 
 /**
- *
- * @author theow
+ * Denna klass ansvarar för att hantera funktionalitet kopplad till 
+ * avdelning i systemet.
+ * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
+ * lägga till avdelning och ändra uppgifter om avdelning. 
+ * Dessa metoder används sedan i klasserna avdelningar, editAvdelning och läggTillAvdelningar. 
+ * 
  */
+
 public class AvdelningHanterare {
     
    private InfDB idb;
@@ -117,7 +123,7 @@ public class AvdelningHanterare {
         {
           if (!Validering.tomFalt(nyttNamn, "namn")) {
           
-           System.out.println("avdid eller namn får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"avdid eller namn får inte vara tommna.");
            return false;
         }
         
@@ -143,7 +149,7 @@ public class AvdelningHanterare {
          {
             if(!Validering.tomFalt(nyBeskrivning, "beskrivning")) {
           
-           System.out.println("avdid eller beskrivning får inte vara tommna.");
+           JOptionPane.showMessageDialog(null,"avdid eller beskrivning får inte vara tommna.");
            return false;
         }
         try {
@@ -167,7 +173,7 @@ public class AvdelningHanterare {
         {
           if (!Validering.tomFalt(nyAdress, "adress")) {
           
-           System.out.println("avdid eller adress får inte vara tom.");
+           JOptionPane.showMessageDialog(null,"avdid eller adress får inte vara tom.");
            return false;
         }
         
@@ -193,7 +199,7 @@ public class AvdelningHanterare {
          {
              
           if (!Validering.giltigEpost(nyEpost) && !Validering.tomFalt(nyEpost, "epost")) {
-           System.out.println("avdid eller epost får inte vara tom.");
+           JOptionPane.showMessageDialog(null,"avdid eller epost får inte vara tom.");
            return false;
         }
   
@@ -221,7 +227,7 @@ public class AvdelningHanterare {
          {
           if (!Validering.giltigtTelefonnummer(nyttTelefonnummer)) {
           
-           System.out.println("avdid eller telefon får inte vara tom.");
+            JOptionPane.showMessageDialog(null,"avdid eller telefon får inte vara tom.");
            return false;
         }
     {
@@ -248,7 +254,7 @@ public class AvdelningHanterare {
          {
           if (!Validering.tomFalt(nyChef, "chef")) {
           
-           System.out.println("avdid eller telefon får inte vara tom.");
+           JOptionPane.showMessageDialog(null,"avdid eller telefon får inte vara tom.");
            return false;
         }
     {
@@ -298,7 +304,7 @@ public class AvdelningHanterare {
     public boolean taBortAvdelning (String avdid) {
 
         if (!Validering.tomFalt(avdid, "avdelningID")) {
-        System.out.println("Avdid är tom");
+        JOptionPane.showMessageDialog(null,"Avdid är tom");
         return false;
     }
         try { 
