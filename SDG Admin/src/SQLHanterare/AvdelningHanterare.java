@@ -100,6 +100,13 @@ public class AvdelningHanterare {
        }
         
         try {
+            
+        String korrektChef = "SELECT aid FROM handlaggare WHERE aid = '" + chef + "'";
+        if (idb.fetchSingle(korrektChef) == null) {
+            
+            System.out.println("Fel");
+            return false;
+        }
         
         String korrektAvdid = "SELECT MAX(avdid) FROM avdelning";
         String maxAvdid = idb.fetchSingle(korrektAvdid);
