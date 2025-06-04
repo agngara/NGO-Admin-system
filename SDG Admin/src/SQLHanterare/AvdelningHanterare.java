@@ -297,7 +297,7 @@ public class AvdelningHanterare {
 
     public boolean taBortAvdelning (String avdid) {
 
-        if (!Validering.tomFalt(avdid, "avdelningID")) {
+        if (Validering.tomFalt(avdid, "avdelningID")) {
         System.out.println("Avdid är tom");
         return false;
     }
@@ -305,11 +305,11 @@ public class AvdelningHanterare {
     
        // ta bort från alla tabeller där avdid finns som nyckel. 
        
-       String taBortAnstalld = "DELETE FROM anstalld WHERE avdid = '" + avdid + "'";
+       String taBortAnstalld = "DELETE FROM anstalld WHERE avdid = " + avdid + "'";
        idb.delete(taBortAnstalld);
-       String taBortAvd_hallbarhet = "DELETE FROM avd_hallbarhet WHERE avdid = '" + avdid + "'";
+       String taBortAvd_hallbarhet = "DELETE FROM avd_hallbarhet WHERE avdid = " + avdid + "'";
        idb.delete(taBortAvd_hallbarhet);
-       String taBort = "DELETE FROM avdelning WHERE avdid = '" + avdid + "'";
+       String taBort = "DELETE FROM avdelning WHERE avdid = " + avdid + "'";
        idb.delete(taBort);
 
 
