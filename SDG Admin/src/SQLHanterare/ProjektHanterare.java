@@ -18,11 +18,14 @@ import oru.inf.InfException;
  * Denna klass ansvarar för att hantera funktionalitet kopplad till 
  * projekt i systemet.
  * Klassen sökter kontakten med sql och metoder är tillgängliga här för att
- * lägga till projekt, ändra uppgifter om projekt samt ta bort projekt. 
- * Dessa metoder används sedan i klassen projektruta och läggTillProjekt. 
+ * lägga till projekt,
+ * ändra uppgifter om projekt,
+ * ta bort projekt. 
+ * Metoder i denna klass används sedan i klassen projektruta och läggTillProjekt. 
  * 
  * 
  */
+
 public class ProjektHanterare {
     
    private InfDB idb;
@@ -99,7 +102,6 @@ public class ProjektHanterare {
              !Validering.tomFalt(land, "Land")) {
             
 
-           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
             }
        
@@ -316,7 +318,6 @@ public class ProjektHanterare {
       {
             if (!Validering.tomFalt(nyStatus, "status")) {
           
-           JOptionPane.showMessageDialog(null,"pid eller status får inte vara tom.");
            return false;
         }
       
@@ -341,7 +342,6 @@ public class ProjektHanterare {
       {
           if (!Validering.tomFalt(nyPrioritet, "prioritering")) {
           
-           JOptionPane.showMessageDialog(null,"pid eller prioritet får inte vara tom.");
            return false;
         }
       
@@ -427,7 +427,10 @@ The methods below aim to remove information from the projekt-table.
         idb.delete(taBortKoppling);
         
         String taBortKoppling2 = "DELETE FROM projekt_partner WHERE pid = '" + pid + "'";
-        idb.delete(taBortKoppling);
+        idb.delete(taBortKoppling2);
+        
+        String taBortKoppling3 = "DELETE FROM proj_hallbarhet WHERE pid = '" + pid + "'";
+        idb.delete(taBortKoppling3);
         
         String taBortProjekt = "DELETE FROM projekt WHERE pid = '" + pid + "'";
         idb.delete(taBortProjekt);

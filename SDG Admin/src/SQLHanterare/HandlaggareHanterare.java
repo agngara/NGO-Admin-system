@@ -100,7 +100,6 @@ public boolean andraEpost(String aid, String nyEpost)
         if (!Validering.tomFalt(nyEpost, "epost") &&
         Validering.giltigEpost(nyEpost)) {
     //(aid == null || nyEpost == null || aid.isEmpty() || nyEpost.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"aid eller epost får inte vara tom");
             return false;
         }
     }
@@ -125,7 +124,6 @@ public boolean andraEpost(String aid, String nyEpost)
      {
           if (!Validering.tomFalt(nyttLosenord, "losenord")) {
         //if (aid == null || nyttLosenord == null || aid.isEmpty() || nyttLosenord.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"aid eller losenird får inte vara tom");
             return false;
         }
     }
@@ -152,7 +150,6 @@ public boolean andraFornamn(String aid, String nyttFornamn)
    {
         if (!Validering.tomFalt(nyttFornamn, "fornamn")) {
         //if (aid == null || nyttFornamn == null || aid.isEmpty() || nyttFornamn.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"aid eller förnamn får inte vara tom");
             return false;
         }
     }
@@ -183,7 +180,6 @@ public boolean andraEfternamn(String aid, String nyttEfternamn)
         if (!Validering.tomFalt(nyttEfternamn, "efternamn")) {
             
            
-            JOptionPane.showMessageDialog(null,"aid eller efternamn får inte vara tom");
             return false;
        
     
@@ -214,7 +210,6 @@ public boolean andraAdress(String aid, String nyAdress)
         
         if(!Validering.tomFalt(nyAdress, "adress")) {
 
-            JOptionPane.showMessageDialog(null,"aid eller adress får inte vara tom");
             return false;
         }
     }
