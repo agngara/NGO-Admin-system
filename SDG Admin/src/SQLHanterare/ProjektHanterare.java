@@ -94,7 +94,7 @@ public class ProjektHanterare {
              !Validering.tomFalt(land, "Land")) {
             
 
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
+           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Projekt kan inte läggas till");
            return false;
             }
        
@@ -311,7 +311,7 @@ public class ProjektHanterare {
       {
             if (!Validering.tomFalt(nyStatus, "status")) {
           
-           System.out.println("pid eller status får inte vara tom.");
+           JOptionPane.showMessageDialog(null,"pid eller status får inte vara tom.");
            return false;
         }
       
@@ -336,7 +336,7 @@ public class ProjektHanterare {
       {
           if (!Validering.tomFalt(nyPrioritet, "prioritering")) {
           
-           System.out.println("pid eller prioritet får inte vara tom.");
+           JOptionPane.showMessageDialog(null,"pid eller prioritet får inte vara tom.");
            return false;
         }
       
