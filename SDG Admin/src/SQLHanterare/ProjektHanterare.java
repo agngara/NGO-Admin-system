@@ -423,8 +423,10 @@ The methods below aim to remove information from the projekt-table.
 
     try {
     
+        String taBortKoppling = "DELETE FROM ans_proj WHERE pid = '" + pid + "'";
+        idb.delete(taBortKoppling);
         
-        String taBortKoppling = "DELETE FROM projekt_partner WHERE pid = '" + pid + "'";
+        String taBortKoppling2 = "DELETE FROM projekt_partner WHERE pid = '" + pid + "'";
         idb.delete(taBortKoppling);
         
         String taBortProjekt = "DELETE FROM projekt WHERE pid = '" + pid + "'";

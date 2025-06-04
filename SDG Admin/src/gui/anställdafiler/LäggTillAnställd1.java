@@ -10,6 +10,7 @@ import SQLHanterare.*;
 import gui.Anställda;
 import oru.inf.InfDB;
 import db.DatabaseInterface;
+import javax.swing.JOptionPane;
 import oru.inf.InfException;
 
         
@@ -35,18 +36,37 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         anstalld = new Anstalld();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
+        
         fillComboBoxes();
         ah = new AnstalldHanterare(aid);
         adh = new AdminHanterare(aid);
         
+        //Fönstrets egenskaper
+        setSize(846, 612);             
+        setResizable(false);           
+        setLocationRelativeTo(null);   
+        
+        // Sätter komponenter med villkorsberonde till osynliga
+        comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
+        
+        
+        
     }
         
+    
+    
+
 
     // ger comboboxen värden från databasen.
     public void fillComboBoxes() {
         
         //FIll Avdelning
-//        comboAvdelning.removeAllItems();
+        comboAvdelning1.removeAllItems();
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
         ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.getAllAvdelning();
         String namn = "";
@@ -54,26 +74,83 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         for (HashMap<String,String> hashmap : avdelning) {
 
             namn = hashmap.get("namn");
-            comboAvdelning.addItem(namn);
+            comboAvdelning1.addItem(namn);
 
         }
-        String avdelningNamn = anstalld.getAvdelning();
-        comboAvdelning.setSelectedItem(avdelningNamn);
-        
+//        String avdelningNamn = anstalld.getAvdelning();
+//        comboMentor.setSelectedItem(avdelningNamn);
+//        
+        // Fill roll
+        comboRoll.removeAllItems();
+        comboRoll.addItem("-");
+        comboRoll.addItem("Administratör");
+        comboRoll.addItem("Handläggare");
+      
 }
+    
+    public void loadHandlaggareComps() {
+        
+        //Göm adminkomponenter
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
+        
+        //Fyller mentor
+        comboMentor.removeAllItems();
+        comboMentor.addItem("Ingen mentor");
+        ArrayList<HashMap<String, String>> allaHandlaggare = new HandlaggareHanterare().getAllHandlaggare();
+        for (HashMap<String, String> handlaggare : allaHandlaggare) {
+            
+            String aid = handlaggare.get("aid");
+            AnstalldHanterare anstalldHanterare = new AnstalldHanterare(aid, "filler");
+            Anstalld anstalld = new Anstalld(anstalldHanterare);
+            
+            String fornamn = anstalld.getFornamn();
+            String efternamn = anstalld.getEfternamn();
+            String displayHandlaggare = fornamn + " " + efternamn + " (" + aid + ")"; 
+            comboMentor.addItem(displayHandlaggare);
+               
+        }
+        
+        
+        comboMentor.setVisible(true);
+        lblMentor.setVisible(true);
+        
+        //Visa ansvarsområde
+        lblAnsvar.setVisible(true);
+        txtAnsvar.setVisible(true);
+
+    }
+    
+    public void loadAdminComps() {
+        
+        //Göm handläggarekomponenter
+         comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        
+        
+        lblBehorighet.setVisible(true);
+        comboBehorighet.setVisible(true);
+        comboBehorighet.addItem("Behörighetsnivå 1");
+        comboBehorighet.addItem("Behörighetsnivå 2");
+        
+        
+        
+    }
      
     //  sparar den nya datan till databasen   
     private void sparaAnstalld() {
        
         
-        String adress = txtAdress.getText();
+        String adress = txtAdress1.getText();
         String efternamn = txtEfternamn.getText();
         String fornamn = txtFornamn.getText();
         String losenord = txtLosenord.getText();
         String telefon = txtTelefon.getText();
         String epost = txtEpost.getText();
         String anstallningsdatum = txtAnsDatum.getText();
-        String avdelning = (String) comboAvdelning.getSelectedItem();
+        String avdelning = (String) comboAvdelning1.getSelectedItem();
         
         String avdelningsId = "1";
         
@@ -84,14 +161,54 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         
        
         boolean ok = adh.laggTillAnstalld(losenord, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelningsId);
-        if (ok) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Anställd sparad!");
-            this.setVisible(false);
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara anställd.");
-        }
-    }
+
         
+        // Variabler för scope
+        boolean okAdmin = true;
+        // Lägger till hnadläggare
+        if (comboRoll.getSelectedItem().equals("Handläggare")) {
+        String mentor = (String) comboMentor.getSelectedItem();
+
+        int start = mentor.indexOf('(');
+        int end = mentor.indexOf(')');
+        String aidMentor = mentor.substring(start + 1, end);
+ 
+        
+           
+           String ansvarsområde = txtAnsvar.getText();
+           boolean okHandlaggare = new HandlaggareHanterare().laggTillHandlaggare(ansvarsområde, aidMentor);
+           
+           if (!okHandlaggare) {
+               JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera handläggaren. Var god undersök att inget fält har lämnas tomt.");
+               ok = false;
+           }
+        }
+               
+            else if (comboRoll.getSelectedItem().equals("Administratör")) {
+                    String behorighetsniva = (String) comboBehorighet.getSelectedItem();
+                    okAdmin = new AdminHanterare().laggTillAdmin(behorighetsniva);
+                           
+                    
+                    if (!okAdmin) {
+                    JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera admin. Var god undersök att inte 'Behörighetsnivå' har lämnats tomt.");
+                    ok = false;
+                }       
+                  
+           }
+        
+        
+            if (ok) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Anställd sparad!");
+                this.setVisible(false);
+        }   else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Kunde inte spara anställd.");
+        }
+        
+        
+        
+    }
+      
+
         
       
 
@@ -113,11 +230,10 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         txtLosenord = new javax.swing.JTextField();
         txtFornamn = new javax.swing.JTextField();
         txtEfternamn = new javax.swing.JTextField();
-        txtAdress = new javax.swing.JTextField();
         txtAnsDatum = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnSparaAnstalld = new javax.swing.JButton();
-        comboAvdelning = new javax.swing.JComboBox<>();
+        comboMentor = new javax.swing.JComboBox<>();
         lblFörklarDatum = new javax.swing.JLabel();
         txtEpost = new javax.swing.JTextField();
         lblEpost = new javax.swing.JLabel();
@@ -125,53 +241,79 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         lblTelefon = new javax.swing.JLabel();
         bnGenereraLosen = new javax.swing.JButton();
         btnTillbakaTillAnställd1 = new javax.swing.JToggleButton();
+        txtAdress1 = new javax.swing.JTextField();
+        txtAnsvar = new javax.swing.JTextField();
+        lblAnsvar = new javax.swing.JLabel();
+        comboAvdelning1 = new javax.swing.JComboBox<>();
+        lblAvdelning1 = new javax.swing.JLabel();
+        comboRoll = new javax.swing.JComboBox<>();
+        lblMentor = new javax.swing.JLabel();
+        comboBehorighet = new javax.swing.JComboBox<>();
+        lblBehorighet = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         lblLosenord.setText("Lösenord");
+        getContentPane().add(lblLosenord);
+        lblLosenord.setBounds(524, 82, 49, 16);
 
         lblAnsDatum.setText("Anställningsdatum");
+        getContentPane().add(lblAnsDatum);
+        lblAnsDatum.setBounds(31, 208, 100, 16);
 
         lblAdress.setText("Adress");
+        getContentPane().add(lblAdress);
+        lblAdress.setBounds(31, 398, 93, 16);
 
         lblFornamn.setText("Förnamn");
+        getContentPane().add(lblFornamn);
+        lblFornamn.setBounds(31, 82, 52, 16);
 
         lblEfternamn.setText("Efternamn");
+        getContentPane().add(lblEfternamn);
+        lblEfternamn.setBounds(31, 148, 55, 16);
 
         lblAvdelning.setText("Avdelning");
+        getContentPane().add(lblAvdelning);
+        lblAvdelning.setBounds(524, 205, 54, 16);
 
         txtLosenord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLosenordActionPerformed(evt);
             }
         });
+        getContentPane().add(txtLosenord);
+        txtLosenord.setBounds(524, 104, 286, 26);
 
         txtFornamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFornamnActionPerformed(evt);
             }
         });
+        getContentPane().add(txtFornamn);
+        txtFornamn.setBounds(31, 104, 300, 26);
 
         txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEfternamnActionPerformed(evt);
             }
         });
-
-        txtAdress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAdressActionPerformed(evt);
-            }
-        });
+        getContentPane().add(txtEfternamn);
+        txtEfternamn.setBounds(31, 170, 300, 26);
 
         txtAnsDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnsDatumActionPerformed(evt);
             }
         });
+        getContentPane().add(txtAnsDatum);
+        txtAnsDatum.setBounds(31, 236, 300, 26);
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTitle.setText("Lägg till Anställd");
+        getContentPane().add(lblTitle);
+        lblTitle.setBounds(312, 29, 176, 32);
 
         btnSparaAnstalld.setBackground(new java.awt.Color(7, 96, 216));
         btnSparaAnstalld.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,26 +323,43 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 btnSparaAnstalldActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSparaAnstalld);
+        btnSparaAnstalld.setBounds(720, 510, 93, 37);
+
+        getContentPane().add(comboMentor);
+        comboMentor.setBounds(524, 360, 286, 26);
 
         lblFörklarDatum.setText("ÅÅÅÅ-MM-DD");
+        getContentPane().add(lblFörklarDatum);
+        lblFörklarDatum.setBounds(349, 241, 80, 16);
 
         txtEpost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEpostActionPerformed(evt);
             }
         });
+        getContentPane().add(txtEpost);
+        txtEpost.setBounds(31, 360, 300, 26);
 
         lblEpost.setText("E-post");
+        getContentPane().add(lblEpost);
+        lblEpost.setBounds(31, 338, 102, 16);
 
         txtTelefon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonActionPerformed(evt);
             }
         });
+        getContentPane().add(txtTelefon);
+        txtTelefon.setBounds(31, 302, 300, 26);
 
         lblTelefon.setText("Telefon");
+        getContentPane().add(lblTelefon);
+        lblTelefon.setBounds(31, 274, 40, 16);
 
         bnGenereraLosen.setText("Generera Lösenord");
+        getContentPane().add(bnGenereraLosen);
+        bnGenereraLosen.setBounds(524, 160, 133, 27);
 
         btnTillbakaTillAnställd1.setBackground(new java.awt.Color(7, 96, 216));
         btnTillbakaTillAnställd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
@@ -209,116 +368,54 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 btnTillbakaTillAnställd1ActionPerformed(evt);
             }
         });
+        getContentPane().add(btnTillbakaTillAnställd1);
+        btnTillbakaTillAnställd1.setBounds(31, 29, 52, 35);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(229, 229, 229)
-                        .addComponent(lblTitle)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFornamn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(441, 441, 441))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lblAdress)
-                                                .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblAnsDatum)))
-                                        .addComponent(txtEfternamn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblEfternamn)
-                                    .addComponent(lblTelefon)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblFörklarDatum)))
-                                .addGap(95, 95, 95)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtLosenord, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(comboAvdelning, 0, 265, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblLosenord)
-                                    .addComponent(lblAvdelning))
-                                .addGap(0, 212, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bnGenereraLosen)))
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEpost)
-                            .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitle))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLosenord)
-                    .addComponent(lblFornamn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblEfternamn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(bnGenereraLosen)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblAnsDatum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFörklarDatum)
-                            .addComponent(comboAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTelefon))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lblAvdelning)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblEpost)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(lblAdress)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
-        );
+        txtAdress1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdress1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtAdress1);
+        txtAdress1.setBounds(31, 426, 300, 26);
+
+        txtAnsvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnsvarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtAnsvar);
+        txtAnsvar.setBounds(524, 420, 286, 26);
+
+        lblAnsvar.setText("Ansvarighetsområde");
+        getContentPane().add(lblAnsvar);
+        lblAnsvar.setBounds(524, 398, 90, 16);
+
+        getContentPane().add(comboAvdelning1);
+        comboAvdelning1.setBounds(524, 227, 286, 26);
+
+        lblAvdelning1.setText("Roll");
+        getContentPane().add(lblAvdelning1);
+        lblAvdelning1.setBounds(524, 271, 20, 16);
+
+        comboRoll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRollActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboRoll);
+        comboRoll.setBounds(524, 299, 286, 26);
+
+        lblMentor.setText("Mentor");
+        getContentPane().add(lblMentor);
+        lblMentor.setBounds(524, 343, 90, 16);
+
+        getContentPane().add(comboBehorighet);
+        comboBehorighet.setBounds(520, 360, 286, 26);
+
+        lblBehorighet.setText("Brehörighetsnivå");
+        getContentPane().add(lblBehorighet);
+        lblBehorighet.setBounds(520, 340, 90, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -334,10 +431,6 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     private void txtEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfternamnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEfternamnActionPerformed
-
-    private void txtAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdressActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAdressActionPerformed
 
     private void txtAnsDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnsDatumActionPerformed
         // TODO add your handling code here:
@@ -360,6 +453,34 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         Anställda anst = new Anställda();
         anst.setVisible(true);
     }//GEN-LAST:event_btnTillbakaTillAnställd1ActionPerformed
+
+    private void txtAdress1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdress1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdress1ActionPerformed
+
+    private void txtAnsvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnsvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnsvarActionPerformed
+
+    private void comboRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRollActionPerformed
+         String valtAlternativ = (String) comboRoll.getSelectedItem();
+
+        if (valtAlternativ.equals("Handläggare")) {
+            loadHandlaggareComps();
+        } else if (valtAlternativ.equals("Administratör")) {
+            loadAdminComps();
+        } else {
+            
+        comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
+        
+            
+        }
+    }//GEN-LAST:event_comboRollActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,19 +524,27 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     private javax.swing.JButton bnGenereraLosen;
     private javax.swing.JButton btnSparaAnstalld;
     private javax.swing.JToggleButton btnTillbakaTillAnställd1;
-    private javax.swing.JComboBox<String> comboAvdelning;
+    private javax.swing.JComboBox<String> comboAvdelning1;
+    private javax.swing.JComboBox<String> comboBehorighet;
+    private javax.swing.JComboBox<String> comboMentor;
+    private javax.swing.JComboBox<String> comboRoll;
     private javax.swing.JLabel lblAdress;
     private javax.swing.JLabel lblAnsDatum;
+    private javax.swing.JLabel lblAnsvar;
     private javax.swing.JLabel lblAvdelning;
+    private javax.swing.JLabel lblAvdelning1;
+    private javax.swing.JLabel lblBehorighet;
     private javax.swing.JLabel lblEfternamn;
     private javax.swing.JLabel lblEpost;
     private javax.swing.JLabel lblFornamn;
     private javax.swing.JLabel lblFörklarDatum;
     private javax.swing.JLabel lblLosenord;
+    private javax.swing.JLabel lblMentor;
     private javax.swing.JLabel lblTelefon;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtAdress;
+    private javax.swing.JTextField txtAdress1;
     private javax.swing.JTextField txtAnsDatum;
+    private javax.swing.JTextField txtAnsvar;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtEpost;
     private javax.swing.JTextField txtFornamn;

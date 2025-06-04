@@ -236,15 +236,23 @@ public boolean andraAdress(String aid, String nyAdress)
 
 
 //lägg till handläggare
-public boolean laggTillHandlaggare(String aid, String ansvarighetsomrade) {
+public boolean laggTillHandlaggare(String ansvarighetsomrade, String mentor) {
     
-   if (!Validering.tomFalt(aid, "aid") || Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
+   if (!Validering.tomFalt(ansvarighetsomrade, "Ansvarighetsområde")) {
        return false;
    }
     
     
     try {
-    String laggTill = "INSERT INTO handlaggare (aid, ansvarighetsomrade) VALUES ('" + aid + "', '" + ansvarighetsomrade + "')";
+    String korrektAid = "SELECT MAX(aid) FROM anstalld";
+    String maxAid = idb.fetchSingle(korrektAid);
+    int nyttAid = 1;
+    
+    if (maxAid != null) {
+     nyttAid = Integer.parseInt(maxAid) + 1;   
+    }
+    
+    String laggTill = "INSERT INTO handlaggare (aid, ansvarighetsomrade, mentor) VALUES ('" + nyttAid + "', '" + ansvarighetsomrade + "', '" + mentor + "')";
     idb.insert(laggTill);
     return true;    
     }
