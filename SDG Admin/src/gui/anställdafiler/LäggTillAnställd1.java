@@ -46,7 +46,7 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     public void fillComboBoxes() {
         
         //FIll Avdelning
-        comboAvdelning.removeAllItems();
+//        comboAvdelning.removeAllItems();
         AvdelningHanterare avdelningHanterare = new AvdelningHanterare();
         ArrayList<HashMap<String,String>> avdelning = avdelningHanterare.getAllAvdelning();
         String namn = "";

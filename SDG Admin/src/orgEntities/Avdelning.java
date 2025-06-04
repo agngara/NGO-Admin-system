@@ -22,7 +22,7 @@ public class Avdelning {
     private String telefon;
     private String stad;
     private String chef;
-    
+    private AvdelningHanterare avdelningHanterare; 
     
     
     public Avdelning (AvdelningHanterare avdelningHanterare)
@@ -34,7 +34,25 @@ public class Avdelning {
         namn = avdelning.get("namn");
         beskrivning = avdelning.get("beskrivning");
         adress = avdelning.get("adress");
-        ePost = avdelning.get("ePost");
+        ePost = avdelning.get("epost");
+        telefon = avdelning.get("telefon");
+        stad = avdelning.get("stad");
+        chef = avdelning.get("chef");
+        
+        this.avdelningHanterare = avdelningHanterare; 
+        
+    }
+    
+    
+     public Avdelning(HashMap<String, String> avdelning)
+    
+    {
+        
+        avdid = avdelning.get("avdid");
+        namn = avdelning.get("namn");
+        beskrivning = avdelning.get("beskrivning");
+        adress = avdelning.get("adress");
+        ePost = avdelning.get("epost");
         telefon = avdelning.get("telefon");
         stad = avdelning.get("stad");
         chef = avdelning.get("chef");
