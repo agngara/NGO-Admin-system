@@ -232,13 +232,13 @@ public boolean andraAdress(String aid, String nyAdress)
 //lägg till handläggare
 public boolean laggTillHandlaggare(String ansvarighetsomrade, String mentor) {
     
-   if (!Validering.tomFalt(aid, "aid") || Validering.tomFalt(ansvarighetsomrade, "ansvarighetsomrade")) {
+   if (!Validering.tomFalt(ansvarighetsomrade, "Ansvarighetsområde")) {
        return false;
    }
     
     
     try {
-    String korrektAid = "SELECT MAX(aid) FROM handlaggare";
+    String korrektAid = "SELECT MAX(aid) FROM anstalld";
     String maxAid = idb.fetchSingle(korrektAid);
     int nyttAid = 1;
     

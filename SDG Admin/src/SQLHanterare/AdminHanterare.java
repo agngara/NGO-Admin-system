@@ -42,8 +42,12 @@ public class AdminHanterare {
 
    // SKA DENNA VA MED? VAD HÄNDER OM DENNA TAS BORT?
     public AdminHanterare() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        idb = DatabaseInterface.databaseConnection();
+        
     }
+    
+    
    
     public HashMap getAdmin() {
         

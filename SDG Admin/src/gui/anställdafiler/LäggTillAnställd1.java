@@ -36,12 +36,31 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         anstalld = new Anstalld();
         idb = DatabaseInterface.databaseConnection();
         initComponents();
+        
         fillComboBoxes();
         ah = new AnstalldHanterare(aid);
         adh = new AdminHanterare(aid);
         
+        //Fönstrets egenskaper
+        setSize(846, 612);             
+        setResizable(false);           
+        setLocationRelativeTo(null);   
+        
+        // Sätter komponenter med villkorsberonde till osynliga
+        comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
+        
+        
+        
     }
         
+    
+    
+
 
     // ger comboboxen värden från databasen.
     public void fillComboBoxes() {
@@ -58,11 +77,12 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             comboAvdelning1.addItem(namn);
 
         }
-        String avdelningNamn = anstalld.getAvdelning();
-        comboMentor.setSelectedItem(avdelningNamn);
-        
+//        String avdelningNamn = anstalld.getAvdelning();
+//        comboMentor.setSelectedItem(avdelningNamn);
+//        
         // Fill roll
         comboRoll.removeAllItems();
+        comboRoll.addItem("-");
         comboRoll.addItem("Administratör");
         comboRoll.addItem("Handläggare");
       
@@ -70,10 +90,13 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     
     public void loadHandlaggareComps() {
         
+        //Göm adminkomponenter
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
         
-        //Fyll mentor
-        
+        //Fyller mentor
         comboMentor.removeAllItems();
+        comboMentor.addItem("Ingen mentor");
         ArrayList<HashMap<String, String>> allaHandlaggare = new HandlaggareHanterare().getAllHandlaggare();
         for (HashMap<String, String> handlaggare : allaHandlaggare) {
             
@@ -87,15 +110,27 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
             comboMentor.addItem(displayHandlaggare);
                
         }
+        
+        
         comboMentor.setVisible(true);
+        lblMentor.setVisible(true);
         
         //Visa ansvarsområde
+        lblAnsvar.setVisible(true);
         txtAnsvar.setVisible(true);
 
     }
     
     public void loadAdminComps() {
         
+        //Göm handläggarekomponenter
+         comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        
+        
+        lblBehorighet.setVisible(true);
         comboBehorighet.setVisible(true);
         comboBehorighet.addItem("Behörighetsnivå 1");
         comboBehorighet.addItem("Behörighetsnivå 2");
@@ -128,29 +163,39 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         boolean ok = adh.laggTillAnstalld(losenord, fornamn, efternamn, adress, epost, telefon, anstallningsdatum, avdelningsId);
 
         
-        
+        // Variabler för scope
+        boolean okAdmin = true;
         // Lägger till hnadläggare
         if (comboRoll.getSelectedItem().equals("Handläggare")) {
-            
-           String mentor = (String) comboMentor.getSelectedItem();
+        String mentor = (String) comboMentor.getSelectedItem();
+
+        int start = mentor.indexOf('(');
+        int end = mentor.indexOf(')');
+        String aidMentor = mentor.substring(start + 1, end);
+ 
+        
+           
            String ansvarsområde = txtAnsvar.getText();
-           if  (!new HandlaggareHanterare().laggTillHandlaggare(ansvarsområde, mentor)) {
-               
-               JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera handläggaren. Var god undersök att inget fält har lämnas tomt..");
+           boolean okHandlaggare = new HandlaggareHanterare().laggTillHandlaggare(ansvarsområde, aidMentor);
+           
+           if (!okHandlaggare) {
+               JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera handläggaren. Var god undersök att inget fält har lämnas tomt.");
                ok = false;
            }
-           
-           else {
-               
-               String behorighetsniva = (String) comboBehorighet.getSelectedItem();
-               if (!new AdminHanterare().laggTillAdmin(behorighetsniva)) {
-                   
-                   JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera admin. Var god undersök att inte 'Behörighetsnivå' har lämnats tomt.");
-                   ok = false;
-                   
-               }   
-           }
         }
+               
+            else if (comboRoll.getSelectedItem().equals("Administratör")) {
+                    String behorighetsniva = (String) comboBehorighet.getSelectedItem();
+                    okAdmin = new AdminHanterare().laggTillAdmin(behorighetsniva);
+                           
+                    
+                    if (!okAdmin) {
+                    JOptionPane.showMessageDialog(rootPane, "Kunde inte registrera admin. Var god undersök att inte 'Behörighetsnivå' har lämnats tomt.");
+                    ok = false;
+                }       
+                  
+           }
+        
         
             if (ok) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Anställd sparad!");
@@ -207,45 +252,68 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
         lblBehorighet = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         lblLosenord.setText("Lösenord");
+        getContentPane().add(lblLosenord);
+        lblLosenord.setBounds(524, 82, 49, 16);
 
         lblAnsDatum.setText("Anställningsdatum");
+        getContentPane().add(lblAnsDatum);
+        lblAnsDatum.setBounds(31, 208, 100, 16);
 
         lblAdress.setText("Adress");
+        getContentPane().add(lblAdress);
+        lblAdress.setBounds(31, 398, 93, 16);
 
         lblFornamn.setText("Förnamn");
+        getContentPane().add(lblFornamn);
+        lblFornamn.setBounds(31, 82, 52, 16);
 
         lblEfternamn.setText("Efternamn");
+        getContentPane().add(lblEfternamn);
+        lblEfternamn.setBounds(31, 148, 55, 16);
 
         lblAvdelning.setText("Avdelning");
+        getContentPane().add(lblAvdelning);
+        lblAvdelning.setBounds(524, 205, 54, 16);
 
         txtLosenord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLosenordActionPerformed(evt);
             }
         });
+        getContentPane().add(txtLosenord);
+        txtLosenord.setBounds(524, 104, 286, 26);
 
         txtFornamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFornamnActionPerformed(evt);
             }
         });
+        getContentPane().add(txtFornamn);
+        txtFornamn.setBounds(31, 104, 300, 26);
 
         txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEfternamnActionPerformed(evt);
             }
         });
+        getContentPane().add(txtEfternamn);
+        txtEfternamn.setBounds(31, 170, 300, 26);
 
         txtAnsDatum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnsDatumActionPerformed(evt);
             }
         });
+        getContentPane().add(txtAnsDatum);
+        txtAnsDatum.setBounds(31, 236, 300, 26);
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTitle.setText("Lägg till Anställd");
+        getContentPane().add(lblTitle);
+        lblTitle.setBounds(312, 29, 176, 32);
 
         btnSparaAnstalld.setBackground(new java.awt.Color(7, 96, 216));
         btnSparaAnstalld.setForeground(new java.awt.Color(255, 255, 255));
@@ -255,26 +323,43 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 btnSparaAnstalldActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSparaAnstalld);
+        btnSparaAnstalld.setBounds(720, 510, 93, 37);
+
+        getContentPane().add(comboMentor);
+        comboMentor.setBounds(524, 360, 286, 26);
 
         lblFörklarDatum.setText("ÅÅÅÅ-MM-DD");
+        getContentPane().add(lblFörklarDatum);
+        lblFörklarDatum.setBounds(349, 241, 80, 16);
 
         txtEpost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEpostActionPerformed(evt);
             }
         });
+        getContentPane().add(txtEpost);
+        txtEpost.setBounds(31, 360, 300, 26);
 
         lblEpost.setText("E-post");
+        getContentPane().add(lblEpost);
+        lblEpost.setBounds(31, 338, 102, 16);
 
         txtTelefon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonActionPerformed(evt);
             }
         });
+        getContentPane().add(txtTelefon);
+        txtTelefon.setBounds(31, 302, 300, 26);
 
         lblTelefon.setText("Telefon");
+        getContentPane().add(lblTelefon);
+        lblTelefon.setBounds(31, 274, 40, 16);
 
         bnGenereraLosen.setText("Generera Lösenord");
+        getContentPane().add(bnGenereraLosen);
+        bnGenereraLosen.setBounds(524, 160, 133, 27);
 
         btnTillbakaTillAnställd1.setBackground(new java.awt.Color(7, 96, 216));
         btnTillbakaTillAnställd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left-small.png"))); // NOI18N
@@ -283,182 +368,54 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
                 btnTillbakaTillAnställd1ActionPerformed(evt);
             }
         });
+        getContentPane().add(btnTillbakaTillAnställd1);
+        btnTillbakaTillAnställd1.setBounds(31, 29, 52, 35);
 
         txtAdress1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAdress1ActionPerformed(evt);
             }
         });
+        getContentPane().add(txtAdress1);
+        txtAdress1.setBounds(31, 426, 300, 26);
 
         txtAnsvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAnsvarActionPerformed(evt);
             }
         });
+        getContentPane().add(txtAnsvar);
+        txtAnsvar.setBounds(524, 420, 286, 26);
 
         lblAnsvar.setText("Ansvarighetsområde");
+        getContentPane().add(lblAnsvar);
+        lblAnsvar.setBounds(524, 398, 90, 16);
+
+        getContentPane().add(comboAvdelning1);
+        comboAvdelning1.setBounds(524, 227, 286, 26);
 
         lblAvdelning1.setText("Roll");
+        getContentPane().add(lblAvdelning1);
+        lblAvdelning1.setBounds(524, 271, 20, 16);
+
+        comboRoll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboRollActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboRoll);
+        comboRoll.setBounds(524, 299, 286, 26);
 
         lblMentor.setText("Mentor");
+        getContentPane().add(lblMentor);
+        lblMentor.setBounds(524, 343, 90, 16);
+
+        getContentPane().add(comboBehorighet);
+        comboBehorighet.setBounds(520, 360, 286, 26);
 
         lblBehorighet.setText("Brehörighetsnivå");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(229, 229, 229)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lblFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(441, 441, 441)
-                        .addComponent(lblLosenord))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193)
-                        .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(193, 193, 193)
-                        .addComponent(bnGenereraLosen))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lblAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(393, 393, 393)
-                        .addComponent(lblAvdelning, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(txtAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFörklarDatum)
-                        .addGap(95, 95, 95)
-                        .addComponent(comboAvdelning1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(lblTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(453, 453, 453)
-                        .addComponent(lblAvdelning1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193)
-                        .addComponent(comboRoll, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAdress1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(193, 193, 193)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBehorighet, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBehorighet, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblEpost, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(193, 193, 193)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboMentor, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblMentor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTillbakaTillAnställd1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitle))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFornamn)
-                    .addComponent(lblLosenord))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEfternamn)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(bnGenereraLosen)))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblAnsDatum))
-                    .addComponent(lblAvdelning))
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(txtAnsDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lblFörklarDatum))
-                    .addComponent(comboAvdelning1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblTelefon))
-                    .addComponent(lblAvdelning1))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comboRoll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEpost)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtEpost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMentor)
-                        .addGap(1, 1, 1)
-                        .addComponent(comboMentor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblAdress)
-                        .addGap(12, 12, 12)
-                        .addComponent(txtAdress1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblAnsvar)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtAnsvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addComponent(lblBehorighet)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBehorighet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
-                .addComponent(btnSparaAnstalld, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(lblBehorighet);
+        lblBehorighet.setBounds(520, 340, 90, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -504,6 +461,26 @@ public class LäggTillAnställd1 extends javax.swing.JFrame {
     private void txtAnsvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnsvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnsvarActionPerformed
+
+    private void comboRollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRollActionPerformed
+         String valtAlternativ = (String) comboRoll.getSelectedItem();
+
+        if (valtAlternativ.equals("Handläggare")) {
+            loadHandlaggareComps();
+        } else if (valtAlternativ.equals("Administratör")) {
+            loadAdminComps();
+        } else {
+            
+        comboMentor.setVisible(false);
+        lblMentor.setVisible(false);
+        lblAnsvar.setVisible(false);
+        txtAnsvar.setVisible(false);
+        lblBehorighet.setVisible(false);
+        comboBehorighet.setVisible(false);
+        
+            
+        }
+    }//GEN-LAST:event_comboRollActionPerformed
 
     /**
      * @param args the command line arguments
