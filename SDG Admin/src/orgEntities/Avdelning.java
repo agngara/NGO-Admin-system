@@ -25,6 +25,9 @@ public class Avdelning {
     private AvdelningHanterare avdelningHanterare; 
     
     
+    
+    
+    
     public Avdelning (AvdelningHanterare avdelningHanterare)
     {
         
