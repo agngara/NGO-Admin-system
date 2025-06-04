@@ -8,6 +8,7 @@ import oru.inf.InfDB;
 import java.util.HashMap;
 import orgEntities.Land;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import oru.inf.InfException;
 /**
@@ -257,7 +258,7 @@ public class LandHanterare {
     public boolean taBortLand(String lid) {
          
         if (!Validering.tomFalt(lid, "landID")) {
-        System.out.println("Lid är tom");
+        JOptionPane.showMessageDialog(null,"Lid är tom");
         return false;
     }
         try { 

@@ -7,6 +7,7 @@ import db.DatabaseInterface;
 import oru.inf.InfDB;
 import java.util.HashMap;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import orgEntities.Admin;
 import orgEntities.Anstalld;
@@ -92,8 +93,8 @@ public class AdminHanterare {
              !Validering.giltigtDatum(anstallningsdatum) ||
              !Validering.tomFalt(avdelning, "avdelning")) {
         
-          
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
+         
+           JOptionPane.showMessageDialog(null, "Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till" );
            return false;
            
        }

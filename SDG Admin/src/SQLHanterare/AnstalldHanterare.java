@@ -14,6 +14,7 @@ import logicComponents.User.UserType;
 import oru.inf.InfException;
 import java.util.UUID;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import logicComponents.Validering;
 import oru.inf.InfDB;
 
@@ -316,7 +317,7 @@ public class AnstalldHanterare {
              !Validering.giltigtDatum(anstallningsdatum)) {
         
           
-           System.out.println("Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
+           JOptionPane.showMessageDialog(null,"Du har glömt att fylla i ett eller fler fält. Anställd kan inte läggas till");
            return false;
            
        }
@@ -380,7 +381,7 @@ public class AnstalldHanterare {
 {
     {
         if (!Validering.tomFalt(nyAvdelning, "avdelning")) {
-            System.out.println("Avdelning får inte vara tom");
+            JOptionPane.showMessageDialog(null,"Avdelning får inte vara tom");
             return false;
         }
     }
@@ -603,7 +604,7 @@ public boolean andraAdress(String aid, String nyAdress)
     
     
     if (!Validering.tomFalt(aid, "anställningsID")) {
-        System.out.println("Aid är tom");
+           JOptionPane.showMessageDialog(null,"Aid är tom");
         return false;
     }
    try { 
