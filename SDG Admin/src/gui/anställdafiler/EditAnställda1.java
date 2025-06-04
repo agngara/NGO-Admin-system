@@ -44,12 +44,12 @@ public class EditAnställda1 extends javax.swing.JFrame {
     public void setTextBoxes() {
         
         txtAdress.setText(anstalld.getAdress());
-        txtAnstalllning.setText(anstalld.getEfternamn());
+        txtAnstalllning.setText(anstalld.getAnstallningsdatum());
         txtFornamn.setText(anstalld.getFornamn());
         txtLosenord.setText(anstalld.getLosenord());
         txtTelefon.setText(anstalld.getTelefon());
         txtEpost.setText(anstalld.getEpost());
-        txtEfternamn.setText(anstalld.getAnstallningsdatum());
+        txtEfternamn.setText(anstalld.getEfternamn());
         this.fillComboBoxes();
 
     }
